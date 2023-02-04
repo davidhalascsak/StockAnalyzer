@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>119731666354-ifrlebsipnsnogk6ehakatdlmmh9rnqr.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.119731666354-ifrlebsipnsnogk6ehakatdlmmh9rnqr</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBaNlGK2fSZshqEZqTkOqN9q83O8D5N8BE</string>
+	<key>GCM_SENDER_ID</key>
+	<string>119731666354</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.david.StockAnalyzer</string>
+	<key>PROJECT_ID</key>
+	<string>stockanalyzer-5d576</string>
+	<key>STORAGE_BUCKET</key>
+	<string>stockanalyzer-5d576.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:119731666354:ios:60e0521290c1dfe490f8ab</string>
+</dict>
+</plist>

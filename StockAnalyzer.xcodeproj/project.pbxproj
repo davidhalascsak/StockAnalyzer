@@ -15,12 +15,17 @@
 		EC401130298BBC260033F54B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EC40112F298BBC250033F54B /* GoogleService-Info.plist */; };
 		EC401133298BBE260033F54B /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = EC401132298BBE260033F54B /* FirebaseAnalytics */; };
 		EC401135298BBE260033F54B /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = EC401134298BBE260033F54B /* FirebaseAuth */; };
-		EC401137298BBE260033F54B /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = EC401136298BBE260033F54B /* FirebaseDatabase */; };
 		EC401139298BBE260033F54B /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = EC401138298BBE260033F54B /* FirebaseFirestore */; };
 		EC40113B298BBE260033F54B /* FirebaseFunctions in Frameworks */ = {isa = PBXBuildFile; productRef = EC40113A298BBE260033F54B /* FirebaseFunctions */; };
+		EC67E32B299543B9002EBC2C /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC67E32A299543B9002EBC2C /* DashboardView.swift */; };
 		EC90D618298ACED3001D4520 /* StockAnalyzerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC90D617298ACED3001D4520 /* StockAnalyzerApp.swift */; };
 		EC90D61C298ACED5001D4520 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EC90D61B298ACED5001D4520 /* Assets.xcassets */; };
 		EC90D61F298ACED5001D4520 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EC90D61E298ACED5001D4520 /* Preview Assets.xcassets */; };
+		EC917268299547DE00EA924D /* NewsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC917267299547DE00EA924D /* NewsView.swift */; };
+		EC91726A299547EA00EA924D /* PortfolioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC917269299547EA00EA924D /* PortfolioView.swift */; };
+		EC91726C299547F600EA924D /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC91726B299547F600EA924D /* SearchView.swift */; };
+		EC91726E2995573000EA924D /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC91726D2995573000EA924D /* MainViewModel.swift */; };
+		EC91727029955E9500EA924D /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC91726F29955E9500EA924D /* SettingsView.swift */; };
 		ECFD63F5298E63AA00B576DA /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECFD63F4298E63AA00B576DA /* StartView.swift */; };
 /* End PBXBuildFile section */
 
@@ -31,10 +36,16 @@
 		EC180CB5298C387000671AA2 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		EC180CB7298C3EEE00671AA2 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		EC40112F298BBC250033F54B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		EC67E32A299543B9002EBC2C /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		EC90D614298ACED3001D4520 /* StockAnalyzer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StockAnalyzer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC90D617298ACED3001D4520 /* StockAnalyzerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockAnalyzerApp.swift; sourceTree = "<group>"; };
 		EC90D61B298ACED5001D4520 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EC90D61E298ACED5001D4520 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		EC917267299547DE00EA924D /* NewsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsView.swift; sourceTree = "<group>"; };
+		EC917269299547EA00EA924D /* PortfolioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioView.swift; sourceTree = "<group>"; };
+		EC91726B299547F600EA924D /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		EC91726D2995573000EA924D /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
+		EC91726F29955E9500EA924D /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		ECA1BE60298D3077005AA585 /* StockAnalyzer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = StockAnalyzer.entitlements; sourceTree = "<group>"; };
 		ECFD63F4298E63AA00B576DA /* StartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -44,7 +55,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EC401137298BBE260033F54B /* FirebaseDatabase in Frameworks */,
 				EC401139298BBE260033F54B /* FirebaseFirestore in Frameworks */,
 				EC40113B298BBE260033F54B /* FirebaseFunctions in Frameworks */,
 				EC401133298BBE260033F54B /* FirebaseAnalytics in Frameworks */,
@@ -70,6 +80,11 @@
 				EC015091298BCEB500BAF650 /* LoginView.swift */,
 				EC015093298BCEDB00BAF650 /* SignupView.swift */,
 				EC180CB7298C3EEE00671AA2 /* MainView.swift */,
+				EC67E32A299543B9002EBC2C /* DashboardView.swift */,
+				EC917267299547DE00EA924D /* NewsView.swift */,
+				EC917269299547EA00EA924D /* PortfolioView.swift */,
+				EC91726B299547F600EA924D /* SearchView.swift */,
+				EC91726F29955E9500EA924D /* SettingsView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -78,6 +93,7 @@
 			isa = PBXGroup;
 			children = (
 				EC180CB5298C387000671AA2 /* AuthViewModel.swift */,
+				EC91726D2995573000EA924D /* MainViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -140,7 +156,6 @@
 			packageProductDependencies = (
 				EC401132298BBE260033F54B /* FirebaseAnalytics */,
 				EC401134298BBE260033F54B /* FirebaseAuth */,
-				EC401136298BBE260033F54B /* FirebaseDatabase */,
 				EC401138298BBE260033F54B /* FirebaseFirestore */,
 				EC40113A298BBE260033F54B /* FirebaseFunctions */,
 			);
@@ -203,12 +218,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				EC015094298BCEDB00BAF650 /* SignupView.swift in Sources */,
+				EC91726A299547EA00EA924D /* PortfolioView.swift in Sources */,
+				EC67E32B299543B9002EBC2C /* DashboardView.swift in Sources */,
 				EC015092298BCEB500BAF650 /* LoginView.swift in Sources */,
 				EC180CB6298C387000671AA2 /* AuthViewModel.swift in Sources */,
 				EC90D618298ACED3001D4520 /* StockAnalyzerApp.swift in Sources */,
 				EC180CB8298C3EEE00671AA2 /* MainView.swift in Sources */,
 				EC180CB4298C384D00671AA2 /* AuthModel.swift in Sources */,
+				EC917268299547DE00EA924D /* NewsView.swift in Sources */,
 				ECFD63F5298E63AA00B576DA /* StartView.swift in Sources */,
+				EC91726C299547F600EA924D /* SearchView.swift in Sources */,
+				EC91726E2995573000EA924D /* MainViewModel.swift in Sources */,
+				EC91727029955E9500EA924D /* SettingsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -433,11 +454,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = EC401131298BBE260033F54B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAuth;
-		};
-		EC401136298BBE260033F54B /* FirebaseDatabase */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = EC401131298BBE260033F54B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseDatabase;
 		};
 		EC401138298BBE260033F54B /* FirebaseFirestore */ = {
 			isa = XCSwiftPackageProductDependency;

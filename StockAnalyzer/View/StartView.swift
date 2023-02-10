@@ -4,7 +4,7 @@ import FirebaseAuth
 
 
 struct StartView: View {
-    @StateObject var vm = AuthViewModel()
+    @StateObject private var vm = AuthViewModel()
     
     var body: some View {     
         if vm.isLogin {

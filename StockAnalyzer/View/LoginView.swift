@@ -6,6 +6,8 @@ import FirebaseAuth
 
 struct LoginView: View {
     @ObservedObject var vm: AuthViewModel
+    @State var isCorrect: Bool = false
+    @State var showAlert: Bool = false
     
     var body: some View {
         NavigationStack {
@@ -20,6 +22,7 @@ struct LoginView: View {
                     .padding(10)
                     .background(Color.gray.opacity(0.2))
                     .cornerRadius(15)
+                
                 
                 Button {
                     vm.checkLogin()
@@ -56,14 +59,17 @@ struct LoginView: View {
                 Spacer()
             }
             .padding()
-            .navigationDestination(isPresented: $vm.isCorrect) {
+            .navigationDestination(isPresented: $isCorrect) {
                 MainView()
+                    .environmentObject(vm.userViewModel ?? MainViewModel(email: "asd@gmail.com"))
             }
-            .alert(vm.alertTitle, isPresented: $vm.showAlert, actions: {
+            .sync($vm.isCorrect, with: $isCorrect)
+            .alert(vm.alertTitle, isPresented: $showAlert, actions: {
                 Button("Ok", role: .cancel, action: {})
             }, message: {
                 Text(vm.alertText)
             })
+            .sync($vm.showAlert, with: $showAlert)
         }
     }
 }

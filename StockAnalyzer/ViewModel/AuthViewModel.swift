@@ -11,6 +11,8 @@ class AuthViewModel: ObservableObject {
     
     @Published var isLogin: Bool = true
     
+    var userViewModel: MainViewModel?
+    
     public func checkLogin() {
         if userData.email.count < 5 {
             alertTitle = "Error"
@@ -67,11 +69,15 @@ class AuthViewModel: ObservableObject {
                 return
             }
             
-            self.isCorrect.toggle()
-            self.alertText = ""
-            self.alertTitle = ""
-            self.userData.email = ""
-            self.userData.password = ""
+            if let email = Auth.auth().currentUser?.email {
+                self.isCorrect.toggle()
+                self.alertText = ""
+                self.alertTitle = ""
+                self.userData.email = ""
+                self.userData.password = ""
+                
+                self.userViewModel = MainViewModel(email: email)
+            }
         }
     }
     

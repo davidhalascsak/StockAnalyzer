@@ -3,7 +3,7 @@ import FirebaseCore
 import FirebaseAuth
 
 class AuthViewModel: ObservableObject {
-    @Published var userData: AuthModel = AuthModel()
+    @Published var userData: AuthenticationUser = AuthenticationUser()
     @Published var isCorrect: Bool = false
     @Published var showAlert: Bool = false
     @Published var alertText: String = ""

@@ -13,10 +13,12 @@ struct PostDetailView: View {
                 if let comments = vm.post.comments {
                     ForEach(comments) { comment in
                         Text(comment.body)
+                        Text("\(comment.likesRef.count)")
                     }
                 }
             }
         }
+        .onAppear(perform: vm.fetchComments)
     }
 }
 /*

@@ -4,7 +4,7 @@ import FirebaseAuth
 
 struct FeedView: View {
     @StateObject var vm = FeedViewModel()
-    
+
     var body: some View {
         ScrollView() {
             ForEach(vm.posts) { post in

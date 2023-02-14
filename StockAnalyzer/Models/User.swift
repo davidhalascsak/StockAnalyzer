@@ -7,6 +7,4 @@ struct User: Identifiable, Codable {
     var username: String
     var email: String
     var location: String
-    // var portfolio: [Stock]
-    // var image: UIImage
 }

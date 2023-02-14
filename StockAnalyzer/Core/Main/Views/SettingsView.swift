@@ -1,20 +1,19 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @EnvironmentObject var vm: MainViewModel
+    @Binding var isSettingsPresented: Bool
     
     var body: some View {
         NavigationStack {
             VStack {
                 Text("Settings")
-                Text(vm.userEmail)
             }
             .navigationBarBackButtonHidden()
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing){
                     Image(systemName: "xmark")
                         .onTapGesture {
-                            vm.isSettingsPresented.toggle()
+                            isSettingsPresented.toggle()
                         }
                 }
             }
@@ -23,8 +22,9 @@ struct SettingsView: View {
 }
 
 struct SettingsView_Previews: PreviewProvider {
+    @State static var isPresented = false
+    
     static var previews: some View {
-        SettingsView()
-            .environmentObject(MainViewModel(email: "david.halascsak@gmail.com"))
+        SettingsView(isSettingsPresented: $isPresented)
     }
 }

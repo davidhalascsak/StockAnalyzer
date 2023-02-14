@@ -1,17 +1,17 @@
 import SwiftUI
+import FirebaseAuth
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
 struct PostView: View {
-    @State var post: Post
+    var post: Post
+    var currentEmail = Auth.auth().currentUser?.email
+    let userService = UserService()
+    let postService = PostService()
     
     var body: some View {
         NavigationStack {
             VStack(alignment: .leading) {
-                Button("Protocol") {
-                    post.likes = 1
-                }
-                
                 HStack() {
                     Rectangle()
                         .frame(width: 40, height: 40)
@@ -29,7 +29,17 @@ struct PostView: View {
                     .multilineTextAlignment(.leading)
                     .padding(.vertical)
                 HStack {
-                    Text("\(Image(systemName: "hand.thumbsup")) \(post.likes)")
+                    Image(systemName: "hand.thumbsup")
+                        .onTapGesture {
+                            userService.fetchUserReference(email: currentEmail ?? "") { id in
+                                if let id = id {
+                                    postService.updateLikes(post: self.post, userId: id) {
+                                    }
+                                }
+                                
+                            }
+                        }
+                    Text("\(post.likesRef.count)")
                     NavigationLink {
                         PostDetailView(post: post)
                     } label: {

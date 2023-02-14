@@ -3,7 +3,6 @@ import FirebaseCore
 import FirebaseAuth
 
 struct MainView: View {
-    @EnvironmentObject private var vm: MainViewModel
     @State var isSettingsPresented: Bool = false
     @State var selectedTab: String = "Home"
     
@@ -36,10 +35,10 @@ struct MainView: View {
                     }
                     .tag("Search")
             }
+            
             .fullScreenCover(isPresented: $isSettingsPresented, content: {
-                SettingsView()
+                SettingsView(isSettingsPresented: $isSettingsPresented)
             })
-            .sync($vm.isSettingsPresented, with: $isSettingsPresented)
             .navigationBarBackButtonHidden()
             .navigationTitle(Text("\(selectedTab)"))
             .navigationBarTitleDisplayMode(.inline)
@@ -47,7 +46,7 @@ struct MainView: View {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Image(systemName: "person.crop.circle")
                         .onTapGesture {
-                            vm.isSettingsPresented.toggle()
+                            self.isSettingsPresented.toggle()
                         }
                 }
                 
@@ -60,18 +59,5 @@ struct MainView: View {
 struct MainPage_Previews: PreviewProvider {
     static var previews: some View {
         MainView()
-            .environmentObject(MainViewModel(email: "david.halascsak@gmail.com"))
-    }
-}
-
-extension View {
-    func sync(_ published: Binding<Bool>, with binding: Binding<Bool>) -> some View {
-        self
-            .onChange(of: published.wrappedValue) { published in
-                binding.wrappedValue = published
-            }
-            .onChange(of: binding.wrappedValue) { binding in
-                published.wrappedValue = binding
-            }
     }
 }

@@ -104,7 +104,6 @@
 				EC917267299547DE00EA924D /* NewsView.swift */,
 				EC917269299547EA00EA924D /* PortfolioView.swift */,
 				EC91726B299547F600EA924D /* SearchView.swift */,
-				EC91726F29955E9500EA924D /* SettingsView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -200,6 +199,7 @@
 			isa = PBXGroup;
 			children = (
 				EC180CB7298C3EEE00671AA2 /* MainView.swift */,
+				EC91726F29955E9500EA924D /* SettingsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";

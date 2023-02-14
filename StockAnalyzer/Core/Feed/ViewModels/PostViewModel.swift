@@ -7,20 +7,26 @@ class PostViewModel: ObservableObject {
     
     init(post: Post) {
         self.post = post
-        fetchComments(post: self.post)
     }
     
-    func fetchComments(post: Post) {
+    func fetchComments() {
         self.post.comments = []
         for i in 0..<self.post.commentsRef.count {
-            commentService.FetchComments(ref: self.post.commentsRef[i]) { comment in
+            commentService.FetchComment(ref: self.post.commentsRef[i]) { comment in
                 var tempComment = comment
+                let j = self.post.comments?.firstIndex(where:{ elem in
+                    elem.id == tempComment.id
+                })
+                
                 self.userService.fetchUserFromReference(ref: tempComment.userRef) { user in
                     tempComment.user = user
-                    self.post.comments?.append(tempComment)
+                    if let j = j {
+                        self.post.comments?[j] = tempComment
+                    } else {
+                        self.post.comments?.append(tempComment)
+                    }
                 }
             }
-            
         }
     }
 }

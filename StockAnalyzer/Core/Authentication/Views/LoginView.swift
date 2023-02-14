@@ -61,7 +61,6 @@ struct LoginView: View {
             .padding()
             .navigationDestination(isPresented: $isCorrect) {
                 MainView()
-                    .environmentObject(vm.userViewModel ?? MainViewModel(email: "asd@gmail.com"))
             }
             .sync($vm.isCorrect, with: $isCorrect)
             .alert(vm.alertTitle, isPresented: $showAlert, actions: {

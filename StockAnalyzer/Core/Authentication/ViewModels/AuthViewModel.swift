@@ -8,10 +8,7 @@ class AuthViewModel: ObservableObject {
     @Published var showAlert: Bool = false
     @Published var alertText: String = ""
     @Published var alertTitle: String = ""
-    
     @Published var isLogin: Bool = true
-    
-    var userViewModel: MainViewModel?
     
     public func checkLogin() {
         if userData.email.count < 5 {
@@ -69,15 +66,11 @@ class AuthViewModel: ObservableObject {
                 return
             }
             
-            if let email = Auth.auth().currentUser?.email {
-                self.isCorrect.toggle()
-                self.alertText = ""
-                self.alertTitle = ""
-                self.userData.email = ""
-                self.userData.password = ""
-                
-                self.userViewModel = MainViewModel(email: email)
-            }
+            self.isCorrect.toggle()
+            self.alertText = ""
+            self.alertTitle = ""
+            self.userData.email = ""
+            self.userData.password = ""
         }
     }
     
@@ -131,7 +124,6 @@ class AuthViewModel: ObservableObject {
                     }
                 }
             }
-            
             self.alertTitle = "Success"
             self.alertText = "Please verify your account, before login!"
             self.showAlert.toggle()

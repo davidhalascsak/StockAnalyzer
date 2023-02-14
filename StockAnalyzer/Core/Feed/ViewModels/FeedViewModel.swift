@@ -7,7 +7,6 @@ class FeedViewModel: ObservableObject {
     @Published var posts = [Post]()
     let userService = UserService()
     let postService = PostService()
-    
     init() {
         fetchPosts()
     }

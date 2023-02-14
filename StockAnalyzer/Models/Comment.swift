@@ -6,7 +6,7 @@ struct Comment: Identifiable, Codable {
     @DocumentID var id: String?
     let userRef: DocumentReference?
     let body: String
-    var likes: Int
+    var likesRef: [DocumentReference]
     
     var user: User?
 }

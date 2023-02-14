@@ -1,6 +1,5 @@
 import Foundation
 import FirebaseFirestore
-import SwiftUI
 
 struct PostService {
     private var db = Firestore.firestore().collection("posts")
@@ -14,5 +13,25 @@ struct PostService {
             posts = snapshot.documents.compactMap({try? $0.data(as: Post.self)})
             completion(posts)
         })
+    }
+    
+    func updateLikes(post: Post, userId: DocumentReference, completion: @escaping (() -> Void)) {
+        var isContains: Bool = false
+        var index: Int = 0
+        for i in 0..<post.likesRef.count {
+            print(post.likesRef[i].path == userId.path)
+            if post.likesRef[i].path == userId.path {
+                index = i
+                isContains = true
+                
+            }
+        }
+        var likes = post.likesRef
+        if isContains {
+            likes.remove(at: index)
+        } else {
+            likes.append(userId)
+        }
+        db.document(post.id ?? "").setData(["likesRef": likes], merge: true)
     }
 }

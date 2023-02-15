@@ -4,10 +4,9 @@ import FirebaseFirestore
 
 struct Post: Identifiable, Codable {
     @DocumentID var id: String?
-    let userRef: DocumentReference?
+    let userRef: String
     let body: String
-    var likesRef: [DocumentReference]
+    var likes: Int
     
-    var comments: [Comment]?
     var user: User?
 }

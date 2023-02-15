@@ -1,13 +1,14 @@
 import Foundation
+import FirebaseAuth
 import FirebaseFirestore
 
 struct UserService {
-    private var db = Firestore.firestore().collection("users")
+    private var db = Firestore.firestore()
     
-    func fetchUsers(completion: @escaping ([User]) -> Void) {
+    func fetchAllUser(completion: @escaping ([User]) -> Void) {
         var users = [User]()
         
-        db.addSnapshotListener { snapshot, error in
+        db.collection("users").addSnapshotListener { snapshot, error in
             guard let snapshot = snapshot else {return}
         
             users = snapshot.documents.compactMap({try? $0.data(as: User.self)})
@@ -15,25 +16,41 @@ struct UserService {
         }
     }
     
-    func fetchUserFromReference(ref: DocumentReference?, completion: @escaping (User) -> Void) {
-        if let ref = ref {
-            ref.getDocument { snapshot, error in
-                guard let snapshot = snapshot else {return}
-                
-                guard let user = try? snapshot.data(as: User.self) else {return}
-                completion(user)
-            }
+    func fetchUser(id: String, completion: @escaping (User?) -> Void) {
+        db.collection("users").document(id).getDocument { snapshot, error in
+            guard let snapshot = snapshot else {return}
+            let user = try? snapshot.data(as: User.self)
+            completion(user)
         }
     }
     
-    func fetchUserReference(email: String, completion: @escaping ((DocumentReference?) -> Void)) {
-        let query = db.whereField("email", isEqualTo: email)
-        query.getDocuments { snapshot, error in
-            guard let snapshot = snapshot else {return}
-            if snapshot.documents.count != 0 {
-                completion(snapshot.documents[0].reference)
+    func updateLikes(post: Post) {
+        guard let userId = Auth.auth().currentUser?.uid else {return}
+        guard let postId = post.id else {return}
+        var isLiked = false
+        var change = 0
+        
+        let likedPosts = db.collection("users").document(userId).collection("likedPosts")
+        
+        likedPosts.getDocuments { snapshot, error in
+            snapshot?.documents.forEach({ snap in
+                if snap.documentID == postId {
+                    print("asd")
+                    isLiked = true
+                }
+            })
+            if isLiked {
+                change = -1
             } else {
-                completion(nil)
+                change = 1
+            }
+            
+            db.collection("posts").document(postId).updateData(["likes": post.likes + change]) { _ in
+                if isLiked {
+                    likedPosts.document(postId).delete()
+                } else {
+                    likedPosts.document(postId).setData([:])
+                }
             }
         }
     }

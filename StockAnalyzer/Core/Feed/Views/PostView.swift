@@ -4,10 +4,11 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 
 struct PostView: View {
-    var post: Post
-    var currentEmail = Auth.auth().currentUser?.email
-    let userService = UserService()
-    let postService = PostService()
+    var vm: PostViewModel
+    
+    init(post: Post) {
+        vm = PostViewModel(post: post)
+    }
     
     var body: some View {
         NavigationStack {
@@ -17,39 +18,23 @@ struct PostView: View {
                         .frame(width: 40, height: 40)
                         .cornerRadius(10)
                     VStack(alignment: .leading) {
-                        Text(post.user?.username ?? "")
+                        Text(vm.post.user?.username ?? "")
                             .foregroundColor(.blue)
                             .font(.headline)
-                        Text(post.user?.location ?? "")
+                        Text(vm.post.user?.location ?? "")
                             .font(.subheadline)
                     }
                 }
                 
-                Text(post.body)
+                Text(vm.post.body)
                     .multilineTextAlignment(.leading)
                     .padding(.vertical)
                 HStack {
                     Image(systemName: "hand.thumbsup")
                         .onTapGesture {
-                            userService.fetchUserReference(email: currentEmail ?? "") { id in
-                                if let id = id {
-                                    postService.updateLikes(post: self.post, userId: id) {
-                                    }
-                                }
-                                
-                            }
+                            vm.updateLikes()
                         }
-                    Text("\(post.likesRef.count)")
-                    NavigationLink {
-                        PostDetailView(post: post)
-                    } label: {
-                        HStack {
-                            Image(systemName: "message")
-                                .foregroundColor(Color.black)
-                        }
-                    }
-                    //Text("\(post.commentsRef.count)")
-                    Text("0")
+                    Text("\(vm.post.likes)")
                 }
             }
             .padding()
@@ -58,17 +43,14 @@ struct PostView: View {
         }
     }
 }
-/*
+
  struct PostView_Previews: PreviewProvider {
  
-  static var previews: some View {
-      let user = User(username: "istengyermeke", email: "david.halascsak@gmail.com", location: "Hungary")
-      let post = Post(userRef: nil, body: "Buy Tesla", likes: 5, user: user)
-      
-      PostView(post: post)
-  
-  
-  }
-  
+    static var previews: some View {
+        let user = User(username: "istengyermeke", email: "david.halascsak@gmail.com", location: "Hungary")
+        let post = Post(userRef: "asd", body: "Buy Tesla", likes: 5, user: user)
+
+        PostView(post: post)
+    }
  }
- */
+ 

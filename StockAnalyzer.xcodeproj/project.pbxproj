@@ -27,9 +27,6 @@
 		EC91726C299547F600EA924D /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC91726B299547F600EA924D /* SearchView.swift */; };
 		EC91726E2995573000EA924D /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC91726D2995573000EA924D /* MainViewModel.swift */; };
 		EC91727029955E9500EA924D /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC91726F29955E9500EA924D /* SettingsView.swift */; };
-		ECEBBFDA2999150800104326 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECEBBFD92999150800104326 /* Comment.swift */; };
-		ECEBBFDC2999154500104326 /* CommentService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECEBBFDB2999154500104326 /* CommentService.swift */; };
-		ECEBBFDE29991B3B00104326 /* PostDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECEBBFDD29991B3B00104326 /* PostDetailView.swift */; };
 		ECEBBFE0299920EE00104326 /* PostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECEBBFDF299920EE00104326 /* PostViewModel.swift */; };
 		ECF669CC2996F37900855894 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF669CB2996F37900855894 /* Post.swift */; };
 		ECF669CE2996F3C400855894 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF669CD2996F3C400855894 /* User.swift */; };
@@ -59,9 +56,6 @@
 		EC91726D2995573000EA924D /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		EC91726F29955E9500EA924D /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		ECA1BE60298D3077005AA585 /* StockAnalyzer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = StockAnalyzer.entitlements; sourceTree = "<group>"; };
-		ECEBBFD92999150800104326 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
-		ECEBBFDB2999154500104326 /* CommentService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentService.swift; sourceTree = "<group>"; };
-		ECEBBFDD29991B3B00104326 /* PostDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailView.swift; sourceTree = "<group>"; };
 		ECEBBFDF299920EE00104326 /* PostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewModel.swift; sourceTree = "<group>"; };
 		ECF669CB2996F37900855894 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		ECF669CD2996F3C400855894 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -93,7 +87,6 @@
 				EC180CB3298C384D00671AA2 /* AuthenticationUser.swift */,
 				ECF669CB2996F37900855894 /* Post.swift */,
 				ECF669CD2996F3C400855894 /* User.swift */,
-				ECEBBFD92999150800104326 /* Comment.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -251,7 +244,6 @@
 			children = (
 				EC67E32A299543B9002EBC2C /* FeedView.swift */,
 				EC84911B2996ACC800DD2413 /* PostView.swift */,
-				ECEBBFDD29991B3B00104326 /* PostDetailView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -268,7 +260,6 @@
 			children = (
 				ECF669D72997D8FD00855894 /* UserService.swift */,
 				ECF669D92997E08E00855894 /* PostService.swift */,
-				ECEBBFDB2999154500104326 /* CommentService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -365,13 +356,10 @@
 				EC90D618298ACED3001D4520 /* StockAnalyzerApp.swift in Sources */,
 				EC180CB8298C3EEE00671AA2 /* MainView.swift in Sources */,
 				ECF669CC2996F37900855894 /* Post.swift in Sources */,
-				ECEBBFDE29991B3B00104326 /* PostDetailView.swift in Sources */,
 				EC180CB4298C384D00671AA2 /* AuthenticationUser.swift in Sources */,
 				EC917268299547DE00EA924D /* NewsView.swift in Sources */,
-				ECEBBFDC2999154500104326 /* CommentService.swift in Sources */,
 				ECFD63F5298E63AA00B576DA /* StartView.swift in Sources */,
 				ECF669DA2997E08E00855894 /* PostService.swift in Sources */,
-				ECEBBFDA2999150800104326 /* Comment.swift in Sources */,
 				EC91726C299547F600EA924D /* SearchView.swift in Sources */,
 				ECEBBFE0299920EE00104326 /* PostViewModel.swift in Sources */,
 				EC91726E2995573000EA924D /* MainViewModel.swift in Sources */,

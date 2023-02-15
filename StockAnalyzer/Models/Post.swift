@@ -7,7 +7,6 @@ struct Post: Identifiable, Codable {
     let userRef: DocumentReference?
     let body: String
     var likesRef: [DocumentReference]
-    var commentsRef: [DocumentReference]
     
     var comments: [Comment]?
     var user: User?

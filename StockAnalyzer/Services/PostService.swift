@@ -19,11 +19,9 @@ struct PostService {
         var isContains: Bool = false
         var index: Int = 0
         for i in 0..<post.likesRef.count {
-            print(post.likesRef[i].path == userId.path)
             if post.likesRef[i].path == userId.path {
                 index = i
                 isContains = true
-                
             }
         }
         var likes = post.likesRef

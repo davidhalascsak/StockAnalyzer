@@ -48,7 +48,8 @@ struct PostView: View {
                                 .foregroundColor(Color.black)
                         }
                     }
-                    Text("\(post.commentsRef.count)")
+                    //Text("\(post.commentsRef.count)")
+                    Text("0")
                 }
             }
             .padding()

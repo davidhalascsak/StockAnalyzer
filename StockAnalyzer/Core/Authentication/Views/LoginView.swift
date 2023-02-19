@@ -15,6 +15,8 @@ struct LoginView: View {
                 Spacer()
                 
                 TextField("email", text: $vm.userData.email)
+                    .autocorrectionDisabled()
+                    .textInputAutocapitalization(.never)
                     .padding(10)
                     .background(Color.gray.opacity(0.2))
                     .cornerRadius(15)

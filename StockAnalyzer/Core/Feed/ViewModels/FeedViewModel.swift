@@ -5,6 +5,7 @@ import SwiftUI
 
 class FeedViewModel: ObservableObject {
     @Published var posts = [Post]()
+    @Published var isNewPostPresented = false
     let userService = UserService()
     let postService = PostService()
     

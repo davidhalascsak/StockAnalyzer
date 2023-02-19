@@ -2,9 +2,10 @@ import SwiftUI
 import FirebaseAuth
 import FirebaseFirestore
 import FirebaseFirestoreSwift
+import Firebase
 
 struct PostView: View {
-    var vm: PostViewModel
+    @ObservedObject var vm: PostViewModel
     
     init(post: Post) {
         vm = PostViewModel(post: post)
@@ -21,8 +22,14 @@ struct PostView: View {
                         Text(vm.post.user?.username ?? "")
                             .foregroundColor(.blue)
                             .font(.headline)
-                        Text(vm.post.user?.location ?? "")
-                            .font(.subheadline)
+                        HStack {
+                            Text(vm.post.user?.location ?? "")
+                                .font(.subheadline)
+                            Text("•")
+                            Text(toDate(stamp: vm.post.timestamp))
+                        }
+                        
+                             
                     }
                 }
                 
@@ -30,9 +37,10 @@ struct PostView: View {
                     .multilineTextAlignment(.leading)
                     .padding(.vertical)
                 HStack {
-                    Image(systemName: "hand.thumbsup")
+                    Image(systemName: vm.post.isLiked ?? false ? "hand.thumbsup.fill" : "hand.thumbsup")
+                        .foregroundColor(vm.post.isLiked ?? false ? Color.blue : Color.black)
                         .onTapGesture {
-                            vm.updateLikes()
+                            vm.post.isLiked ?? false ? vm.unlikePost() : vm.likePost()
                         }
                     Text("\(vm.post.likes)")
                 }
@@ -42,14 +50,32 @@ struct PostView: View {
         .background(Color.white)
         }
     }
+    
+    func toDate(stamp: Timestamp) -> String {
+        let difference = Date().timeIntervalSince(stamp.dateValue())
+        let diffInMinutes = difference / 60
+        
+        if diffInMinutes < 60 {
+            return "\(String(format: "%.0f", diffInMinutes))m"
+        } else if diffInMinutes >= 60 && diffInMinutes < 24 * 60 {
+            return "\(String(format: "%.0f", diffInMinutes / 60))h"
+        } else if diffInMinutes >= 24 * 60 && diffInMinutes < 7 * 24 * 60 {
+            return "\(String(format: "%.0f", diffInMinutes / (60 * 24)))d"
+        } else {
+            let formatter = DateFormatter()
+            formatter.dateStyle = .short
+            formatter.timeStyle = .none
+            
+            return formatter.string(from: stamp.dateValue())
+        }
+    }
 }
 
  struct PostView_Previews: PreviewProvider {
  
     static var previews: some View {
         let user = User(username: "istengyermeke", email: "david.halascsak@gmail.com", location: "Hungary")
-        let post = Post(userRef: "asd", body: "Buy Tesla", likes: 5, user: user)
-
+        let post = Post(userRef: "asd", body: "Buy Tesla", timestamp: Timestamp(date: Date()), likes: 5, user: user)
         PostView(post: post)
     }
  }

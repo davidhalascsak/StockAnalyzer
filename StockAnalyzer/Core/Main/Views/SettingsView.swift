@@ -1,19 +1,21 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @Binding var isSettingsPresented: Bool
+    @Environment(\.dismiss) private var dismiss
     
     var body: some View {
         NavigationStack {
             VStack {
-                Text("Settings")
+                Text("hello boi")
             }
             .navigationBarBackButtonHidden()
+            .navigationTitle("User")
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing){
                     Image(systemName: "xmark")
                         .onTapGesture {
-                            isSettingsPresented.toggle()
+                            dismiss()
                         }
                 }
             }
@@ -22,9 +24,8 @@ struct SettingsView: View {
 }
 
 struct SettingsView_Previews: PreviewProvider {
-    @State static var isPresented = false
     
     static var previews: some View {
-        SettingsView(isSettingsPresented: $isPresented)
+        SettingsView()
     }
 }

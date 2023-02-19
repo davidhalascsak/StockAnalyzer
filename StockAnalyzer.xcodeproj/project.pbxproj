@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		EC015092298BCEB500BAF650 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC015091298BCEB500BAF650 /* LoginView.swift */; };
 		EC015094298BCEDB00BAF650 /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC015093298BCEDB00BAF650 /* SignupView.swift */; };
+		EC13277C299E3F760049F993 /* NewPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC13277B299E3F760049F993 /* NewPostView.swift */; };
 		EC180CB4298C384D00671AA2 /* AuthenticationUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC180CB3298C384D00671AA2 /* AuthenticationUser.swift */; };
 		EC180CB6298C387000671AA2 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC180CB5298C387000671AA2 /* AuthViewModel.swift */; };
 		EC180CB8298C3EEE00671AA2 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC180CB7298C3EEE00671AA2 /* MainView.swift */; };
@@ -40,6 +41,7 @@
 /* Begin PBXFileReference section */
 		EC015091298BCEB500BAF650 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		EC015093298BCEDB00BAF650 /* SignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
+		EC13277B299E3F760049F993 /* NewPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPostView.swift; sourceTree = "<group>"; };
 		EC180CB3298C384D00671AA2 /* AuthenticationUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationUser.swift; sourceTree = "<group>"; };
 		EC180CB5298C387000671AA2 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		EC180CB7298C3EEE00671AA2 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -244,6 +246,7 @@
 			children = (
 				EC67E32A299543B9002EBC2C /* FeedView.swift */,
 				EC84911B2996ACC800DD2413 /* PostView.swift */,
+				EC13277B299E3F760049F993 /* NewPostView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -348,6 +351,7 @@
 				EC015094298BCEDB00BAF650 /* SignupView.swift in Sources */,
 				EC91726A299547EA00EA924D /* PortfolioView.swift in Sources */,
 				ECF669D82997D8FD00855894 /* UserService.swift in Sources */,
+				EC13277C299E3F760049F993 /* NewPostView.swift in Sources */,
 				EC67E32B299543B9002EBC2C /* FeedView.swift in Sources */,
 				EC015092298BCEB500BAF650 /* LoginView.swift in Sources */,
 				ECF669CE2996F3C400855894 /* User.swift in Sources */,

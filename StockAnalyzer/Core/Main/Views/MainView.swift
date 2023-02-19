@@ -37,7 +37,7 @@ struct MainView: View {
             }
             
             .fullScreenCover(isPresented: $isSettingsPresented, content: {
-                SettingsView(isSettingsPresented: $isSettingsPresented)
+                SettingsView()
             })
             .navigationBarBackButtonHidden()
             .navigationTitle(Text("\(selectedTab)"))

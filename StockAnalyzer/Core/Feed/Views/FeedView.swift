@@ -3,16 +3,40 @@ import FirebaseCore
 import FirebaseAuth
 
 struct FeedView: View {
-    @StateObject var vm = FeedViewModel()
+    @ObservedObject var vm = FeedViewModel()
+    @State var isNewPostPresented: Bool = false
+    
 
     var body: some View {
         ScrollView() {
-            ForEach(vm.posts) { post in
-                PostView(post: post)
-                Divider()
+            LazyVStack {
+                ForEach(vm.posts) { post in
+                    PostView(post: post)
+                    Divider()
+                }
             }
         }
-        .scrollIndicators(.hidden)        
+        .overlay(alignment: .bottomTrailing, content: {
+            Image(systemName: "pencil")
+                .foregroundColor(Color.white)
+                .frame(width: 60, height: 60)
+                .background(Color.blue)
+                .clipShape(Circle())
+                .padding()
+                .onTapGesture {
+                    vm.isNewPostPresented.toggle()
+                }
+        })
+        .fullScreenCover(isPresented: $isNewPostPresented, content: {
+            NewPostView()
+        })
+        .sync($vm.isNewPostPresented, with: $isNewPostPresented)
+        .scrollIndicators(.hidden)
+        .onChange(of: vm.isNewPostPresented) { newValue in
+            if newValue == false {
+                vm.fetchPosts()
+            }
+        }
     }
 }
 

@@ -4,11 +4,12 @@ import FirebaseFirestore
 
 struct UserService {
     private var db = Firestore.firestore()
+    private let locale = Locale(identifier: "en-US")
     
     func fetchAllUser(completion: @escaping ([User]) -> Void) {
         var users = [User]()
         
-        db.collection("users").addSnapshotListener { snapshot, error in
+        db.collection("users").getDocuments { snapshot, error in
             guard let snapshot = snapshot else {return}
         
             users = snapshot.documents.compactMap({try? $0.data(as: User.self)})
@@ -24,34 +25,10 @@ struct UserService {
         }
     }
     
-    func updateLikes(post: Post) {
-        guard let userId = Auth.auth().currentUser?.uid else {return}
-        guard let postId = post.id else {return}
-        var isLiked = false
-        var change = 0
+    func createUser(user: User, completion: @escaping (() -> Void)) {
+        let data = ["username": user.username, "email": user.email, "location": user.location]
         
-        let likedPosts = db.collection("users").document(userId).collection("likedPosts")
-        
-        likedPosts.getDocuments { snapshot, error in
-            snapshot?.documents.forEach({ snap in
-                if snap.documentID == postId {
-                    print("asd")
-                    isLiked = true
-                }
-            })
-            if isLiked {
-                change = -1
-            } else {
-                change = 1
-            }
-            
-            db.collection("posts").document(postId).updateData(["likes": post.likes + change]) { _ in
-                if isLiked {
-                    likedPosts.document(postId).delete()
-                } else {
-                    likedPosts.document(postId).setData([:])
-                }
-            }
-        }
+        db.collection("users").document(user.id ?? "").setData(data)
+        completion()
     }
 }

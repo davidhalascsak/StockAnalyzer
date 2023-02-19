@@ -10,6 +10,17 @@ class AuthViewModel: ObservableObject {
     @Published var alertTitle: String = ""
     @Published var isLogin: Bool = true
     
+    var countries: [String] {
+        let codes = NSLocale.isoCountryCodes
+        let countries = codes.compactMap { code in
+            locale.localizedString(forRegionCode: code)
+        }
+            
+        return countries.sorted()
+    }
+    let locale = Locale(identifier: "en-US")
+    let userService = UserService()
+    
     public func checkLogin() {
         if userData.email.count < 5 {
             alertTitle = "Error"
@@ -76,6 +87,14 @@ class AuthViewModel: ObservableObject {
     
     public func checkRegistration() {
         
+        if userData.username.count < 5 {
+            alertTitle = "Error"
+            alertText = "The username must be at least 5 characters long!"
+            showAlert.toggle()
+            
+            return
+        }
+        
         if userData.email.count < 5 {
             alertTitle = "Error"
             alertText = "The email must be at least 5 characters long!"
@@ -109,25 +128,46 @@ class AuthViewModel: ObservableObject {
         }
         
         Auth.auth().createUser(withEmail: userData.email, password: userData.password) { authResult, error in
-            if error != nil {
-                self.alertTitle = "Error"
-                self.alertText = "The email is already in use!"
-                self.showAlert.toggle()
-                
-                return
-            } else {
-                guard let result = authResult else {return}
-                result.user.sendEmailVerification { error in
-                    if error != nil {
-
-                        return
+            var isInUse = false
+            self.userService.fetchAllUser { users in
+                users.forEach { user in
+                    if user.username == self.userData.username {
+                        isInUse = true
                     }
                 }
+                
+                if isInUse {
+                    self.alertTitle = "Error"
+                    self.alertText = "The username is already in use!"
+                    self.showAlert.toggle()
+                    
+                    return
+                } else {
+                    if error != nil {
+                        self.alertTitle = "Error"
+                        self.alertText = "The email is already in use!"
+                        self.showAlert.toggle()
+                        
+                        return
+                    } else {
+                        guard let result = authResult else {return}
+                        result.user.sendEmailVerification { error in
+                            if error != nil {
+
+                                return
+                            }
+                        }
+                    }
+                }
+                let newUser = User(id: Auth.auth().currentUser?.uid ?? "", username: self.userData.username, email: self.userData.email, location: self.userData.location)
+                
+                self.userService.createUser(user: newUser) {
+                    self.alertTitle = "Success"
+                    self.alertText = "Please verify your account, before login!"
+                    self.showAlert.toggle()
+                    self.isCorrect.toggle()
+                }
             }
-            self.alertTitle = "Success"
-            self.alertText = "Please verify your account, before login!"
-            self.showAlert.toggle()
-            self.isCorrect.toggle()
         }
     }
     
@@ -136,4 +176,11 @@ class AuthViewModel: ObservableObject {
         let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
         return emailPred.evaluate(with: email)
     }
+    
+    func countryFlag(_ countryCode: String) -> String {
+      String(String.UnicodeScalarView(countryCode.unicodeScalars.compactMap {
+        UnicodeScalar(127397 + $0.value)
+      }))
+    }
+
 }

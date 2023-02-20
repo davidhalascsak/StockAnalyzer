@@ -12,7 +12,7 @@ struct PostDetailView: View {
     }
     
     var body: some View {
-        VStack {
+        VStack(alignment: .leading) {
             ScrollView {
                 ForEach(vm.comments) { comment in
                     CommentView(post: vm.post, comment: comment)

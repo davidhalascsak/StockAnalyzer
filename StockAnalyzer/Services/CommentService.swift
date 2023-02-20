@@ -54,7 +54,7 @@ struct CommentService {
         db.collection("posts").document(postId).collection("comments").document(commentId).getDocument(as: Comment.self) { result in
             guard let data = try? result.get() else {return}
             db.collection("posts").document(postId).collection("comments").document(commentId).updateData(["likes": data.likes - 1]) { _ in
-                likedComments.document(postId).delete() { _ in
+                likedComments.document(commentId).delete() { _ in
                     completion()
                 }
             }

@@ -61,7 +61,7 @@ struct PostService {
     
     func createPost(body: String, completion: @escaping (() -> Void)) {
         guard let userId = Auth.auth().currentUser?.uid else {return}
-        let data = ["body": body, "likes": 0, "userRef": userId, "timestamp": Timestamp(date: Date())] as [String : Any]
+        let data = ["body": body, "likes": 0, "comments": 0, "userRef": userId, "timestamp": Timestamp(date: Date())] as [String : Any]
         db.collection("posts").addDocument(data: data) {_ in 
             completion()
         }

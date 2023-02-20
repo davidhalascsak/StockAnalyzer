@@ -1,30 +1,46 @@
 import SwiftUI
+import Firebase
 
 struct PostDetailView: View {
-    @StateObject private var vm: PostViewModel
+    @ObservedObject var vm: PostDetailViewModel
+    @State var commentText = ""
+
+    
     
     init(post: Post) {
-        _vm = StateObject(wrappedValue: PostViewModel(post: post))
+        vm = PostDetailViewModel(post: post)
     }
     
     var body: some View {
-        ScrollView {
-            VStack {
-                if let comments = vm.post.comments {
-                    ForEach(comments) { comment in
-                        Text(comment.body)
-                        Text("\(comment.likesRef.count)")
-                    }
+        VStack {
+            ScrollView {
+                ForEach(vm.comments) { comment in
+                    CommentView(post: vm.post, comment: comment)
                 }
             }
+            HStack {
+                Rectangle()
+                    .frame(width: 40, height: 40)
+                    .cornerRadius(10)
+                TextField("asd", text: $commentText)
+            }
+            .padding()
         }
-        .onAppear(perform: vm.fetchComments)
+    }
+    
+    func formatDate(stamp: Timestamp) -> String {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .short
+        formatter.timeStyle = .none
+        
+        return formatter.string(from: stamp.dateValue())
     }
 }
-/*
- struct PostDetailView_Previews: PreviewProvider {
- static var previews: some View {
- PostDetailView()
- }
- }
- */
+
+struct PostDetailView_Previews: PreviewProvider {
+    static var previews: some View {
+        let user = User(username: "istengyermeke", email: "david.halascsak@gmail.com", location: "Hungary")
+        let post = Post(userRef: "asd", body: "Buy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy Tesla", timestamp: Timestamp(date: Date()), likes: 5, comments: 5, user: user)
+        PostDetailView(post: post)
+    }
+}

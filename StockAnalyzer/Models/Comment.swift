@@ -1,15 +1,13 @@
 import Foundation
-import FirebaseFirestoreSwift
-import FirebaseFirestore
 import Firebase
+import FirebaseFirestoreSwift
 
-struct Post: Identifiable, Codable {
+struct Comment: Identifiable, Codable {
     @DocumentID var id: String?
     let userRef: String
     let body: String
     let timestamp: Timestamp
     var likes: Int
-    var comments: Int
     
     var user: User?
     var isLiked: Bool? = false

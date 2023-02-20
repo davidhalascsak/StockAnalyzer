@@ -28,8 +28,6 @@ struct PostView: View {
                             Text("•")
                             Text(toDate(stamp: vm.post.timestamp))
                         }
-                        
-                             
                     }
                 }
                 
@@ -43,6 +41,13 @@ struct PostView: View {
                             vm.post.isLiked ?? false ? vm.unlikePost() : vm.likePost()
                         }
                     Text("\(vm.post.likes)")
+                    NavigationLink {
+                        PostDetailView(post: vm.post)
+                    } label: {
+                        Image(systemName: "message")
+                            .foregroundColor(Color.black)
+                    }
+                    Text("\(vm.post.comments)")
                 }
             }
             .padding()
@@ -75,7 +80,7 @@ struct PostView: View {
  
     static var previews: some View {
         let user = User(username: "istengyermeke", email: "david.halascsak@gmail.com", location: "Hungary")
-        let post = Post(userRef: "asd", body: "Buy Tesla", timestamp: Timestamp(date: Date()), likes: 5, user: user)
+        let post = Post(userRef: "asd", body: "Buy Tesla", timestamp: Timestamp(date: Date()), likes: 5, comments: 5, user: user)
         PostView(post: post)
     }
  }

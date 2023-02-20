@@ -8,7 +8,7 @@ struct PostView: View {
     @ObservedObject var vm: PostViewModel
     
     init(post: Post) {
-        vm = PostViewModel(post: post)
+        _vm = ObservedObject(wrappedValue: PostViewModel(post: post))
     }
     
     var body: some View {

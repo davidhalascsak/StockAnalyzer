@@ -5,10 +5,8 @@ struct PostDetailView: View {
     @ObservedObject var vm: PostDetailViewModel
     @State var commentText = ""
 
-    
-    
     init(post: Post) {
-        vm = PostDetailViewModel(post: post)
+        _vm = ObservedObject(wrappedValue: PostDetailViewModel(post: post))
     }
     
     var body: some View {

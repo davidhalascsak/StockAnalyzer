@@ -5,7 +5,7 @@ struct CommentView: View {
     @ObservedObject var vm: CommentViewModel
     
     init(post: Post, comment: Comment) {
-        vm = CommentViewModel(post: post, comment: comment)
+        _vm = ObservedObject(wrappedValue: CommentViewModel(post: post, comment: comment))
     }
     
     var body: some View {

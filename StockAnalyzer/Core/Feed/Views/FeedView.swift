@@ -32,11 +32,6 @@ struct FeedView: View {
         })
         .sync($vm.isNewPostPresented, with: $isNewPostPresented)
         .scrollIndicators(.hidden)
-        .onChange(of: vm.isNewPostPresented) { newValue in
-            if newValue == false {
-                vm.fetchPosts()
-            }
-        }
     }
 }
 

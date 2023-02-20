@@ -26,6 +26,7 @@ struct PostDetailView: View {
             }
             .padding()
         }
+        .onAppear(perform: vm.fetchComments)
     }
     
     func formatDate(stamp: Timestamp) -> String {

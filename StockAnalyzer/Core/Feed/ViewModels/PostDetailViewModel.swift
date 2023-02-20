@@ -10,7 +10,6 @@ class PostDetailViewModel: ObservableObject {
     
     init(post: Post) {
         self.post = post
-        fetchComments()
     }
     
     func fetchComments() {

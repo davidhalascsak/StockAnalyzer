@@ -32,6 +32,7 @@ struct CommentView: View {
                 }
             }
         }
+        .padding()
     }
 }
 /*

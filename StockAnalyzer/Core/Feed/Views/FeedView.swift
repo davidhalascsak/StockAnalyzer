@@ -3,7 +3,7 @@ import FirebaseCore
 import FirebaseAuth
 
 struct FeedView: View {
-    @ObservedObject var vm = FeedViewModel()
+    @StateObject var vm = FeedViewModel()
     @State var isNewPostPresented: Bool = false
     @State var shouldScroll: Bool = false
     

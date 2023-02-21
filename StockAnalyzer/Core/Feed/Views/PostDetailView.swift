@@ -2,11 +2,11 @@ import SwiftUI
 import Firebase
 
 struct PostDetailView: View {
-    @ObservedObject var vm: PostDetailViewModel
+    @StateObject var vm: PostDetailViewModel
     @State var commentText = ""
 
     init(post: Post) {
-        _vm = ObservedObject(wrappedValue: PostDetailViewModel(post: post))
+        _vm = StateObject(wrappedValue: PostDetailViewModel(post: post))
     }
     
     var body: some View {

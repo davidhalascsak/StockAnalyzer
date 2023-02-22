@@ -18,8 +18,8 @@
 		EC401135298BBE260033F54B /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = EC401134298BBE260033F54B /* FirebaseAuth */; };
 		EC401139298BBE260033F54B /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = EC401138298BBE260033F54B /* FirebaseFirestore */; };
 		EC40113B298BBE260033F54B /* FirebaseFunctions in Frameworks */ = {isa = PBXBuildFile; productRef = EC40113A298BBE260033F54B /* FirebaseFunctions */; };
-		EC49E90C29A3939A003AE346 /* PostDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC49E90B29A39399003AE346 /* PostDetailView.swift */; };
-		EC49E90E29A393D1003AE346 /* PostDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC49E90D29A393D1003AE346 /* PostDetailViewModel.swift */; };
+		EC49E90C29A3939A003AE346 /* CommentSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC49E90B29A39399003AE346 /* CommentSectionView.swift */; };
+		EC49E90E29A393D1003AE346 /* CommentSectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC49E90D29A393D1003AE346 /* CommentSectionViewModel.swift */; };
 		EC49E91029A398A8003AE346 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC49E90F29A398A8003AE346 /* Comment.swift */; };
 		EC49E91229A398FF003AE346 /* CommentService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC49E91129A398FF003AE346 /* CommentService.swift */; };
 		EC67E32B299543B9002EBC2C /* FeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC67E32A299543B9002EBC2C /* FeedView.swift */; };
@@ -52,8 +52,8 @@
 		EC180CB5298C387000671AA2 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		EC180CB7298C3EEE00671AA2 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		EC40112F298BBC250033F54B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		EC49E90B29A39399003AE346 /* PostDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailView.swift; sourceTree = "<group>"; };
-		EC49E90D29A393D1003AE346 /* PostDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailViewModel.swift; sourceTree = "<group>"; };
+		EC49E90B29A39399003AE346 /* CommentSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentSectionView.swift; sourceTree = "<group>"; };
+		EC49E90D29A393D1003AE346 /* CommentSectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentSectionViewModel.swift; sourceTree = "<group>"; };
 		EC49E90F29A398A8003AE346 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		EC49E91129A398FF003AE346 /* CommentService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentService.swift; sourceTree = "<group>"; };
 		EC67E32A299543B9002EBC2C /* FeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedView.swift; sourceTree = "<group>"; };
@@ -250,7 +250,7 @@
 			children = (
 				ECF669D12997A2E800855894 /* FeedViewModel.swift */,
 				ECEBBFDF299920EE00104326 /* PostViewModel.swift */,
-				EC49E90D29A393D1003AE346 /* PostDetailViewModel.swift */,
+				EC49E90D29A393D1003AE346 /* CommentSectionViewModel.swift */,
 				ECCDEFA929A3C30300034C76 /* CommentViewModel.swift */,
 			);
 			path = ViewModels;
@@ -261,7 +261,7 @@
 			children = (
 				EC67E32A299543B9002EBC2C /* FeedView.swift */,
 				EC84911B2996ACC800DD2413 /* PostView.swift */,
-				EC49E90B29A39399003AE346 /* PostDetailView.swift */,
+				EC49E90B29A39399003AE346 /* CommentSectionView.swift */,
 				ECCDEFA729A3C2C500034C76 /* CommentView.swift */,
 				EC13277B299E3F760049F993 /* NewPostView.swift */,
 			);
@@ -378,7 +378,7 @@
 				EC180CB6298C387000671AA2 /* AuthViewModel.swift in Sources */,
 				EC90D618298ACED3001D4520 /* StockAnalyzerApp.swift in Sources */,
 				EC180CB8298C3EEE00671AA2 /* MainView.swift in Sources */,
-				EC49E90C29A3939A003AE346 /* PostDetailView.swift in Sources */,
+				EC49E90C29A3939A003AE346 /* CommentSectionView.swift in Sources */,
 				ECF669CC2996F37900855894 /* Post.swift in Sources */,
 				ECCDEFA829A3C2C500034C76 /* CommentView.swift in Sources */,
 				EC180CB4298C384D00671AA2 /* AuthenticationUser.swift in Sources */,
@@ -386,7 +386,7 @@
 				ECFD63F5298E63AA00B576DA /* StartView.swift in Sources */,
 				ECCDEFAA29A3C30300034C76 /* CommentViewModel.swift in Sources */,
 				ECF669DA2997E08E00855894 /* PostService.swift in Sources */,
-				EC49E90E29A393D1003AE346 /* PostDetailViewModel.swift in Sources */,
+				EC49E90E29A393D1003AE346 /* CommentSectionViewModel.swift in Sources */,
 				EC91726C299547F600EA924D /* SearchView.swift in Sources */,
 				EC49E91029A398A8003AE346 /* Comment.swift in Sources */,
 				ECEBBFE0299920EE00104326 /* PostViewModel.swift in Sources */,

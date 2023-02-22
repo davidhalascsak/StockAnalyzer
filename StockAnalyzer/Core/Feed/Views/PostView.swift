@@ -30,10 +30,11 @@ struct PostView: View {
                         }
                     }
                 }
-                
+            
                 Text(vm.post.body)
                     .multilineTextAlignment(.leading)
                     .padding(.vertical)
+                
                 HStack {
                     Image(systemName: vm.post.isLiked ?? false ? "hand.thumbsup.fill" : "hand.thumbsup")
                         .foregroundColor(vm.post.isLiked ?? false ? Color.blue : Color.black)
@@ -42,7 +43,7 @@ struct PostView: View {
                         }
                     Text("\(vm.post.likes)")
                     NavigationLink {
-                        PostDetailView(post: vm.post)
+                        CommentSectionView(post: vm.post)
                     } label: {
                         Image(systemName: "message")
                             .foregroundColor(Color.black)
@@ -52,28 +53,11 @@ struct PostView: View {
             }
             .padding()
             .frame(maxWidth: .infinity, alignment: .leading)
-        .background(Color.white)
+            .background(Color.white)
         }
     }
     
-    func toDate(stamp: Timestamp) -> String {
-        let difference = Date().timeIntervalSince(stamp.dateValue())
-        let diffInMinutes = difference / 60
-        
-        if diffInMinutes < 60 {
-            return "\(String(format: "%.0f", diffInMinutes))m"
-        } else if diffInMinutes >= 60 && diffInMinutes < 24 * 60 {
-            return "\(String(format: "%.0f", diffInMinutes / 60))h"
-        } else if diffInMinutes >= 24 * 60 && diffInMinutes < 7 * 24 * 60 {
-            return "\(String(format: "%.0f", diffInMinutes / (60 * 24)))d"
-        } else {
-            let formatter = DateFormatter()
-            formatter.dateStyle = .short
-            formatter.timeStyle = .none
-            
-            return formatter.string(from: stamp.dateValue())
-        }
-    }
+    
 }
 
  struct PostView_Previews: PreviewProvider {
@@ -84,4 +68,3 @@ struct PostView: View {
         PostView(post: post)
     }
  }
- 

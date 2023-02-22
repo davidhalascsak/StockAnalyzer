@@ -9,10 +9,6 @@ class FeedViewModel: ObservableObject {
     let userService = UserService()
     let postService = PostService()
     
-    init() {
-        fetchPosts()
-    }
-    
     func fetchPosts() {
         postService.fetchPosts { posts in
             self.posts = posts

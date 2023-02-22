@@ -4,6 +4,7 @@ import Firebase
 struct CommentView: View {
     @ObservedObject var vm: CommentViewModel
     
+    
     init(post: Post, comment: Comment) {
         _vm = ObservedObject(wrappedValue: CommentViewModel(post: post, comment: comment))
     }
@@ -17,8 +18,12 @@ struct CommentView: View {
                 Text(vm.comment.user?.username ?? "")
                     .foregroundColor(.blue)
                     .font(.headline)
-                Text(vm.comment.user?.location ?? "")
-                    .font(.subheadline)
+                HStack {
+                    Text(vm.comment.user?.location ?? "")
+                        .font(.subheadline)
+                    Text("•")
+                    Text(toDate(stamp: vm.comment.timestamp))
+                }
                 Text(vm.comment.body)
                     .multilineTextAlignment(.leading)
                     .padding(.vertical)
@@ -32,6 +37,7 @@ struct CommentView: View {
                 }
             }
         }
+        .frame(maxWidth: .infinity, alignment: .leading)
         .padding()
     }
 }

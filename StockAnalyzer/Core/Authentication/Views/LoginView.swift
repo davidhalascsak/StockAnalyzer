@@ -64,12 +64,12 @@ struct LoginView: View {
             .navigationDestination(isPresented: $isCorrect) {
                 MainView()
             }
-            .sync($vm.isCorrect, with: $isCorrect)
             .alert(vm.alertTitle, isPresented: $showAlert, actions: {
                 Button("Ok", role: .cancel, action: {})
             }, message: {
                 Text(vm.alertText)
             })
+            .sync($vm.isCorrect, with: $isCorrect)
             .sync($vm.showAlert, with: $showAlert)
         }
     }

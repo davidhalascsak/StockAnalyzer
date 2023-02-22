@@ -9,7 +9,8 @@ struct CommentService {
         guard let postId = post.id else {return}
         var comments: [Comment]  = []
         
-        db.collection("posts").document(postId).collection("comments").getDocuments { snapshot, error in
+        db.collection("posts").document(postId).collection("comments").order(by: "timestamp", descending: true)
+            .getDocuments { snapshot, error in
                 guard let snapshot = snapshot else {return}
                 
                 comments = snapshot.documents.compactMap({try? $0.data(as: Comment.self)})
@@ -60,13 +61,20 @@ struct CommentService {
             }
         }
     }
-    /*
-    func createPost(body: String, completion: @escaping (() -> Void)) {
+    
+    func createComment(post: Post, body: String, completion: @escaping (() -> Void)) {
         guard let userId = Auth.auth().currentUser?.uid else {return}
-        let data = ["body": body, "likes": 0, "comments": 0, "userRef": userId, "timestamp": Timestamp(date: Date())] as [String : Any]
-        db.collection("posts").addDocument(data: data) {_ in
-            completion()
+        guard let postId = post.id else {return}
+        let newData = ["body": body, "likes": 0, "userRef": userId, "timestamp": Timestamp(date: Date())] as [String : Any]
+        
+        
+        db.collection("posts").document(postId).getDocument(as: Post.self) { result in
+            guard let data = try? result.get() else {return}
+            db.collection("posts").document(postId).updateData(["comments": data.comments + 1]) { _ in
+                db.collection("posts").document(postId).collection("comments").addDocument(data: newData) {_ in
+                    completion()
+                }
+            }
         }
     }
-     */
 }

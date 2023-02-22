@@ -8,7 +8,6 @@ struct MainView: View {
     
     init() {
         UITabBar.appearance().isTranslucent = false
-        UINavigationBar.appearance().isTranslucent = false
     }
     
     var body: some View {
@@ -35,24 +34,8 @@ struct MainView: View {
                     }
                     .tag("Search")
             }
-            
-            .fullScreenCover(isPresented: $isSettingsPresented, content: {
-                SettingsView()
-            })
-            .navigationBarBackButtonHidden()
-            .navigationTitle(Text("\(selectedTab)"))
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Image(systemName: "person.crop.circle")
-                        .onTapGesture {
-                            self.isSettingsPresented.toggle()
-                        }
-                }
-                
-            }
+            .toolbar(.hidden)
         }
-        
     }
 }
 

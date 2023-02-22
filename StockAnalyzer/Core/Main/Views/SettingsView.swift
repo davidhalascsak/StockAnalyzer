@@ -6,7 +6,7 @@ struct SettingsView: View {
     var body: some View {
         NavigationStack {
             VStack {
-                Text("hello boi")
+                Text("Hello User")
             }
             .navigationBarBackButtonHidden()
             .navigationTitle("User")

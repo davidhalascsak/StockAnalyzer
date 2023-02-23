@@ -30,7 +30,6 @@
 		EC917268299547DE00EA924D /* NewsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC917267299547DE00EA924D /* NewsView.swift */; };
 		EC91726A299547EA00EA924D /* PortfolioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC917269299547EA00EA924D /* PortfolioView.swift */; };
 		EC91726C299547F600EA924D /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC91726B299547F600EA924D /* SearchView.swift */; };
-		EC91726E2995573000EA924D /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC91726D2995573000EA924D /* MainViewModel.swift */; };
 		EC91727029955E9500EA924D /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC91726F29955E9500EA924D /* SettingsView.swift */; };
 		ECCDEFA829A3C2C500034C76 /* CommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCDEFA729A3C2C500034C76 /* CommentView.swift */; };
 		ECCDEFAA29A3C30300034C76 /* CommentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCDEFA929A3C30300034C76 /* CommentViewModel.swift */; };
@@ -65,7 +64,6 @@
 		EC917267299547DE00EA924D /* NewsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsView.swift; sourceTree = "<group>"; };
 		EC917269299547EA00EA924D /* PortfolioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioView.swift; sourceTree = "<group>"; };
 		EC91726B299547F600EA924D /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
-		EC91726D2995573000EA924D /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		EC91726F29955E9500EA924D /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		ECA1BE60298D3077005AA585 /* StockAnalyzer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = StockAnalyzer.entitlements; sourceTree = "<group>"; };
 		ECCDEFA729A3C2C500034C76 /* CommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentView.swift; sourceTree = "<group>"; };
@@ -213,27 +211,10 @@
 		ECEBBFD32998F43B00104326 /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				ECEBBFD42998F44700104326 /* Views */,
-				ECEBBFD52998F45000104326 /* ViewModels */,
-			);
-			path = Main;
-			sourceTree = "<group>";
-		};
-		ECEBBFD42998F44700104326 /* Views */ = {
-			isa = PBXGroup;
-			children = (
 				EC180CB7298C3EEE00671AA2 /* MainView.swift */,
 				EC91726F29955E9500EA924D /* SettingsView.swift */,
 			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		ECEBBFD52998F45000104326 /* ViewModels */ = {
-			isa = PBXGroup;
-			children = (
-				EC91726D2995573000EA924D /* MainViewModel.swift */,
-			);
-			path = ViewModels;
+			path = Main;
 			sourceTree = "<group>";
 		};
 		ECEBBFD62998F47D00104326 /* Feed */ = {
@@ -390,7 +371,6 @@
 				EC91726C299547F600EA924D /* SearchView.swift in Sources */,
 				EC49E91029A398A8003AE346 /* Comment.swift in Sources */,
 				ECEBBFE0299920EE00104326 /* PostViewModel.swift in Sources */,
-				EC91726E2995573000EA924D /* MainViewModel.swift in Sources */,
 				EC84911C2996ACC800DD2413 /* PostView.swift in Sources */,
 				EC91727029955E9500EA924D /* SettingsView.swift in Sources */,
 			);

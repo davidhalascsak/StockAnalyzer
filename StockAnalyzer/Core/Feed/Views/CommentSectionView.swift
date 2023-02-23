@@ -15,7 +15,13 @@ struct CommentSectionView: View {
                     CommentView(post: vm.post, comment: comment)
                 }
             }
-            ExtractedView(vm: vm)
+            if Auth.auth().currentUser != nil {
+                ExtractedView(vm: vm)
+            } else {
+                Color.white
+                    .frame(height: 25)
+                    .frame(maxWidth: .infinity)
+            }
         }
         .onAppear(perform: vm.fetchComments)
     }

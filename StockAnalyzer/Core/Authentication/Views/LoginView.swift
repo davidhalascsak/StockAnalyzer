@@ -5,6 +5,7 @@ import FirebaseAuth
 
 
 struct LoginView: View {
+    @Environment(\.dismiss) private var dismiss
     @ObservedObject var vm: AuthViewModel
     @State var isCorrect: Bool = false
     @State var showAlert: Bool = false
@@ -61,9 +62,10 @@ struct LoginView: View {
                 Spacer()
             }
             .padding()
-            .navigationDestination(isPresented: $isCorrect) {
-                MainView()
-            }
+            .onChange(of: vm.isCorrect, perform: { newValue in
+                Auth.auth().currentUser?.reload()
+                dismiss()
+            })
             .alert(vm.alertTitle, isPresented: $showAlert, actions: {
                 Button("Ok", role: .cancel, action: {})
             }, message: {

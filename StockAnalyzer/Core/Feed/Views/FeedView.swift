@@ -28,16 +28,18 @@ struct FeedView: View {
                     }
                 }
                 .overlay(alignment: .bottomTrailing, content: {
-                    Image(systemName: "pencil")
-                        .font(.title)
-                        .foregroundColor(Color.white)
-                        .frame(width: 50, height: 50)
-                        .background(Color.blue)
-                        .clipShape(Circle())
-                        .padding()
-                        .onTapGesture {
-                            vm.isNewPostPresented.toggle()
-                        }
+                    if Auth.auth().currentUser != nil {
+                        Image(systemName: "pencil")
+                            .font(.title)
+                            .foregroundColor(Color.white)
+                            .frame(width: 50, height: 50)
+                            .background(Color.blue)
+                            .clipShape(Circle())
+                            .padding()
+                            .onTapGesture {
+                                vm.isNewPostPresented.toggle()
+                            }
+                    }
                 })
                 .fullScreenCover(isPresented: $isNewPostPresented, content: {
                     NewPostView()

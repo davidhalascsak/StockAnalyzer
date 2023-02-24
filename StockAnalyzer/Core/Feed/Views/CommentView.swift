@@ -26,7 +26,7 @@ struct CommentView: View {
                 }
                 Text(vm.comment.body)
                     .multilineTextAlignment(.leading)
-                    .padding(.vertical)
+                    .padding(.vertical, 5)
                 HStack {
                     Image(systemName: vm.comment.isLiked ?? false ? "hand.thumbsup.fill" : "hand.thumbsup")
                         .foregroundColor(vm.comment.isLiked ?? false ? Color.blue : Color.black)

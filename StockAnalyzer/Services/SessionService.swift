@@ -8,7 +8,6 @@ class SessionService: ObservableObject {
     var handle: AuthStateDidChangeListenerHandle?
     
     private init() {
-        print("Init session")
         self.listen()
     }
     

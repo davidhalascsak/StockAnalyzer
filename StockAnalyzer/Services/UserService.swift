@@ -3,8 +3,6 @@ import FirebaseAuth
 import FirebaseFirestore
 
 struct UserService {
-    static let entity = UserService()
-    
     private var db = Firestore.firestore()
     private let locale = Locale(identifier: "en-US")
 

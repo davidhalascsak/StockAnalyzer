@@ -5,9 +5,13 @@ import Firebase
 
 
 struct StartView: View {
-    @StateObject private var vm = AuthViewModel()
+    @StateObject private var vm: AuthViewModel
     
-    var body: some View {     
+    init(isLogin: Bool) {
+        _vm = StateObject(wrappedValue: AuthViewModel(isLogin: isLogin))
+    }
+    
+    var body: some View {
         if vm.isLogin {
             LoginView(vm: vm)
         } else {
@@ -17,8 +21,10 @@ struct StartView: View {
 }
 
 struct ContentView_Previews: PreviewProvider {
+    @State static var isPresented: Bool = true
+    
     static var previews: some View {
-        StartView()
+        StartView(isLogin: true)
     }
 }
 

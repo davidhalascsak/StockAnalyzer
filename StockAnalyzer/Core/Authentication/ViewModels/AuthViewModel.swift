@@ -8,7 +8,11 @@ class AuthViewModel: ObservableObject {
     @Published var showAlert: Bool = false
     @Published var alertText: String = ""
     @Published var alertTitle: String = ""
-    @Published var isLogin: Bool = true
+    @Published var isLogin: Bool
+    
+    init(isLogin: Bool) {
+        self.isLogin = isLogin
+    }
     
     var countries: [String] {
         let codes = NSLocale.isoCountryCodes
@@ -162,6 +166,8 @@ class AuthViewModel: ObservableObject {
                 let newUser = User(id: Auth.auth().currentUser?.uid ?? "", username: self.userData.username, email: self.userData.email, location: self.userData.location)
                 
                 self.userService.createUser(user: newUser) {
+                    try! Auth.auth().signOut()
+                    
                     self.alertTitle = "Success"
                     self.alertText = "Please verify your account, before login!"
                     self.showAlert.toggle()

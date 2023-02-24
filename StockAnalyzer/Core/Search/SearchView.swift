@@ -20,6 +20,7 @@ struct SearchView: View {
                     }
             }
             .padding(.horizontal)
+            Spacer()
         }
         .fullScreenCover(isPresented: $isSettingsPresented, content: {
             SettingsView()

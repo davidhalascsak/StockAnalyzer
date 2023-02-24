@@ -72,12 +72,21 @@ struct LoginView: View {
             })
             .sync($vm.isCorrect, with: $isCorrect)
             .sync($vm.showAlert, with: $showAlert)
+            .navigationBarBackButtonHidden()
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Image(systemName: "arrowshape.backward")
+                        .onTapGesture {
+                            dismiss()
+                        }
+                }
+            }
         }
     }
 }
 
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginView(vm: AuthViewModel())
+        LoginView(vm: AuthViewModel(isLogin: true))
     }
 }

@@ -14,6 +14,7 @@
 		EC180CB6298C387000671AA2 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC180CB5298C387000671AA2 /* AuthViewModel.swift */; };
 		EC180CB8298C3EEE00671AA2 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC180CB7298C3EEE00671AA2 /* MainView.swift */; };
 		EC40027929A9047A00CD1036 /* SessionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC40027829A9047A00CD1036 /* SessionService.swift */; };
+		EC40027B29A91ADB00CD1036 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC40027A29A91ADB00CD1036 /* SettingsViewModel.swift */; };
 		EC401130298BBC260033F54B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EC40112F298BBC250033F54B /* GoogleService-Info.plist */; };
 		EC401133298BBE260033F54B /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = EC401132298BBE260033F54B /* FirebaseAnalytics */; };
 		EC401135298BBE260033F54B /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = EC401134298BBE260033F54B /* FirebaseAuth */; };
@@ -52,6 +53,7 @@
 		EC180CB5298C387000671AA2 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		EC180CB7298C3EEE00671AA2 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		EC40027829A9047A00CD1036 /* SessionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionService.swift; sourceTree = "<group>"; };
+		EC40027A29A91ADB00CD1036 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		EC40112F298BBC250033F54B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		EC49E90B29A39399003AE346 /* CommentSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentSectionView.swift; sourceTree = "<group>"; };
 		EC49E90D29A393D1003AE346 /* CommentSectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentSectionViewModel.swift; sourceTree = "<group>"; };
@@ -104,6 +106,23 @@
 				EC49E90F29A398A8003AE346 /* Comment.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		EC40027C29A91B3600CD1036 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				EC180CB7298C3EEE00671AA2 /* MainView.swift */,
+				EC91726F29955E9500EA924D /* SettingsView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		EC40027D29A91B3D00CD1036 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				EC40027A29A91ADB00CD1036 /* SettingsViewModel.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 		EC8650E3299C3CBA00271609 /* News */ = {
@@ -213,8 +232,8 @@
 		ECEBBFD32998F43B00104326 /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				EC180CB7298C3EEE00671AA2 /* MainView.swift */,
-				EC91726F29955E9500EA924D /* SettingsView.swift */,
+				EC40027C29A91B3600CD1036 /* Views */,
+				EC40027D29A91B3D00CD1036 /* ViewModels */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -377,6 +396,7 @@
 				ECEBBFE0299920EE00104326 /* PostViewModel.swift in Sources */,
 				EC84911C2996ACC800DD2413 /* PostView.swift in Sources */,
 				EC91727029955E9500EA924D /* SettingsView.swift in Sources */,
+				EC40027B29A91ADB00CD1036 /* SettingsViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

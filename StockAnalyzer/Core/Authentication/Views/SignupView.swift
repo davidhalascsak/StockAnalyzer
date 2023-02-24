@@ -3,6 +3,7 @@ import SwiftUI
 
 struct SignupView: View {
     @ObservedObject var vm: AuthViewModel
+    @Environment(\.dismiss) private var dismiss
     
     var body: some View {
         NavigationStack {
@@ -85,18 +86,27 @@ struct SignupView: View {
                             vm.userData.password = ""
                             vm.userData.passwordAgain = ""
                             
-                            vm.isLogin.toggle()
+                            dismiss()
                         }
                     })
             }, message: {
                 Text(vm.alertText)
             })
+            .navigationBarBackButtonHidden()
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Image(systemName: "arrowshape.backward")
+                        .onTapGesture {
+                            dismiss()
+                        }
+                }
+            }
         }
     }
 }
 
 struct SignupView_Previews: PreviewProvider {
     static var previews: some View {
-        SignupView(vm: AuthViewModel())
+        SignupView(vm: AuthViewModel(isLogin: false))
     }
 }

@@ -2,18 +2,24 @@ import SwiftUI
 import FirebaseAuth
 
 struct SettingsView: View {
+    @EnvironmentObject var sessionService: SessionService
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
         NavigationStack {
             VStack {
-                if Auth.auth().currentUser != nil {
+                if sessionService.session != nil {
                     LogOut()
                 } else {
                     NavigationLink {
                         LoginView(vm: AuthViewModel())
                     } label: {
                         Text("Sign in")
+                    }
+                    NavigationLink {
+                        SignupView(vm: AuthViewModel())
+                    } label: {
+                        Text("Sign up")
                     }
 
                 }
@@ -55,5 +61,6 @@ struct SettingsView_Previews: PreviewProvider {
     
     static var previews: some View {
         SettingsView()
+            .environmentObject(SessionService.entity)
     }
 }

@@ -5,7 +5,10 @@ import SwiftUI
 
 class FeedViewModel: ObservableObject {
     @Published var posts = [Post]()
-    @Published var isNewPostPresented = false
+    @Published var isNewPostPresented: Bool = false
+    @Published var isSettingsPresented: Bool = false
+    @Published var shouldScroll: Bool = false
+    
     let userService = UserService()
     let postService = PostService()
     

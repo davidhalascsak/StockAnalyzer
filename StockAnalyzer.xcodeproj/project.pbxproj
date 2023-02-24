@@ -13,6 +13,7 @@
 		EC180CB4298C384D00671AA2 /* AuthenticationUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC180CB3298C384D00671AA2 /* AuthenticationUser.swift */; };
 		EC180CB6298C387000671AA2 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC180CB5298C387000671AA2 /* AuthViewModel.swift */; };
 		EC180CB8298C3EEE00671AA2 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC180CB7298C3EEE00671AA2 /* MainView.swift */; };
+		EC40027929A9047A00CD1036 /* SessionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC40027829A9047A00CD1036 /* SessionService.swift */; };
 		EC401130298BBC260033F54B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EC40112F298BBC250033F54B /* GoogleService-Info.plist */; };
 		EC401133298BBE260033F54B /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = EC401132298BBE260033F54B /* FirebaseAnalytics */; };
 		EC401135298BBE260033F54B /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = EC401134298BBE260033F54B /* FirebaseAuth */; };
@@ -50,6 +51,7 @@
 		EC180CB3298C384D00671AA2 /* AuthenticationUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationUser.swift; sourceTree = "<group>"; };
 		EC180CB5298C387000671AA2 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		EC180CB7298C3EEE00671AA2 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		EC40027829A9047A00CD1036 /* SessionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionService.swift; sourceTree = "<group>"; };
 		EC40112F298BBC250033F54B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		EC49E90B29A39399003AE346 /* CommentSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentSectionView.swift; sourceTree = "<group>"; };
 		EC49E90D29A393D1003AE346 /* CommentSectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentSectionViewModel.swift; sourceTree = "<group>"; };
@@ -262,6 +264,7 @@
 				ECF669D72997D8FD00855894 /* UserService.swift */,
 				ECF669D92997E08E00855894 /* PostService.swift */,
 				EC49E91129A398FF003AE346 /* CommentService.swift */,
+				EC40027829A9047A00CD1036 /* SessionService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -364,6 +367,7 @@
 				ECCDEFA829A3C2C500034C76 /* CommentView.swift in Sources */,
 				EC180CB4298C384D00671AA2 /* AuthenticationUser.swift in Sources */,
 				EC917268299547DE00EA924D /* NewsView.swift in Sources */,
+				EC40027929A9047A00CD1036 /* SessionService.swift in Sources */,
 				ECFD63F5298E63AA00B576DA /* StartView.swift in Sources */,
 				ECCDEFAA29A3C30300034C76 /* CommentViewModel.swift in Sources */,
 				ECF669DA2997E08E00855894 /* PostService.swift in Sources */,

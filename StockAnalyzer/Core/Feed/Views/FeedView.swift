@@ -3,11 +3,11 @@ import FirebaseCore
 import FirebaseAuth
 
 struct FeedView: View {
+    @EnvironmentObject var sessionService: SessionService
     @StateObject var vm = FeedViewModel()
+    
     @State var isNewPostPresented: Bool = false
     @State var isSettingsPresented: Bool = false
-    @State var shouldScroll: Bool = false
-    
 
     var body: some View {
         VStack {
@@ -20,7 +20,7 @@ struct FeedView: View {
                             PostView(post: post)
                             Divider()
                         }
-                        .onChange(of: shouldScroll) { _ in
+                        .onChange(of: vm.shouldScroll) { _ in
                             withAnimation(.spring()) {
                                 reader.scrollTo("top")
                             }
@@ -28,7 +28,7 @@ struct FeedView: View {
                     }
                 }
                 .overlay(alignment: .bottomTrailing, content: {
-                    if Auth.auth().currentUser != nil {
+                    if sessionService.session != nil {
                         Image(systemName: "pencil")
                             .font(.title)
                             .foregroundColor(Color.white)
@@ -48,6 +48,7 @@ struct FeedView: View {
                     SettingsView()
                 })
                 .sync($vm.isNewPostPresented, with: $isNewPostPresented)
+                .sync($vm.isSettingsPresented, with: $isSettingsPresented)
                 .onChange(of: vm.isNewPostPresented) { newValue in
                     if newValue == false {
                         vm.fetchPosts()
@@ -64,7 +65,7 @@ struct FeedView: View {
                 .font(.title2)
                 .onTapGesture {
                     vm.fetchPosts()
-                    shouldScroll.toggle()
+                    vm.shouldScroll.toggle()
                 }
             Spacer()
             Text("Feed")
@@ -85,6 +86,7 @@ struct FeedView: View {
 struct DashboardView_Previews: PreviewProvider {
     static var previews: some View {
         FeedView()
+            .environmentObject(SessionService.entity)
     }
 }
 

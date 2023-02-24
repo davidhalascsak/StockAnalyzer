@@ -63,7 +63,6 @@ struct LoginView: View {
             }
             .padding()
             .onChange(of: vm.isCorrect, perform: { newValue in
-                Auth.auth().currentUser?.reload()
                 dismiss()
             })
             .alert(vm.alertTitle, isPresented: $showAlert, actions: {

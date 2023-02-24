@@ -3,12 +3,11 @@ import FirebaseAuth
 
 struct SettingsView: View {
     @EnvironmentObject var sessionService: SessionService
+    @Environment(\.dismiss) private var dismiss
     let userService = UserService()
     @ObservedObject var vm = SettingsViewModel()
     @State var isLoginPresented: Bool = false
     @State var isSignupPresented: Bool = false
-    
-    @Environment(\.dismiss) private var dismiss
     
     var body: some View {
         NavigationStack {
@@ -27,7 +26,13 @@ struct SettingsView: View {
                 .cornerRadius(20)
                 
                 if sessionService.session != nil {
-                    LogOut()
+                    Text("Sign out")
+                        .font(.title)
+                        .padding(.vertical)
+                        .onTapGesture {
+                            try! Auth.auth().signOut()
+                            vm.fetchUser()
+                        }
                 } else {
                     Text("Sign in")
                         .font(.title)
@@ -35,14 +40,11 @@ struct SettingsView: View {
                         .onTapGesture {
                             isLoginPresented.toggle()
                         }
-                    
-                    
                     Text("Sign up")
                         .font(.title)
                         .onTapGesture {
                             isSignupPresented.toggle()
                         }
-
                 }
                 Spacer()
             }
@@ -76,23 +78,6 @@ struct SettingsView: View {
             }
         }
         .onAppear(perform: vm.fetchUser)
-    }
-}
-
-struct LogOut: View {
-    @Environment(\.dismiss) private var dismiss
-    
-    var body: some View {
-        Text("Sign out")
-            .font(.title)
-            .padding(.vertical)
-            .onTapGesture {
-                do {
-                    try Auth.auth().signOut()
-                } catch {
-                    print("error while signing out")
-                }
-            }
     }
 }
 

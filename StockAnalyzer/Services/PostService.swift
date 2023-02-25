@@ -3,7 +3,7 @@ import FirebaseFirestore
 import FirebaseAuth
 import Firebase
 
-struct PostService {
+class PostService {
     private var db = Firestore.firestore()
     
     func fetchPosts(completion: @escaping ([Post]) -> Void) {
@@ -35,7 +35,7 @@ struct PostService {
         
         db.collection("posts").document(postId).getDocument(as: Post.self) { result in
             guard let data = try? result.get() else {return}
-            db.collection("posts").document(postId).updateData(["likes": data.likes + 1]) { _ in
+            self.db.collection("posts").document(postId).updateData(["likes": data.likes + 1]) { _ in
                 likedPosts.document(postId).setData([:]) { _ in
                     completion()
                 }
@@ -51,7 +51,7 @@ struct PostService {
         
         db.collection("posts").document(postId).getDocument(as: Post.self) { result in
             guard let data = try? result.get() else {return}
-            db.collection("posts").document(postId).updateData(["likes": data.likes - 1]) { _ in
+            self.db.collection("posts").document(postId).updateData(["likes": data.likes - 1]) { _ in
                 likedPosts.document(postId).delete() { _ in
                     completion()
                 }

@@ -28,6 +28,8 @@ struct CommentSectionView: View {
             .onAppear(perform: vm.fetchComments)
         }
         .navigationBarBackButtonHidden()
+        .navigationTitle("Comments")
+        .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Image(systemName: "arrowshape.backward")

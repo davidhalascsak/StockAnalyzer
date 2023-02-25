@@ -2,7 +2,7 @@ import Foundation
 import FirebaseFirestore
 import FirebaseAuth
 
-struct CommentService {
+class CommentService {
     private var db = Firestore.firestore()
     
     func fetchComments(post: Post, completion: @escaping (([Comment]) -> Void)) {
@@ -36,7 +36,7 @@ struct CommentService {
         
         db.collection("posts").document(postId).collection("comments").document(commentId).getDocument(as: Comment.self) { result in
             guard let data = try? result.get() else {return}
-            db.collection("posts").document(postId).collection("comments").document(commentId).updateData(["likes": data.likes + 1]) { _ in
+            self.db.collection("posts").document(postId).collection("comments").document(commentId).updateData(["likes": data.likes + 1]) { _ in
                 likedComments.document(commentId).setData([:]) { _ in
                     completion()
                 }
@@ -54,7 +54,7 @@ struct CommentService {
         
         db.collection("posts").document(postId).collection("comments").document(commentId).getDocument(as: Comment.self) { result in
             guard let data = try? result.get() else {return}
-            db.collection("posts").document(postId).collection("comments").document(commentId).updateData(["likes": data.likes - 1]) { _ in
+            self.db.collection("posts").document(postId).collection("comments").document(commentId).updateData(["likes": data.likes - 1]) { _ in
                 likedComments.document(commentId).delete() { _ in
                     completion()
                 }
@@ -70,8 +70,8 @@ struct CommentService {
         
         db.collection("posts").document(postId).getDocument(as: Post.self) { result in
             guard let data = try? result.get() else {return}
-            db.collection("posts").document(postId).updateData(["comments": data.comments + 1]) { _ in
-                db.collection("posts").document(postId).collection("comments").addDocument(data: newData) {_ in
+            self.db.collection("posts").document(postId).updateData(["comments": data.comments + 1]) { _ in
+                self.db.collection("posts").document(postId).collection("comments").addDocument(data: newData) {_ in
                     completion()
                 }
             }

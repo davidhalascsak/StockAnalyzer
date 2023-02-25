@@ -10,8 +10,8 @@ class SettingsViewModel: ObservableObject {
         self.user = nil
         guard let id = Auth.auth().currentUser?.uid else {return}
         
-        userService.fetchUser(id: id) { user in
-            self.user = user
+        userService.fetchUser(id: id) { [weak self] user in
+            self?.user = user
             
         }
     }

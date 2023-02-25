@@ -25,6 +25,10 @@
 		EC49E91029A398A8003AE346 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC49E90F29A398A8003AE346 /* Comment.swift */; };
 		EC49E91229A398FF003AE346 /* CommentService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC49E91129A398FF003AE346 /* CommentService.swift */; };
 		EC67E32B299543B9002EBC2C /* FeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC67E32A299543B9002EBC2C /* FeedView.swift */; };
+		EC6E627A29AA13210064110A /* NetworkingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC6E627929AA13210064110A /* NetworkingManager.swift */; };
+		EC6E627C29AA138B0064110A /* NewsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC6E627B29AA138B0064110A /* NewsService.swift */; };
+		EC6E627E29AA15270064110A /* News.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC6E627D29AA15270064110A /* News.swift */; };
+		EC6E628029AA3A820064110A /* NewsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC6E627F29AA3A820064110A /* NewsViewModel.swift */; };
 		EC84911C2996ACC800DD2413 /* PostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC84911B2996ACC800DD2413 /* PostView.swift */; };
 		EC90D618298ACED3001D4520 /* StockAnalyzerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC90D617298ACED3001D4520 /* StockAnalyzerApp.swift */; };
 		EC90D61C298ACED5001D4520 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EC90D61B298ACED5001D4520 /* Assets.xcassets */; };
@@ -60,6 +64,10 @@
 		EC49E90F29A398A8003AE346 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		EC49E91129A398FF003AE346 /* CommentService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentService.swift; sourceTree = "<group>"; };
 		EC67E32A299543B9002EBC2C /* FeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedView.swift; sourceTree = "<group>"; };
+		EC6E627929AA13210064110A /* NetworkingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingManager.swift; sourceTree = "<group>"; };
+		EC6E627B29AA138B0064110A /* NewsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsService.swift; sourceTree = "<group>"; };
+		EC6E627D29AA15270064110A /* News.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = News.swift; sourceTree = "<group>"; };
+		EC6E627F29AA3A820064110A /* NewsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsViewModel.swift; sourceTree = "<group>"; };
 		EC84911B2996ACC800DD2413 /* PostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostView.swift; sourceTree = "<group>"; };
 		EC90D614298ACED3001D4520 /* StockAnalyzer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StockAnalyzer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC90D617298ACED3001D4520 /* StockAnalyzerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockAnalyzerApp.swift; sourceTree = "<group>"; };
@@ -104,6 +112,7 @@
 				ECF669CB2996F37900855894 /* Post.swift */,
 				ECF669CD2996F3C400855894 /* User.swift */,
 				EC49E90F29A398A8003AE346 /* Comment.swift */,
+				EC6E627D29AA15270064110A /* News.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -125,10 +134,19 @@
 			path = ViewModels;
 			sourceTree = "<group>";
 		};
+		EC6E628129AA7DA70064110A /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				EC6E627929AA13210064110A /* NetworkingManager.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
 		EC8650E3299C3CBA00271609 /* News */ = {
 			isa = PBXGroup;
 			children = (
 				EC917267299547DE00EA924D /* NewsView.swift */,
+				EC6E627F29AA3A820064110A /* NewsViewModel.swift */,
 			);
 			path = News;
 			sourceTree = "<group>";
@@ -170,6 +188,7 @@
 			isa = PBXGroup;
 			children = (
 				EC90D617298ACED3001D4520 /* StockAnalyzerApp.swift */,
+				EC6E628129AA7DA70064110A /* Utilities */,
 				ECF669D62997D5A800855894 /* Services */,
 				EC015095298BD1FF00BAF650 /* Models */,
 				ECEBBFCF2998F37B00104326 /* Core */,
@@ -284,6 +303,7 @@
 				ECF669D92997E08E00855894 /* PostService.swift */,
 				EC49E91129A398FF003AE346 /* CommentService.swift */,
 				EC40027829A9047A00CD1036 /* SessionService.swift */,
+				EC6E627B29AA138B0064110A /* NewsService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -369,6 +389,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EC6E627C29AA138B0064110A /* NewsService.swift in Sources */,
 				EC015094298BCEDB00BAF650 /* SignupView.swift in Sources */,
 				EC91726A299547EA00EA924D /* PortfolioView.swift in Sources */,
 				ECF669D82997D8FD00855894 /* UserService.swift in Sources */,
@@ -378,10 +399,12 @@
 				ECF669CE2996F3C400855894 /* User.swift in Sources */,
 				ECF669D22997A2E800855894 /* FeedViewModel.swift in Sources */,
 				EC49E91229A398FF003AE346 /* CommentService.swift in Sources */,
+				EC6E627E29AA15270064110A /* News.swift in Sources */,
 				EC180CB6298C387000671AA2 /* AuthViewModel.swift in Sources */,
 				EC90D618298ACED3001D4520 /* StockAnalyzerApp.swift in Sources */,
 				EC180CB8298C3EEE00671AA2 /* MainView.swift in Sources */,
 				EC49E90C29A3939A003AE346 /* CommentSectionView.swift in Sources */,
+				EC6E627A29AA13210064110A /* NetworkingManager.swift in Sources */,
 				ECF669CC2996F37900855894 /* Post.swift in Sources */,
 				ECCDEFA829A3C2C500034C76 /* CommentView.swift in Sources */,
 				EC180CB4298C384D00671AA2 /* AuthenticationUser.swift in Sources */,
@@ -389,6 +412,7 @@
 				EC40027929A9047A00CD1036 /* SessionService.swift in Sources */,
 				ECFD63F5298E63AA00B576DA /* StartView.swift in Sources */,
 				ECCDEFAA29A3C30300034C76 /* CommentViewModel.swift in Sources */,
+				EC6E628029AA3A820064110A /* NewsViewModel.swift in Sources */,
 				ECF669DA2997E08E00855894 /* PostService.swift in Sources */,
 				EC49E90E29A393D1003AE346 /* CommentSectionViewModel.swift in Sources */,
 				EC91726C299547F600EA924D /* SearchView.swift in Sources */,

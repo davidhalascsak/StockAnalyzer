@@ -13,20 +13,20 @@ class CommentSectionViewModel: ObservableObject {
     }
     
     func fetchComments() {
-        commentService.fetchComments(post: post) { comments in
-            self.comments = comments
+        commentService.fetchComments(post: post) { [weak self] comments in
+            self?.comments = comments
             
-            for i in 0..<self.comments.count {
-                self.userService.fetchUser(id: self.comments[i].userRef) { user in
-                    self.comments[i].user = user
+            for i in 0..<(self?.comments.count ?? 0) {
+                self?.userService.fetchUser(id: self?.comments[i].userRef ?? "") { user in
+                    self?.comments[i].user = user
                 }
             }
         }
     }
     
     func createComment(body: String) {
-        commentService.createComment(post: self.post, body: body) {
-            self.fetchComments()
+        commentService.createComment(post: self.post, body: body) { [weak self] in
+            self?.fetchComments()
         }
     }
 }

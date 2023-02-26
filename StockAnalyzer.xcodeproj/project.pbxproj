@@ -25,6 +25,12 @@
 		EC49E91029A398A8003AE346 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC49E90F29A398A8003AE346 /* Comment.swift */; };
 		EC49E91229A398FF003AE346 /* CommentService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC49E91129A398FF003AE346 /* CommentService.swift */; };
 		EC67E32B299543B9002EBC2C /* FeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC67E32A299543B9002EBC2C /* FeedView.swift */; };
+		EC6802B729AB767E0019EE18 /* StockService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC6802B629AB767E0019EE18 /* StockService.swift */; };
+		EC6802B929AB8EDF0019EE18 /* StockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC6802B829AB8EDF0019EE18 /* StockView.swift */; };
+		EC6802BB29AB8FDF0019EE18 /* StockViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC6802BA29AB8FDF0019EE18 /* StockViewModel.swift */; };
+		EC6802BD29AB9C930019EE18 /* ChartService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC6802BC29AB9C930019EE18 /* ChartService.swift */; };
+		EC6802BF29ABA8310019EE18 /* LogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC6802BE29ABA8310019EE18 /* LogoView.swift */; };
+		EC6802C129ABA8420019EE18 /* LogoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC6802C029ABA8420019EE18 /* LogoViewModel.swift */; };
 		EC6E627A29AA13210064110A /* NetworkingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC6E627929AA13210064110A /* NetworkingManager.swift */; };
 		EC6E627C29AA138B0064110A /* NewsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC6E627B29AA138B0064110A /* NewsService.swift */; };
 		EC6E627E29AA15270064110A /* News.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC6E627D29AA15270064110A /* News.swift */; };
@@ -64,6 +70,12 @@
 		EC49E90F29A398A8003AE346 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		EC49E91129A398FF003AE346 /* CommentService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentService.swift; sourceTree = "<group>"; };
 		EC67E32A299543B9002EBC2C /* FeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedView.swift; sourceTree = "<group>"; };
+		EC6802B629AB767E0019EE18 /* StockService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockService.swift; sourceTree = "<group>"; };
+		EC6802B829AB8EDF0019EE18 /* StockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockView.swift; sourceTree = "<group>"; };
+		EC6802BA29AB8FDF0019EE18 /* StockViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockViewModel.swift; sourceTree = "<group>"; };
+		EC6802BC29AB9C930019EE18 /* ChartService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartService.swift; sourceTree = "<group>"; };
+		EC6802BE29ABA8310019EE18 /* LogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoView.swift; sourceTree = "<group>"; };
+		EC6802C029ABA8420019EE18 /* LogoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoViewModel.swift; sourceTree = "<group>"; };
 		EC6E627929AA13210064110A /* NetworkingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingManager.swift; sourceTree = "<group>"; };
 		EC6E627B29AA138B0064110A /* NewsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsService.swift; sourceTree = "<group>"; };
 		EC6E627D29AA15270064110A /* News.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = News.swift; sourceTree = "<group>"; };
@@ -134,6 +146,25 @@
 			path = ViewModels;
 			sourceTree = "<group>";
 		};
+		EC6802C229ABA8530019EE18 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				EC91726B299547F600EA924D /* SearchView.swift */,
+				EC6802B829AB8EDF0019EE18 /* StockView.swift */,
+				EC6802BE29ABA8310019EE18 /* LogoView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		EC6802C329ABA85D0019EE18 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				EC6802BA29AB8FDF0019EE18 /* StockViewModel.swift */,
+				EC6802C029ABA8420019EE18 /* LogoViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
 		EC6E628129AA7DA70064110A /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
@@ -162,7 +193,8 @@
 		EC8650E5299C3CE400271609 /* Search */ = {
 			isa = PBXGroup;
 			children = (
-				EC91726B299547F600EA924D /* SearchView.swift */,
+				EC6802C329ABA85D0019EE18 /* ViewModels */,
+				EC6802C229ABA8530019EE18 /* Views */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -304,6 +336,8 @@
 				EC49E91129A398FF003AE346 /* CommentService.swift */,
 				EC40027829A9047A00CD1036 /* SessionService.swift */,
 				EC6E627B29AA138B0064110A /* NewsService.swift */,
+				EC6802B629AB767E0019EE18 /* StockService.swift */,
+				EC6802BC29AB9C930019EE18 /* ChartService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -390,11 +424,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				EC6E627C29AA138B0064110A /* NewsService.swift in Sources */,
+				EC6802B929AB8EDF0019EE18 /* StockView.swift in Sources */,
 				EC015094298BCEDB00BAF650 /* SignupView.swift in Sources */,
 				EC91726A299547EA00EA924D /* PortfolioView.swift in Sources */,
 				ECF669D82997D8FD00855894 /* UserService.swift in Sources */,
 				EC13277C299E3F760049F993 /* NewPostView.swift in Sources */,
+				EC6802BB29AB8FDF0019EE18 /* StockViewModel.swift in Sources */,
 				EC67E32B299543B9002EBC2C /* FeedView.swift in Sources */,
+				EC6802BD29AB9C930019EE18 /* ChartService.swift in Sources */,
 				EC015092298BCEB500BAF650 /* LoginView.swift in Sources */,
 				ECF669CE2996F3C400855894 /* User.swift in Sources */,
 				ECF669D22997A2E800855894 /* FeedViewModel.swift in Sources */,
@@ -405,6 +442,7 @@
 				EC180CB8298C3EEE00671AA2 /* MainView.swift in Sources */,
 				EC49E90C29A3939A003AE346 /* CommentSectionView.swift in Sources */,
 				EC6E627A29AA13210064110A /* NetworkingManager.swift in Sources */,
+				EC6802C129ABA8420019EE18 /* LogoViewModel.swift in Sources */,
 				ECF669CC2996F37900855894 /* Post.swift in Sources */,
 				ECCDEFA829A3C2C500034C76 /* CommentView.swift in Sources */,
 				EC180CB4298C384D00671AA2 /* AuthenticationUser.swift in Sources */,
@@ -418,6 +456,8 @@
 				EC91726C299547F600EA924D /* SearchView.swift in Sources */,
 				EC49E91029A398A8003AE346 /* Comment.swift in Sources */,
 				ECEBBFE0299920EE00104326 /* PostViewModel.swift in Sources */,
+				EC6802B729AB767E0019EE18 /* StockService.swift in Sources */,
+				EC6802BF29ABA8310019EE18 /* LogoView.swift in Sources */,
 				EC84911C2996ACC800DD2413 /* PostView.swift in Sources */,
 				EC91727029955E9500EA924D /* SettingsView.swift in Sources */,
 				EC40027B29A91ADB00CD1036 /* SettingsViewModel.swift in Sources */,

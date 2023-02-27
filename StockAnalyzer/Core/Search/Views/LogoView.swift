@@ -12,7 +12,11 @@ struct LogoView: View {
             Image(uiImage: image)
                 .resizable()
                 .frame(width: 40, height: 40)
-            
+                .padding(2)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(Color.black, lineWidth: 0.5)
+                )
         } else if vm.isLoading {
             ProgressView()
         } else {

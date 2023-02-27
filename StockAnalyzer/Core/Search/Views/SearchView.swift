@@ -22,7 +22,7 @@ struct SearchView: View {
                 }
                 .padding(.horizontal)
                 Spacer()
-                NavigationLink(destination: StockView(symbol: "META")) {
+                NavigationLink(destination: StockView(symbol: "ADS")) {
                     Text("AAPL")
                 }
             }

@@ -7,18 +7,18 @@ class StockViewModel: ObservableObject {
     @Published var isLoading: Bool = false
     
     let symbol: String
-    //let stockService: StockService
+    let stockService: StockService
     
     var cancellables = Set<AnyCancellable>()
     
     init(symbol: String) {
         self.symbol = symbol
-        //self.stockService = StockService(symbol: symbol)
-        //self.isLoading = true
-        //addSubscribers()
+        self.stockService = StockService(symbol: symbol)
+        self.isLoading = true
+        addSubscribers()
     }
     
-    /*
+    
     func addSubscribers() {
         self.stockService.$companyInformation
             .sink { [weak self] (companyProfile) in
@@ -27,5 +27,12 @@ class StockViewModel: ObservableObject {
             }
             .store(in: &cancellables)
     }
-     */
+    
+    func decreaseInPercentage(price: Double, change: Double) -> String {
+        let result = (change / price) * 100
+        let addition = change >= 0 ? "+" : ""
+        
+        return "\(addition)\(String(format: "%.2f", result))"
+    }
+     
 }

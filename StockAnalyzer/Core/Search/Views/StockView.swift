@@ -48,21 +48,7 @@ struct StockView: View {
                     .padding(.bottom, 15)
                 }
                 Divider()
-                Text("News")
-                    .font(.title2)
-                    .fontWeight(.semibold)
-                    .padding(.horizontal)
-                ScrollView(.horizontal, showsIndicators: false) {
-                    LazyHStack(spacing: 10) {
-                        ForEach(0..<10) { index in
-                            Rectangle()
-                                .cornerRadius(15)
-                                .frame(width: 80, height: 80)
-                        }
-                    }
-                    .padding(.horizontal)
-                    .frame(height: 100)
-                }
+                newsView
                 Divider()
                 Text("Feed")
                     .font(.title2)
@@ -107,6 +93,26 @@ struct StockView: View {
                 LogoView(logo: profile.image)
             } else {
                 ProgressView()
+            }
+        }
+    }
+    
+    var newsView: some View {
+        VStack {
+            Text("News")
+                .font(.title2)
+                .fontWeight(.semibold)
+                .padding(.horizontal)
+            ScrollView(.horizontal, showsIndicators: false) {
+                LazyHStack(spacing: 10) {
+                    ForEach(0..<10) { index in
+                        Rectangle()
+                            .cornerRadius(15)
+                            .frame(width: 80, height: 80)
+                    }
+                }
+                .padding(.horizontal)
+                .frame(height: 100)
             }
         }
     }

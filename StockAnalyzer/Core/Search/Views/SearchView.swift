@@ -7,22 +7,9 @@ struct SearchView: View {
     var body: some View {
         NavigationStack {
             VStack {
-                HStack() {
-                    Spacer()
-                    Text("Search")
-                        .font(.headline)
-                        .fontWeight(.semibold)
-                        .foregroundColor(Color.blue)
-                    Spacer()
-                    Image(systemName: "person.crop.circle")
-                        .font(.title2)
-                        .onTapGesture {
-                            self.isSettingsPresented.toggle()
-                        }
-                }
-                .padding(.horizontal)
+                headerView
                 Spacer()
-                NavigationLink(destination: StockView(symbol: "ADS")) {
+                NavigationLink(destination: StockView(symbol: "TSLA")) {
                     Text("AAPL")
                 }
             }
@@ -30,6 +17,23 @@ struct SearchView: View {
                 SettingsView()
             })
         }
+    }
+    
+    var headerView: some View {
+        HStack() {
+            Spacer()
+            Text("Search")
+                .font(.headline)
+                .fontWeight(.semibold)
+                .foregroundColor(Color.blue)
+            Spacer()
+            Image(systemName: "person.crop.circle")
+                .font(.title2)
+                .onTapGesture {
+                    self.isSettingsPresented.toggle()
+                }
+        }
+        .padding(.horizontal)
     }
 }
 

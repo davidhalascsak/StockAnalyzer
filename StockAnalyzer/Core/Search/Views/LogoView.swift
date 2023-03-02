@@ -12,7 +12,7 @@ struct LogoView: View {
             Image(uiImage: image)
                 .resizable()
                 .frame(width: 40, height: 40)
-                .padding(2)
+                .padding()
                 .overlay(
                     RoundedRectangle(cornerRadius: 10)
                         .stroke(Color.black, lineWidth: 0.5)
@@ -26,10 +26,9 @@ struct LogoView: View {
     }
 }
 
-/*
+
  struct LogoView_Previews: PreviewProvider {
- static var previews: some View {
- LogoView()
+     static var previews: some View {
+         LogoView(logo: "https://financialmodelingprep.com/image-stock/AAPL.png")
+     }
  }
- }
- */

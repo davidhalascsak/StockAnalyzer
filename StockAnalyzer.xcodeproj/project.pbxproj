@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		EC015092298BCEB500BAF650 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC015091298BCEB500BAF650 /* LoginView.swift */; };
 		EC015094298BCEDB00BAF650 /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC015093298BCEDB00BAF650 /* SignupView.swift */; };
+		EC1016F529B0FBAB00DEE9E2 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1016F429B0FBAB00DEE9E2 /* String.swift */; };
+		EC1016F729B1006800DEE9E2 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1016F629B1006800DEE9E2 /* View.swift */; };
 		EC13277C299E3F760049F993 /* NewPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC13277B299E3F760049F993 /* NewPostView.swift */; };
 		EC180CB4298C384D00671AA2 /* AuthenticationUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC180CB3298C384D00671AA2 /* AuthenticationUser.swift */; };
 		EC180CB6298C387000671AA2 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC180CB5298C387000671AA2 /* AuthViewModel.swift */; };
@@ -60,6 +62,8 @@
 /* Begin PBXFileReference section */
 		EC015091298BCEB500BAF650 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		EC015093298BCEDB00BAF650 /* SignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
+		EC1016F429B0FBAB00DEE9E2 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		EC1016F629B1006800DEE9E2 /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
 		EC13277B299E3F760049F993 /* NewPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPostView.swift; sourceTree = "<group>"; };
 		EC180CB3298C384D00671AA2 /* AuthenticationUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationUser.swift; sourceTree = "<group>"; };
 		EC180CB5298C387000671AA2 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
@@ -131,6 +135,15 @@
 				EC6E627D29AA15270064110A /* News.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		EC1016F829B1192000DEE9E2 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				EC1016F429B0FBAB00DEE9E2 /* String.swift */,
+				EC1016F629B1006800DEE9E2 /* View.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		EC40027C29A91B3600CD1036 /* Views */ = {
@@ -226,6 +239,7 @@
 			isa = PBXGroup;
 			children = (
 				EC90D617298ACED3001D4520 /* StockAnalyzerApp.swift */,
+				EC1016F829B1192000DEE9E2 /* Extensions */,
 				EC6E628129AA7DA70064110A /* Utilities */,
 				ECF669D62997D5A800855894 /* Services */,
 				EC015095298BD1FF00BAF650 /* Models */,
@@ -443,6 +457,7 @@
 				ECF669D22997A2E800855894 /* FeedViewModel.swift in Sources */,
 				EC49E91229A398FF003AE346 /* CommentService.swift in Sources */,
 				EC6E627E29AA15270064110A /* News.swift in Sources */,
+				EC1016F729B1006800DEE9E2 /* View.swift in Sources */,
 				EC180CB6298C387000671AA2 /* AuthViewModel.swift in Sources */,
 				EC72691729AD2149002FAB32 /* ChartView.swift in Sources */,
 				EC90D618298ACED3001D4520 /* StockAnalyzerApp.swift in Sources */,
@@ -452,6 +467,7 @@
 				EC6802C129ABA8420019EE18 /* LogoViewModel.swift in Sources */,
 				ECF669CC2996F37900855894 /* Post.swift in Sources */,
 				ECCDEFA829A3C2C500034C76 /* CommentView.swift in Sources */,
+				EC1016F529B0FBAB00DEE9E2 /* String.swift in Sources */,
 				EC180CB4298C384D00671AA2 /* AuthenticationUser.swift in Sources */,
 				EC917268299547DE00EA924D /* NewsView.swift in Sources */,
 				EC40027929A9047A00CD1036 /* SessionService.swift in Sources */,

@@ -10,7 +10,6 @@ struct NewPostView: View {
         case field
     }
     
-    
     var body: some View {
         NavigationStack {
             VStack {

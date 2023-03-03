@@ -11,22 +11,22 @@ struct ChartView: View {
     var body: some View {
         VStack {
             if vm.isLoading == false {
-                Text(vm.selectedType.rawValue)
                 chartView
-                Picker("ChartOptions", selection: $vm.selectedType) {
+                Picker("ChartOptions", selection: $selectedType) {
                     ForEach(ChartOption.allCases, id: \.self) { option in
                         Text(option.rawValue).tag(option)
                     }
                 }
                 .pickerStyle(.segmented)
+                .onChange(of: selectedType, perform: { _ in
+                    vm.selectedType = selectedType
+                    vm.fetchData()
+                })
                 
             } else {
                 ProgressView()
             }
         }
-        .onChange(of: vm.selectedType, perform: { _ in
-            vm.fetchData()
-        })
         .frame(height: 200)
         .frame(maxWidth: .infinity)
         .padding()

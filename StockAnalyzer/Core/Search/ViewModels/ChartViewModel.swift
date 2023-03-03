@@ -2,14 +2,16 @@ import Foundation
 import Combine
 
 class ChartViewModel: ObservableObject {
-    @Published var fiveMinutesData: [Price] = []
-    @Published var hourlyData: [Price] = []
-    @Published var dailyData: [Price] = []
+    var fiveMinutesData: [Price] = []
+    var hourlyData: [Price] = []
+    var dailyData: [Price] = []
     
     @Published var chartData: [Price] = []
+    
     @Published var minValues: [String: Double] = [:]
     @Published var maxValues: [String: Double] = [:]
-    @Published var selectedType: ChartOption = .oneMonth
+    
+    @Published var selectedType: ChartOption = .oneDay
     
     @Published var isLoading: Bool = false
     
@@ -27,8 +29,6 @@ class ChartViewModel: ObservableObject {
     }
     
     func fetchData() {
-        print("fetching again")
-        print(selectedType)
         self.isLoading = true
         switch self.selectedType {
         case .oneDay, .oneWeek:
@@ -41,67 +41,87 @@ class ChartViewModel: ObservableObject {
     }
     
     func get5Min(symbol: String) {
-        guard let url = URL(string:  "https://financialmodelingprep.com/api/v3/historical-chart/5min/\(symbol)?apikey=d5f365f0f57c273c26a6b52b86a53010")
-        else {return}
         
-        dataSubscription = NetworkingManager.download(url: url)
-            .decode(type: [Price].self, decoder: JSONDecoder())
-            .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: NetworkingManager.handleCompletion, receiveValue: { [weak self] (returnedData) in
-                self?.fiveMinutesData = self?.createDailyData(data: returnedData) ?? []
-                
-                if self?.selectedType == .oneDay {
-                    self?.chartData = self?.createDailyData(data: self?.fiveMinutesData ?? []) ?? []
-                } else {
-                    print("inside monthly")
-                    self?.chartData = self?.createWeeklyData(data: self?.fiveMinutesData ?? []) ?? []
-                }
-                
-                self?.isLoading = false
-                self?.dataSubscription?.cancel()
-            })
+        if self.fiveMinutesData.isEmpty {
+            guard let url = URL(string:  "https://financialmodelingprep.com/api/v3/historical-chart/5min/\(symbol)?apikey=d5f365f0f57c273c26a6b52b86a53010")
+            else {return}
+            
+            dataSubscription = NetworkingManager.download(url: url)
+                .decode(type: [Price].self, decoder: JSONDecoder())
+                .receive(on: DispatchQueue.main)
+                .sink(receiveCompletion: NetworkingManager.handleCompletion, receiveValue: { [weak self] (returnedData) in
+                    self?.fiveMinutesData = returnedData
+                    
+                    if self?.selectedType == .oneDay {
+                        self?.chartData = self?.createDailyData(data: self?.fiveMinutesData ?? []) ?? []
+                    } else {
+                        self?.chartData = self?.createWeeklyData(data: self?.fiveMinutesData ?? []) ?? []
+                    }
+                    
+                    self?.isLoading = false
+                    self?.dataSubscription?.cancel()
+                })
+        } else {
+            if self.selectedType == .oneDay {
+                self.chartData = self.createDailyData(data: self.fiveMinutesData)
+            } else {
+                self.chartData = self.createWeeklyData(data: self.fiveMinutesData)
+            }
+            self.isLoading = false
+        }
     }
     
     func getHourly(symbol: String) {
-        guard let url = URL(string:  "https://financialmodelingprep.com/api/v3/historical-chart/1hour/\(symbol)?apikey=d5f365f0f57c273c26a6b52b86a53010")
-        else {return}
         
-        dataSubscription = NetworkingManager.download(url: url)
-            .decode(type: [Price].self, decoder: JSONDecoder())
-            .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: NetworkingManager.handleCompletion, receiveValue: { [weak self] (returnedData) in
-                self?.hourlyData = returnedData
-                
-                self?.chartData = self?.createMonthlyData(data: self?.hourlyData ?? []) ?? []
-                
-                self?.isLoading = false
-                self?.dataSubscription?.cancel()
-            })
+        if self.hourlyData.isEmpty {
+            guard let url = URL(string:  "https://financialmodelingprep.com/api/v3/historical-chart/1hour/\(symbol)?apikey=d5f365f0f57c273c26a6b52b86a53010")
+            else {return}
+            
+            dataSubscription = NetworkingManager.download(url: url)
+                .decode(type: [Price].self, decoder: JSONDecoder())
+                .receive(on: DispatchQueue.main)
+                .sink(receiveCompletion: NetworkingManager.handleCompletion, receiveValue: { [weak self] (returnedData) in
+                    self?.hourlyData = returnedData
+                    
+                    self?.chartData = self?.createMonthlyData(data: self?.hourlyData ?? []) ?? []
+                    
+                    self?.isLoading = false
+                    self?.dataSubscription?.cancel()
+                })
+        } else {
+            self.chartData = self.createMonthlyData(data: self.hourlyData)
+            self.isLoading = false
+        }
     }
     
     func getDaily(symbol: String) {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
-        
-        let startDate = Calendar.current.date(byAdding: .year, value: -1, to: Date())!
-        
-        guard let url = URL(string:          "https://financialmodelingprep.com/api/v3/historical-price-full/\(symbol)?from=\(formatter.string(from: startDate))&to=\(formatter.string(from: Date()))&apikey=d5f365f0f57c273c26a6b52b86a53010")
-        else {return}
-        
-        dataSubscription = NetworkingManager.download(url: url)
-            .decode(type: HistoricPrice.self, decoder: JSONDecoder())
-            .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: NetworkingManager.handleCompletion, receiveValue: { [weak self] (returnedData) in
-                self?.dailyData = returnedData.historical
-                
-                self?.chartData = self?.dailyData ?? []
-                
-                self?.minValues["1Y"] = self?.dailyData.map {$0.open}.min()
-                self?.maxValues["1Y"] = self?.dailyData.map {$0.open}.max()
-                
-                self?.isLoading = false
-                self?.dataSubscription?.cancel()
-            })
+        if self.dailyData.isEmpty {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy-MM-dd"
+            
+            let startDate = Calendar.current.date(byAdding: .year, value: -1, to: Date())!
+            
+            guard let url = URL(string:          "https://financialmodelingprep.com/api/v3/historical-price-full/\(symbol)?from=\(formatter.string(from: startDate))&to=\(formatter.string(from: Date()))&apikey=d5f365f0f57c273c26a6b52b86a53010")
+            else {return}
+            
+            dataSubscription = NetworkingManager.download(url: url)
+                .decode(type: HistoricPrice.self, decoder: JSONDecoder())
+                .receive(on: DispatchQueue.main)
+                .sink(receiveCompletion: NetworkingManager.handleCompletion, receiveValue: { [weak self] (returnedData) in
+                    self?.dailyData = returnedData.historical
+                    
+                    self?.chartData = self?.dailyData ?? []
+                    
+                    self?.minValues["1Y"] = self?.dailyData.map {$0.open}.min()
+                    self?.maxValues["1Y"] = self?.dailyData.map {$0.open}.max()
+                    
+                    self?.isLoading = false
+                    self?.dataSubscription?.cancel()
+                })
+        } else {
+            self.chartData = self.dailyData
+            self.isLoading = false
+        }
     }
     
     func createDailyData(data: [Price]) -> [Price] {

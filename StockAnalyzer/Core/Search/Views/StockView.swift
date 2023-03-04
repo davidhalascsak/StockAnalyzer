@@ -15,7 +15,8 @@ struct StockView: View {
                     .padding()
                 Divider()
                 ChartView(symbol: vm.symbol)
-                Divider()
+                    .padding(.bottom, 2.0)
+                
                 Group {
                     Text("About")
                         .font(.title2)
@@ -47,14 +48,11 @@ struct StockView: View {
                     }
                     .padding(.bottom, 15)
                 }
-                Divider()
                 newsView
-                Divider()
                 Text("Feed")
                     .font(.title2)
                     .fontWeight(.semibold)
                     .padding(.horizontal)
-                //Spacer()
             }
         }
     }
@@ -98,7 +96,7 @@ struct StockView: View {
     }
     
     var newsView: some View {
-        VStack {
+        VStack(alignment: .leading) {
             Text("News")
                 .font(.title2)
                 .fontWeight(.semibold)

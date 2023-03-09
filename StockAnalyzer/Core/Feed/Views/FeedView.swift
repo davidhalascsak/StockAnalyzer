@@ -12,7 +12,7 @@ struct FeedView: View {
     var body: some View {
         VStack {
             feedHeader
-            ScrollViewReader { reader in
+            ScrollViewReader { proxy in
                 ScrollView(showsIndicators: false) {
                     Divider().id("top")
                     LazyVStack {
@@ -22,7 +22,7 @@ struct FeedView: View {
                         }
                         .onChange(of: vm.shouldScroll) { _ in
                             withAnimation(.spring()) {
-                                reader.scrollTo("top")
+                                proxy.scrollTo("top")
                             }
                         }
                     }

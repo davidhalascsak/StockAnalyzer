@@ -26,6 +26,8 @@
 		EC49E90E29A393D1003AE346 /* CommentSectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC49E90D29A393D1003AE346 /* CommentSectionViewModel.swift */; };
 		EC49E91029A398A8003AE346 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC49E90F29A398A8003AE346 /* Comment.swift */; };
 		EC49E91229A398FF003AE346 /* CommentService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC49E91129A398FF003AE346 /* CommentService.swift */; };
+		EC4CE36529B7ABC800F600CC /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC4CE36429B7ABC800F600CC /* SearchViewModel.swift */; };
+		EC4CE36729B7AE4900F600CC /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC4CE36629B7AE4900F600CC /* Search.swift */; };
 		EC67E32B299543B9002EBC2C /* FeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC67E32A299543B9002EBC2C /* FeedView.swift */; };
 		EC6802B729AB767E0019EE18 /* StockService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC6802B629AB767E0019EE18 /* StockService.swift */; };
 		EC6802B929AB8EDF0019EE18 /* StockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC6802B829AB8EDF0019EE18 /* StockView.swift */; };
@@ -77,6 +79,8 @@
 		EC49E90D29A393D1003AE346 /* CommentSectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentSectionViewModel.swift; sourceTree = "<group>"; };
 		EC49E90F29A398A8003AE346 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		EC49E91129A398FF003AE346 /* CommentService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentService.swift; sourceTree = "<group>"; };
+		EC4CE36429B7ABC800F600CC /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
+		EC4CE36629B7AE4900F600CC /* Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
 		EC67E32A299543B9002EBC2C /* FeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedView.swift; sourceTree = "<group>"; };
 		EC6802B629AB767E0019EE18 /* StockService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockService.swift; sourceTree = "<group>"; };
 		EC6802B829AB8EDF0019EE18 /* StockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockView.swift; sourceTree = "<group>"; };
@@ -137,6 +141,7 @@
 				ECF669CD2996F3C400855894 /* User.swift */,
 				EC49E90F29A398A8003AE346 /* Comment.swift */,
 				EC6E627D29AA15270064110A /* News.swift */,
+				EC4CE36629B7AE4900F600CC /* Search.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -186,6 +191,7 @@
 				EC6802BA29AB8FDF0019EE18 /* StockViewModel.swift */,
 				EC6802C029ABA8420019EE18 /* LogoViewModel.swift */,
 				EC72691829AD2347002FAB32 /* ChartViewModel.swift */,
+				EC4CE36429B7ABC800F600CC /* SearchViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -472,10 +478,12 @@
 				EC6E627A29AA13210064110A /* NetworkingManager.swift in Sources */,
 				EC6802C129ABA8420019EE18 /* LogoViewModel.swift in Sources */,
 				ECF669CC2996F37900855894 /* Post.swift in Sources */,
+				EC4CE36529B7ABC800F600CC /* SearchViewModel.swift in Sources */,
 				ECCDEFA829A3C2C500034C76 /* CommentView.swift in Sources */,
 				EC1016F529B0FBAB00DEE9E2 /* String.swift in Sources */,
 				EC180CB4298C384D00671AA2 /* AuthenticationUser.swift in Sources */,
 				EC917268299547DE00EA924D /* NewsView.swift in Sources */,
+				EC4CE36729B7AE4900F600CC /* Search.swift in Sources */,
 				EC40027929A9047A00CD1036 /* SessionService.swift in Sources */,
 				EC6802C729ABD8110019EE18 /* NewsService.swift in Sources */,
 				ECFD63F5298E63AA00B576DA /* StartView.swift in Sources */,

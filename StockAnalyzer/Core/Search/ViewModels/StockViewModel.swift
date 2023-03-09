@@ -4,17 +4,20 @@ import Combine
 
 class StockViewModel: ObservableObject {
     @Published var companyProfile: Company?
-    @Published var isLoading: Bool = false
+    @Published var news: [News] = []
+    @Published var isDownloadingNews: Bool = false
     
     let symbol: String
     let stockService: StockService
+    let newsService: NewsService
     
     var cancellables = Set<AnyCancellable>()
     
     init(symbol: String) {
         self.symbol = symbol
         self.stockService = StockService(symbol: symbol)
-        self.isLoading = true
+        self.newsService = NewsService(symbol: symbol)
+        self.isDownloadingNews = true
         addSubscribers()
     }
     
@@ -23,7 +26,17 @@ class StockViewModel: ObservableObject {
         self.stockService.$companyInformation
             .sink { [weak self] (companyProfile) in
                 self?.companyProfile = companyProfile ?? nil
-                self?.isLoading = false
+            }
+            .store(in: &cancellables)
+        
+        self.newsService.$allNews
+            .sink { [weak self] (news) in
+                if news.count > 10 {
+                    self?.news = Array(news[0..<10])
+                } else {
+                    self?.news = news
+                }
+                self?.isDownloadingNews = false
             }
             .store(in: &cancellables)
     }
@@ -33,6 +46,22 @@ class StockViewModel: ObservableObject {
         let addition = change >= 0 ? "+" : ""
         
         return "\(addition)\(String(format: "%.2f", result))"
+    }
+    
+    static func createDate(timestamp: String) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "E, d MMM y HH:mm:ss z"
+        
+
+        let date = formatter.date(from: timestamp)
+        
+        formatter.dateFormat = "yyyy-MM-dd"
+        
+        
+        if let date = date {
+            return formatter.string(from: date)
+        }
+        return "unknown date"
     }
      
 }

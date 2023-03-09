@@ -9,52 +9,27 @@ struct StockView: View {
     }
     
     var body: some View {
-        ScrollView(showsIndicators: false) {
-            VStack(alignment: .leading) {
-                header
-                    .padding()
-                Divider()
-                ChartView(symbol: vm.symbol)
-                    .padding(.bottom, 2.0)
-                
-                Group {
-                    Text("About")
+        
+        if vm.companyProfile != nil {
+            ScrollView(showsIndicators: false) {
+                VStack(alignment: .leading) {
+                    header
+                        .padding()
+                    Divider()
+                    ChartView(symbol: vm.symbol)
+                        .padding(.bottom, 2.0)
+                    descriptionView
+                    newsView
+                    Text("Feed")
                         .font(.title2)
                         .fontWeight(.semibold)
                         .padding(.horizontal)
-                        .padding(.bottom, 2)
-                    VStack {
-                        Text(vm.companyProfile?.description ?? "")
-                            .padding(.horizontal)
-                            .lineLimit(isExpanded ? nil : 5)
-                            .overlay(
-                                GeometryReader { proxy in
-                                    Button(action: {
-                                        withAnimation(.spring()) {
-                                            isExpanded.toggle()
-                                        }
-                                    }) {
-                                        Text(isExpanded ? "Show Less" : "Show More")
-                                            .font(.caption).bold()
-                                            .padding(.leading, 8.0)
-                                            .padding(.top, 4.0)
-                                            .background(Color.white)
-                                    }
-                                    .padding(.vertical)
-                                    .padding(.horizontal, 8)
-                                    .frame(width: proxy.size.width, height: proxy.size.height + 32, alignment: .bottomLeading)
-                                }
-                            )
-                    }
-                    .padding(.bottom, 15)
                 }
-                newsView
-                Text("Feed")
-                    .font(.title2)
-                    .fontWeight(.semibold)
-                    .padding(.horizontal)
             }
+        } else {
+            ProgressView()
         }
+        
     }
     
     var header: some View {
@@ -89,28 +64,80 @@ struct StockView: View {
                 }
                 Spacer()
                 LogoView(logo: profile.image)
-            } else {
-                ProgressView()
             }
+        }
+    }
+    
+    var descriptionView: some View {
+        VStack(alignment: .leading) {
+            Text("About")
+                .font(.title2)
+                .fontWeight(.semibold)
+                .padding(.horizontal)
+                .padding(.bottom, 2)
+            VStack {
+                Text(vm.companyProfile?.description ?? "")
+                    .padding(.horizontal)
+                    .lineLimit(isExpanded ? nil : 5)
+                    .overlay(
+                        GeometryReader { proxy in
+                            Button(action: {
+                                withAnimation(.spring()) {
+                                    isExpanded.toggle()
+                                }
+                            }) {
+                                Text(isExpanded ? "Show Less" : "Show More")
+                                    .font(.caption).bold()
+                                    .padding(.leading, 8.0)
+                                    .padding(.top, 4.0)
+                                    .background(Color.white)
+                            }
+                            .padding(.vertical)
+                            .padding(.horizontal, 8)
+                            .frame(width: proxy.size.width, height: proxy.size.height + 32, alignment: .bottomLeading)
+                        }
+                    )
+            }
+            .padding(.bottom, 15)
         }
     }
     
     var newsView: some View {
         VStack(alignment: .leading) {
-            Text("News")
-                .font(.title2)
-                .fontWeight(.semibold)
-                .padding(.horizontal)
-            ScrollView(.horizontal, showsIndicators: false) {
-                LazyHStack(spacing: 10) {
-                    ForEach(0..<10) { index in
-                        Rectangle()
-                            .cornerRadius(15)
-                            .frame(width: 80, height: 80)
+            if vm.isDownloadingNews == true {
+                ProgressView()
+            } else {
+                Text("News")
+                    .font(.title2)
+                    .fontWeight(.semibold)
+                    .padding(.horizontal)
+                
+                if vm.news.count > 0 {
+                    TabView {
+                        ForEach(vm.news, id: \.self) { news in
+                            if let link = URL(string: news.link) {
+                                Link(destination: link) {
+                                    VStack {
+                                        Text(news.title)
+                                            .foregroundColor(Color.white)
+                                            .lineLimit(3)
+                                        Text(news.pubDate)
+                                            .foregroundColor(Color.white)
+                                            .font(.headline)
+                                    }
+                                    .padding()
+                                    .frame(height: 200)
+                                    .frame(maxWidth: .infinity)
+                                    .background(Color.black)
+                                    .cornerRadius(10)
+                                    .padding()
+                                }
+                            }
+                        }
                     }
+                    .frame(height: 200)
+                    .tabViewStyle(.page)
                 }
-                .padding(.horizontal)
-                .frame(height: 100)
             }
         }
     }

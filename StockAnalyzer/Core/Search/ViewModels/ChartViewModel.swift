@@ -202,7 +202,7 @@ class ChartViewModel: ObservableObject {
         let dateString = formatter.string(from: date)
         
         var index = 0
-        while(data[index].date[0..<10] != dateString) {
+        while(data[index].date[0..<10] > dateString) {
             monthly.append(data[index])
             index += 1
         }

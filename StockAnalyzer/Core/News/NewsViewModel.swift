@@ -3,6 +3,7 @@ import Combine
 
 class NewsViewModel: ObservableObject  {
     @Published var news: [News] = []
+    @Published var shouldScroll: Bool = false
     @Published var isLoading: Bool = false
     
     private let newsService = NewsService()

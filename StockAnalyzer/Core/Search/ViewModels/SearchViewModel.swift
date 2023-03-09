@@ -9,7 +9,7 @@ class SearchViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     
     init() {
-        addListener()
+        //addListener()
     }
     
     func addListener() {
@@ -22,7 +22,7 @@ class SearchViewModel: ObservableObject {
     }
     
     func getData(data: String) {
-        guard let url = URL(string: "https://financialmodelingprep.com/api/v3/search?query=\(data)&exchange=NASDAQ,NYSE,XETRA,EURONEXT,ETF,LSE,INDEX&limit=10&apikey=d5f365f0f57c273c26a6b52b86a53010") else {return}
+        guard let url = URL(string: "https://financialmodelingprep.com/api/v3/search?query=\(data)&exchange=NASDAQ,NYSE&limit=10&apikey=d5f365f0f57c273c26a6b52b86a53010") else {return}
         
         newsSubscription = NetworkingManager.download(url: url)
             .decode(type: [Search].self, decoder: JSONDecoder())

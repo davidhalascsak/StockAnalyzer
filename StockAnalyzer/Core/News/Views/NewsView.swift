@@ -12,33 +12,16 @@ struct NewsView: View {
                 ScrollView(showsIndicators: false) {
                     Divider().id("top")
                     LazyVStack(alignment: .leading) {
-                        ForEach(vm.news, id: \.self) { new in
-                            if let link = URL(string: new.link) {
-                                HStack {
-                                    Link(destination: link) {
-                                        Text(new.title)
-                                            .foregroundColor(Color.black)
-                                            .font(.headline)
-                                            .multilineTextAlignment(.leading)
-                                            .padding(.horizontal)
-                                            .padding(.vertical, 5)
-                                    }
-                                    Spacer()
-                                }
-                                HStack {
-                                    Text(NewsViewModel.createDate(timestamp: new.pubDate))
-                                    Text("•")
-                                    Text(new.source!)
-                                }
-                                .font(.subheadline)
-                                .padding(.horizontal)
+                        ForEach(vm.news, id: \.self) { news in
+                            if URL(string: news.news_url) != nil {
+                                NewsRowView(news: news)
+                                    .padding(.horizontal, 5)
                                 Divider()
                             }
                         }
                     }
                     .onChange(of: vm.shouldScroll) { _ in
                         withAnimation(.spring()) {
-                            print("changed - \(vm.shouldScroll)")
                             proxy.scrollTo("top")
                         }
                     }

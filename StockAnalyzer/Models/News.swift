@@ -2,12 +2,13 @@ import Foundation
 
 struct News: Codable, Hashable {
     let title: String
-    let link: String
-    let pubDate: String
-    let source: String?
-    let guid: String
+    let news_url: String
+    let image_url: String
+    let date: String
+    let source_name: String
+    let sentiment: String
 }
 
-struct CompanyNews: Codable, Hashable {
-    let item: [News]
+struct NewsData: Codable, Hashable {
+    let data: [News]
 }

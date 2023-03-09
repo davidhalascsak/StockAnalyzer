@@ -11,21 +11,8 @@ struct LogoView: View {
         if let image = vm.image {
             Image(uiImage: image)
                 .resizable()
-                .frame(width: 40, height: 40)
-            /*
-                .padding()
-            
-                .overlay(
-                    RoundedRectangle(cornerRadius: 10)
-                        .stroke(Color.black, lineWidth: 0.5)
-                )
-             */
-        } else if vm.isLoading {
-            ProgressView()
         } else {
-            Rectangle()
-                .fill(Color.black)
-                .frame(width: 40, height: 40)
+            ProgressView()
         }
     }
 }

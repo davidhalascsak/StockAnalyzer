@@ -6,6 +6,8 @@ struct StockView: View {
     
     init(symbol: String) {
         _vm = StateObject(wrappedValue: StockViewModel(symbol: symbol))
+        UIPageControl.appearance().currentPageIndicatorTintColor = .black
+        UIPageControl.appearance().pageIndicatorTintColor = UIColor.black.withAlphaComponent(0.2)
     }
     
     var body: some View {
@@ -29,7 +31,7 @@ struct StockView: View {
         } else {
             ProgressView()
         }
-        
+
     }
     
     var header: some View {
@@ -64,6 +66,9 @@ struct StockView: View {
                 }
                 Spacer()
                 LogoView(logo: profile.image)
+                    .scaledToFit()
+                    .frame(height: 50)
+                    .frame(maxWidth: 100)
             }
         }
     }
@@ -101,6 +106,7 @@ struct StockView: View {
             .padding(.bottom, 15)
         }
     }
+     
     
     var newsView: some View {
         VStack(alignment: .leading) {
@@ -115,31 +121,24 @@ struct StockView: View {
                 if vm.news.count > 0 {
                     TabView {
                         ForEach(vm.news, id: \.self) { news in
-                            if let link = URL(string: news.link) {
-                                Link(destination: link) {
-                                    VStack {
-                                        Text(news.title)
-                                            .foregroundColor(Color.white)
-                                            .lineLimit(3)
-                                        Text(news.pubDate)
-                                            .foregroundColor(Color.white)
-                                            .font(.headline)
-                                    }
-                                    .padding()
-                                    .frame(height: 200)
+                            if URL(string: news.news_url) != nil {
+                                NewsRowView(news: news)
+                                    .padding(.horizontal, 2)
                                     .frame(maxWidth: .infinity)
-                                    .background(Color.black)
-                                    .cornerRadius(10)
-                                    .padding()
-                                }
+                                    .background(Color.gray.opacity(0.2))
+                                    .cornerRadius(20)
+                                    .padding(.horizontal, 5)
                             }
                         }
                     }
-                    .frame(height: 200)
                     .tabViewStyle(.page)
+                    .frame(height: 180)
                 }
+                Spacer()
             }
         }
+        
+       
     }
 }
 

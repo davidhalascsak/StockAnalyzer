@@ -31,13 +31,13 @@ class NewsViewModel: ObservableObject  {
     
     func sortNews(news: [News]) -> [News] {
         return news.sorted {
-            $0.pubDate > $1.pubDate
+            $0.date > $1.date
         }
     }
     
     static func createDate(timestamp: String) -> String {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+        formatter.dateFormat = "E, d MMM y HH:mm:ss z"
         
         let date = formatter.date(from: timestamp)
         

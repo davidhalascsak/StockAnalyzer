@@ -35,8 +35,7 @@ extension View {
             return "\(String(format: "%.0f", diffInMinutes / (60 * 24)))d"
         } else {
             let formatter = DateFormatter()
-            formatter.dateStyle = .short
-            formatter.timeStyle = .none
+            formatter.dateFormat = "yyyy-MM-dd"
             
             return formatter.string(from: stamp.dateValue())
         }

@@ -46,14 +46,16 @@ struct SearchView: View {
     }
     
     var headerView: some View {
-        HStack() {
-            
+        HStack {
+            Image(systemName: "arrow.triangle.2.circlepath")
+                .font(.title2)
+                .opacity(0)
+            Spacer()
             Text("Search")
                 .font(.headline)
                 .fontWeight(.semibold)
                 .foregroundColor(Color.blue)
-                .frame(maxWidth: .infinity, alignment: .center)
-            
+            Spacer()
             Image(systemName: "person.crop.circle")
                 .font(.title2)
                 .onTapGesture {

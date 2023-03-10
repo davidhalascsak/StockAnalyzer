@@ -3,7 +3,7 @@ import FirebaseCore
 import FirebaseAuth
 
 struct NewsView: View {
-    @State var vm = NewsViewModel()
+    @StateObject var vm = NewsViewModel()
     @State var isSettingsPresented: Bool = false
     var body: some View {
         VStack {
@@ -30,9 +30,7 @@ struct NewsView: View {
                     SettingsView()
                 })
             }
-            
         }
-        
     }
     
     var newsHeader: some View {
@@ -47,7 +45,7 @@ struct NewsView: View {
                 }
                 .rotationEffect(Angle(degrees: vm.isLoading ? 360 : 0), anchor: .center)
             Spacer()
-            Text("Feed")
+            Text("News")
                 .font(.headline)
                 .fontWeight(.semibold)
                 .foregroundColor(Color.blue)

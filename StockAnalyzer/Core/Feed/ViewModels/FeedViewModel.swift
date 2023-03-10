@@ -8,11 +8,13 @@ class FeedViewModel: ObservableObject {
     @Published var isNewPostPresented: Bool = false
     @Published var isSettingsPresented: Bool = false
     @Published var shouldScroll: Bool = false
+    @Published var isLoading: Bool = false
     
     let userService = UserService()
     let postService = PostService()
     
     func fetchPosts() {
+        self.isLoading = true
         postService.fetchPosts { [weak self] posts in
             self?.posts = posts
             
@@ -21,6 +23,7 @@ class FeedViewModel: ObservableObject {
                     self?.posts[i].user = user
                 }
             }
+            self?.isLoading = false
         }
     }
 }

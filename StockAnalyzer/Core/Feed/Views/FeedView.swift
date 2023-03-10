@@ -64,9 +64,12 @@ struct FeedView: View {
             Image(systemName: "arrow.triangle.2.circlepath")
                 .font(.title2)
                 .onTapGesture {
-                    vm.fetchPosts()
-                    vm.shouldScroll.toggle()
+                    withAnimation {
+                        vm.fetchPosts()
+                        vm.shouldScroll.toggle()
+                    }
                 }
+                .rotationEffect(Angle(degrees: vm.isLoading ? 360 : 0), anchor: .center)
             Spacer()
             Text("Feed")
                 .font(.headline)

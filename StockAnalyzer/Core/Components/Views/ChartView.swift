@@ -12,19 +12,17 @@ struct ChartView: View {
         VStack {
             if vm.isLoading == false {
                 chartView
-                Picker("ChartOptions", selection: $selectedType) {
-                    ForEach(ChartOption.allCases, id: \.self) { option in
-                        Text(option.rawValue).tag(option)
-                    }
-                }
-                .pickerStyle(.segmented)
+                
+            } else {
+                ProgressView()
+                    .frame(height: 150)
+            }
+            chartOptionPicker
+                .padding(.vertical, 5)
                 .onChange(of: selectedType, perform: { _ in
                     vm.selectedType = selectedType
                     vm.fetchData()
                 })
-            } else {
-                ProgressView()
-            }
         }
         .frame(height: 200)
         .frame(maxWidth: .infinity)
@@ -53,6 +51,43 @@ struct ChartView: View {
         .chartXScale(domain: (vm.xAxisData!.axisStart)...(vm.xAxisData!.axisEnd))
         .chartYScale(domain: (vm.yAxisData!.axisStart)...(vm.yAxisData!.axisEnd))
         .chartPlotStyle { chartPlotStyle($0) }
+    }
+    
+    var chartOptionPicker: some View {
+        HStack(spacing: 30) {
+            Text("1D")
+                .padding(.horizontal, 15)
+                .padding(.vertical, 5)
+                .fontWeight(selectedType == .oneDay ? .bold : nil)
+                .background(selectedType == .oneDay ? Color.gray.opacity(0.2).cornerRadius(20) : nil)
+                .onTapGesture {
+                    selectedType = .oneDay
+                }
+            Text("1W")
+                .padding(.horizontal, 15)
+                .padding(.vertical, 5)
+                .fontWeight(selectedType == .oneWeek ? .semibold : nil)
+                .background(selectedType == .oneWeek ? Color.gray.opacity(0.2).cornerRadius(20) : nil)
+                .onTapGesture {
+                    selectedType = .oneWeek
+                }
+            Text("1M")
+                .padding(.horizontal, 15)
+                .padding(.vertical, 5)
+                .fontWeight(selectedType == .oneMonth ? .semibold : nil)
+                .background(selectedType == .oneMonth ? Color.gray.opacity(0.2).cornerRadius(20) : nil)
+                .onTapGesture {
+                    selectedType = .oneMonth
+                }
+            Text("1Y")
+                .padding(.horizontal, 15)
+                .padding(.vertical, 5)
+                .fontWeight(selectedType == .oneYear ? .semibold : nil)
+                .background(selectedType == .oneYear ? Color.gray.opacity(0.2).cornerRadius(20) : nil)
+                .onTapGesture {
+                    selectedType = .oneYear
+                }
+        }
     }
     
     var chartXAxis: some AxisContent {

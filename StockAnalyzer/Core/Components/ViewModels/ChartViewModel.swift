@@ -350,6 +350,6 @@ struct ChartAxisData {
     let map: [String: String]
 }
 
-enum ChartOption: String, CaseIterable {
+enum ChartOption: String {
     case oneDay = "1D", oneWeek = "1W", oneMonth = "1M", oneYear = "1Y"
 }

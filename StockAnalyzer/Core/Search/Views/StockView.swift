@@ -2,7 +2,7 @@ import SwiftUI
 
 struct StockView: View {
     @StateObject var vm: StockViewModel
-    @State var isExpanded: Bool = false
+    @Environment(\.dismiss) private var dismiss
     
     init(symbol: String) {
         _vm = StateObject(wrappedValue: StockViewModel(symbol: symbol))
@@ -11,27 +11,34 @@ struct StockView: View {
     }
     
     var body: some View {
-        
-        if vm.companyProfile != nil {
+        if let company = vm.companyProfile {
             ScrollView(showsIndicators: false) {
                 VStack(alignment: .leading) {
                     header
                         .padding()
-                    Divider()
-                    ChartView(symbol: vm.symbol)
-                        .padding(.bottom, 2.0)
-                    descriptionView
-                    newsView
-                    Text("Feed")
-                        .font(.title2)
-                        .fontWeight(.semibold)
-                        .padding(.horizontal)
+                    pickerView
+                    switch vm.option {
+                    case .home:
+                        HomeView(company: company)
+                    case .financials:
+                        FinancialView()
+                    case .valuation:
+                        ValuationView()
+                    }
+                }
+                .navigationBarBackButtonHidden()
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Image(systemName: "arrowshape.backward")
+                            .onTapGesture {
+                                dismiss()
+                            }
+                    }
                 }
             }
         } else {
             ProgressView()
         }
-
     }
     
     var header: some View {
@@ -73,72 +80,44 @@ struct StockView: View {
         }
     }
     
-    var descriptionView: some View {
-        VStack(alignment: .leading) {
-            Text("About")
-                .font(.title2)
-                .fontWeight(.semibold)
-                .padding(.horizontal)
-                .padding(.bottom, 2)
+    var pickerView: some View {
+        HStack(spacing: 0) {
             VStack {
-                Text(vm.companyProfile?.description ?? "")
-                    .padding(.horizontal)
-                    .lineLimit(isExpanded ? nil : 5)
-                    .overlay(
-                        GeometryReader { proxy in
-                            Button(action: {
-                                withAnimation(.spring()) {
-                                    isExpanded.toggle()
-                                }
-                            }) {
-                                Text(isExpanded ? "Show Less" : "Show More")
-                                    .font(.caption).bold()
-                                    .padding(.leading, 8.0)
-                                    .padding(.top, 4.0)
-                                    .background(Color.white)
-                            }
-                            .padding(.vertical)
-                            .padding(.horizontal, 8)
-                            .frame(width: proxy.size.width, height: proxy.size.height + 32, alignment: .bottomLeading)
-                        }
-                    )
-            }
-            .padding(.bottom, 15)
-        }
-    }
-     
-    
-    var newsView: some View {
-        VStack(alignment: .leading) {
-            if vm.isDownloadingNews == true {
-                ProgressView()
-            } else {
-                Text("News")
-                    .font(.title2)
-                    .fontWeight(.semibold)
-                    .padding(.horizontal)
-                
-                if vm.news.count > 0 {
-                    TabView {
-                        ForEach(vm.news, id: \.self) { news in
-                            if URL(string: news.news_url) != nil {
-                                NewsRowView(news: news)
-                                    .padding(.horizontal, 2)
-                                    .frame(maxWidth: .infinity)
-                                    .background(Color.gray.opacity(0.2))
-                                    .cornerRadius(20)
-                                    .padding(.horizontal, 5)
-                            }
-                        }
+                Text("Home")
+                    .padding()
+                    .fontWeight(vm.option == .home ? .semibold : nil)
+                    .onTapGesture {
+                        vm.option = .home
                     }
-                    .tabViewStyle(.page)
-                    .frame(height: 180)
-                }
-                Spacer()
+                Rectangle()
+                    .fill(vm.option == .home ? Color.black : Color.gray)
+                    .frame(height: vm.option ==
+                        .home ? 2 : 1)
+            }
+            VStack {
+                Text("Financials")
+                    .padding()
+                    .fontWeight(vm.option == .financials ? .semibold : nil)
+                    .onTapGesture {
+                        vm.option = .financials
+                    }
+                Rectangle()
+                    .fill(vm.option == .financials
+                          ? Color.black : Color.gray)
+                    .frame(height: vm.option == .financials ? 2 : 1)
+            }
+            VStack {
+                Text("Valuation")
+                    .padding()
+                    .fontWeight(vm.option == .valuation ? .semibold : nil)
+                    .onTapGesture {
+                        vm.option = .valuation
+                    }
+                Rectangle()
+                    .fill(vm.option == .valuation ? Color.black : Color.gray)
+                    .frame(height: vm.option == .valuation ? 2 : 1)
             }
         }
-        
-       
     }
 }
 

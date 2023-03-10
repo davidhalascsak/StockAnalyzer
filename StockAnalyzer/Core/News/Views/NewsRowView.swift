@@ -17,6 +17,7 @@ struct NewsRowView: View {
                         .fontWeight(.semibold)
                     HStack {
                         Text(vm.news.source_name)
+                            .multilineTextAlignment(.leading)
                         Text("•")
                         Text(vm.createDate(timestamp: vm.news.date))
                     }

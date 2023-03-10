@@ -4,6 +4,7 @@ struct Company: Codable {
     let symbol: String
     let price: Double
     let changes: Double
+    let exchangeShortName: String
     let companyName: String
     let currency: String
     let industry: String

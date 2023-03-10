@@ -9,7 +9,7 @@ class SearchViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     
     init() {
-        //addListener()
+        addListener()
     }
     
     func addListener() {

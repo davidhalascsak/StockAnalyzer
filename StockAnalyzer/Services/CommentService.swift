@@ -2,8 +2,9 @@ import Foundation
 import FirebaseFirestore
 import FirebaseAuth
 
-class CommentService {
+class CommentService: ObservableObject {
     private var db = Firestore.firestore()
+    @Published var isUpdated: Bool = true
     
     func fetchComments(post: Post, completion: @escaping (([Comment]) -> Void)) {
         guard let postId = post.id else {return}
@@ -38,6 +39,7 @@ class CommentService {
             guard let data = try? result.get() else {return}
             self.db.collection("posts").document(postId).collection("comments").document(commentId).updateData(["likes": data.likes + 1]) { _ in
                 likedComments.document(commentId).setData([:]) { _ in
+                    self.isUpdated = true
                     completion()
                 }
             }
@@ -56,6 +58,7 @@ class CommentService {
             guard let data = try? result.get() else {return}
             self.db.collection("posts").document(postId).collection("comments").document(commentId).updateData(["likes": data.likes - 1]) { _ in
                 likedComments.document(commentId).delete() { _ in
+                    self.isUpdated = true
                     completion()
                 }
             }

@@ -47,7 +47,10 @@ struct PostView: View {
                 Image(systemName: vm.post.isLiked ?? false ? "hand.thumbsup.fill" : "hand.thumbsup")
                     .foregroundColor(vm.post.isLiked ?? false ? Color.blue : Color.black)
                     .onTapGesture {
-                        vm.post.isLiked ?? false ? vm.unlikePost() : vm.likePost()
+                        if vm.postService.isUpdated {
+                            vm.postService.isUpdated = false
+                            vm.post.isLiked ?? false ? vm.unlikePost() : vm.likePost()
+                        }
                     }
                 Text("\(vm.post.likes)")
                 NavigationLink {

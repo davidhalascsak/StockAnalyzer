@@ -1,8 +1,18 @@
 import SwiftUI
 
+struct ScrollViewOffsetPreferenceKey: PreferenceKey {
+  static var defaultValue = CGFloat.zero
+
+  static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
+    value += nextValue()
+  }
+}
+
 struct StockView: View {
-    @StateObject var vm: StockViewModel
     @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject var sessionService: SessionService
+    @StateObject var vm: StockViewModel
+    @State var isNewPostPresented: Bool = false
     
     init(symbol: String) {
         _vm = StateObject(wrappedValue: StockViewModel(symbol: symbol))
@@ -11,9 +21,14 @@ struct StockView: View {
     }
     
     var body: some View {
+        
         if let company = vm.companyProfile {
             ScrollView(showsIndicators: false) {
                 VStack(alignment: .leading) {
+                    GeometryReader { proxy in
+                        let offset = proxy.frame(in: .named("scroll")).minY
+                        Color.clear.preference(key: ScrollViewOffsetPreferenceKey.self, value: offset)
+                    }
                     header
                         .padding()
                     pickerView
@@ -24,7 +39,9 @@ struct StockView: View {
                         FinancialView()
                     case .valuation:
                         ValuationView()
-                    }
+                    case .about:
+                        AboutView(company: company)
+                    }  
                 }
                 .navigationBarBackButtonHidden()
                 .toolbar {
@@ -36,6 +53,37 @@ struct StockView: View {
                     }
                 }
             }
+            .coordinateSpace(name: "scroll")
+                .onPreferenceChange(ScrollViewOffsetPreferenceKey.self) { value in
+                    if value < -500 && vm.showPencil == false {
+                        withAnimation(.easeInOut(duration: 0.3)) {
+                            vm.showPencil = true
+                        }
+                    } else if value > -500 && vm.showPencil == true {
+                        withAnimation(.easeInOut(duration: 0.3)) {
+                            vm.showPencil = false
+                        }
+                    }
+            }
+            .overlay(alignment: .bottomTrailing, content: {
+                if vm.showPencil && sessionService.session != nil {
+                    Image(systemName: "pencil")
+                        .font(.title)
+                        .foregroundColor(Color.white)
+                        .frame(width: 50, height: 50)
+                        .background(Color.blue)
+                        .clipShape(Circle())
+                        .padding()
+                        .onTapGesture {
+                            vm.isNewPostPresented.toggle()
+                        }
+                        .offset(x: vm.showPencil ? 0 : 100)
+                }
+            })
+            .fullScreenCover(isPresented: $isNewPostPresented, content: {
+                NewPostView()
+            })
+            .sync($vm.isNewPostPresented, with:  $isNewPostPresented)
         } else {
             ProgressView()
         }
@@ -84,7 +132,7 @@ struct StockView: View {
         HStack(spacing: 0) {
             VStack {
                 Text("Home")
-                    .padding()
+                    .padding(5)
                     .fontWeight(vm.option == .home ? .semibold : nil)
                     .onTapGesture {
                         vm.option = .home
@@ -96,7 +144,7 @@ struct StockView: View {
             }
             VStack {
                 Text("Financials")
-                    .padding()
+                    .padding(5)
                     .fontWeight(vm.option == .financials ? .semibold : nil)
                     .onTapGesture {
                         vm.option = .financials
@@ -108,7 +156,7 @@ struct StockView: View {
             }
             VStack {
                 Text("Valuation")
-                    .padding()
+                    .padding(5)
                     .fontWeight(vm.option == .valuation ? .semibold : nil)
                     .onTapGesture {
                         vm.option = .valuation
@@ -116,6 +164,17 @@ struct StockView: View {
                 Rectangle()
                     .fill(vm.option == .valuation ? Color.black : Color.gray)
                     .frame(height: vm.option == .valuation ? 2 : 1)
+            }
+            VStack {
+                Text("About")
+                    .padding(5)
+                    .fontWeight(vm.option == .about ? .semibold : nil)
+                    .onTapGesture {
+                        vm.option = .about
+                    }
+                Rectangle()
+                    .fill(vm.option == .about ? Color.black : Color.gray)
+                    .frame(height: vm.option == .about ? 2 : 1)
             }
         }
     }

@@ -8,28 +8,14 @@ struct NewsView: View {
     var body: some View {
         VStack {
             newsHeader
-            ScrollViewReader { proxy in
-                ScrollView(showsIndicators: false) {
-                    Divider().id("top")
-                    LazyVStack(alignment: .leading) {
-                        ForEach(vm.news, id: \.self) { news in
-                            if URL(string: news.news_url) != nil {
-                                NewsRowView(news: news)
-                                    .padding(.horizontal, 5)
-                                Divider()
-                            }
-                        }
-                    }
-                    .onChange(of: vm.shouldScroll) { _ in
-                        withAnimation(.spring()) {
-                            proxy.scrollTo("top")
-                        }
-                    }
-                }
-                .fullScreenCover(isPresented: $isSettingsPresented, content: {
-                    SettingsView()
-                })
+            if vm.isLoading == false {
+                newsBody
+            } else {
+                Spacer()
+                ProgressView()
+                Spacer()
             }
+            
         }
     }
     
@@ -57,6 +43,31 @@ struct NewsView: View {
                 }
         }
         .padding(.horizontal)
+    }
+    
+    var newsBody: some View {
+        ScrollViewReader { proxy in
+            ScrollView(showsIndicators: false) {
+                Divider().id("top")
+                LazyVStack(alignment: .leading) {
+                    ForEach(vm.news, id: \.self) { news in
+                        if URL(string: news.news_url) != nil {
+                            NewsRowView(news: news)
+                                .padding(.horizontal, 5)
+                            Divider()
+                        }
+                    }
+                }
+                .onChange(of: vm.shouldScroll) { _ in
+                    withAnimation(.spring()) {
+                        proxy.scrollTo("top")
+                    }
+                }
+            }
+            .fullScreenCover(isPresented: $isSettingsPresented, content: {
+                SettingsView()
+            })
+        }
     }
 }
 

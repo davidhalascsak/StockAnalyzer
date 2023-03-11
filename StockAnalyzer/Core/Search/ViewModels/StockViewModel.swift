@@ -5,6 +5,8 @@ import Combine
 class StockViewModel: ObservableObject {
     @Published var companyProfile: Company?
     @Published var option: ViewOption = .home
+    @Published var showPencil: Bool = false
+    @Published var isNewPostPresented: Bool = false
     
     let symbol: String
     let stockService: StockService
@@ -52,5 +54,5 @@ class StockViewModel: ObservableObject {
 }
 
 enum ViewOption {
-    case home, financials, valuation
+    case home, financials, valuation, about
 }

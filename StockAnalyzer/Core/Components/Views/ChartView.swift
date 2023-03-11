@@ -12,7 +12,6 @@ struct ChartView: View {
         VStack {
             if vm.isLoading == false {
                 chartView
-                
             } else {
                 ProgressView()
                     .frame(height: 150)

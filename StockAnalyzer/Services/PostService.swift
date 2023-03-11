@@ -3,8 +3,9 @@ import FirebaseFirestore
 import FirebaseAuth
 import Firebase
 
-class PostService {
+class PostService: ObservableObject {
     private var db = Firestore.firestore()
+    @Published var isUpdated: Bool = true
     
     func fetchPosts(completion: @escaping ([Post]) -> Void) {
         var posts = [Post]()
@@ -37,6 +38,7 @@ class PostService {
             guard let data = try? result.get() else {return}
             self.db.collection("posts").document(postId).updateData(["likes": data.likes + 1]) { _ in
                 likedPosts.document(postId).setData([:]) { _ in
+                    self.isUpdated = true
                     completion()
                 }
             }
@@ -53,6 +55,7 @@ class PostService {
             guard let data = try? result.get() else {return}
             self.db.collection("posts").document(postId).updateData(["likes": data.likes - 1]) { _ in
                 likedPosts.document(postId).delete() { _ in
+                    self.isUpdated = true
                     completion()
                 }
             }

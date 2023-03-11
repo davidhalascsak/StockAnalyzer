@@ -31,7 +31,10 @@ struct CommentView: View {
                     Image(systemName: vm.comment.isLiked ?? false ? "hand.thumbsup.fill" : "hand.thumbsup")
                         .foregroundColor(vm.comment.isLiked ?? false ? Color.blue : Color.black)
                         .onTapGesture {
-                            vm.comment.isLiked ?? false ? vm.unlikeComment() : vm.likeComment()
+                            if vm.commentService.isUpdated {
+                                vm.commentService.isUpdated = false
+                                vm.comment.isLiked ?? false ? vm.unlikeComment() : vm.likeComment()
+                            }
                         }
                     Text("\(vm.comment.likes)")
                 }

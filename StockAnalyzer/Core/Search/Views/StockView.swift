@@ -25,10 +25,6 @@ struct StockView: View {
         if let company = vm.companyProfile {
             ScrollView(showsIndicators: false) {
                 VStack(alignment: .leading) {
-                    GeometryReader { proxy in
-                        let offset = proxy.frame(in: .named("scroll")).minY
-                        Color.clear.preference(key: ScrollViewOffsetPreferenceKey.self, value: offset)
-                    }
                     header
                         .padding()
                     pickerView
@@ -52,6 +48,11 @@ struct StockView: View {
                             }
                     }
                 }
+                .background(
+                    GeometryReader { proxy in
+                        let offset = proxy.frame(in: .named("scroll")).minY
+                        Color.clear.preference(key: ScrollViewOffsetPreferenceKey.self, value: offset)
+                    })
             }
             .coordinateSpace(name: "scroll")
                 .onPreferenceChange(ScrollViewOffsetPreferenceKey.self) { value in

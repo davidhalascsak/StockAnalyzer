@@ -7,16 +7,26 @@ class PostService: ObservableObject {
     private var db = Firestore.firestore()
     @Published var isUpdated: Bool = true
     
-    func fetchPosts(completion: @escaping ([Post]) -> Void) {
+    func fetchPosts(symbol: String?, completion: @escaping ([Post]) -> Void) {
         var posts = [Post]()
         
-        db.collection("posts").order(by: "timestamp", descending: true)
-            .getDocuments { snapshot, error in
-                guard let snapshot = snapshot else {return}
-                
-                posts = snapshot.documents.compactMap({try? $0.data(as: Post.self)})
-                completion(posts)
-            }
+        if let symbol = symbol {
+            db.collection("posts").whereField("symbol", isEqualTo: symbol).order(by: "timestamp", descending: true)
+                .getDocuments { snapshot, error in
+                    guard let snapshot = snapshot else {return}
+                    
+                    posts = snapshot.documents.compactMap({try? $0.data(as: Post.self)})
+                    completion(posts)
+                }
+        } else {
+            db.collection("posts").order(by: "timestamp", descending: true)
+                .getDocuments { snapshot, error in
+                    guard let snapshot = snapshot else {return}
+                    
+                    posts = snapshot.documents.compactMap({try? $0.data(as: Post.self)})
+                    completion(posts)
+                }
+        }
     }
     
     func checkIfPostIsLiked(post: Post, completion: @escaping ((Bool) -> Void)) {
@@ -62,11 +72,19 @@ class PostService: ObservableObject {
         }
     }
     
-    func createPost(body: String, completion: @escaping (() -> Void)) {
+    func createPost(body: String, symbol: String?, completion: @escaping (() -> Void)) {
         guard let userId = Auth.auth().currentUser?.uid else {return}
-        let data = ["body": body, "likes": 0, "comments": 0, "userRef": userId, "timestamp": Timestamp(date: Date())] as [String : Any]
-        db.collection("posts").addDocument(data: data) {_ in 
-            completion()
+        
+        if let symbol = symbol {
+            let data = ["body": body, "likes": 0, "comments": 0, "userRef": userId, "timestamp": Timestamp(date: Date()), "symbol": symbol] as [String : Any]
+            db.collection("posts").addDocument(data: data) {_ in
+                completion()
+            }
+        } else {
+            let data = ["body": body, "likes": 0, "comments": 0, "userRef": userId, "timestamp": Timestamp(date: Date()), "symbol": ""] as [String : Any]
+            db.collection("posts").addDocument(data: data) {_ in
+                completion()
+            }
         }
     }
 }

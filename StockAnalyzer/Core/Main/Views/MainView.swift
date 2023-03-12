@@ -5,6 +5,7 @@ import FirebaseAuth
 struct MainView: View {
     @State var isSettingsPresented: Bool = false
     @State var selectedTab: String = "Home"
+    @State var goFeedTop: Bool = false
     
     init() {
         UITabBar.appearance().isTranslucent = false
@@ -13,7 +14,7 @@ struct MainView: View {
     var body: some View {
         NavigationStack {
             TabView(selection: $selectedTab) {
-                FeedView(showHeader: true)
+                FeedView()
                     .tabItem {
                         Image(systemName: "house")
                     }

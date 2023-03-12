@@ -4,36 +4,23 @@ import FirebaseAuth
 
 struct FeedView: View {
     @EnvironmentObject var sessionService: SessionService
-    @StateObject var vm: FeedViewModel
-    
-    init(showHeader: Bool) {
-        _vm = StateObject(wrappedValue: FeedViewModel(showHeader: showHeader))
-    }
-    
+    @StateObject var vm = FeedViewModel()
     @State var isNewPostPresented: Bool = false
     @State var isSettingsPresented: Bool = false
 
     var body: some View {
         VStack {
-            if(vm.showHeader) {
-                feedHeader
-            }
+            feedHeader
             if vm.isLoading == false {
                 feedBody
                     .fullScreenCover(isPresented: $isNewPostPresented, content: {
-                        NewPostView()
+                        NewPostView(symbol: nil)
                     })
                     .fullScreenCover(isPresented: $isSettingsPresented, content: {
                         SettingsView()
                     })
                     .sync($vm.isNewPostPresented, with: $isNewPostPresented)
                     .sync($vm.isSettingsPresented, with: $isSettingsPresented)
-                    .onChange(of: vm.isNewPostPresented) { newValue in
-                        if newValue == false {
-                            vm.isLoading = true
-                            vm.fetchPosts()
-                        }
-                    }
             } else {
                 Spacer()
                 ProgressView()
@@ -85,9 +72,15 @@ struct FeedView: View {
                         }
                     }
                 }
+                .onChange(of: vm.isNewPostPresented) { newValue in
+                    if newValue == false {
+                        vm.isLoading = true
+                        vm.fetchPosts()
+                    }
+                }
             }
             .overlay(alignment: .bottomTrailing, content: {
-                if vm.showHeader && sessionService.session != nil {
+                if sessionService.session != nil {
                     Image(systemName: "pencil")
                         .font(.title)
                         .foregroundColor(Color.white)
@@ -108,7 +101,7 @@ struct FeedView: View {
 
 struct FeedView_Previews: PreviewProvider {
     static var previews: some View {
-        FeedView(showHeader: true)
+        FeedView()
             .environmentObject(SessionService.entity)
     }
 }

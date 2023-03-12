@@ -1,24 +1,22 @@
 import Foundation
-import FirebaseFirestore
-import SwiftUI
 
-
-class FeedViewModel: ObservableObject {
+class FeedBodyViewModel: ObservableObject {
     @Published var posts = [Post]()
-    @Published var isNewPostPresented: Bool = false
-    @Published var isSettingsPresented: Bool = false
-    @Published var shouldScroll: Bool = false
-    @Published var isLoading: Bool = false
+    @Published var isLoading: Bool
+    
+    let symbol: String
     
     let userService = UserService()
     let postService = PostService()
     
-    init() {
+    
+    init(symbol: String) {
+        self.symbol = symbol
         self.isLoading = true
     }
     
     func fetchPosts() {
-        postService.fetchPosts(symbol: nil) { [weak self] posts in
+        postService.fetchPosts(symbol: symbol) { [weak self] posts in
             self?.posts = posts
             
             for i in 0..<(self?.posts.count ?? 0) {

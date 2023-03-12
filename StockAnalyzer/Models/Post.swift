@@ -10,6 +10,7 @@ struct Post: Identifiable, Codable {
     let timestamp: Timestamp
     var likes: Int
     var comments: Int
+    var symbol: String?
     
     var user: User?
     var isLiked: Bool? = false

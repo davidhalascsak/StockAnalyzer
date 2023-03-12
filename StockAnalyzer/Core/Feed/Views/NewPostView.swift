@@ -5,6 +5,7 @@ struct NewPostView: View {
     @State var textContent: String = ""
     @FocusState var focusedField: FocusedField?
     let postService = PostService()
+    let symbol: String?
     
     enum FocusedField {
         case field
@@ -28,7 +29,7 @@ struct NewPostView: View {
                         .foregroundColor(Color.black.opacity(textContent.count > 0 ? 1.0 : 0.5))
                         .onTapGesture {
                             if self.textContent.count > 0 {
-                                postService.createPost(body: textContent) {
+                                postService.createPost(body: textContent, symbol: symbol) {
                                     dismiss()
                                 }
                             }
@@ -50,6 +51,6 @@ struct NewPostView: View {
 
 struct NewPostView_Previews: PreviewProvider {
     static var previews: some View {
-        NewPostView()
+        NewPostView(symbol: "APPL")
     }
 }

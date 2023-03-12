@@ -30,7 +30,7 @@ struct StockView: View {
                     pickerView
                     switch vm.option {
                     case .home:
-                        HomeView(company: company)
+                        HomeView(company: company, isNewViewPresented: $isNewPostPresented)
                     case .financials:
                         FinancialView()
                     case .valuation:
@@ -56,11 +56,11 @@ struct StockView: View {
             }
             .coordinateSpace(name: "scroll")
                 .onPreferenceChange(ScrollViewOffsetPreferenceKey.self) { value in
-                    if value < -500 && vm.showPencil == false {
+                    if value < -0 && vm.showPencil == false {
                         withAnimation(.easeInOut(duration: 0.3)) {
                             vm.showPencil = true
                         }
-                    } else if value > -500 && vm.showPencil == true {
+                    } else if value > -0 && vm.showPencil == true {
                         withAnimation(.easeInOut(duration: 0.3)) {
                             vm.showPencil = false
                         }
@@ -82,7 +82,7 @@ struct StockView: View {
                 }
             })
             .fullScreenCover(isPresented: $isNewPostPresented, content: {
-                NewPostView()
+                NewPostView(symbol: vm.symbol)
             })
             .sync($vm.isNewPostPresented, with:  $isNewPostPresented)
         } else {

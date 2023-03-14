@@ -95,7 +95,7 @@ struct StockView: View {
             if let profile = vm.companyProfile {
                 VStack(alignment: .leading) {
                     Text(profile.companyName)
-                        .font(.title)
+                        .font(.title2)
                         .fontWeight(.bold)
                     Text(profile.sector)
                         .font(.subheadline)
@@ -106,19 +106,7 @@ struct StockView: View {
                             RoundedRectangle(cornerRadius: 20)
                                 .stroke(Color.gray, lineWidth: 1)
                         )
-                    HStack(alignment: .firstTextBaseline) {
-                        Text(String(format: "%.2f", profile.price))
-                            .font(.largeTitle)
-                            .fontWeight(.bold)
-                        Text(profile.currency)
-                            .font(.title2)
-                    }
-                    HStack {
-                        Text("\(profile.changes >= 0 ? "+" : "")\(String(format: "%.2f", profile.changes))")
-                        Text("(\(vm.decreaseInPercentage(price: profile.price, change: profile.changes))%)")
-                    }
-                    .font(.headline)
-                    .foregroundColor(profile.changes >= 0 ? Color.green : Color.red)
+                    PriceView(symbol: profile.symbol, currency: profile.currency)
                 }
                 Spacer()
                 LogoView(logo: profile.image)

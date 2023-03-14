@@ -61,10 +61,7 @@ struct HomeView: View {
                 Spacer()
             }
         }
-        
-       
     }
-    
 }
 
 struct HomeView_Previews: PreviewProvider {

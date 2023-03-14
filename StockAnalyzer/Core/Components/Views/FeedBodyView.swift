@@ -9,7 +9,6 @@ struct FeedBodyView: View {
         _isNewViewPresented = isNewViewPresented
     }
     
-    
     var body: some View {
         LazyVStack {
             ForEach(vm.posts) { post in

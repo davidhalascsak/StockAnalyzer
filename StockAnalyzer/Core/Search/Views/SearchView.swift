@@ -9,30 +9,7 @@ struct SearchView: View {
         NavigationStack {
             VStack {
                 headerView
-                HStack {
-                    Image(systemName: "magnifyingglass")
-                        .padding(.trailing, 2)
-                    TextField("search", text: $vm.searchText)
-                        .autocorrectionDisabled()
-                    
-                }
-                .padding(.horizontal, 5)
-                .padding(3)
-                .background(Color.gray.opacity(0.2))
-                .cornerRadius(10)
-                .padding(.horizontal, 5)
-                .padding(5)
-                .overlay(alignment: .trailing, content: {
-                    if vm.searchText.count > 0 {
-                        Image(systemName: "x.circle")
-                            .padding(.horizontal, 20)
-                            .onTapGesture {
-                                withAnimation(.spring()) {
-                                    vm.searchText = ""
-                                }
-                            }
-                    }
-                })
+                searchBar
                 Divider()
                 if vm.searchText.count > 0 {
                     resultView
@@ -63,6 +40,33 @@ struct SearchView: View {
                 }
         }
         .padding(.horizontal)
+    }
+    
+    var searchBar: some View {
+        HStack {
+            Image(systemName: "magnifyingglass")
+                .padding(.trailing, 2)
+            TextField("search", text: $vm.searchText)
+                .autocorrectionDisabled()
+            
+        }
+        .padding(.horizontal, 5)
+        .padding(3)
+        .background(Color.gray.opacity(0.2))
+        .cornerRadius(10)
+        .padding(.horizontal, 5)
+        .padding(5)
+        .overlay(alignment: .trailing, content: {
+            if vm.searchText.count > 0 {
+                Image(systemName: "x.circle")
+                    .padding(.horizontal, 20)
+                    .onTapGesture {
+                        withAnimation(.spring()) {
+                            vm.searchText = ""
+                        }
+                    }
+            }
+        })
     }
     
     var resultView: some View {

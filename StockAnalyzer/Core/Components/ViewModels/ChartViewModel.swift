@@ -2,11 +2,11 @@ import Foundation
 import Combine
 
 class ChartViewModel: ObservableObject {
-    var fiveMinutesData: [Price] = []
-    var hourlyData: [Price] = []
-    var dailyData: [Price] = []
+    var fiveMinutesData: [ChartData] = []
+    var hourlyData: [ChartData] = []
+    var dailyData: [ChartData] = []
     
-    @Published var chartData: [Price] = []
+    @Published var chartData: [ChartData] = []
     @Published var xAxisData: ChartAxisData?
     @Published var yAxisData: ChartAxisData?
     
@@ -61,7 +61,7 @@ class ChartViewModel: ObservableObject {
             else {return}
             
             dataSubscription = NetworkingManager.download(url: url)
-                .decode(type: [Price].self, decoder: JSONDecoder())
+                .decode(type: [ChartData].self, decoder: JSONDecoder())
                 .receive(on: DispatchQueue.main)
                 .sink(receiveCompletion: NetworkingManager.handleCompletion, receiveValue: { [weak self] (returnedData) in
                     self?.fiveMinutesData = returnedData
@@ -97,7 +97,7 @@ class ChartViewModel: ObservableObject {
             else {return}
             
             dataSubscription = NetworkingManager.download(url: url)
-                .decode(type: [Price].self, decoder: JSONDecoder())
+                .decode(type: [ChartData].self, decoder: JSONDecoder())
                 .receive(on: DispatchQueue.main)
                 .sink(receiveCompletion: NetworkingManager.handleCompletion, receiveValue: { [weak self] (returnedData) in
                     self?.hourlyData = returnedData
@@ -152,9 +152,9 @@ class ChartViewModel: ObservableObject {
         }
     }
     
-    func createDailyData(data: [Price]) -> [Price] {
+    func createDailyData(data: [ChartData]) -> [ChartData] {
         
-        var daily = [Price]()
+        var daily = [ChartData]()
         for i in 0..<data.count {
             if data[i].date[0..<10] == data[0].date[0..<10] {
                 daily.append(data[i])
@@ -169,9 +169,9 @@ class ChartViewModel: ObservableObject {
         return daily.reversed()
     }
     
-    func createWeeklyData(data: [Price]) -> [Price] {
+    func createWeeklyData(data: [ChartData]) -> [ChartData] {
         var dayCount = 0
-        var weekly = [Price]()
+        var weekly = [ChartData]()
         
         weekly.append(data[0])
         
@@ -191,8 +191,8 @@ class ChartViewModel: ObservableObject {
         return weekly.reversed()
     }
     
-    func createMonthlyData(data: [Price]) -> [Price] {
-        var monthly = [Price]()
+    func createMonthlyData(data: [ChartData]) -> [ChartData] {
+        var monthly = [ChartData]()
         
         var date = Calendar.current.date(byAdding: .month, value: -1, to: Date())!
         date = Calendar.current.date(byAdding: .day, value: -1, to: date)!
@@ -332,7 +332,7 @@ class ChartViewModel: ObservableObject {
     }
 }
 
-struct Price: Codable, Hashable {
+struct ChartData: Codable, Hashable {
     let date: String
     let open: Double
     let close: Double
@@ -340,7 +340,7 @@ struct Price: Codable, Hashable {
 
 struct HistoricPrice: Codable, Hashable {
     let symbol: String
-    let historical: [Price]
+    let historical: [ChartData]
 }
     
 struct ChartAxisData {

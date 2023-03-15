@@ -8,8 +8,7 @@ class HomeViewModel: ObservableObject {
     let companyProfile: Company
     let newsService: NewsService
     
-    var cancellables = Set<AnyCancellable>()
-    
+    private var cancellables = Set<AnyCancellable>()
     
     init(company companyProfile: Company) {
         self.companyProfile = companyProfile
@@ -31,6 +30,4 @@ class HomeViewModel: ObservableObject {
             }
             .store(in: &cancellables)
     }
-    
-    
 }

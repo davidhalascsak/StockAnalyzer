@@ -24,6 +24,5 @@ class StockService: ObservableObject {
                 self?.dataSubscription?.cancel()
             })
     }
-
 }
 

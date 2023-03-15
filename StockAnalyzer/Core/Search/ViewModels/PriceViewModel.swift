@@ -9,7 +9,7 @@ class PriceViewModel: ObservableObject {
     let currency: String
     var counter: Int = 0
     
-    var dataSubscription: Cancellable?
+    private var priceSubscription: AnyCancellable?
     
     
     init(symbol: String, currency: String) {
@@ -25,13 +25,14 @@ class PriceViewModel: ObservableObject {
         guard let url = URL(string: "https://financialmodelingprep.com/api/v3/quote/\(self.symbol)?apikey=\(ApiKeys.financeApi)")
         else {return}
         
-        dataSubscription = NetworkingManager.download(url: url)
+        priceSubscription = NetworkingManager.download(url: url)
             .decode(type: [Price].self, decoder: JSONDecoder())
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: NetworkingManager.handleCompletion, receiveValue: { [weak self] (stockPrice) in
                 self?.stockPrice = stockPrice[0]
-                self?.dataSubscription?.cancel()
+                self?.priceSubscription?.cancel()
             })
+            
     }
 }
 

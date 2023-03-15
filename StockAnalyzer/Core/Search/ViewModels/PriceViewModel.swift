@@ -3,7 +3,7 @@ import Combine
 
 class PriceViewModel: ObservableObject {
     @Published var stockPrice: Price?
-    @Published var timer = Timer.publish(every: 5, on: .main, in: .common).autoconnect()
+    @Published var timer = Timer.publish(every: 3, on: .main, in: .common).autoconnect()
     
     let symbol: String
     let currency: String
@@ -11,17 +11,13 @@ class PriceViewModel: ObservableObject {
     
     private var priceSubscription: AnyCancellable?
     
-    
     init(symbol: String, currency: String) {
         self.symbol = symbol
         self.currency = currency
         fetchPrice()
     }
     
-    
     func fetchPrice() {
-        print("fetching price data")
-        
         guard let url = URL(string: "https://financialmodelingprep.com/api/v3/quote/\(self.symbol)?apikey=\(ApiKeys.financeApi)")
         else {return}
         
@@ -32,7 +28,6 @@ class PriceViewModel: ObservableObject {
                 self?.stockPrice = stockPrice[0]
                 self?.priceSubscription?.cancel()
             })
-            
     }
 }
 

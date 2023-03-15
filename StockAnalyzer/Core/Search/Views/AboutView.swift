@@ -5,14 +5,13 @@ struct AboutView: View {
     
     init(company: Company) {
         self.company = company
-        
     }
+    
     var body: some View {
         VStack(alignment: .leading) {
             Text(company.description)
                 .multilineTextAlignment(.leading)
                 .padding(.bottom, 5)
-            
             HStack {
                 VStack(alignment: .leading) {
                     Text("Sector")

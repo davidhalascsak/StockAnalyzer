@@ -53,7 +53,7 @@ struct SearchView: View {
         .padding(.horizontal, 5)
         .padding(3)
         .background(Color.gray.opacity(0.2))
-        .cornerRadius(10)
+        .cornerRadius(5)
         .padding(.horizontal, 5)
         .padding(5)
         .overlay(alignment: .trailing, content: {
@@ -88,7 +88,6 @@ struct SearchView: View {
                     }
                     .opacity(0)
                 }
-                
             }
         }
         .listStyle(.plain)

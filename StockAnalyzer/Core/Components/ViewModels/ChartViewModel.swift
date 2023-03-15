@@ -57,7 +57,8 @@ class ChartViewModel: ObservableObject {
     func get5Min(symbol: String) {
         
         if self.fiveMinutesData.isEmpty {
-            guard let url = URL(string:  "https://financialmodelingprep.com/api/v3/historical-chart/5min/\(symbol)?apikey=d5f365f0f57c273c26a6b52b86a53010")
+            print("fetching chart data")
+            guard let url = URL(string:  "https://financialmodelingprep.com/api/v3/historical-chart/5min/\(symbol)?apikey=\(ApiKeys.financeApi)")
             else {return}
             
             dataSubscription = NetworkingManager.download(url: url)
@@ -91,9 +92,9 @@ class ChartViewModel: ObservableObject {
     }
     
     func getHourly(symbol: String) {
-        
+        print("fetching chart data")
         if self.hourlyData.isEmpty {
-            guard let url = URL(string:  "https://financialmodelingprep.com/api/v3/historical-chart/1hour/\(symbol)?apikey=d5f365f0f57c273c26a6b52b86a53010")
+            guard let url = URL(string:  "https://financialmodelingprep.com/api/v3/historical-chart/1hour/\(symbol)?apikey=\(ApiKeys.financeApi)")
             else {return}
             
             dataSubscription = NetworkingManager.download(url: url)
@@ -118,13 +119,14 @@ class ChartViewModel: ObservableObject {
     }
     
     func getDaily(symbol: String) {
+        print("fetching chart data")
         if self.dailyData.isEmpty {
             let formatter = DateFormatter()
             formatter.dateFormat = "yyyy-MM-dd"
             
             let startDate = Calendar.current.date(byAdding: .year, value: -1, to: Date())!
             
-            guard let url = URL(string:          "https://financialmodelingprep.com/api/v3/historical-price-full/\(symbol)?from=\(formatter.string(from: startDate))&to=\(formatter.string(from: Date()))&apikey=d5f365f0f57c273c26a6b52b86a53010")
+            guard let url = URL(string:          "https://financialmodelingprep.com/api/v3/historical-price-full/\(symbol)?from=\(formatter.string(from: startDate))&to=\(formatter.string(from: Date()))&apikey=\(ApiKeys.financeApi)")
             else {return}
             
             dataSubscription = NetworkingManager.download(url: url)

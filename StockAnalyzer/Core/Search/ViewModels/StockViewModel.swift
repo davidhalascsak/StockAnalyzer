@@ -22,6 +22,7 @@ class StockViewModel: ObservableObject {
     
     
     func addSubscribers() {
+        print("fetching company data")
         self.stockService.$companyInformation
             .sink { [weak self] (companyProfile) in
                 self?.companyProfile = companyProfile ?? nil

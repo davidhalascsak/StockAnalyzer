@@ -22,6 +22,7 @@ class SearchViewModel: ObservableObject {
     }
     
     func getData(data: String) {
+        print("fetching search data")
         guard let url = URL(string: "https://financialmodelingprep.com/api/v3/search?query=\(data)&exchange=NASDAQ,NYSE&limit=10&apikey=\(ApiKeys.financeApi)") else {return}
         
         newsSubscription = NetworkingManager.download(url: url)

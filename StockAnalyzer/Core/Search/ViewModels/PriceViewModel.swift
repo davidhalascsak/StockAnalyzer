@@ -15,6 +15,7 @@ class PriceViewModel: ObservableObject {
     }
     
     func fetchPrice() {
+        print("fetching price data")
         guard let url = URL(string: "https://financialmodelingprep.com/api/v3/quote/\(self.symbol)?apikey=\(ApiKeys.financeApi)")
         else {return}
                 
@@ -26,6 +27,5 @@ class PriceViewModel: ObservableObject {
                 self?.dataSubscription?.cancel()
             })
     }
-    
 }
 

@@ -33,11 +33,44 @@ class ChartViewModel: ObservableObject {
     }
     
     let symbol: String
+    let exchange: String
+    var openDate: String {
+        var calendar = Calendar(identifier: .gregorian)
+        let timezone = TimeZone(abbreviation: Exchange.exchanges[self.exchange]!["timezone"] ?? "GMT")
+        calendar.timeZone = timezone ?? .gmt
+
+        let current = calendar.dateComponents(in: timezone ?? .gmt, from: Date())
+        
+        let month: String = current.month! < 10 ? "0\(current.month!)" : String(current.month!)
+        let day: String = current.day! < 10 ? "0\(current.day!)" : String(current.day!)
+        
+        let date: String = "\(current.year!)-\(month)-\(day) " + Exchange.exchanges[self.exchange]!["open"]!
+    
+        return date
+    }
+    var closeDate: String {
+        var calendar = Calendar(identifier: .gregorian)
+        let timezone = TimeZone(abbreviation: Exchange.exchanges[self.exchange]!["timezone"] ?? "GMT")
+        calendar.timeZone = timezone ?? .gmt
+
+        let current = calendar.dateComponents(in: timezone ?? .gmt, from: Date())
+        
+        let month: String = current.month! < 10 ? "0\(current.month!)" : String(current.month!)
+        let day: String = current.day! < 10 ? "0\(current.day!)" : String(current.day!)
+        
+        let date: String = "\(current.year!)-\(month)-\(day) " + Exchange.exchanges[self.exchange]!["close"]!
+    
+        return date
+    }
+    var timezone: String {
+        return Exchange.exchanges[self.exchange]!["timezone"] ?? "GMT"
+    }
     let chartOptions = ["1D", "1W", "1M", "1Y"]
     let dateFormatter = DateFormatter()
     
-    init(symbol: String) {
+    init(symbol: String, exchange: String) {
         self.symbol = symbol
+        self.exchange = exchange
         
         fetchData()
     }
@@ -123,7 +156,7 @@ class ChartViewModel: ObservableObject {
             
             let startDate = Calendar.current.date(byAdding: .year, value: -1, to: Date())!
             
-            guard let url = URL(string:          "https://financialmodelingprep.com/api/v3/historical-price-full/\(symbol)?from=\(formatter.string(from: startDate))&to=\(formatter.string(from: Date()))&apikey=\(ApiKeys.financeApi)")
+            guard let url = URL(string: "https://financialmodelingprep.com/api/v3/historical-price-full/\(symbol)?from=\(formatter.string(from: startDate))&to=\(formatter.string(from: Date()))&apikey=\(ApiKeys.financeApi)")
             else {return}
             
             dataSubscription = NetworkingManager.download(url: url)
@@ -213,34 +246,52 @@ class ChartViewModel: ObservableObject {
     }
     
     func xAxisChartData() -> ChartAxisData {
-        let timezone = TimeZone.gmt
+        let timezone = TimeZone(abbreviation: "CET")
         dateFormatter.locale = Locale(identifier: "en_us")
         dateFormatter.timeZone = timezone
         dateFormatter.dateFormat = self.dateFormat
         
-        var xAxisDateComponens = Set<DateComponents>()
+        var xAxisDateComponents = Set<DateComponents>()
         
-        
-        if let startDateString = chartData.first?.date, let endDateString = chartData.last?.date {
+        if let startDateString = chartData.first?.date {
             let startDate = self.createDate(dateString: startDateString)
-            let endDate = self.createDate(dateString: endDateString)
-                xAxisDateComponens = getDateComponents(startDate:
-                                                        startDate, endDate: endDate, timezone: .gmt)
+            if self.selectedType == .oneDay {
+                let endDate = self.createDate(dateString: closeDate)
+                xAxisDateComponents = getDateComponents(startDate: startDate, endDate: endDate, timezone: TimeZone(abbreviation: "CET")!)
+            } else if let endDateString = chartData.last?.date {
+                let endDate = self.createDate(dateString: endDateString)
+                xAxisDateComponents = getDateComponents(startDate: startDate, endDate: endDate, timezone: TimeZone(abbreviation: "CET")!)
+            }
         }
-        
         var map = [String: String]()
+        var axisEnd: Int = chartData.count - 1
         
         for (index, value) in self.chartData.enumerated() {
             let dc = self.createDate(dateString: value.date).dateComponents(timezone: .gmt, selectedType: self.selectedType)
             
-            if xAxisDateComponens.contains(dc) {
+            if xAxisDateComponents.contains(dc) {
                 map[String(index)] = dateFormatter.string(from: self.createDate(dateString: value.date))
                 
-                xAxisDateComponens.remove(dc)
+                xAxisDateComponents.remove(dc)
             }
         }
         
-        return ChartAxisData(axisStart: 0, axisEnd: Double(self.chartData.count - 1), strideBy: 1, map: map)
+        if selectedType == .oneDay {
+            var date: Date = self.createDate(dateString: self.chartData.last!.date)
+            if date >= self.createDate(dateString: openDate) && date < self.createDate(dateString: closeDate) {
+                while date < self.createDate(dateString: closeDate) {
+                    axisEnd += 1
+                    date = Calendar.current.date(byAdding: .minute, value: 5, to: date)!
+                    let dc = date.dateComponents(timezone: .gmt, selectedType: .oneDay)
+                            if xAxisDateComponents.contains(dc) {
+                                map[String(axisEnd)] = dateFormatter.string(from: date)
+                                xAxisDateComponents.remove(dc)
+                            }
+                        }
+            }
+        }
+        
+        return ChartAxisData(axisStart: 0, axisEnd: Double(max(0, axisEnd)), strideBy: 1, map: map)
     }
     
     func yAxisChartData() -> ChartAxisData {
@@ -320,6 +371,9 @@ class ChartViewModel: ObservableObject {
     
     func createDate(dateString: String) -> Date {
         let formatter = DateFormatter()
+        formatter.timeZone = TimeZone(abbreviation: self.timezone)
+        
+        
         
         if self.selectedType == .oneYear {
             formatter.dateFormat = "yyyy-MM-dd"

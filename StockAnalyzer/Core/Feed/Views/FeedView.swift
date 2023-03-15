@@ -81,6 +81,12 @@ struct FeedView: View {
                         vm.fetchPosts()
                     }
                 }
+                .onChange(of: vm.isSettingsPresented) { newValue in
+                    if newValue == false {
+                        vm.isLoading = true
+                        vm.fetchPosts()
+                    }
+                }
             }
             .overlay(alignment: .bottomTrailing, content: {
                 if sessionService.session != nil {

@@ -21,7 +21,6 @@ class NewsViewModel: ObservableObject  {
             .sink { [weak self] (returnedNews) in
                 self?.news = returnedNews
                 self?.isLoading = false
-                print("end")
             }
             .store(in: &cancellables)
     }

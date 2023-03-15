@@ -17,9 +17,9 @@ struct PriceView: View {
                     Text(vm.currency)
                         .font(.title3)
                 }
-                HStack {
-                    Text("\(stockPrice.price >= 0 ? "+" : "")\(String(format: "%.2f", stockPrice.change))")
-                    Text("(\(String(format: "%.2f", stockPrice.changesPercentage)))%")
+                HStack(spacing: 1) {
+                    Text("\(stockPrice.change > 0 ? "+" : "")\(String(format: "%.2f", stockPrice.change))")
+                    Text("\(stockPrice.change > 0 ? "+" : "")(\(String(format: "%.2f", stockPrice.changesPercentage)))%")
                 }
                 .font(.headline)
                 .foregroundColor(stockPrice.change >= 0 ? Color.green : Color.red)

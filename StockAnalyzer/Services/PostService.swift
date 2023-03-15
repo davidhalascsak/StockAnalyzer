@@ -30,12 +30,16 @@ class PostService: ObservableObject {
     }
     
     func checkIfPostIsLiked(post: Post, completion: @escaping ((Bool) -> Void)) {
-        guard let userId = Auth.auth().currentUser?.uid else {return}
-        guard let postId = post.id else {return}
-        db.collection("users").document(userId).collection("likedPosts").document(postId).getDocument { snapshot, error in
-            guard let snapshot = snapshot else {return}
-            completion(snapshot.exists)
+        if let userId = Auth.auth().currentUser?.uid {
+            guard let postId = post.id else {return}
+            db.collection("users").document(userId).collection("likedPosts").document(postId).getDocument { snapshot, error in
+                guard let snapshot = snapshot else {return}
+                completion(snapshot.exists)
+            }
+        } else {
+            completion(false)
         }
+        
     }
     
     func likePost(post: Post, completion: @escaping (() -> Void)) {

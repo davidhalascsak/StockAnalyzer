@@ -23,7 +23,6 @@
 		EC3CEAB129BB8F880048FADE /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC3CEAB029BB8F880048FADE /* HomeViewModel.swift */; };
 		EC40027929A9047A00CD1036 /* SessionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC40027829A9047A00CD1036 /* SessionService.swift */; };
 		EC40027B29A91ADB00CD1036 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC40027A29A91ADB00CD1036 /* SettingsViewModel.swift */; };
-		EC401130298BBC260033F54B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EC40112F298BBC250033F54B /* GoogleService-Info.plist */; };
 		EC401133298BBE260033F54B /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = EC401132298BBE260033F54B /* FirebaseAnalytics */; };
 		EC401135298BBE260033F54B /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = EC401134298BBE260033F54B /* FirebaseAuth */; };
 		EC401139298BBE260033F54B /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = EC401138298BBE260033F54B /* FirebaseFirestore */; };
@@ -63,9 +62,11 @@
 		ECA41EF029B9EFE600DA03DA /* NewsRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECA41EEF29B9EFE600DA03DA /* NewsRowViewModel.swift */; };
 		ECA41EF229B9F00600DA03DA /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECA41EF129B9F00600DA03DA /* ImageService.swift */; };
 		ECA41EF429BA142000DA03DA /* Company.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECA41EF329BA142000DA03DA /* Company.swift */; };
+		ECA933FD29C22B01003E60FE /* Exchange.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECA933FC29C22B01003E60FE /* Exchange.swift */; };
 		ECB0F04F29B33D4A002AF29C /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB0F04E29B33D4A002AF29C /* Date.swift */; };
 		ECB0F05129B3561A002AF29C /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB0F05029B3561A002AF29C /* Double.swift */; };
 		ECC2615729C1DBFD00CE1B7C /* ApiKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECC2615629C1DBFD00CE1B7C /* ApiKeys.swift */; };
+		ECC2615929C1E1C500CE1B7C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = ECC2615829C1E1C400CE1B7C /* GoogleService-Info.plist */; };
 		ECCDEFA829A3C2C500034C76 /* CommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCDEFA729A3C2C500034C76 /* CommentView.swift */; };
 		ECCDEFAA29A3C30300034C76 /* CommentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCDEFA929A3C30300034C76 /* CommentViewModel.swift */; };
 		ECEBBFE0299920EE00104326 /* PostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECEBBFDF299920EE00104326 /* PostViewModel.swift */; };
@@ -95,7 +96,6 @@
 		EC3CEAB029BB8F880048FADE /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		EC40027829A9047A00CD1036 /* SessionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionService.swift; sourceTree = "<group>"; };
 		EC40027A29A91ADB00CD1036 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
-		EC40112F298BBC250033F54B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		EC49E90B29A39399003AE346 /* CommentSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentSectionView.swift; sourceTree = "<group>"; };
 		EC49E90D29A393D1003AE346 /* CommentSectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentSectionViewModel.swift; sourceTree = "<group>"; };
 		EC49E90F29A398A8003AE346 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
@@ -132,9 +132,11 @@
 		ECA41EEF29B9EFE600DA03DA /* NewsRowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsRowViewModel.swift; sourceTree = "<group>"; };
 		ECA41EF129B9F00600DA03DA /* ImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
 		ECA41EF329BA142000DA03DA /* Company.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Company.swift; sourceTree = "<group>"; };
+		ECA933FC29C22B01003E60FE /* Exchange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exchange.swift; sourceTree = "<group>"; };
 		ECB0F04E29B33D4A002AF29C /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		ECB0F05029B3561A002AF29C /* Double.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Double.swift; sourceTree = "<group>"; };
 		ECC2615629C1DBFD00CE1B7C /* ApiKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiKeys.swift; sourceTree = "<group>"; };
+		ECC2615829C1E1C400CE1B7C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		ECCDEFA729A3C2C500034C76 /* CommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentView.swift; sourceTree = "<group>"; };
 		ECCDEFA929A3C30300034C76 /* CommentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewModel.swift; sourceTree = "<group>"; };
 		ECEBBFDF299920EE00104326 /* PostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewModel.swift; sourceTree = "<group>"; };
@@ -174,6 +176,7 @@
 				EC4CE36629B7AE4900F600CC /* Search.swift */,
 				ECA41EF329BA142000DA03DA /* Company.swift */,
 				EC8FA49F29C10D34009CE80E /* Price.swift */,
+				ECA933FC29C22B01003E60FE /* Exchange.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -322,7 +325,7 @@
 				EC015095298BD1FF00BAF650 /* Models */,
 				ECEBBFCF2998F37B00104326 /* Core */,
 				EC90D61B298ACED5001D4520 /* Assets.xcassets */,
-				EC40112F298BBC250033F54B /* GoogleService-Info.plist */,
+				ECC2615829C1E1C400CE1B7C /* GoogleService-Info.plist */,
 				ECA1BE60298D3077005AA585 /* StockAnalyzer.entitlements */,
 				EC90D61D298ACED5001D4520 /* Preview Content */,
 			);
@@ -530,7 +533,7 @@
 			files = (
 				EC90D61F298ACED5001D4520 /* Preview Assets.xcassets in Resources */,
 				EC90D61C298ACED5001D4520 /* Assets.xcassets in Resources */,
-				EC401130298BBC260033F54B /* GoogleService-Info.plist in Resources */,
+				ECC2615929C1E1C500CE1B7C /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -562,6 +565,7 @@
 				EC3CEAB129BB8F880048FADE /* HomeViewModel.swift in Sources */,
 				EC180CB6298C387000671AA2 /* AuthViewModel.swift in Sources */,
 				EC72691729AD2149002FAB32 /* ChartView.swift in Sources */,
+				ECA933FD29C22B01003E60FE /* Exchange.swift in Sources */,
 				ECA41EF229B9F00600DA03DA /* ImageService.swift in Sources */,
 				EC90D618298ACED3001D4520 /* StockAnalyzerApp.swift in Sources */,
 				EC180CB8298C3EEE00671AA2 /* MainView.swift in Sources */,

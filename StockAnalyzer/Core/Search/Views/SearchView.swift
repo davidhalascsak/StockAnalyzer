@@ -5,6 +5,7 @@ import FirebaseAuth
 struct SearchView: View {
     @StateObject var vm = SearchViewModel()
     @State var isSettingsPresented: Bool = false
+    
     var body: some View {
         NavigationStack {
             VStack {

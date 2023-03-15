@@ -5,8 +5,8 @@ struct ChartView: View {
     @StateObject var vm: ChartViewModel
     @State var selectedType: ChartOption = .oneDay
     
-    init(symbol: String) {
-        _vm = StateObject(wrappedValue: ChartViewModel(symbol: symbol))
+    init(symbol: String, exchange: String) {
+        _vm = StateObject(wrappedValue: ChartViewModel(symbol: symbol, exchange: exchange))
     }
     var body: some View {
         VStack {
@@ -139,7 +139,7 @@ struct ChartView: View {
 
 struct ChartView_Previews: PreviewProvider {
     static var previews: some View {
-        ChartView(symbol: "AAPL")
+        ChartView(symbol: "AAPL", exchange: "NASDAQ")
     }
 }
 

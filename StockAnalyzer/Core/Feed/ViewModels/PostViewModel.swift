@@ -7,7 +7,6 @@ class PostViewModel: ObservableObject {
     
     init(post: Post) {
         self.post = post
-        checkIfPostIsLiked()
     }
     
     func likePost() {
@@ -25,12 +24,6 @@ class PostViewModel: ObservableObject {
             withAnimation(.easeOut(duration: 0.3)) {
                 self?.post.isLiked = false
             }
-        }
-    }
-    
-    func checkIfPostIsLiked() {
-        postService.checkIfPostIsLiked(post: self.post) { [weak self] isLiked in
-            self?.post.isLiked = isLiked
         }
     }
 }

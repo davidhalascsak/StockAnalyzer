@@ -65,6 +65,7 @@
 		ECA41EF429BA142000DA03DA /* Company.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECA41EF329BA142000DA03DA /* Company.swift */; };
 		ECB0F04F29B33D4A002AF29C /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB0F04E29B33D4A002AF29C /* Date.swift */; };
 		ECB0F05129B3561A002AF29C /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB0F05029B3561A002AF29C /* Double.swift */; };
+		ECC2615529C1B4A600CE1B7C /* ApiKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECC2615429C1B4A600CE1B7C /* ApiKeys.swift */; };
 		ECCDEFA829A3C2C500034C76 /* CommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCDEFA729A3C2C500034C76 /* CommentView.swift */; };
 		ECCDEFAA29A3C30300034C76 /* CommentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCDEFA929A3C30300034C76 /* CommentViewModel.swift */; };
 		ECEBBFE0299920EE00104326 /* PostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECEBBFDF299920EE00104326 /* PostViewModel.swift */; };
@@ -133,6 +134,7 @@
 		ECA41EF329BA142000DA03DA /* Company.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Company.swift; sourceTree = "<group>"; };
 		ECB0F04E29B33D4A002AF29C /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		ECB0F05029B3561A002AF29C /* Double.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Double.swift; sourceTree = "<group>"; };
+		ECC2615429C1B4A600CE1B7C /* ApiKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiKeys.swift; sourceTree = "<group>"; };
 		ECCDEFA729A3C2C500034C76 /* CommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentView.swift; sourceTree = "<group>"; };
 		ECCDEFA929A3C30300034C76 /* CommentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewModel.swift; sourceTree = "<group>"; };
 		ECEBBFDF299920EE00104326 /* PostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewModel.swift; sourceTree = "<group>"; };
@@ -262,6 +264,7 @@
 			isa = PBXGroup;
 			children = (
 				EC6E627929AA13210064110A /* NetworkingManager.swift */,
+				ECC2615429C1B4A600CE1B7C /* ApiKeys.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -552,6 +555,7 @@
 				ECF669CE2996F3C400855894 /* User.swift in Sources */,
 				EC8FA49E29C0FD12009CE80E /* PriceViewModel.swift in Sources */,
 				ECF669D22997A2E800855894 /* FeedViewModel.swift in Sources */,
+				ECC2615529C1B4A600CE1B7C /* ApiKeys.swift in Sources */,
 				EC49E91229A398FF003AE346 /* CommentService.swift in Sources */,
 				EC6E627E29AA15270064110A /* News.swift in Sources */,
 				EC1016F729B1006800DEE9E2 /* View.swift in Sources */,

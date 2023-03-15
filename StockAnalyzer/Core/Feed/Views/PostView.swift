@@ -41,8 +41,7 @@ struct PostView: View {
         
             Text(vm.post.body)
                 .multilineTextAlignment(.leading)
-                .padding(.vertical)
-            
+                .padding(.vertical, 5)
             HStack {
                 Image(systemName: vm.post.isLiked ?? false ? "hand.thumbsup.fill" : "hand.thumbsup")
                     .foregroundColor(vm.post.isLiked ?? false ? Color.blue : Color.black)

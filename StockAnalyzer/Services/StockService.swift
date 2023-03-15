@@ -13,7 +13,7 @@ class StockService: ObservableObject {
     }
     
     func getCompanyData() {
-        guard let url = URL(string:  "https://financialmodelingprep.com/api/v3/profile/\(self.symbol)?apikey=d5f365f0f57c273c26a6b52b86a53010")
+        guard let url = URL(string:  "https://financialmodelingprep.com/api/v3/profile/\(self.symbol)?apikey=\(ApiKeys.financeApi)")
         else {return}
                 
         dataSubscription = NetworkingManager.download(url: url)

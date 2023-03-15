@@ -27,7 +27,10 @@ struct FeedView: View {
                 Spacer()
             }
         }
-        .onAppear(perform: vm.fetchPosts)
+        .onAppear {
+            vm.isLoading = true
+            vm.fetchPosts()
+        }
     }
     
     var feedHeader: some View {

@@ -9,13 +9,10 @@ class FeedViewModel: ObservableObject {
     @Published var isSettingsPresented: Bool = false
     @Published var shouldScroll: Bool = false
     @Published var isLoading: Bool = false
+    @Published var reloadCounter: Int = 0
     
     let userService = UserService()
     let postService = PostService()
-    
-    init() {
-        self.isLoading = true
-    }
     
     func fetchPosts() {
         postService.fetchPosts(symbol: nil) { [weak self] posts in
@@ -24,10 +21,16 @@ class FeedViewModel: ObservableObject {
             for i in 0..<(self?.posts.count ?? 0) {
                 self?.userService.fetchUser(id: self?.posts[i].userRef ?? "") { user in
                     self?.posts[i].user = user
+                    self?.postService.checkIfPostIsLiked(post: (self?.posts[i])!) { [weak self] isLiked in
+                        self?.posts[i].isLiked = isLiked
+                        self?.reloadCounter += 1
+                        if self?.reloadCounter ?? 0 == self?.posts.count ?? 0 {
+                            self?.reloadCounter = 0
+                            self?.isLoading = false
+                        }
+                    }
                 }
             }
-            self?.isLoading = false
         }
-        
     }
 }

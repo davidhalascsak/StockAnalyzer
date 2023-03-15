@@ -1,5 +1,7 @@
 # API keys
-**/Utilities/ApiLeys.swift
+**/Utilities/ApiKeys.swift
+GoogleService-Info.plist
+
 
 ### CocoaPods ###
 ## CocoaPods GitIgnore Template

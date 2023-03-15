@@ -57,7 +57,6 @@ class ChartViewModel: ObservableObject {
     func get5Min(symbol: String) {
         
         if self.fiveMinutesData.isEmpty {
-            print("fetching chart data")
             guard let url = URL(string:  "https://financialmodelingprep.com/api/v3/historical-chart/5min/\(symbol)?apikey=\(ApiKeys.financeApi)")
             else {return}
             
@@ -92,7 +91,6 @@ class ChartViewModel: ObservableObject {
     }
     
     func getHourly(symbol: String) {
-        print("fetching chart data")
         if self.hourlyData.isEmpty {
             guard let url = URL(string:  "https://financialmodelingprep.com/api/v3/historical-chart/1hour/\(symbol)?apikey=\(ApiKeys.financeApi)")
             else {return}
@@ -119,7 +117,6 @@ class ChartViewModel: ObservableObject {
     }
     
     func getDaily(symbol: String) {
-        print("fetching chart data")
         if self.dailyData.isEmpty {
             let formatter = DateFormatter()
             formatter.dateFormat = "yyyy-MM-dd"

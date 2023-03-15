@@ -21,7 +21,6 @@ struct StockView: View {
     }
     
     var body: some View {
-        
         if let company = vm.companyProfile {
             ScrollView(showsIndicators: false) {
                 VStack(alignment: .leading) {

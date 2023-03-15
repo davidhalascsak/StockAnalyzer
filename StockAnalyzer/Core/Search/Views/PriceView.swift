@@ -2,7 +2,6 @@ import SwiftUI
 
 struct PriceView: View {
     @StateObject var vm: PriceViewModel
-    let timer = Timer.publish(every: 3, on: .main, in: .common).autoconnect()
     
     init(symbol: String, currency: String) {
         _vm = StateObject(wrappedValue: PriceViewModel(symbol: symbol, currency: currency))
@@ -10,7 +9,6 @@ struct PriceView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            let _ = Self._printChanges()
             if let stockPrice = vm.stockPrice {
                 HStack(alignment: .firstTextBaseline) {
                     Text(String(format: "%.2f", stockPrice.price))
@@ -29,11 +27,9 @@ struct PriceView: View {
                 ProgressView()
             }
         }
-        .onAppear(perform: vm.fetchPrice)
-        .onReceive(timer) { _ in
+        .onReceive(vm.timer) { _ in
             vm.fetchPrice()
         }
-        .onDisappear(perform: timer.upstream.connect().cancel)
     }
 }
 

@@ -16,24 +16,23 @@ class SearchViewModel: ObservableObject {
         $searchText
             .debounce(for: .seconds(0.5), scheduler: DispatchQueue.main)
             .sink { [weak self] data in
-                self?.getData(data: data)
+                if data.count > 0 {
+                    self?.getData(data: data)
+                } else {
+                    self?.searchResult = []
+                }
             }
             .store(in: &cancellables)
     }
     
     func getData(data: String) {
-        print("fetching search data")
         guard let url = URL(string: "https://financialmodelingprep.com/api/v3/search?query=\(data)&exchange=NASDAQ,NYSE&limit=10&apikey=\(ApiKeys.financeApi)") else {return}
         
         newsSubscription = NetworkingManager.download(url: url)
             .decode(type: [Search].self, decoder: JSONDecoder())
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: NetworkingManager.handleCompletion, receiveValue: { [weak self] (searchResult) in
-                if self?.searchText.count ?? 0 > 0 {
-                    self?.searchResult = searchResult
-                } else {
-                    self?.searchResult = []
-                }
+                self?.searchResult = searchResult
                 self?.newsSubscription?.cancel()
             })
     }

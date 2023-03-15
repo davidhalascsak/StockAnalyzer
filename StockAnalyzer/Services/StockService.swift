@@ -13,7 +13,6 @@ class StockService: ObservableObject {
     }
     
     func getCompanyData() {
-        print("fetching company data in service")
         guard let url = URL(string:  "https://financialmodelingprep.com/api/v3/profile/\(self.symbol)?apikey=\(ApiKeys.financeApi)")
         else {return}
                 

@@ -14,10 +14,8 @@ class NewsService {
     }
     
     func getNews() {
-        var urlString = ""
-
         if let symbol = self.symbol {
-            urlString = "https://stocknewsapi.com/api/v1?tickers=\(symbol)&items=10&page=1&token=\(ApiKeys.newsApi)"
+            let urlString = "https://stocknewsapi.com/api/v1?tickers=\(symbol)&items=10&page=1&token=\(ApiKeys.newsApi)"
             guard let url = URL(string: urlString) else {return}
             newsSubscription = NetworkingManager.download(url: url)
                 .decode(type: NewsData.self, decoder: JSONDecoder())
@@ -27,7 +25,7 @@ class NewsService {
                     self?.newsSubscription?.cancel()
                 })
         } else {
-            urlString = "https://stocknewsapi.com/api/v1/category?section=general&items=20&page=1&token=\(ApiKeys.newsApi)"
+            let urlString = "https://stocknewsapi.com/api/v1/category?section=general&items=20&page=1&token=\(ApiKeys.newsApi)"
             guard let url = URL(string: urlString) else {return}
             newsSubscription = NetworkingManager.download(url: url)
                 .decode(type: NewsData.self, decoder: JSONDecoder())

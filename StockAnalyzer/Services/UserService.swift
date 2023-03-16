@@ -6,15 +6,16 @@ class UserService {
     private var db = Firestore.firestore()
     private let locale = Locale(identifier: "en-US")
 
-    func fetchAllUser(completion: @escaping ([User]) -> Void) {
+    func fetchAllUser() async -> [User] {
         var users = [User]()
         
-        db.collection("users").getDocuments { snapshot, error in
-            guard let snapshot = snapshot else {return}
-        
-            users = snapshot.documents.compactMap({try? $0.data(as: User.self)})
-            completion(users)
+        do {
+            let snapshot = try await db.collection("users").getDocuments()
+            users = snapshot.documents.compactMap({try? $0.data(as: User.self)})  
+        } catch {
+            
         }
+        return users
     }
     
     func fetchUser(id: String, completion: @escaping (User?) -> Void) {
@@ -25,10 +26,9 @@ class UserService {
         }
     }
     
-    func createUser(user: User, completion: @escaping (() -> Void)) {
+    func createUser(user: User) async throws {
         let data = ["username": user.username, "email": user.email, "location": user.location]
         
-        db.collection("users").document(user.id ?? "").setData(data)
-        completion()
+        try await db.collection("users").document(user.id ?? "").setData(data)
     }
 }

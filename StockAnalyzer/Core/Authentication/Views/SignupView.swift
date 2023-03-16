@@ -40,7 +40,9 @@ struct SignupView: View {
                 .background(Color.gray.opacity(0.2))
                 .cornerRadius(15)
                 Button {
-                    vm.checkRegistration()
+                    Task {
+                        await vm.checkRegistration()
+                    }
                 } label: {
                     Text("Sign in")
                         .font(.headline)

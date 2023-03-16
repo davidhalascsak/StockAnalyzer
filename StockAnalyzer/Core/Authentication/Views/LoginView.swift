@@ -28,7 +28,9 @@ struct LoginView: View {
                 
                 
                 Button {
-                    vm.checkLogin()
+                    Task {
+                        await vm.checkLogin()
+                    }
                 } label: {
                     Text("Sign in")
                         .font(.headline)

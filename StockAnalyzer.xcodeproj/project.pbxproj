@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		EC015092298BCEB500BAF650 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC015091298BCEB500BAF650 /* LoginView.swift */; };
 		EC015094298BCEDB00BAF650 /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC015093298BCEDB00BAF650 /* SignupView.swift */; };
+		EC0C8A8129C4AA0300AAB674 /* FinancialViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC0C8A8029C4AA0300AAB674 /* FinancialViewModel.swift */; };
 		EC0F60CA29BE456F00C982EE /* FeedBodyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC0F60C929BE456F00C982EE /* FeedBodyView.swift */; };
 		EC0F60CC29BE457E00C982EE /* FeedBodyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC0F60CB29BE457E00C982EE /* FeedBodyViewModel.swift */; };
 		EC1016F529B0FBAB00DEE9E2 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1016F429B0FBAB00DEE9E2 /* String.swift */; };
@@ -82,6 +83,7 @@
 /* Begin PBXFileReference section */
 		EC015091298BCEB500BAF650 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		EC015093298BCEDB00BAF650 /* SignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
+		EC0C8A8029C4AA0300AAB674 /* FinancialViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinancialViewModel.swift; sourceTree = "<group>"; };
 		EC0F60C929BE456F00C982EE /* FeedBodyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedBodyView.swift; sourceTree = "<group>"; };
 		EC0F60CB29BE457E00C982EE /* FeedBodyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedBodyViewModel.swift; sourceTree = "<group>"; };
 		EC1016F429B0FBAB00DEE9E2 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
@@ -259,6 +261,7 @@
 				EC4CE36429B7ABC800F600CC /* SearchViewModel.swift */,
 				EC3CEAB029BB8F880048FADE /* HomeViewModel.swift */,
 				EC8FA49D29C0FD12009CE80E /* PriceViewModel.swift */,
+				EC0C8A8029C4AA0300AAB674 /* FinancialViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -578,6 +581,7 @@
 				ECF669CC2996F37900855894 /* Post.swift in Sources */,
 				EC4CE36529B7ABC800F600CC /* SearchViewModel.swift in Sources */,
 				ECCDEFA829A3C2C500034C76 /* CommentView.swift in Sources */,
+				EC0C8A8129C4AA0300AAB674 /* FinancialViewModel.swift in Sources */,
 				EC1016F529B0FBAB00DEE9E2 /* String.swift in Sources */,
 				EC180CB4298C384D00671AA2 /* AuthenticationUser.swift in Sources */,
 				EC917268299547DE00EA924D /* NewsView.swift in Sources */,

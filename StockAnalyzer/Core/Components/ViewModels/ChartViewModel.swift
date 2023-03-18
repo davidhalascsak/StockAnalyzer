@@ -18,7 +18,7 @@ class ChartViewModel: ObservableObject {
     @Published var isLoading: Bool = false
     
     
-    var dataSubscription: AnyCancellable?
+    var cancellables = Set<AnyCancellable>()
     var dateFormat: String {
         switch self.selectedType {
             case .oneDay:
@@ -93,7 +93,7 @@ class ChartViewModel: ObservableObject {
             guard let url = URL(string:  "https://financialmodelingprep.com/api/v3/historical-chart/5min/\(symbol)?apikey=\(ApiKeys.financeApi)")
             else {return}
             
-            dataSubscription = NetworkingManager.download(url: url)
+            NetworkingManager.download(url: url)
                 .decode(type: [ChartData].self, decoder: JSONDecoder())
                 .receive(on: DispatchQueue.main)
                 .sink(receiveCompletion: NetworkingManager.handleCompletion, receiveValue: { [weak self] (returnedData) in
@@ -109,8 +109,8 @@ class ChartViewModel: ObservableObject {
                     self?.yAxisData = self?.yAxisChartData()
                     
                     self?.isLoading = false
-                    self?.dataSubscription?.cancel()
                 })
+                .store(in: &cancellables)
         } else {
             if self.selectedType == .oneDay {
                 self.chartData = self.createDailyData(data: self.fiveMinutesData)
@@ -128,7 +128,7 @@ class ChartViewModel: ObservableObject {
             guard let url = URL(string:  "https://financialmodelingprep.com/api/v3/historical-chart/1hour/\(symbol)?apikey=\(ApiKeys.financeApi)")
             else {return}
             
-            dataSubscription = NetworkingManager.download(url: url)
+            NetworkingManager.download(url: url)
                 .decode(type: [ChartData].self, decoder: JSONDecoder())
                 .receive(on: DispatchQueue.main)
                 .sink(receiveCompletion: NetworkingManager.handleCompletion, receiveValue: { [weak self] (returnedData) in
@@ -139,8 +139,8 @@ class ChartViewModel: ObservableObject {
                     self?.yAxisData = self?.yAxisChartData()
                     
                     self?.isLoading = false
-                    self?.dataSubscription?.cancel()
                 })
+                .store(in: &cancellables)
         } else {
             self.chartData = self.createMonthlyData(data: self.hourlyData)
             self.xAxisData = self.xAxisChartData()
@@ -159,7 +159,7 @@ class ChartViewModel: ObservableObject {
             guard let url = URL(string: "https://financialmodelingprep.com/api/v3/historical-price-full/\(symbol)?from=\(formatter.string(from: startDate))&to=\(formatter.string(from: Date()))&apikey=\(ApiKeys.financeApi)")
             else {return}
             
-            dataSubscription = NetworkingManager.download(url: url)
+            NetworkingManager.download(url: url)
                 .decode(type: HistoricPrice.self, decoder: JSONDecoder())
                 .receive(on: DispatchQueue.main)
                 .sink(receiveCompletion: NetworkingManager.handleCompletion, receiveValue: { [weak self] (returnedData) in
@@ -174,8 +174,8 @@ class ChartViewModel: ObservableObject {
                     self?.yAxisData = self?.yAxisChartData()
                     
                     self?.isLoading = false
-                    self?.dataSubscription?.cancel()
                 })
+                .store(in: &cancellables)
         } else {
             self.chartData = self.dailyData
             self.xAxisData = self.xAxisChartData()

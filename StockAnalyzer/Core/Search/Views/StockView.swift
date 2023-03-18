@@ -31,7 +31,7 @@ struct StockView: View {
                     case .home:
                         HomeView(company: company, isNewViewPresented: $isNewPostPresented)
                     case .financials:
-                        FinancialView()
+                        FinancialView(company: company)
                     case .valuation:
                         ValuationView()
                     case .about:
@@ -66,7 +66,7 @@ struct StockView: View {
                     }
             }
             .overlay(alignment: .bottomTrailing, content: {
-                if vm.showPencil && sessionService.session != nil {
+                if vm.option == .home && vm.showPencil && sessionService.session != nil {
                     Image(systemName: "pencil")
                         .font(.title)
                         .foregroundColor(Color.white)
@@ -110,6 +110,7 @@ struct StockView: View {
                 Spacer()
                 LogoView(logo: profile.image)
                     .scaledToFit()
+                    .cornerRadius(10)
                     .frame(height: 50)
                     .frame(maxWidth: 100)
             }

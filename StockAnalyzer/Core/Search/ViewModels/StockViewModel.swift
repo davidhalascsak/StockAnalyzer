@@ -11,7 +11,7 @@ class StockViewModel: ObservableObject {
     let symbol: String
     let stockService: StockService
     
-    var companySubscription: AnyCancellable?
+    var cancellables = Set<AnyCancellable>()
     
     init(symbol: String) {
         self.symbol = symbol
@@ -22,11 +22,11 @@ class StockViewModel: ObservableObject {
     
     
     func fetchCompany() {
-        companySubscription = self.stockService.$companyInformation
+        self.stockService.$companyInformation
             .sink { [weak self] (companyProfile) in
                 self?.companyProfile = companyProfile ?? nil
-                self?.companySubscription?.cancel()
             }
+            .store(in: &cancellables)
     }
     
     func decreaseInPercentage(price: Double, change: Double) -> String {

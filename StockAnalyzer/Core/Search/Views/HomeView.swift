@@ -48,7 +48,7 @@ struct HomeView: View {
                                             NewsRowView(news: news)
                                         }
                                         .padding(.trailing, 3)
-                                        .background(Color.gray.opacity(0.2))
+                                        .background(Color.gray.opacity(0.15))
                                         .cornerRadius(20)
                                         .padding(.horizontal, 5)
                                         .padding(.bottom, 50)

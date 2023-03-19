@@ -17,11 +17,11 @@ class StockViewModel: ObservableObject {
         self.symbol = symbol
         self.stockService = StockService(symbol: symbol)
         
-        fetchCompany()
+        fetchData()
     }
     
     
-    func fetchCompany() {
+    func fetchData() {
         self.stockService.$companyInformation
             .sink { [weak self] (companyProfile) in
                 self?.companyProfile = companyProfile ?? nil

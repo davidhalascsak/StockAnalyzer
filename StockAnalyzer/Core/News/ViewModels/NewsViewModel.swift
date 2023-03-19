@@ -6,16 +6,18 @@ class NewsViewModel: ObservableObject  {
     @Published var shouldScroll: Bool = false
     @Published var isLoading: Bool = false
     
-    private let newsService = NewsService()
+    private let newsService: NewsService
     private var cancellables = Set<AnyCancellable>()
     
     init() {
+        self.newsService = NewsService(symbol: nil)
         self.isLoading = true
-        addSubscription()
+        
+        fetchData()
     }
     
     
-    func addSubscription() {
+    func fetchData() {
         newsService.$allNews
             .map(sortNews)
             .sink { [weak self] (returnedNews) in
@@ -27,7 +29,7 @@ class NewsViewModel: ObservableObject  {
 
     func reloadData() {
         isLoading = true
-        newsService.getNews()
+        newsService.fetchData()
     }
     
     func sortNews(news: [News]) -> [News] {

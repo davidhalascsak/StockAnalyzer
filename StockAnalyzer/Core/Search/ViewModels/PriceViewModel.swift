@@ -14,10 +14,10 @@ class PriceViewModel: ObservableObject {
     init(symbol: String, currency: String) {
         self.symbol = symbol
         self.currency = currency
-        fetchPrice()
+        fetchData()
     }
     
-    func fetchPrice() {
+    func fetchData() {
         guard let url = URL(string: "https://financialmodelingprep.com/api/v3/quote/\(self.symbol)?apikey=\(ApiKeys.financeApi)")
         else {return}
         

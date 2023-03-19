@@ -5,30 +5,24 @@ import SwiftUI
 class LogoViewModel: ObservableObject {
     @Published var isLoading: Bool = false
     @Published var image: UIImage? = nil
-    let logo: String
     
-    var imageSubscription: AnyCancellable?
+    let imageService: ImageService
     
-    init(_ logo: String) {
-        self.logo = logo
+    var cancellables = Set<AnyCancellable>()
+    
+    init(url: String) {
+        self.imageService = ImageService(url: url)
         self.isLoading = true
-        downloadImage()
+        fetchData()
     }
     
     
-    func downloadImage() {
-        guard let url = URL(string: self.logo) else {return}
-        
-        imageSubscription = NetworkingManager.download(url: url)
-            .tryMap({ (data) -> UIImage? in
-                return UIImage(data: data)
-            })
-            .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: NetworkingManager.handleCompletion, receiveValue: { [weak self] (returnedImage) in
-                guard let self = self, let downloadedImage = returnedImage else { return }
-                self.image = downloadedImage
-                self.isLoading = false
-                self.imageSubscription?.cancel()
-            })
+    func fetchData() {
+        self.imageService.$image
+            .sink { [weak self] image in
+                self?.image = image
+                self?.isLoading = false
+            }
+            .store(in: &cancellables)
     }
 }

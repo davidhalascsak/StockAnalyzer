@@ -28,7 +28,7 @@ struct PriceView: View {
             }
         }
         .onReceive(vm.timer) { _ in
-            vm.fetchPrice()
+            vm.fetchData()
         }
     }
 }

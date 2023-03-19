@@ -5,18 +5,18 @@ import Combine
 class ImageService: ObservableObject {
     @Published var image: UIImage?
     
-    let imageUrl: String
-    var imageSubscription: AnyCancellable?
+    let url: String
+    var cancellables = Set<AnyCancellable>()
     
     init(url: String) {
-        self.imageUrl = url
-        downloadImage()
+        self.url = url
+        fetchData()
     }
     
-    func downloadImage() {
-        guard let url = URL(string: self.imageUrl) else {return}
+    func fetchData() {
+        guard let url = URL(string: self.url) else {return}
         
-        imageSubscription = NetworkingManager.download(url: url)
+        NetworkingManager.download(url: url)
             .tryMap({ (data) -> UIImage? in
                 return UIImage(data: data)
             })
@@ -24,7 +24,7 @@ class ImageService: ObservableObject {
             .sink(receiveCompletion: NetworkingManager.handleCompletion, receiveValue: { [weak self] (returnedImage) in
                 guard let self = self, let downloadedImage = returnedImage else { return }
                 self.image = downloadedImage
-                self.imageSubscription?.cancel()
             })
+            .store(in: &cancellables)
     }
 }

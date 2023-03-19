@@ -1,10 +1,10 @@
 import SwiftUI
 
-struct LogoView: View {
-    @StateObject var vm: LogoViewModel
+struct ImageView: View {
+    @StateObject var vm: ImageViewModel
     
     init(logoUrl: String) {
-        _vm = StateObject(wrappedValue: LogoViewModel(url: logoUrl))
+        _vm = StateObject(wrappedValue: ImageViewModel(url: logoUrl))
     }
     
     var body: some View {
@@ -18,8 +18,8 @@ struct LogoView: View {
 }
 
 
- struct LogoView_Previews: PreviewProvider {
+ struct ImageView_Previews: PreviewProvider {
      static var previews: some View {
-         LogoView(logoUrl: "https://financialmodelingprep.com/image-stock/AAPL.png")
+         ImageView(logoUrl: "https://financialmodelingprep.com/image-stock/AAPL.png")
      }
  }

@@ -2,7 +2,7 @@ import Foundation
 import Combine
 import SwiftUI
 
-class LogoViewModel: ObservableObject {
+class ImageViewModel: ObservableObject {
     @Published var isLoading: Bool = false
     @Published var image: UIImage? = nil
     

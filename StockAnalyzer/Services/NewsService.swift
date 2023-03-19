@@ -14,12 +14,12 @@ class NewsService {
     }
     
     func fetchData() {
-        let url = ""
+        var url = ""
         
         if let symbol = self.symbol {
-            let url = "https://stocknewsapi.com/api/v1?tickers=\(symbol)&items=10&page=1&token=\(ApiKeys.newsApi)"
+            url = "https://stocknewsapi.com/api/v1?tickers=\(symbol)&items=10&page=1&token=\(ApiKeys.newsApi)"
         } else {
-            let url = "https://stocknewsapi.com/api/v1/category?section=general&items=20&page=1&token=\(ApiKeys.newsApi)"
+            url = "https://stocknewsapi.com/api/v1/category?section=general&items=20&page=1&token=\(ApiKeys.newsApi)"
         }
         
         guard let url = URL(string: url) else {return}

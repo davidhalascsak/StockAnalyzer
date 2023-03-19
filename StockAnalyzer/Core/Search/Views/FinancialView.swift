@@ -7,59 +7,7 @@ struct FinancialView: View {
         _vm = StateObject(wrappedValue: FinancialViewModel(company: company))
     }
     var body: some View {
-        if vm.ratios != nil, vm.marketCap != nil {
-            VStack(alignment: .leading) {
-                Text("Ratios")
-                    .font(.title2)
-                ratioView
-            }
-            .padding()
-        } else {
-            Spacer()
-            ProgressView()
-            Spacer()
-        }
-    }
-    
-    var ratioView: some View {
-        HStack {
-            if let ratios = vm.ratios, let marketCap = vm.marketCap {
-                VStack(alignment: .leading, spacing: 3) {
-                        Text("Market Cap")
-                        Text("PE Ratio")
-                        Text("PEG Ratio")
-                        Text("Price/Sales")
-                        Text("Price/Book")
-                        Text("Dividend & Yield")
-                    
-                }
-                .padding(.vertical, 3)
-                Spacer()
-                VStack(alignment: .trailing, spacing: 3) {
-                    Text(vm.formatPrice(price: marketCap.marketCap))
-                    Text(ratios.peRatioTTM > 0 ? String(format: "%.2f", ratios.peRatioTTM) : "N/A")
-                    Text(ratios.pegRatioTTM > 0 ? String(format: "%.2f", ratios.pegRatioTTM) : "N/A")
-                    Text(String(format: "%.2f", ratios.priceToSalesRatioTTM))
-                    Text(String(format: "%.2f", ratios.priceToBookRatioTTM))
-                    if ratios.dividendPerShareTTM != 0 {
-                        HStack(spacing: 2) {
-                            Text(String(format: "%.2f", ratios.dividendPerShareTTM))
-                            Text("(\(String(format: "%.2f", ratios.dividendYielPercentageTTM))%)")
-                        }
-                    } else {
-                        HStack(spacing: 2) {
-                            Text("N/A")
-                            Text("(N/A)")
-                        }
-                    }
-                }
-                .fontWeight(.semibold)
-                .padding(.vertical, 3)
-            }
-        }
-        .padding(.horizontal)
-        .background(Color.gray.opacity(0.15))
-        .cornerRadius(10)
+        Text("Financial")
     }
 }
 

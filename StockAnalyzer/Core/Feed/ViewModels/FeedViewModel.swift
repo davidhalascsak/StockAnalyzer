@@ -14,6 +14,8 @@ class FeedViewModel: ObservableObject {
     let userService = UserService()
     let postService = PostService()
     
+    
+    
     func fetchPosts() {
         postService.fetchPosts(symbol: nil) { [weak self] posts in
             self?.posts = posts

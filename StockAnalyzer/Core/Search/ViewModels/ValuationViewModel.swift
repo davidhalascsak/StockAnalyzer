@@ -40,8 +40,14 @@ class ValuationViewModel: ObservableObject {
     }
     
     func formatPrice(price: Int) -> String {
-        let priceAsString: String = String(price)
+        var priceAsString: String = String(price)
+        var prefix = ""
         var result: String
+        
+        if price < 0 {
+            prefix = "-"
+            priceAsString = priceAsString.trimmingCharacters(in: CharacterSet(charactersIn: "-"))
+        }
         
         if priceAsString.count % 3 == 0 {
             result = "\(priceAsString[0...2]).\(priceAsString[3...5])"
@@ -59,7 +65,7 @@ class ValuationViewModel: ObservableObject {
             result.append("T")
         }
         
-        return result
+        return "\(prefix)\(result)"
     }
 }
 

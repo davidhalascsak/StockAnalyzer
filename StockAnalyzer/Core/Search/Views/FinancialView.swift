@@ -1,13 +1,89 @@
 import SwiftUI
+import Charts
 
 struct FinancialView: View {
     @StateObject var vm: FinancialViewModel
+    @State private var selectedDate: String = ""
     
     init(company: Company) {
         _vm = StateObject(wrappedValue: FinancialViewModel(company: company))
     }
+    
     var body: some View {
-        Text("Financial")
+        if vm.isLoading == false {
+            VStack(alignment: .leading) {
+                incomeView
+                balanceSheetView
+                cashFlowView
+                efficiencyView
+            }
+            .padding()
+        } else {
+            VStack {
+                Spacer()
+                ProgressView()
+                Spacer()
+            }
+        }
+    }
+    var incomeView: some View {
+        VStack {
+            Text("Income Statement")
+                .font(.title2)
+                .fontWeight(.bold)
+            BarChartView(title: "Revenue", xData: vm.incomeStatement.map({ $0.date }).reversed(), yData: vm.incomeStatement.map({ $0.revenue }).reversed(), isInverted: false)
+            BarChartView(title: "Operating Income", xData: vm.incomeStatement.map({ $0.date }).reversed(), yData: vm.incomeStatement.map({ $0.operatingIncome }).reversed(), isInverted: false)
+            BarChartView(title: "Net Income", xData: vm.incomeStatement.map({ $0.date }).reversed(), yData: vm.incomeStatement.map({ $0.netIncome }).reversed(), isInverted: false)
+        }
+    }
+    
+    var balanceSheetView: some View {
+        Text("Balance Sheet")
+            .font(.title2)
+            .fontWeight(.bold)
+        // total assets vs total liabilities
+        // net debt
+        // debt to equity
+    }
+    
+    var cashFlowView: some View {
+        VStack {
+            Text("Cash Flow")
+                .font(.title2)
+                .fontWeight(.bold)
+            BarChartView(title: "Operating Cash Flow", xData: vm.cashFlowStatement.map({ $0.date }).reversed(), yData: vm.cashFlowStatement.map({ $0.operatingCashFlow }).reversed(), isInverted: false)
+            BarChartView(title: "Capital Expenditure", xData: vm.cashFlowStatement.map({ $0.date }).reversed(), yData: vm.cashFlowStatement.map({ $0.capitalExpenditure }).reversed(), isInverted: true)
+            BarChartView(title: "Free Cash Flow", xData: vm.cashFlowStatement.map({ $0.date }).reversed(), yData: vm.cashFlowStatement.map({ $0.freeCashFlow }).reversed(), isInverted: false)
+        }
+    }
+    
+    var efficiencyView: some View {
+        VStack(alignment: .leading) {
+            Text("Efficiency")
+                .font(.title2)
+                .fontWeight(.bold)
+            HStack {
+                VStack(alignment: .leading, spacing: 3) {
+                    Text("Return on Equity")
+                    Text("Return on Assets")
+                    Text("Return on Invested Capital")
+                    Text("Return on Capital Employed")
+                }
+                .padding(.vertical, 3)
+                Spacer()
+                VStack(alignment: .trailing, spacing: 3) {
+                    Text("\(vm.calculateROE())%")
+                    Text("\(vm.calculateROA())%")
+                    Text("\(vm.calculateROIC())%")
+                    Text("\(vm.calculateROCE())%")
+                }
+                .fontWeight(.semibold)
+                .padding(.vertical, 3)
+            }
+            .padding(.horizontal)
+            .background(Color.gray.opacity(0.15))
+            .cornerRadius(10)
+        }
     }
 }
 

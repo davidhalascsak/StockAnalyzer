@@ -23,7 +23,7 @@ struct StockView: View {
     var body: some View {
         if let company = vm.companyProfile {
             ScrollView(showsIndicators: false) {
-                VStack(alignment: .leading) {
+                VStack {
                     header
                         .padding()
                     pickerView
@@ -33,7 +33,7 @@ struct StockView: View {
                     case .financials:
                         FinancialView(company: company)
                     case .valuation:
-                        ValuationView()
+                        ValuationView(company: company)
                     case .about:
                         AboutView(company: company)
                     }  

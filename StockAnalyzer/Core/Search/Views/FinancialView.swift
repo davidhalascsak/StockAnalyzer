@@ -27,7 +27,7 @@ struct FinancialView: View {
         }
     }
     var incomeView: some View {
-        VStack {
+        VStack(alignment: .leading) {
             Text("Income Statement")
                 .font(.title2)
                 .fontWeight(.bold)
@@ -47,7 +47,7 @@ struct FinancialView: View {
     }
     
     var cashFlowView: some View {
-        VStack {
+        VStack(alignment: .leading) {
             Text("Cash Flow")
                 .font(.title2)
                 .fontWeight(.bold)

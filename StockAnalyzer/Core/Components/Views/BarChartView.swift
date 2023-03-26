@@ -22,8 +22,8 @@ struct BarChartView: View {
     var body: some View {
         VStack(alignment: .leading) {
             HStack(alignment: .firstTextBaseline) {
-                //Text(formatPrice(price: yData[selectedDate]))
-                Text("\(yData[selectedDate])")
+                Text(formatPrice(price: yData[selectedDate]))
+                //Text("\(yData[selectedDate])")
                     .foregroundColor(yData[selectedDate] >= 0 ? Color.blue : Color.red)
                     .font(.title)
                     .fontWeight(.bold)
@@ -85,7 +85,7 @@ struct BarChartView: View {
     }
 
     var growthRateView: some View {
-        VStack {
+        VStack(alignment: .leading) {
             HStack {
                 HStack {
                     Text("1 year: ")

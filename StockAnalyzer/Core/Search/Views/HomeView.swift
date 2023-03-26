@@ -22,7 +22,7 @@ struct HomeView: View {
                     .font(.title2)
                     .fontWeight(.semibold)
                     .padding(.horizontal)
-                FeedBodyView(symbol: vm.companyProfile.symbol, isNewViewPresented: $isNewViewPresented)
+                FeedBodyView(symbol: vm.companyProfile.symbol, isNewViewPresented: $isNewViewPresented, userService: UserService(), postService: PostService())
             } else {
                 ProgressView()
             }
@@ -36,29 +36,31 @@ struct HomeView: View {
                 .font(.title2)
                 .fontWeight(.semibold)
                 .padding(.horizontal)
-            if vm.isDownloadingNews == true {
-                ProgressView()
-                    .frame(height: 180)
-            } else {
-                if vm.news.count > 0 {
-                        TabView {
-                                ForEach(vm.news, id: \.self) { news in
-                                    if URL(string: news.news_url) != nil {
-                                        VStack(alignment: .leading) {
-                                            NewsRowView(news: news)
-                                        }
-                                        .padding(.trailing, 3)
-                                        .background(Color.gray.opacity(0.15))
-                                        .cornerRadius(20)
-                                        .padding(.horizontal, 5)
-                                        .padding(.bottom, 50)
+            
+            if vm.news.count > 0 {
+                    TabView {
+                            ForEach(vm.news, id: \.self) { news in
+                                if URL(string: news.news_url) != nil {
+                                    VStack(alignment: .leading) {
+                                        NewsRowView(news: news)
                                     }
+                                    .padding(.trailing, 3)
+                                    .background(Color.gray.opacity(0.15))
+                                    .cornerRadius(20)
+                                    .padding(.horizontal, 5)
+                                    .padding(.bottom, 50)
                                 }
-                        }
-                        .tabViewStyle(.page)
+                            }
+                    }
+                    .tabViewStyle(.page)
+                    .frame(height: 150)
+            } else {
+                HStack {
+                    Spacer()
+                    ProgressView()
                         .frame(height: 150)
-                }
-                Spacer()
+                    Spacer()
+                }   
             }
         }
     }

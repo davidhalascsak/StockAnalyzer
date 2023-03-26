@@ -1,18 +1,20 @@
 import Foundation
 import FirebaseAuth
 
+@MainActor
 class SettingsViewModel: ObservableObject {
     @Published var user: User?
     
-    let userService = UserService()
+    let userService: UserService
     
-    func fetchUser() {
+    init(userService: UserService) {
+        self.userService = userService
+    }
+    
+    func fetchUser() async {
         self.user = nil
         guard let id = Auth.auth().currentUser?.uid else {return}
         
-        userService.fetchUser(id: id) { [weak self] user in
-            self?.user = user
-            
-        }
+        self.user = await userService.fetchUser(id: id)
     }
 }

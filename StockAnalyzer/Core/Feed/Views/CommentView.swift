@@ -5,8 +5,8 @@ struct CommentView: View {
     @ObservedObject var vm: CommentViewModel
     
     
-    init(post: Post, comment: Comment) {
-        _vm = ObservedObject(wrappedValue: CommentViewModel(post: post, comment: comment))
+    init(post: Post, comment: Comment, commentService: CommentService) {
+        _vm = ObservedObject(wrappedValue: CommentViewModel(post: post, comment: comment, commentService: commentService))
     }
     
     var body: some View {
@@ -33,7 +33,15 @@ struct CommentView: View {
                         .onTapGesture {
                             if vm.commentService.isUpdated {
                                 vm.commentService.isUpdated = false
-                                vm.comment.isLiked ?? false ? vm.unlikeComment() : vm.likeComment()
+                                if vm.comment.isLiked ?? false {
+                                    Task {
+                                        await vm.unlikeComment()
+                                    }
+                                } else {
+                                    Task {
+                                        await vm.likeComment()
+                                    }
+                                }
                             }
                         }
                     Text("\(vm.comment.likes)")
@@ -44,13 +52,16 @@ struct CommentView: View {
         .padding()
     }
 }
-/*
+
+
  struct CommentView_Previews: PreviewProvider {
- static var previews: some View {
- let user = User(username: "istengyermeke", email: "david.halascsak@gmail.com", location: "Hungary")
- let post = Comment(userRef: "asd", body: "Buy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy Tesla", timestamp: Timestamp(date: Date()), likes: 5, user: user)
+     static let user = User(username: "istengyermeke", email: "david.halascsak@gmail.com", location: "Hungary")
+     static let post = Post(userRef: "asd", body: "Elon is the king", timestamp: Timestamp(date: Date()), likes: 2, comments: 1)
+         
+     static let comment = Comment(userRef: "asd", body: "Buy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy Tesla", timestamp: Timestamp(date: Date()), likes: 5, user: user)
+     
+     static var previews: some View {
+         CommentView(post: post, comment: comment, commentService: CommentService())
+     }
+ }
  
- CommentView(comment: post)
- }
- }
- */

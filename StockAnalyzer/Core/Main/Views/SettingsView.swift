@@ -4,10 +4,14 @@ import FirebaseAuth
 struct SettingsView: View {
     @EnvironmentObject var sessionService: SessionService
     @Environment(\.dismiss) private var dismiss
-    let userService = UserService()
-    @ObservedObject var vm = SettingsViewModel()
+    @ObservedObject var vm: SettingsViewModel
+    
     @State var isLoginPresented: Bool = false
     @State var isSignupPresented: Bool = false
+    
+    init(userService: UserService) {
+        _vm = ObservedObject(wrappedValue: SettingsViewModel(userService: userService))
+    }
     
     var body: some View {
         NavigationStack {
@@ -31,7 +35,9 @@ struct SettingsView: View {
                         .padding(.vertical)
                         .onTapGesture {
                             try! Auth.auth().signOut()
-                            vm.fetchUser()
+                            Task {
+                                await vm.fetchUser()
+                            }
                         }
                 } else {
                     Text("Sign in")
@@ -68,23 +74,29 @@ struct SettingsView: View {
             }
             .onChange(of: isLoginPresented) { newValue in
                 if newValue == false {
-                    vm.fetchUser()
+                    Task {
+                        await vm.fetchUser()
+                    }
                 }
             }
             .onChange(of: isSignupPresented) { newValue in
                 if newValue == false {
-                    vm.fetchUser()
+                    Task {
+                        await vm.fetchUser()
+                    }
                 }
             }
         }
-        .onAppear(perform: vm.fetchUser)
+        .task({
+            await vm.fetchUser()
+        })
     }
 }
 
 struct SettingsView_Previews: PreviewProvider {
     
     static var previews: some View {
-        SettingsView()
+        SettingsView(userService: UserService())
             .environmentObject(SessionService.entity)
     }
 }

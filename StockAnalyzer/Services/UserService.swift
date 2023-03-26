@@ -9,21 +9,19 @@ class UserService {
     func fetchAllUser() async -> [User] {
         var users = [User]()
         
-        do {
-            let snapshot = try await db.collection("users").getDocuments()
-            users = snapshot.documents.compactMap({try? $0.data(as: User.self)})  
-        } catch {
+        let snapshot = try? await db.collection("users").getDocuments()
+        guard let snapshot = snapshot else {return []}
             
-        }
+        users = snapshot.documents.compactMap({try? $0.data(as: User.self)})
         return users
     }
     
-    func fetchUser(id: String, completion: @escaping (User?) -> Void) {
-        db.collection("users").document(id).getDocument { snapshot, error in
-            guard let snapshot = snapshot else {return}
-            let user = try? snapshot.data(as: User.self)
-            completion(user)
-        }
+    func fetchUser(id: String) async -> User? {
+        let snapshot = try? await db.collection("users").document(id).getDocument()
+        guard let snapshot = snapshot else {return nil}
+        
+        let user = try? snapshot.data(as: User.self)
+        return user
     }
     
     func createUser(user: User) async throws {

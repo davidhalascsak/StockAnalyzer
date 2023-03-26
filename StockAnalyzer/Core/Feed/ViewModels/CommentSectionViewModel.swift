@@ -1,32 +1,38 @@
 import Foundation
 import Firebase
 
+@MainActor
 class CommentSectionViewModel: ObservableObject {
-    @Published var post: Post
     @Published var comments: [Comment] = []
     
-    let commentService = CommentService()
-    let userService = UserService()
+    let post: Post
+    let commentService: CommentService
+    let userService: UserService
     
-    init(post: Post) {
+    init(post: Post, commentService: CommentService, userService: UserService) {
         self.post = post
+        self.commentService = commentService
+        self.userService = userService
     }
     
-    func fetchComments() {
-        commentService.fetchComments(post: post) { [weak self] comments in
-            self?.comments = comments
+    func fetchComments() async {
+        self.comments = await commentService.fetchComments(post: post)
+
+        for i in 0..<self.comments.count {
+            let userRef = self.comments[i].userRef
+            let user = await self.userService.fetchUser(id: userRef)
             
-            for i in 0..<(self?.comments.count ?? 0) {
-                self?.userService.fetchUser(id: self?.comments[i].userRef ?? "") { user in
-                    self?.comments[i].user = user
-                }
+            if let user = user {
+                self.comments[i].user = user
+                
+                let comment = self.comments[i]
+                self.comments[i].isLiked = await self.commentService.checkIfCommentIsLiked(comment: comment)
             }
         }
     }
     
-    func createComment(body: String) {
-        commentService.createComment(post: self.post, body: body) { [weak self] in
-            self?.fetchComments()
-        }
+    func createComment(body: String) async {
+        await commentService.createComment(post: self.post, body: body)
+        await self.fetchComments()
     }
 }

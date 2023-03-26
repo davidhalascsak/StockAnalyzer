@@ -1,39 +1,34 @@
 import Foundation
 import SwiftUI
 
+@MainActor
 class CommentViewModel: ObservableObject {
     @Published var post: Post
     @Published var comment: Comment
     
-    let commentService = CommentService()
+    let commentService: CommentService
     
-    init(post: Post, comment: Comment) {
+    init(post: Post, comment: Comment, commentService: CommentService) {
         self.post = post
         self.comment = comment
-        checkIfCommentIsLiked()
+        self.commentService = commentService
     }
     
-    func likeComment() {
-        commentService.likeComment(post: self.post, comment: self.comment) { [weak self] in
-            self?.comment.likes += 1
-            withAnimation(.easeIn(duration: 0.3)) {
-                self?.comment.isLiked = true
-            }
+    func likeComment() async {
+        await commentService.likeComment(post: self.post, comment: self.comment)
+        self.comment.likes += 1
+        
+        withAnimation(.easeIn(duration: 0.3)) {
+            self.comment.isLiked = true
         }
     }
     
-    func unlikeComment() {
-        commentService.unlikeComment(post: self.post, comment: self.comment) { [weak self] in
-            self?.comment.likes -= 1
-            withAnimation(.easeIn(duration: 0.3)) {
-                self?.comment.isLiked = false
-            }
-        }
-    }
-    
-    func checkIfCommentIsLiked() {
-        commentService.checkIfCommentIsLiked(comment: self.comment) { [weak self] isLiked in
-            self?.comment.isLiked = isLiked
+    func unlikeComment() async {
+        await commentService.unlikeComment(post: self.post, comment: self.comment)
+        self.comment.likes -= 1
+        
+        withAnimation(.easeIn(duration: 0.3)) {
+            self.comment.isLiked = false
         }
     }
 }

@@ -65,7 +65,7 @@ struct NewsView: View {
                 }
             }
             .fullScreenCover(isPresented: $isSettingsPresented, content: {
-                SettingsView()
+                SettingsView(userService: UserService())
             })
         }
     }

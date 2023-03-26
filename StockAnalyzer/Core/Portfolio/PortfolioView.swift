@@ -11,7 +11,7 @@ struct PortfolioView: View {
             Spacer()
         }
         .fullScreenCover(isPresented: $isSettingsPresented, content: {
-            SettingsView()
+            SettingsView(userService: UserService())
         })
     }
     

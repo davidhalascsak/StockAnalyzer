@@ -29,7 +29,8 @@ struct NewPostView: View {
                         .foregroundColor(Color.black.opacity(textContent.count > 0 ? 1.0 : 0.5))
                         .onTapGesture {
                             if self.textContent.count > 0 {
-                                postService.createPost(body: textContent, symbol: symbol) {
+                                Task {
+                                    await postService.createPost(body: textContent, symbol: symbol)
                                     dismiss()
                                 }
                             }

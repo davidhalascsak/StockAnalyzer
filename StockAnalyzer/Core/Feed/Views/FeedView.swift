@@ -4,9 +4,14 @@ import FirebaseAuth
 
 struct FeedView: View {
     @EnvironmentObject var sessionService: SessionService
-    @StateObject var vm = FeedViewModel()
+    @StateObject var vm: FeedViewModel
+    
     @State var isNewPostPresented: Bool = false
     @State var isSettingsPresented: Bool = false
+    
+    init(userService: UserService, postService: PostService) {
+        _vm = StateObject(wrappedValue: FeedViewModel(userService: userService, postService: postService))
+    }
 
     var body: some View {
         VStack {
@@ -17,7 +22,7 @@ struct FeedView: View {
                         NewPostView(symbol: nil)
                     })
                     .fullScreenCover(isPresented: $isSettingsPresented, content: {
-                        SettingsView()
+                        SettingsView(userService: UserService())
                     })
                     .sync($vm.isNewPostPresented, with: $isNewPostPresented)
                     .sync($vm.isSettingsPresented, with: $isSettingsPresented)
@@ -27,9 +32,9 @@ struct FeedView: View {
                 Spacer()
             }
         }
-        .onAppear {
+        .task {
             vm.isLoading = true
-            vm.fetchPosts()
+            await vm.fetchPosts()
         }
     }
     
@@ -39,8 +44,10 @@ struct FeedView: View {
                 .font(.title2)
                 .onTapGesture {
                     withAnimation {
-                        vm.isLoading = true
-                        vm.fetchPosts()
+                        Task {
+                            vm.isLoading = true
+                            await vm.fetchPosts()
+                        }
                         vm.shouldScroll.toggle()
                     }
                 }
@@ -77,14 +84,18 @@ struct FeedView: View {
                 }
                 .onChange(of: vm.isNewPostPresented) { newValue in
                     if newValue == false {
-                        vm.isLoading = true
-                        vm.fetchPosts()
+                        Task {
+                            vm.isLoading = true
+                            await vm.fetchPosts()
+                        }
                     }
                 }
                 .onChange(of: vm.isSettingsPresented) { newValue in
                     if newValue == false {
-                        vm.isLoading = true
-                        vm.fetchPosts()
+                        Task {
+                            vm.isLoading = true
+                            await vm.fetchPosts()
+                        }
                     }
                 }
             }
@@ -110,7 +121,7 @@ struct FeedView: View {
 
 struct FeedView_Previews: PreviewProvider {
     static var previews: some View {
-        FeedView()
+        FeedView(userService: UserService(), postService: PostService())
             .environmentObject(SessionService.entity)
     }
 }

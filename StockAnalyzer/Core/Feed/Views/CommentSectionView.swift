@@ -5,8 +5,8 @@ struct CommentSectionView: View {
     @StateObject var vm: CommentSectionViewModel
     @Environment(\.dismiss) private var dismiss
 
-    init(post: Post) {
-        _vm = StateObject(wrappedValue: CommentSectionViewModel(post: post))
+    init(post: Post, commentService: CommentService, userService: UserService) {
+        _vm = StateObject(wrappedValue: CommentSectionViewModel(post: post, commentService: commentService, userService: userService))
     }
     
     var body: some View {
@@ -14,7 +14,7 @@ struct CommentSectionView: View {
             VStack(alignment: .leading) {
                 ScrollView(showsIndicators: false) {
                     ForEach(vm.comments) { comment in
-                        CommentView(post: vm.post, comment: comment)
+                        CommentView(post: vm.post, comment: comment, commentService: CommentService())
                     }
                 }
                 if Auth.auth().currentUser != nil {
@@ -25,7 +25,9 @@ struct CommentSectionView: View {
                         .frame(maxWidth: .infinity)
                 }
             }
-            .onAppear(perform: vm.fetchComments)
+            .task {
+                await vm.fetchComments()
+            }
         }
         .navigationBarBackButtonHidden()
         .navigationTitle("Comments")
@@ -53,7 +55,7 @@ struct PostDetailView_Previews: PreviewProvider {
     static var previews: some View {
         let user = User(username: "istengyermeke", email: "david.halascsak@gmail.com", location: "Hungary")
         let post = Post(userRef: "asd", body: "Buy Tesla", timestamp: Timestamp(date: Date()), likes: 5, comments: 5, user: user)
-        CommentSectionView(post: post)
+        CommentSectionView(post: post, commentService: CommentService(), userService: UserService())
     }
 }
 
@@ -74,8 +76,10 @@ struct CommentBoxView: View {
                     .foregroundColor(Color.blue.opacity(textContent.count > 0 ? 1.0 : 0.5))
                     .onTapGesture {
                         if textContent.count > 0 {
-                            vm.createComment(body: textContent)
-                            textContent = ""
+                            Task {
+                                await vm.createComment(body: textContent)
+                                textContent = ""
+                            }
                         }
                     }
             }

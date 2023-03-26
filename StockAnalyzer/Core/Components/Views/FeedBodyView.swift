@@ -5,7 +5,7 @@ struct FeedBodyView: View {
     @Binding var isNewViewPresented: Bool
     
     init(symbol: String, isNewViewPresented: Binding<Bool>) {
-        _vm = StateObject(wrappedValue: FeedBodyViewModel(symbol: symbol))
+        _vm = StateObject(wrappedValue: FeedBodyViewModel(symbol: symbol, userService: UserService(), postService: PostService()))
         _isNewViewPresented = isNewViewPresented
     }
     
@@ -16,11 +16,15 @@ struct FeedBodyView: View {
                 Divider()
             }
         }
-        .onAppear(perform: vm.fetchPosts)
+        .task {
+            await vm.fetchPosts()
+        }
         .onChange(of: isNewViewPresented) { newValue in
             if newValue == false {
                 vm.isLoading = true
-                vm.fetchPosts()
+                Task {
+                    await vm.fetchPosts()
+                }
             }
         }
     }

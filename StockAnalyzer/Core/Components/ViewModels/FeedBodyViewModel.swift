@@ -2,30 +2,30 @@ import Foundation
 
 class FeedBodyViewModel: ObservableObject {
     @Published var posts = [Post]()
-    @Published var isLoading: Bool
+    @Published var isLoading: Bool = false
     
-    let symbol: String
+    let symbol: String    
+    let userService: UserService
+    let postService: PostService
     
-    let userService = UserService()
-    let postService = PostService()
-    
-    
-    init(symbol: String) {
+    init(symbol: String, userService: UserService, postService: PostService) {
         self.symbol = symbol
-        self.isLoading = true
+        self.userService = userService
+        self.postService = postService
     }
     
-    func fetchPosts() {
-        postService.fetchPosts(symbol: symbol) { [weak self] posts in
-            self?.posts = posts
+    func fetchPosts() async {
+        self.isLoading = true
+        self.posts = await postService.fetchPosts(symbol: self.symbol)
+
+        for i in 0..<(self.posts.count) {
+            let user = await self.userService.fetchUser(id: self.posts[i].userRef)
             
-            for i in 0..<(self?.posts.count ?? 0) {
-                self?.userService.fetchUser(id: self?.posts[i].userRef ?? "") { user in
-                    self?.posts[i].user = user
-                }
+            if let user = user {
+                self.posts[i].user = user
+                self.posts[i].isLiked = await self.postService.checkIfPostIsLiked(post: (self.posts[i]))
             }
-            self?.isLoading = false
         }
-        
+        self.isLoading = false
     }
 }

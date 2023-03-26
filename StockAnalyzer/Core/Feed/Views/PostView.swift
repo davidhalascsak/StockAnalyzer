@@ -8,7 +8,7 @@ struct PostView: View {
     @ObservedObject var vm: PostViewModel
     
     init(post: Post) {
-        _vm = ObservedObject(wrappedValue: PostViewModel(post: post))
+        _vm = ObservedObject(wrappedValue: PostViewModel(post: post, postService: PostService()))
     }
     
     var body: some View {
@@ -48,12 +48,20 @@ struct PostView: View {
                     .onTapGesture {
                         if vm.postService.isUpdated {
                             vm.postService.isUpdated = false
-                            vm.post.isLiked ?? false ? vm.unlikePost() : vm.likePost()
+                            if vm.post.isLiked ?? false {
+                                Task {
+                                    await vm.unlikePost()
+                                }
+                            } else {
+                                Task {
+                                    await vm.likePost()
+                                }
+                            }
                         }
                     }
                 Text("\(vm.post.likes)")
                 NavigationLink {
-                    CommentSectionView(post: vm.post)
+                    CommentSectionView(post: vm.post, commentService: CommentService(), userService: UserService())
                 } label: {
                     Image(systemName: "message")
                         .foregroundColor(Color.black)

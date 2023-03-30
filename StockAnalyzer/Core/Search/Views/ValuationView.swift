@@ -3,15 +3,26 @@ import SwiftUI
 struct ValuationView: View {
     @StateObject var vm: ValuationViewModel
     
+    
     init(company: Company) {
         _vm = StateObject(wrappedValue: ValuationViewModel(company: company))
+        UIPickerView.appearance().tintColor = .black
     }
     var body: some View {
-        if vm.ratios != nil, vm.marketCap != nil {
+        if vm.isLoaded {
             VStack(alignment: .leading) {
                 Text("Ratios")
                     .font(.title2)
+                    .fontWeight(.semibold)
                 ratioView
+                Text("Valuation")
+                    .font(.title2)
+                    .fontWeight(.semibold)
+                valuationView
+                Text("Margin of Safety")
+                    .font(.title2)
+                    .fontWeight(.semibold)
+                marginOfSafetyView
             }
             .padding()
         } else {
@@ -25,12 +36,12 @@ struct ValuationView: View {
         HStack {
             if let ratios = vm.ratios, let marketCap = vm.marketCap {
                 VStack(alignment: .leading, spacing: 3) {
-                        Text("Market Cap")
-                        Text("PE Ratio")
-                        Text("PEG Ratio")
-                        Text("Price/Sales")
-                        Text("Price/Book")
-                        Text("Dividend & Yield")
+                    Text("Market Cap")
+                    Text("PE Ratio")
+                    Text("PEG Ratio")
+                    Text("Price/Sales")
+                    Text("Price/Book")
+                    Text("Dividend & Yield")
                     
                 }
                 .padding(.vertical, 3)
@@ -60,6 +71,64 @@ struct ValuationView: View {
         .padding(.horizontal)
         .background(Color.gray.opacity(0.15))
         .cornerRadius(10)
+    }
+    
+    var valuationView: some View {
+        VStack(alignment: .leading) {
+            HStack {
+                Text("Method")
+                Spacer()
+                Picker("Method", selection: $vm.type) {
+                    ForEach(vm.options, id: \.self) {
+                        Text($0)
+                    }
+                }
+            }
+            .padding(.horizontal, 20)
+            HStack {
+                Text(vm.type == "Net Income" ? "Net Income:" : "Free Cash Flow:")
+                Spacer()
+                TextField("", text: $vm.baseValue)
+                    .multilineTextAlignment(.trailing)
+                    .frame(width: 100)
+            }
+            .padding(.horizontal, 20)
+            HStack(spacing: 0) {
+                Text("Growth Rate:")
+                Spacer()
+                TextField("", value: $vm.growthRate, format: .number)
+                    .multilineTextAlignment(.trailing)
+                    .frame(width: 100)
+                Text("%")
+            }
+            .padding(.horizontal, 20)
+            HStack(spacing: 0) {
+                Text("Terminal Value:")
+                Spacer()
+                TextField("", value: $vm.discountRate, format: .number)
+                    .multilineTextAlignment(.trailing)
+                    .frame(width: 100)
+                Text("%")
+            }
+            .padding(.horizontal, 20)
+            HStack(spacing: 0) {
+                Text("Intrinsic Value: ")
+                Spacer()
+                Text("$200")
+            }
+            .padding(.horizontal, 20)
+        }
+        .background(Color.gray.opacity(0.15))
+        .cornerRadius(10)
+        .onChange(of: vm.type) { _ in
+            vm.resetValuation()
+        }
+    }
+    
+    var marginOfSafetyView: some View {
+        VStack {
+            
+        }
     }
 }
 

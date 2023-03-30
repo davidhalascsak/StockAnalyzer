@@ -108,6 +108,19 @@ class FinancialViewModel: ObservableObject {
         return String(format: "%.0f", 100 * roce)
     }
     
+    func calculateNetDebt() -> String {
+        let ratio = self.balanceSheet[0].shortTermDebt + self.balanceSheet[0].longTermDebt - self.balanceSheet[0].cashAndCashEquivalents
+        
+        return self.formatPrice(price: ratio)
+    }
+    
+    func calculateDebtToEquity() -> String {
+        let equity = self.balanceSheet[0].totalAssets - self.balanceSheet[0].totalLiabilities
+        let ratio = Double(self.balanceSheet[0].shortTermDebt + self.balanceSheet[0].longTermDebt) / Double(equity)
+        
+        return String(format: "%.2f", ratio)
+    }
+    
     func calculateGrowthRates(data: [Int]) -> [Double] {
         
         let oneYear: Double = Double(data[data.count - 1] - data[data.count - 2] / data[data.count - 1])
@@ -116,5 +129,34 @@ class FinancialViewModel: ObservableObject {
         let tenYear: Double = Double(data[data.count - 1] - data[data.count - 10] / data[data.count - 1])
         
         return [oneYear, threeYear, fiveYear, tenYear]
+    }
+    
+    func formatPrice(price: Int) -> String {
+        var priceAsString: String = String(price)
+        var prefix = ""
+        var result: String
+        
+        if price < 0 {
+            prefix = "-"
+            priceAsString = priceAsString.trimmingCharacters(in: CharacterSet(charactersIn: "-"))
+        }
+        
+        if priceAsString.count % 3 == 0 {
+            result = "\(priceAsString[0...2]).\(priceAsString[3...4])"
+        } else if priceAsString.count % 3 == 1 {
+            result = "\(priceAsString[0]).\(priceAsString[1...2])"
+        } else {
+            result = "\(priceAsString[0...1]).\(priceAsString[2...3])"
+        }
+        
+        if priceAsString.count < 10 {
+            result.append("M")
+        } else if 10 <= priceAsString.count && priceAsString.count < 13 {
+            result.append("B")
+        } else {
+            result.append("T")
+        }
+        
+        return "\(prefix)\(result)"
     }
 }

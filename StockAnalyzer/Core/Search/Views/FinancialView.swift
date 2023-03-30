@@ -38,12 +38,34 @@ struct FinancialView: View {
     }
     
     var balanceSheetView: some View {
-        Text("Balance Sheet")
-            .font(.title2)
-            .fontWeight(.bold)
-        // total assets vs total liabilities
-        // net debt
-        // debt to equity
+        VStack(alignment: .leading) {
+            Text("Balance Sheet")
+                .font(.title2)
+                .fontWeight(.bold)
+            HStack {
+                Spacer()
+                PieChartView(values: [vm.balanceSheet[0].totalAssets, vm.balanceSheet[0].totalLiabilities ], names: ["Total Assets", "Total Liabilities"], formatter: {value in vm.formatPrice(price: value)}, colors: [Color.green, Color.red])
+                Spacer()
+            }
+            HStack {
+                VStack(alignment: .leading, spacing: 3) {
+                    Text("Net Debt")
+                    Text("Debt to Equity")
+                }
+                .padding(.vertical, 3)
+                Spacer()
+                VStack(alignment: .trailing, spacing: 3) {
+                    Text("\(vm.calculateNetDebt())")
+                    Text("\(vm.calculateDebtToEquity())")
+                }
+                .fontWeight(.semibold)
+                .padding(.vertical, 3)
+            }
+            .padding(.horizontal)
+            .background(Color.gray.opacity(0.15))
+            .cornerRadius(10)
+            BarChartView(title: "Share Outstanding", xData: vm.incomeStatement.map({$0.date}).reversed(), yData: vm.incomeStatement.map({$0.weightedAverageShsOut}).reversed(), isInverted: true)
+        }
     }
     
     var cashFlowView: some View {
@@ -52,7 +74,7 @@ struct FinancialView: View {
                 .font(.title2)
                 .fontWeight(.bold)
             BarChartView(title: "Operating Cash Flow", xData: vm.cashFlowStatement.map({ $0.date }).reversed(), yData: vm.cashFlowStatement.map({ $0.operatingCashFlow }).reversed(), isInverted: false)
-            BarChartView(title: "Capital Expenditure", xData: vm.cashFlowStatement.map({ $0.date }).reversed(), yData: vm.cashFlowStatement.map({ $0.capitalExpenditure }).reversed(), isInverted: true)
+            BarChartView(title: "Capital Expenditure", xData: vm.cashFlowStatement.map({ $0.date }).reversed(), yData: vm.cashFlowStatement.map({ $0.capitalExpenditure }).reversed(), isInverted: false)
             BarChartView(title: "Free Cash Flow", xData: vm.cashFlowStatement.map({ $0.date }).reversed(), yData: vm.cashFlowStatement.map({ $0.freeCashFlow }).reversed(), isInverted: false)
         }
     }

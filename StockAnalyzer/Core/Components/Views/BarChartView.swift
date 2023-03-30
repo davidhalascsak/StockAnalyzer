@@ -4,7 +4,7 @@ import Charts
 struct BarChartView: View {
     @State var xData: [String] = []
     @State var yData: [Int] = []
-    @State var selectedDate: Int
+    @State var selectedDate: Int? = nil
     
     let title: String
     var growthRates: [String] = []
@@ -14,7 +14,6 @@ struct BarChartView: View {
         self.title = title
         self.xData = xData
         self.yData = yData
-        self.selectedDate = xData.count - 1
         self.isInverted = isInverted
         self.growthRates = self.calculateGrowthRates(data: yData)
     }
@@ -22,12 +21,11 @@ struct BarChartView: View {
     var body: some View {
         VStack(alignment: .leading) {
             HStack(alignment: .firstTextBaseline) {
-                Text(formatPrice(price: yData[selectedDate]))
-                //Text("\(yData[selectedDate])")
-                    .foregroundColor(yData[selectedDate] >= 0 ? Color.blue : Color.red)
+                Text(formatPrice(price:  yData[selectedDate ?? (yData.count - 1)]))
+                    .foregroundColor(yData[selectedDate ?? (yData.count - 1)] >= 0 ? Color.blue : Color.red)
                     .font(.title)
                     .fontWeight(.bold)
-                Text(xData[selectedDate][0...3])
+                Text(xData[selectedDate ?? (yData.count - 1)][0...3])
                     .font(.subheadline)
                     .fontWeight(.semibold)
             }
@@ -40,8 +38,8 @@ struct BarChartView: View {
                         y: .value("Revenue", data),
                         width: 18,
                         stacking: .standard)
-                    .foregroundStyle(data >= 0 ? Color.gray : Color.red)
-                    .opacity(xData[selectedDate] == year ? 0.7 : 1.0)
+                    .foregroundStyle(year == xData[xData.count - 1] ? Color.blue : data > 0 ? Color.gray : Color.red)
+                    .opacity(xData[selectedDate ?? (yData.count - 1)] == year ? 0.7 : 1.0)
                     .cornerRadius(40)
                 }
             }
@@ -57,10 +55,10 @@ struct BarChartView: View {
                                    
                                    guard currentX >= 0, currentX < chart.plotAreaSize.width else {return}
                                    guard let index = chart.value(atX: currentX, as: String.self) else {return}
-                                   selectedDate = xData.firstIndex(of: index) ?? xData.count - 1
+                                   selectedDate = xData.firstIndex(of: index) ?? nil
                                }
                                .onEnded { _ in
-                                   selectedDate = xData.count - 1
+                                   selectedDate = nil
                                }
                        )
                 }

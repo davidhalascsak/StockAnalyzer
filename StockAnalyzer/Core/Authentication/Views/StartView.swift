@@ -20,7 +20,7 @@ struct StartView: View {
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct StartView_Previews: PreviewProvider {
     @State static var isPresented: Bool = true
     
     static var previews: some View {

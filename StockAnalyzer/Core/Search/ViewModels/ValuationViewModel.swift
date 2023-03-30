@@ -4,15 +4,28 @@ import Combine
 class ValuationViewModel: ObservableObject {
     @Published var ratios: Ratios?
     @Published var marketCap: MarketCap?
+    @Published var growthRates: GrowthRates?
+    @Published var metrics: Metrics?
+    @Published var type: String = "Net Income"
+    @Published var baseValue: String = ""
+    @Published var growthRate: Int = 0
+    @Published var discountRate: Int = 8
     
     var cancellables = Set<AnyCancellable>()
     
+    var isLoaded: Bool {
+        return ratios != nil && marketCap != nil && growthRates != nil && metrics != nil
+    }
+    
     let company: Company
+    let options = ["Net Income", "Free Cash Flow"]
     
     init(company: Company) {
         self.company = company
         fetchMarketCap()
         fetchRatios()
+        fetchGrowthRates()
+        fetchMetrics()
     }
     
     func fetchMarketCap() {
@@ -33,8 +46,34 @@ class ValuationViewModel: ObservableObject {
         NetworkingManager.download(url: url)
             .decode(type: [Ratios].self, decoder: JSONDecoder())
             .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: NetworkingManager.handleCompletion) { [weak self] ratios in
+                self?.ratios = ratios[0]
+            }
+            .store(in: &cancellables)
+    }
+    
+    func fetchGrowthRates() {
+        guard let url = URL(string: "https://financialmodelingprep.com/api/v3/financial-growth/\(company.symbol)?limit=1&apikey=\(ApiKeys.financeApi)") else {return}
+        NetworkingManager.download(url: url)
+            .decode(type: [GrowthRates].self, decoder: JSONDecoder())
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: NetworkingManager.handleCompletion) { [weak self] growthRates in
+                self?.growthRates = growthRates[0]
+                
+                self?.growthRate = Int((self?.growthRates?.netIncomeGrowth ?? 0.0) * 100)
+                
+            }
+            .store(in: &cancellables)
+    }
+    
+    func fetchMetrics() {
+        guard let url = URL(string: "https://financialmodelingprep.com/api/v3/key-metrics-ttm/\(company.symbol)?limit=1&apikey=\(ApiKeys.financeApi)") else {return}
+        NetworkingManager.download(url: url)
+            .decode(type: [Metrics].self, decoder: JSONDecoder())
+            .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: NetworkingManager.handleCompletion) { [weak self] metrics in
-                self?.ratios = metrics[0]
+                self?.metrics = metrics[0]
+                self?.baseValue = String(format: "%.2f",self?.metrics?.netIncomePerShareTTM ?? 0.0)
             }
             .store(in: &cancellables)
     }
@@ -67,6 +106,16 @@ class ValuationViewModel: ObservableObject {
         
         return "\(prefix)\(result)"
     }
+    
+    func resetValuation() {
+        if self.type == "Net Income" {
+            self.baseValue = String(format: "%.2f", (self.metrics?.netIncomePerShareTTM ?? 0.0) * 100)
+            self.growthRate = Int((self.growthRates?.netIncomeGrowth ?? 0.0) * 100)
+        } else {
+            self.baseValue = String(format: "%.2f", (self.metrics?.freeCashFlowPerShareTTM ?? 0.0) * 100)
+            self.growthRate = Int((self.growthRates?.freeCashFlowGrowth ?? 0.0) * 100)
+        }
+    }
 }
 
 struct Ratios: Decodable {
@@ -78,6 +127,17 @@ struct Ratios: Decodable {
     let dividendYielPercentageTTM: Double
 }
 
+struct GrowthRates: Decodable {
+    let netIncomeGrowth: Double
+    let freeCashFlowGrowth: Double
+    let weightedAverageSharesGrowth: Double
+}
+
 struct MarketCap: Decodable {
     let marketCap: Int
+}
+
+struct Metrics: Decodable {
+    let netIncomePerShareTTM: Double
+    let freeCashFlowPerShareTTM: Double
 }

@@ -10,6 +10,8 @@ class ValuationViewModel: ObservableObject {
     @Published var baseValue: String = ""
     @Published var growthRate: Int = 0
     @Published var discountRate: Int = 8
+    @Published var terminalMultiple: Int = 20
+    @Published var intrinsicValue: String = ""
     
     var cancellables = Set<AnyCancellable>()
     
@@ -26,6 +28,17 @@ class ValuationViewModel: ObservableObject {
         fetchRatios()
         fetchGrowthRates()
         fetchMetrics()
+        listenToChanges()
+    }
+    
+    func listenToChanges() {
+        Publishers
+            .CombineLatest4($baseValue, $growthRate, $discountRate, $terminalMultiple)
+            .debounce(for: .seconds(1.0), scheduler: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.calculateIntrinsicValue()
+            }
+            .store(in: &cancellables)
     }
     
     func fetchMarketCap() {
@@ -60,7 +73,7 @@ class ValuationViewModel: ObservableObject {
             .sink(receiveCompletion: NetworkingManager.handleCompletion) { [weak self] growthRates in
                 self?.growthRates = growthRates[0]
                 
-                self?.growthRate = Int((self?.growthRates?.netIncomeGrowth ?? 0.0) * 100)
+                self?.growthRate = min(max(Int((self?.growthRates?.netIncomeGrowth ?? 0.0) * 100),3), 20)
                 
             }
             .store(in: &cancellables)
@@ -109,11 +122,25 @@ class ValuationViewModel: ObservableObject {
     
     func resetValuation() {
         if self.type == "Net Income" {
-            self.baseValue = String(format: "%.2f", (self.metrics?.netIncomePerShareTTM ?? 0.0) * 100)
-            self.growthRate = Int((self.growthRates?.netIncomeGrowth ?? 0.0) * 100)
+            self.baseValue = String(format: "%.2f", self.metrics?.netIncomePerShareTTM ?? 0.0)
+            self.growthRate = min(max(Int((self.growthRates?.netIncomeGrowth ?? 0.0) * 100), 3), 20)
         } else {
-            self.baseValue = String(format: "%.2f", (self.metrics?.freeCashFlowPerShareTTM ?? 0.0) * 100)
-            self.growthRate = Int((self.growthRates?.freeCashFlowGrowth ?? 0.0) * 100)
+            self.baseValue = String(format: "%.2f", self.metrics?.freeCashFlowPerShareTTM ?? 0.0)
+            self.growthRate = min(max(Int((self.growthRates?.freeCashFlowGrowth ?? 0.0) * 100),3), 20)
+        }
+    }
+    
+    func calculateIntrinsicValue() {
+        let growthRateAsDecimal = Double(self.growthRate) / 100.0
+        let futureValue = Double(terminalMultiple) * (((Double(self.baseValue) ?? 0.0) * pow((1.0 + growthRateAsDecimal), 5)))
+        
+        let discountRateAsDecimal = Double(self.discountRate) / 100.0
+        let value = futureValue * pow((1.0 + discountRateAsDecimal), -5)
+        
+        if value < 0 {
+            self.intrinsicValue = "No Value"
+        } else {
+            self.intrinsicValue = String(format: "%.1f", value)
         }
     }
 }

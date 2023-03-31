@@ -76,7 +76,7 @@ struct ValuationView: View {
     var valuationView: some View {
         VStack(alignment: .leading) {
             HStack {
-                Text("Method")
+                Text("Method:")
                 Spacer()
                 Picker("Method", selection: $vm.type) {
                     ForEach(vm.options, id: \.self) {
@@ -89,6 +89,7 @@ struct ValuationView: View {
                 Text(vm.type == "Net Income" ? "Net Income:" : "Free Cash Flow:")
                 Spacer()
                 TextField("", text: $vm.baseValue)
+                    .keyboardType(.numberPad)
                     .multilineTextAlignment(.trailing)
                     .frame(width: 100)
             }
@@ -97,24 +98,35 @@ struct ValuationView: View {
                 Text("Growth Rate:")
                 Spacer()
                 TextField("", value: $vm.growthRate, format: .number)
+                    .keyboardType(.numberPad)
                     .multilineTextAlignment(.trailing)
                     .frame(width: 100)
                 Text("%")
             }
             .padding(.horizontal, 20)
             HStack(spacing: 0) {
-                Text("Terminal Value:")
+                Text("Discount Rate:")
                 Spacer()
                 TextField("", value: $vm.discountRate, format: .number)
+                    .keyboardType(.numberPad)
                     .multilineTextAlignment(.trailing)
                     .frame(width: 100)
                 Text("%")
+            }
+            .padding(.horizontal, 20) 
+            HStack(spacing: 0) {
+                Text("Terminal Multiple:")
+                Spacer()
+                TextField("", value: $vm.terminalMultiple, format: .number)
+                    .keyboardType(.numberPad)
+                    .multilineTextAlignment(.trailing)
+                    .frame(width: 100)
             }
             .padding(.horizontal, 20)
             HStack(spacing: 0) {
                 Text("Intrinsic Value: ")
                 Spacer()
-                Text("$200")
+                Text(vm.intrinsicValue)
             }
             .padding(.horizontal, 20)
         }
@@ -122,7 +134,9 @@ struct ValuationView: View {
         .cornerRadius(10)
         .onChange(of: vm.type) { _ in
             vm.resetValuation()
+            vm.calculateIntrinsicValue()
         }
+        .onAppear(perform: vm.calculateIntrinsicValue)
     }
     
     var marginOfSafetyView: some View {

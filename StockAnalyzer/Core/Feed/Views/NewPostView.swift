@@ -4,11 +4,15 @@ struct NewPostView: View {
     @Environment(\.dismiss) private var dismiss
     @State var textContent: String = ""
     @FocusState var focusedField: FocusedField?
-    let postService = PostService()
+    let postService: PostServiceProtocol
     let symbol: String?
     
     enum FocusedField {
         case field
+    }
+    
+    init(postService: PostServiceProtocol) {
+        self.postService = postService
     }
     
     var body: some View {

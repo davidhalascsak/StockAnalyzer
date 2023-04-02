@@ -55,7 +55,7 @@ struct StockView: View {
             }
             .coordinateSpace(name: "scroll")
                 .onPreferenceChange(ScrollViewOffsetPreferenceKey.self) { value in
-                    if value < -0 && vm.showPencil == false {
+                    if value < 20 && vm.showPencil == false {
                         withAnimation(.easeInOut(duration: 0.3)) {
                             vm.showPencil = true
                         }

@@ -5,9 +5,9 @@ import FirebaseAuth
 class SettingsViewModel: ObservableObject {
     @Published var user: User?
     
-    let userService: UserService
+    let userService: UserServiceProtocol
     
-    init(userService: UserService) {
+    init(userService: UserServiceProtocol) {
         self.userService = userService
     }
     

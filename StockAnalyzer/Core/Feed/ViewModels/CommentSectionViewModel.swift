@@ -6,10 +6,10 @@ class CommentSectionViewModel: ObservableObject {
     @Published var comments: [Comment] = []
     
     let post: Post
-    let commentService: CommentService
-    let userService: UserService
+    let commentService: CommentServiceProtocol
+    let userService: UserServiceProtocol
     
-    init(post: Post, commentService: CommentService, userService: UserService) {
+    init(post: Post, commentService: CommentServiceProtocol, userService: UserServiceProtocol) {
         self.post = post
         self.commentService = commentService
         self.userService = userService

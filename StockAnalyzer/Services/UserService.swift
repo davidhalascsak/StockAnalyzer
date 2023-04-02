@@ -2,7 +2,7 @@ import Foundation
 import FirebaseAuth
 import FirebaseFirestore
 
-class UserService {
+class UserService: UserServiceProtocol {
     private var db = Firestore.firestore()
     private let locale = Locale(identifier: "en-US")
 
@@ -27,6 +27,16 @@ class UserService {
     func createUser(user: User) async throws {
         let data = ["username": user.username, "email": user.email, "location": user.location]
         
-        try await db.collection("users").document(user.id ?? "").setData(data)
+        do {
+            try await db.collection("users").document(user.id ?? "").setData(data)
+        } catch let error {
+            print(error)
+        }
     }
+}
+
+protocol UserServiceProtocol {
+    func fetchAllUser() async -> [User]
+    func fetchUser(id: String) async -> User?
+    func createUser(user: User) async throws
 }

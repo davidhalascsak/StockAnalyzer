@@ -140,31 +140,7 @@ class ValuationViewModel: ObservableObject {
         if value < 0 {
             self.intrinsicValue = "No Value"
         } else {
-            self.intrinsicValue = String(format: "%.1f", value)
+            self.intrinsicValue = String(format: "$%.1f", value)
         }
     }
-}
-
-struct Ratios: Decodable {
-    let peRatioTTM: Double
-    let pegRatioTTM: Double
-    let priceToSalesRatioTTM: Double
-    let priceToBookRatioTTM: Double
-    let dividendPerShareTTM: Double
-    let dividendYielPercentageTTM: Double
-}
-
-struct GrowthRates: Decodable {
-    let netIncomeGrowth: Double
-    let freeCashFlowGrowth: Double
-    let weightedAverageSharesGrowth: Double
-}
-
-struct MarketCap: Decodable {
-    let marketCap: Int
-}
-
-struct Metrics: Decodable {
-    let netIncomePerShareTTM: Double
-    let freeCashFlowPerShareTTM: Double
 }

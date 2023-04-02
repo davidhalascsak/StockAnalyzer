@@ -5,7 +5,7 @@ struct CommentSectionView: View {
     @StateObject var vm: CommentSectionViewModel
     @Environment(\.dismiss) private var dismiss
 
-    init(post: Post, commentService: CommentService, userService: UserService) {
+    init(post: Post, commentService: CommentServiceProtocol, userService: UserServiceProtocol) {
         _vm = StateObject(wrappedValue: CommentSectionViewModel(post: post, commentService: commentService, userService: userService))
     }
     

@@ -6,9 +6,9 @@ class CommentViewModel: ObservableObject {
     @Published var post: Post
     @Published var comment: Comment
     
-    let commentService: CommentService
+    let commentService: CommentServiceProtocol
     
-    init(post: Post, comment: Comment, commentService: CommentService) {
+    init(post: Post, comment: Comment, commentService: CommentServiceProtocol) {
         self.post = post
         self.comment = comment
         self.commentService = commentService

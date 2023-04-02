@@ -86,12 +86,33 @@ struct FinancialView: View {
                 .fontWeight(.bold)
             HStack {
                 VStack(alignment: .leading, spacing: 3) {
-                    Text("Return on Equity")
-                    Text("Return on Assets")
-                    Text("Return on Invested Capital")
-                    Text("Return on Capital Employed")
+                    Text("Gross Margin:")
+                    Text("Operating Margin:")
+                    Text("Income Margin:")
+                    Text("Free Cash Flow Margin:")
                 }
-                .padding(.vertical, 3)
+                .padding(.vertical, 5)
+                Spacer()
+                VStack(alignment: .trailing, spacing: 3) {
+                    Text("\(vm.incomeStatement[0].grossMargin)%")
+                    Text("\(vm.incomeStatement[0].operatingMargin)%")
+                    Text("\(vm.incomeStatement[0].netMargin)%")
+                    Text("\(vm.calculateFcfMargin())%")
+                }
+                .fontWeight(.semibold)
+                .padding(.vertical, 5)
+            }
+            .padding(.horizontal)
+            .background(Color.gray.opacity(0.15))
+            .cornerRadius(10)
+            HStack {
+                VStack(alignment: .leading, spacing: 3) {
+                    Text("Return on Equity:")
+                    Text("Return on Assets:")
+                    Text("Return on Invested Capital:")
+                    Text("Return on Capital Employed:")
+                }
+                .padding(.vertical, 5)
                 Spacer()
                 VStack(alignment: .trailing, spacing: 3) {
                     Text("\(vm.calculateROE())%")
@@ -100,7 +121,7 @@ struct FinancialView: View {
                     Text("\(vm.calculateROCE())%")
                 }
                 .fontWeight(.semibold)
-                .padding(.vertical, 3)
+                .padding(.vertical, 5)
             }
             .padding(.horizontal)
             .background(Color.gray.opacity(0.15))

@@ -19,10 +19,6 @@ struct ValuationView: View {
                     .font(.title2)
                     .fontWeight(.semibold)
                 valuationView
-                Text("Margin of Safety")
-                    .font(.title2)
-                    .fontWeight(.semibold)
-                marginOfSafetyView
             }
             .padding()
         } else {
@@ -44,7 +40,7 @@ struct ValuationView: View {
                     Text("Dividend & Yield")
                     
                 }
-                .padding(.vertical, 3)
+                .padding(.vertical, 5)
                 Spacer()
                 VStack(alignment: .trailing, spacing: 3) {
                     Text(vm.formatPrice(price: marketCap.marketCap))
@@ -65,7 +61,7 @@ struct ValuationView: View {
                     }
                 }
                 .fontWeight(.semibold)
-                .padding(.vertical, 3)
+                .padding(.vertical, 5)
             }
         }
         .padding(.horizontal)
@@ -83,7 +79,11 @@ struct ValuationView: View {
                         Text($0)
                     }
                 }
+                .padding(-6)
+                .background(Color.white)
+                .cornerRadius(10)
             }
+            .padding(.top, 8)
             .padding(.horizontal, 20)
             HStack {
                 Text(vm.type == "Net Income" ? "Net Income:" : "Free Cash Flow:")
@@ -91,27 +91,40 @@ struct ValuationView: View {
                 TextField("", text: $vm.baseValue)
                     .keyboardType(.numberPad)
                     .multilineTextAlignment(.trailing)
+                    .padding(.horizontal, 5)
                     .frame(width: 100)
+                    .background(Color.white)
+                    .cornerRadius(10)
             }
             .padding(.horizontal, 20)
-            HStack(spacing: 0) {
+            HStack {
                 Text("Growth Rate:")
                 Spacer()
-                TextField("", value: $vm.growthRate, format: .number)
-                    .keyboardType(.numberPad)
-                    .multilineTextAlignment(.trailing)
-                    .frame(width: 100)
-                Text("%")
+                HStack(spacing: 0) {
+                    TextField("", value: $vm.growthRate, format: .number)
+                        .keyboardType(.numberPad)
+                        .multilineTextAlignment(.trailing)
+                        .frame(width: 75)
+                    Text("%")
+                }
+                .padding(.horizontal, 6)
+                .background(Color.white)
+                .cornerRadius(10)
             }
             .padding(.horizontal, 20)
-            HStack(spacing: 0) {
+            HStack {
                 Text("Discount Rate:")
                 Spacer()
-                TextField("", value: $vm.discountRate, format: .number)
-                    .keyboardType(.numberPad)
-                    .multilineTextAlignment(.trailing)
-                    .frame(width: 100)
-                Text("%")
+                HStack(spacing: 0) {
+                    TextField("", value: $vm.discountRate, format: .number)
+                        .keyboardType(.numberPad)
+                        .multilineTextAlignment(.trailing)
+                        .frame(width: 75)
+                    Text("%")
+                }
+                .padding(.horizontal, 5)
+                .background(Color.white)
+                .cornerRadius(10)
             }
             .padding(.horizontal, 20) 
             HStack(spacing: 0) {
@@ -120,15 +133,20 @@ struct ValuationView: View {
                 TextField("", value: $vm.terminalMultiple, format: .number)
                     .keyboardType(.numberPad)
                     .multilineTextAlignment(.trailing)
+                    .padding(.horizontal, 5)
                     .frame(width: 100)
+                    .background(Color.white)
+                    .cornerRadius(10)
             }
             .padding(.horizontal, 20)
-            HStack(spacing: 0) {
-                Text("Intrinsic Value: ")
+            HStack() {
                 Spacer()
+                Text("Intrinsic Value: ")
                 Text(vm.intrinsicValue)
+                Spacer()
             }
-            .padding(.horizontal, 20)
+            .font(Font.title3)
+            .padding(.vertical, 10)
         }
         .background(Color.gray.opacity(0.15))
         .cornerRadius(10)
@@ -137,12 +155,6 @@ struct ValuationView: View {
             vm.calculateIntrinsicValue()
         }
         .onAppear(perform: vm.calculateIntrinsicValue)
-    }
-    
-    var marginOfSafetyView: some View {
-        VStack {
-            
-        }
     }
 }
 

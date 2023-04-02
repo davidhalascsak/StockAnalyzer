@@ -5,7 +5,7 @@ struct CommentView: View {
     @ObservedObject var vm: CommentViewModel
     
     
-    init(post: Post, comment: Comment, commentService: CommentService) {
+    init(post: Post, comment: Comment, commentService: CommentServiceProtocol) {
         _vm = ObservedObject(wrappedValue: CommentViewModel(post: post, comment: comment, commentService: commentService))
     }
     

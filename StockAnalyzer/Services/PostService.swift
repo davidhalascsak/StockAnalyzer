@@ -3,7 +3,7 @@ import FirebaseFirestore
 import FirebaseAuth
 import Firebase
 
-class PostService: ObservableObject {
+class PostService: ObservableObject, PostServiceProtocol {
     @Published var isUpdated: Bool = true
     
     private var db = Firestore.firestore()
@@ -86,4 +86,12 @@ class PostService: ObservableObject {
         }
         _ = try? await db.collection("posts").addDocument(data: data)
     }
+}
+
+protocol PostServiceProtocol {
+    func fetchPosts(symbol: String?) async -> [Post]
+    func checkIfPostIsLiked(post: Post) async -> Bool
+    func likePost(post: Post) async
+    func unlikePost(post: Post) async
+    func createPost(body: String, symbol: String?) async
 }

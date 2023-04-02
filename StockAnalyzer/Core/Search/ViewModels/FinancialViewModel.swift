@@ -121,6 +121,10 @@ class FinancialViewModel: ObservableObject {
         return String(format: "%.2f", ratio)
     }
     
+    func calculateFcfMargin() -> Int {
+        return Int(Double(self.cashFlowStatement[0].freeCashFlow) / Double(self.incomeStatement[0].revenue) * 100)
+    }
+    
     func calculateGrowthRates(data: [Int]) -> [Double] {
         
         let oneYear: Double = Double(data[data.count - 1] - data[data.count - 2] / data[data.count - 1])

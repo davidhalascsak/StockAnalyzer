@@ -11,10 +11,10 @@ class FeedViewModel: ObservableObject {
     @Published var isLoading: Bool = false
     @Published var reloadCounter: Int = 0
     
-    let userService: UserService
-    let postService: PostService
+    let userService: UserServiceProtocol
+    let postService: PostServiceProtocol
     
-    init(userService: UserService, postService: PostService) {
+    init(userService: UserServiceProtocol, postService: PostServiceProtocol) {
         self.userService = userService
         self.postService = postService
     }

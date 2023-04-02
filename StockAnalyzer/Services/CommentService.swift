@@ -2,7 +2,7 @@ import Foundation
 import FirebaseFirestore
 import FirebaseAuth
 
-class CommentService: ObservableObject {
+class CommentService: ObservableObject, CommentServiceProtocol {
     @Published var isUpdated: Bool = true
     
     private var db = Firestore.firestore()
@@ -48,7 +48,6 @@ class CommentService: ObservableObject {
         self.isUpdated = true
     }
     
-    
     func unlikeComment(post: Post, comment: Comment) async {
         guard let userId = Auth.auth().currentUser?.uid else {return}
         guard let postId = post.id else {return}
@@ -84,4 +83,12 @@ class CommentService: ObservableObject {
             print(error.localizedDescription)
         }
     }
+}
+
+protocol CommentServiceProtocol {
+    func fetchComments(post: Post) async -> [Comment]
+    func checkIfCommentIsLiked(comment: Comment) async -> Bool
+    func likeComment(post: Post, comment: Comment) async
+    func unlikeComment(post: Post, comment: Comment) async
+    func createComment(post: Post, body: String) async
 }

@@ -9,7 +9,7 @@ struct FeedView: View {
     @State var isNewPostPresented: Bool = false
     @State var isSettingsPresented: Bool = false
     
-    init(userService: UserService, postService: PostService) {
+    init(userService: UserServiceProtocol, postService: PostServiceProtocol) {
         _vm = StateObject(wrappedValue: FeedViewModel(userService: userService, postService: postService))
     }
 

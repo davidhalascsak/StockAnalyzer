@@ -1,7 +1,6 @@
 import Foundation
 import Combine
 
-
 class NewsService {
     @Published var allNews: [News] = []
     

@@ -4,9 +4,9 @@ import SwiftUI
 @MainActor
 class PostViewModel: ObservableObject {
     @Published var post: Post
-    var postService: PostService
+    var postService: PostServiceProtocol
     
-    init(post: Post, postService: PostService) {
+    init(post: Post, postService: PostServiceProtocol) {
         self.post = post
         self.postService = postService
     }

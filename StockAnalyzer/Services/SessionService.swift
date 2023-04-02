@@ -1,7 +1,7 @@
 import Foundation
 import FirebaseAuth
 
-class SessionService: ObservableObject {
+class SessionService: ObservableObject, SessionServiceProtocol {
     static let entity = SessionService()
     
     @Published var session: FirebaseAuth.User?
@@ -20,4 +20,8 @@ class SessionService: ObservableObject {
            }
        }
     }
+}
+
+protocol SessionServiceProtocol {
+    func listen()
 }

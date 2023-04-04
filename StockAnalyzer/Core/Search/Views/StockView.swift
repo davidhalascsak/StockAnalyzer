@@ -13,6 +13,7 @@ struct StockView: View {
     @EnvironmentObject var sessionService: SessionService
     @StateObject var vm: StockViewModel
     @State var isNewPostPresented: Bool = false
+    @State var isAddAssetPresented: Bool = false
     
     init(symbol: String) {
         _vm = StateObject(wrappedValue: StockViewModel(symbol: symbol))
@@ -44,6 +45,12 @@ struct StockView: View {
                         Image(systemName: "arrowshape.backward")
                             .onTapGesture {
                                 dismiss()
+                            }
+                    }
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Image(systemName: "plus.circle")
+                            .onTapGesture {
+                                isAddAssetPresented.toggle()
                             }
                     }
                 }
@@ -81,7 +88,11 @@ struct StockView: View {
                 }
             })
             .fullScreenCover(isPresented: $isNewPostPresented, content: {
-                NewPostView(symbol: vm.symbol)
+                NewPostView(symbol: vm.symbol, postService: PostService())
+            })
+            .sheet(isPresented: $isAddAssetPresented, content: {
+                NewAssetView(symbol: vm.symbol, portfolioService: PortfolioService())
+                    .presentationDetents([.fraction(0.5)])
             })
             .sync($vm.isNewPostPresented, with:  $isNewPostPresented)
         } else {

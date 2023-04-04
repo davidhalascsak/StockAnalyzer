@@ -24,7 +24,7 @@ struct MainView: View {
                         Image(systemName: "newspaper") 
                     }
                     .tag("News")
-                PortfolioView()
+                PortfolioView(portfolioService: PortfolioService())
                     .tabItem {
                         Image(systemName: "briefcase")
                     }

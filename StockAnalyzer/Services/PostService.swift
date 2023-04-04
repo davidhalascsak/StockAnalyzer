@@ -89,6 +89,8 @@ class PostService: ObservableObject, PostServiceProtocol {
 }
 
 protocol PostServiceProtocol {
+    var isUpdated: Bool { get set }
+    
     func fetchPosts(symbol: String?) async -> [Post]
     func checkIfPostIsLiked(post: Post) async -> Bool
     func likePost(post: Post) async

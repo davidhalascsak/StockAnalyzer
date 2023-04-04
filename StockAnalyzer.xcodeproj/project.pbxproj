@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		EC015092298BCEB500BAF650 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC015091298BCEB500BAF650 /* LoginView.swift */; };
 		EC015094298BCEDB00BAF650 /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC015093298BCEDB00BAF650 /* SignupView.swift */; };
+		EC02CC6729DB48E70015690E /* PortfolioRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC02CC6629DB48E70015690E /* PortfolioRowView.swift */; };
+		EC02CC6B29DB5C0B0015690E /* PortfolioViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC02CC6A29DB5C0B0015690E /* PortfolioViewModel.swift */; };
+		EC02CC6D29DB5C640015690E /* PortfolioService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC02CC6C29DB5C640015690E /* PortfolioService.swift */; };
+		EC02CC7029DB68030015690E /* Portfolio.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EC02CC6E29DB68030015690E /* Portfolio.xcdatamodeld */; };
 		EC03FC2629DA1BA2000083F0 /* ValuationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC03FC2529DA1BA2000083F0 /* ValuationModel.swift */; };
 		EC0C8A8129C4AA0300AAB674 /* FinancialViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC0C8A8029C4AA0300AAB674 /* FinancialViewModel.swift */; };
 		EC0F60CA29BE456F00C982EE /* FeedBodyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC0F60C929BE456F00C982EE /* FeedBodyView.swift */; };
@@ -49,6 +53,8 @@
 		EC6E627A29AA13210064110A /* NetworkingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC6E627929AA13210064110A /* NetworkingManager.swift */; };
 		EC6E627E29AA15270064110A /* NewsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC6E627D29AA15270064110A /* NewsModel.swift */; };
 		EC6E628029AA3A820064110A /* NewsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC6E627F29AA3A820064110A /* NewsViewModel.swift */; };
+		EC7088B629DC80290088941A /* NewAssetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC7088B529DC80290088941A /* NewAssetView.swift */; };
+		EC7088B829DC9C890088941A /* NewAssetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC7088B729DC9C890088941A /* NewAssetViewModel.swift */; };
 		EC72691729AD2149002FAB32 /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC72691629AD2149002FAB32 /* ChartView.swift */; };
 		EC72691929AD2347002FAB32 /* ChartViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC72691829AD2347002FAB32 /* ChartViewModel.swift */; };
 		EC734CAE29CF07B700F295CB /* PieChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC734CAD29CF07B700F295CB /* PieChartView.swift */; };
@@ -88,6 +94,10 @@
 /* Begin PBXFileReference section */
 		EC015091298BCEB500BAF650 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		EC015093298BCEDB00BAF650 /* SignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
+		EC02CC6629DB48E70015690E /* PortfolioRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioRowView.swift; sourceTree = "<group>"; };
+		EC02CC6A29DB5C0B0015690E /* PortfolioViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioViewModel.swift; sourceTree = "<group>"; };
+		EC02CC6C29DB5C640015690E /* PortfolioService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioService.swift; sourceTree = "<group>"; };
+		EC02CC6F29DB68030015690E /* Portfolio.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Portfolio.xcdatamodel; sourceTree = "<group>"; };
 		EC03FC2529DA1BA2000083F0 /* ValuationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValuationModel.swift; sourceTree = "<group>"; };
 		EC0C8A8029C4AA0300AAB674 /* FinancialViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinancialViewModel.swift; sourceTree = "<group>"; };
 		EC0F60C929BE456F00C982EE /* FeedBodyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedBodyView.swift; sourceTree = "<group>"; };
@@ -124,6 +134,8 @@
 		EC6E627929AA13210064110A /* NetworkingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingManager.swift; sourceTree = "<group>"; };
 		EC6E627D29AA15270064110A /* NewsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsModel.swift; sourceTree = "<group>"; };
 		EC6E627F29AA3A820064110A /* NewsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsViewModel.swift; sourceTree = "<group>"; };
+		EC7088B529DC80290088941A /* NewAssetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAssetView.swift; sourceTree = "<group>"; };
+		EC7088B729DC9C890088941A /* NewAssetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAssetViewModel.swift; sourceTree = "<group>"; };
 		EC72691629AD2149002FAB32 /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
 		EC72691829AD2347002FAB32 /* ChartViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartViewModel.swift; sourceTree = "<group>"; };
 		EC734CAD29CF07B700F295CB /* PieChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieChartView.swift; sourceTree = "<group>"; };
@@ -193,6 +205,23 @@
 				EC03FC2529DA1BA2000083F0 /* ValuationModel.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		EC02CC6829DB5BE40015690E /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				EC917269299547EA00EA924D /* PortfolioView.swift */,
+				EC02CC6629DB48E70015690E /* PortfolioRowView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		EC02CC6929DB5BF50015690E /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				EC02CC6A29DB5C0B0015690E /* PortfolioViewModel.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 		EC1016F829B1192000DEE9E2 /* Extensions */ = {
@@ -265,6 +294,7 @@
 				EC3CEAAC29BB8F550048FADE /* ValuationView.swift */,
 				EC650B3929BCDAF200D508D8 /* AboutView.swift */,
 				EC8FA49B29C0FB5C009CE80E /* PriceView.swift */,
+				EC7088B529DC80290088941A /* NewAssetView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -278,6 +308,7 @@
 				EC8FA49D29C0FD12009CE80E /* PriceViewModel.swift */,
 				EC0C8A8029C4AA0300AAB674 /* FinancialViewModel.swift */,
 				EC330AAC29C76B5B009A0D30 /* ValuationViewModel.swift */,
+				EC7088B729DC9C890088941A /* NewAssetViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -287,6 +318,7 @@
 			children = (
 				EC6E627929AA13210064110A /* NetworkingManager.swift */,
 				ECC2615629C1DBFD00CE1B7C /* ApiKeys.swift */,
+				EC02CC6E29DB68030015690E /* Portfolio.xcdatamodeld */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -303,7 +335,8 @@
 		EC8650E4299C3CC600271609 /* Portfolio */ = {
 			isa = PBXGroup;
 			children = (
-				EC917269299547EA00EA924D /* PortfolioView.swift */,
+				EC02CC6929DB5BF50015690E /* ViewModels */,
+				EC02CC6829DB5BE40015690E /* Views */,
 			);
 			path = Portfolio;
 			sourceTree = "<group>";
@@ -476,6 +509,7 @@
 				EC6802B629AB767E0019EE18 /* StockService.swift */,
 				EC6802C629ABD8110019EE18 /* NewsService.swift */,
 				ECA41EF129B9F00600DA03DA /* ImageService.swift */,
+				EC02CC6C29DB5C640015690E /* PortfolioService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -579,6 +613,7 @@
 				EC8FA49E29C0FD12009CE80E /* PriceViewModel.swift in Sources */,
 				ECF669D22997A2E800855894 /* FeedViewModel.swift in Sources */,
 				ECC2615729C1DBFD00CE1B7C /* ApiKeys.swift in Sources */,
+				EC02CC6D29DB5C640015690E /* PortfolioService.swift in Sources */,
 				EC82004D29CB79140014E95C /* BarChartView.swift in Sources */,
 				EC49E91229A398FF003AE346 /* CommentService.swift in Sources */,
 				EC6E627E29AA15270064110A /* NewsModel.swift in Sources */,
@@ -602,9 +637,11 @@
 				ECCDEFA829A3C2C500034C76 /* CommentView.swift in Sources */,
 				EC0C8A8129C4AA0300AAB674 /* FinancialViewModel.swift in Sources */,
 				EC1016F529B0FBAB00DEE9E2 /* String.swift in Sources */,
+				EC02CC6729DB48E70015690E /* PortfolioRowView.swift in Sources */,
 				EC03FC2629DA1BA2000083F0 /* ValuationModel.swift in Sources */,
 				EC180CB4298C384D00671AA2 /* AuthenticationModel.swift in Sources */,
 				EC917268299547DE00EA924D /* NewsView.swift in Sources */,
+				EC7088B829DC9C890088941A /* NewAssetViewModel.swift in Sources */,
 				EC4CE36729B7AE4900F600CC /* SearchModel.swift in Sources */,
 				EC40027929A9047A00CD1036 /* SessionService.swift in Sources */,
 				ECA41EF429BA142000DA03DA /* CompanyModel.swift in Sources */,
@@ -614,6 +651,7 @@
 				ECCDEFAA29A3C30300034C76 /* CommentViewModel.swift in Sources */,
 				EC6E628029AA3A820064110A /* NewsViewModel.swift in Sources */,
 				EC734CAE29CF07B700F295CB /* PieChartView.swift in Sources */,
+				EC7088B629DC80290088941A /* NewAssetView.swift in Sources */,
 				ECB0F05129B3561A002AF29C /* Double.swift in Sources */,
 				EC330AAD29C76B5B009A0D30 /* ValuationViewModel.swift in Sources */,
 				EC3CEAAB29BB8F490048FADE /* FinancialView.swift in Sources */,
@@ -621,6 +659,8 @@
 				EC49E90E29A393D1003AE346 /* CommentSectionViewModel.swift in Sources */,
 				EC91726C299547F600EA924D /* SearchView.swift in Sources */,
 				EC49E91029A398A8003AE346 /* CommentModel.swift in Sources */,
+				EC02CC7029DB68030015690E /* Portfolio.xcdatamodeld in Sources */,
+				EC02CC6B29DB5C0B0015690E /* PortfolioViewModel.swift in Sources */,
 				ECEBBFE0299920EE00104326 /* PostViewModel.swift in Sources */,
 				EC6802B729AB767E0019EE18 /* StockService.swift in Sources */,
 				EC8FA4A029C10D34009CE80E /* PriceModel.swift in Sources */,
@@ -888,6 +928,19 @@
 			productName = FirebaseFirestoreSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		EC02CC6E29DB68030015690E /* Portfolio.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				EC02CC6F29DB68030015690E /* Portfolio.xcdatamodel */,
+			);
+			currentVersion = EC02CC6F29DB68030015690E /* Portfolio.xcdatamodel */;
+			path = Portfolio.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = EC90D60C298ACED3001D4520 /* Project object */;
 }

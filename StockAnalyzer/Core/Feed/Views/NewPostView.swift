@@ -11,7 +11,8 @@ struct NewPostView: View {
         case field
     }
     
-    init(postService: PostServiceProtocol) {
+    init(symbol: String?, postService: PostServiceProtocol) {
+        self.symbol = symbol
         self.postService = postService
     }
     
@@ -56,6 +57,6 @@ struct NewPostView: View {
 
 struct NewPostView_Previews: PreviewProvider {
     static var previews: some View {
-        NewPostView(symbol: "APPL")
+        NewPostView(symbol: "APPL", postService: PostService())
     }
 }

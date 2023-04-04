@@ -7,7 +7,7 @@ struct NewsView: View {
     @State var isSettingsPresented: Bool = false
     var body: some View {
         VStack {
-            newsHeader
+            headerView
             if vm.isLoading == false {
                 newsBody
             } else {
@@ -19,7 +19,7 @@ struct NewsView: View {
         }
     }
     
-    var newsHeader: some View {
+    var headerView: some View {
         HStack() {
             Image(systemName: "arrow.triangle.2.circlepath")
                 .font(.title2)

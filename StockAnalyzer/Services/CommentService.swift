@@ -86,6 +86,8 @@ class CommentService: ObservableObject, CommentServiceProtocol {
 }
 
 protocol CommentServiceProtocol {
+    var isUpdated: Bool { get set }
+    
     func fetchComments(post: Post) async -> [Comment]
     func checkIfCommentIsLiked(comment: Comment) async -> Bool
     func likeComment(post: Post, comment: Comment) async

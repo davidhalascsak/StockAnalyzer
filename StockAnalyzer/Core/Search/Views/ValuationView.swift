@@ -89,7 +89,7 @@ struct ValuationView: View {
                 Text(vm.type == "Net Income" ? "Net Income:" : "Free Cash Flow:")
                 Spacer()
                 TextField("", text: $vm.baseValue)
-                    .keyboardType(.numberPad)
+                    .keyboardType(.decimalPad)
                     .multilineTextAlignment(.trailing)
                     .padding(.horizontal, 5)
                     .frame(width: 100)

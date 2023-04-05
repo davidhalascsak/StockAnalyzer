@@ -16,51 +16,52 @@ struct StockView: View {
     @State var isAddAssetPresented: Bool = false
     
     init(symbol: String) {
-        _vm = StateObject(wrappedValue: StockViewModel(symbol: symbol))
+        _vm = StateObject(wrappedValue: StockViewModel(symbol: symbol, stockService: StockService(symbol: symbol)))
         UIPageControl.appearance().currentPageIndicatorTintColor = .black
         UIPageControl.appearance().pageIndicatorTintColor = UIColor.black.withAlphaComponent(0.2)
     }
     
     var body: some View {
-        if let company = vm.companyProfile {
-            ScrollView(showsIndicators: false) {
-                VStack {
-                    header
-                        .padding()
-                    pickerView
-                    switch vm.option {
-                    case .home:
-                        HomeView(company: company, isNewViewPresented: $isNewPostPresented)
-                    case .financials:
-                        FinancialView(company: company)
-                    case .valuation:
-                        ValuationView(company: company)
-                    case .about:
-                        AboutView(company: company)
-                    }  
-                }
-                .navigationBarBackButtonHidden()
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarLeading) {
-                        Image(systemName: "arrowshape.backward")
-                            .onTapGesture {
-                                dismiss()
-                            }
+        VStack {
+            if let company = vm.companyProfile {
+                ScrollView(showsIndicators: false) {
+                    VStack {
+                        header
+                            .padding()
+                        pickerView
+                        switch vm.option {
+                        case .home:
+                            HomeView(company: company, newsService: NewsService(symbol: company.symbol), isNewViewPresented: $isNewPostPresented)
+                        case .financials:
+                            FinancialView(company: company)
+                        case .valuation:
+                            ValuationView(company: company)
+                        case .about:
+                            AboutView(company: company)
+                        }
                     }
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        Image(systemName: "plus.circle")
-                            .onTapGesture {
-                                isAddAssetPresented.toggle()
-                            }
+                    .navigationBarBackButtonHidden()
+                    .toolbar {
+                        ToolbarItem(placement: .navigationBarLeading) {
+                            Image(systemName: "arrowshape.backward")
+                                .onTapGesture {
+                                    dismiss()
+                                }
+                        }
+                        ToolbarItem(placement: .navigationBarTrailing) {
+                            Image(systemName: "plus.circle")
+                                .onTapGesture {
+                                    isAddAssetPresented.toggle()
+                                }
+                        }
                     }
+                    .background(
+                        GeometryReader { proxy in
+                            let offset = proxy.frame(in: .named("scroll")).minY
+                            Color.clear.preference(key: ScrollViewOffsetPreferenceKey.self, value: offset)
+                        })
                 }
-                .background(
-                    GeometryReader { proxy in
-                        let offset = proxy.frame(in: .named("scroll")).minY
-                        Color.clear.preference(key: ScrollViewOffsetPreferenceKey.self, value: offset)
-                    })
-            }
-            .coordinateSpace(name: "scroll")
+                .coordinateSpace(name: "scroll")
                 .onPreferenceChange(ScrollViewOffsetPreferenceKey.self) { value in
                     if value < 20 && vm.showPencil == false {
                         withAnimation(.easeInOut(duration: 0.3)) {
@@ -71,32 +72,37 @@ struct StockView: View {
                             vm.showPencil = false
                         }
                     }
-            }
-            .overlay(alignment: .bottomTrailing, content: {
-                if vm.option == .home && vm.showPencil && sessionService.session != nil {
-                    Image(systemName: "pencil")
-                        .font(.title)
-                        .foregroundColor(Color.white)
-                        .frame(width: 50, height: 50)
-                        .background(Color.blue)
-                        .clipShape(Circle())
-                        .padding()
-                        .onTapGesture {
-                            vm.isNewPostPresented.toggle()
-                        }
-                        .offset(x: vm.showPencil ? 0 : 100)
                 }
-            })
-            .fullScreenCover(isPresented: $isNewPostPresented, content: {
-                NewPostView(symbol: vm.symbol, postService: PostService())
-            })
-            .sheet(isPresented: $isAddAssetPresented, content: {
-                NewAssetView(symbol: vm.symbol, portfolioService: PortfolioService())
-                    .presentationDetents([.fraction(0.5)])
-            })
-            .sync($vm.isNewPostPresented, with:  $isNewPostPresented)
-        } else {
-            ProgressView()
+                .overlay(alignment: .bottomTrailing, content: {
+                    if vm.option == .home && vm.showPencil && sessionService.session != nil {
+                        Image(systemName: "pencil")
+                            .font(.title)
+                            .foregroundColor(Color.white)
+                            .frame(width: 50, height: 50)
+                            .background(Color.blue)
+                            .clipShape(Circle())
+                            .padding()
+                            .onTapGesture {
+                                vm.isNewPostPresented.toggle()
+                            }
+                            .offset(x: vm.showPencil ? 0 : 100)
+                    }
+                })
+                .fullScreenCover(isPresented: $isNewPostPresented, content: {
+                    NewPostView(symbol: vm.symbol, postService: PostService())
+                })
+                .sheet(isPresented: $isAddAssetPresented, content: {
+                    NewAssetView(symbol: vm.symbol, portfolioService: PortfolioService(), stockService: StockService(symbol: vm.symbol))
+                        .presentationDetents([.fraction(0.5)])
+                })
+                .sync($vm.isNewPostPresented, with:  $isNewPostPresented)
+            } else {
+                ProgressView()
+            }
+        }
+        .task {
+            
+            await vm.fetchData()
         }
     }
     
@@ -119,7 +125,7 @@ struct StockView: View {
                     PriceView(symbol: profile.symbol, currency: profile.currency)
                 }
                 Spacer()
-                ImageView(logoUrl: profile.image)
+                ImageView(imageService: ImageService(url: profile.image))
                     .scaledToFit()
                     .cornerRadius(10)
                     .frame(height: 50)

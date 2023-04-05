@@ -3,7 +3,7 @@ import FirebaseFirestore
 import FirebaseAuth
 import Firebase
 
-class PostService: ObservableObject, PostServiceProtocol {
+class PostService: PostServiceProtocol {
     @Published var isUpdated: Bool = true
     
     private var db = Firestore.firestore()

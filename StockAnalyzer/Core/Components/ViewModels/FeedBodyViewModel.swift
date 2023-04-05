@@ -6,10 +6,10 @@ class FeedBodyViewModel: ObservableObject {
     @Published var isLoading: Bool = false
     
     let symbol: String?
-    let userService: UserService
-    let postService: PostService
+    let userService: UserServiceProtocol
+    let postService: PostServiceProtocol
     
-    init(symbol: String?, userService: UserService, postService: PostService) {
+    init(symbol: String?, userService: UserServiceProtocol, postService: PostServiceProtocol) {
         self.symbol = symbol
         self.userService = userService
         self.postService = postService

@@ -5,11 +5,11 @@ struct HomeView: View {
     @State var isExpanded: Bool = false
     @Binding var isNewViewPresented: Bool
     
-    init(company: Company, isNewViewPresented: Binding<Bool>) {
-        _vm = StateObject(wrappedValue: HomeViewModel(company: company))
+    init(company: Company, newsService: NewsServiceProtocol, isNewViewPresented: Binding<Bool>) {
+        _vm = StateObject(wrappedValue: HomeViewModel(company: company, newsService: newsService))
         _isNewViewPresented = isNewViewPresented
-       UIPageControl.appearance().currentPageIndicatorTintColor = .black
-       UIPageControl.appearance().pageIndicatorTintColor = UIColor.black.withAlphaComponent(0.2)
+        UIPageControl.appearance().currentPageIndicatorTintColor = .black
+        UIPageControl.appearance().pageIndicatorTintColor = UIColor.black.withAlphaComponent(0.2)
     }
     
     var body: some View {
@@ -26,6 +26,10 @@ struct HomeView: View {
             } else {
                 ProgressView()
             }
+        }
+        .task {
+            vm.isDownloadingNews = true
+            await vm.fetchNews()
         }
     }
     
@@ -72,7 +76,7 @@ struct HomeView_Previews: PreviewProvider {
     @State static var isNewViewPresented: Bool = false
     
     static var previews: some View {
-        HomeView(company: company, isNewViewPresented: $isNewViewPresented)
+        HomeView(company: company, newsService: NewsService(symbol: company.symbol), isNewViewPresented: $isNewViewPresented)
     }
 }
 

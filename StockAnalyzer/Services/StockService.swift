@@ -1,30 +1,30 @@
 import Foundation
 import Combine
 
-class StockService: ObservableObject {
-    @Published var companyInformation: Company?
-    
+
+class StockService: StockServiceProtocol {
     let symbol: String
-    var cancellables = Set<AnyCancellable>()
     
     init(symbol: String) {
         self.symbol = symbol
-        fetchProfile()
     }
     
-    func fetchProfile() {
+    func fetchProfile() async -> Company? {
         guard let url = URL(string: "https://financialmodelingprep.com/api/v3/profile/\(self.symbol)?apikey=\(ApiKeys.financeApi)")
-        else {return}
+        else {return nil}
         
+        do {
+            let (data, _) = try await URLSession.shared.data(from: url, delegate: nil)
+            let decoder = JSONDecoder()
+            let company = try? decoder.decode([Company].self, from: data)
+            if let company = company {
+                return company[0]
+            }
+        } catch let error {
+            print(error.localizedDescription)
+        }
         
-                
-        NetworkingManager.download(url: url)
-            .decode(type: [Company].self, decoder: JSONDecoder())
-            .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: NetworkingManager.handleCompletion, receiveValue: { [weak self] (companyInformation) in
-                self?.companyInformation = companyInformation[0]
-            })
-            .store(in: &cancellables)
+        return nil
     }
     
     func fetchPriceAtDate(date: String) async -> Double {
@@ -49,9 +49,7 @@ class StockService: ObservableObject {
 
 
 protocol StockServiceProtocol {
-    var companyInformation: Company? { get set }
-    
-    func fetchProfile()
-    func fetchPrice(date: String) async -> Double
+    func fetchProfile() async -> Company?
+    func fetchPriceAtDate(date: String) async -> Double
 }
 

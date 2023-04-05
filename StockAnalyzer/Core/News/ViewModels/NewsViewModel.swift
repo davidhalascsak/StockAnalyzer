@@ -6,32 +6,19 @@ class NewsViewModel: ObservableObject  {
     @Published var shouldScroll: Bool = false
     @Published var isLoading: Bool = false
     
-    private let newsService: NewsService
-    private var cancellables = Set<AnyCancellable>()
+    private let newsService: NewsServiceProtocol
     
-    init() {
-        self.newsService = NewsService(symbol: nil)
-        self.isLoading = true
-        
-        fetchData()
+    init(newsService: NewsServiceProtocol) {
+        self.newsService = newsService
     }
     
-    
-    func fetchData() {
-        newsService.$allNews
-            .map(sortNews)
-            .sink { [weak self] (returnedNews) in
-                self?.news = returnedNews
-                self?.isLoading = false
-            }
-            .store(in: &cancellables)
+    func fetchNews() async {
+        let fetchedNews = await newsService.fetchData()
+        self.news = sortNews(news: fetchedNews)
+        
+        self.isLoading = false
     }
 
-    func reloadData() {
-        isLoading = true
-        newsService.fetchData()
-    }
-    
     func sortNews(news: [News]) -> [News] {
         return news.sorted {
             $0.date > $1.date

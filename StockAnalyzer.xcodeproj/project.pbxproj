@@ -302,12 +302,12 @@
 		EC6802C329ABA85D0019EE18 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				EC6802BA29AB8FDF0019EE18 /* StockViewModel.swift */,
 				EC4CE36429B7ABC800F600CC /* SearchViewModel.swift */,
+				EC6802BA29AB8FDF0019EE18 /* StockViewModel.swift */,
 				EC3CEAB029BB8F880048FADE /* HomeViewModel.swift */,
-				EC8FA49D29C0FD12009CE80E /* PriceViewModel.swift */,
 				EC0C8A8029C4AA0300AAB674 /* FinancialViewModel.swift */,
 				EC330AAC29C76B5B009A0D30 /* ValuationViewModel.swift */,
+				EC8FA49D29C0FD12009CE80E /* PriceViewModel.swift */,
 				EC7088B729DC9C890088941A /* NewAssetViewModel.swift */,
 			);
 			path = ViewModels;

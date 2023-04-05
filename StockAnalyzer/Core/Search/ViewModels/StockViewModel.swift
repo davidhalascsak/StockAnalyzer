@@ -1,7 +1,7 @@
 import Foundation
 import Combine
 
-
+@MainActor
 class StockViewModel: ObservableObject {
     @Published var companyProfile: Company?
     @Published var option: ViewOption = .home
@@ -9,24 +9,18 @@ class StockViewModel: ObservableObject {
     @Published var isNewPostPresented: Bool = false
     
     let symbol: String
-    let stockService: StockService
+    var stockService: StockServiceProtocol
     
     var cancellables = Set<AnyCancellable>()
     
-    init(symbol: String) {
+    init(symbol: String, stockService: StockServiceProtocol) {
         self.symbol = symbol
-        self.stockService = StockService(symbol: symbol)
-        
-        fetchData()
+        self.stockService = stockService
     }
     
     
-    func fetchData() {
-        self.stockService.$companyInformation
-            .sink { [weak self] (companyProfile) in
-                self?.companyProfile = companyProfile ?? nil
-            }
-            .store(in: &cancellables)
+    func fetchData() async {
+        self.companyProfile = await self.stockService.fetchProfile()
     }
     
     func decreaseInPercentage(price: Double, change: Double) -> String {

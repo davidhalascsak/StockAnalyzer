@@ -19,7 +19,7 @@ struct MainView: View {
                         Image(systemName: "house")
                     }
                     .tag("Home")
-                NewsView()
+                NewsView(newsService: NewsService(symbol: nil))
                     .tabItem {
                         Image(systemName: "newspaper") 
                     }

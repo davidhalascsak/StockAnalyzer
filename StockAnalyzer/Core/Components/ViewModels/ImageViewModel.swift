@@ -6,23 +6,14 @@ class ImageViewModel: ObservableObject {
     @Published var isLoading: Bool = false
     @Published var image: UIImage? = nil
     
-    let imageService: ImageService
+    let imageService: ImageServiceProtocol
     
-    var cancellables = Set<AnyCancellable>()
-    
-    init(url: String) {
-        self.imageService = ImageService(url: url)
-        self.isLoading = true
-        fetchData()
+    init(imageService: ImageServiceProtocol) {
+        self.imageService = imageService
     }
     
-    
-    func fetchData() {
-        self.imageService.$image
-            .sink { [weak self] image in
-                self?.image = image
-                self?.isLoading = false
-            }
-            .store(in: &cancellables)
+    func fetchData() async {
+        self.image = await self.imageService.fetchData()
+        self.isLoading = false
     }
 }

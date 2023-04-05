@@ -70,6 +70,6 @@ struct NewAssetView: View {
 
 struct NewAssetView_Previews: PreviewProvider {
     static var previews: some View {
-        NewAssetView(symbol: "AAPL", portfolioService: PortfolioService(), stockService: StockService(symbol: "AAPL") as! StockServiceProtocol)
+        NewAssetView(symbol: "AAPL", portfolioService: PortfolioService(), stockService: StockService(symbol: "AAPL"))
     }
 }

@@ -6,28 +6,21 @@ class HomeViewModel: ObservableObject {
     @Published var isDownloadingNews: Bool = false
     
     let companyProfile: Company
-    let newsService: NewsService
+    var newsService: NewsServiceProtocol
     
-    private var cancellables = Set<AnyCancellable>()
-    
-    init(company companyProfile: Company) {
+    init(company companyProfile: Company, newsService: NewsServiceProtocol) {
         self.companyProfile = companyProfile
-        self.newsService = NewsService(symbol: companyProfile.symbol)
-        self.isDownloadingNews = true
-        
-        self.addSubscribers()
+        self.newsService = newsService
     }
     
-    func addSubscribers() {
-        self.newsService.$allNews
-            .sink { [weak self] (news) in
-                if news.count > 10 {
-                    self?.news = Array(news[0..<10])
-                } else {
-                    self?.news = news
-                }
-                self?.isDownloadingNews = false
-            }
-            .store(in: &cancellables)
+    func fetchNews() async {
+        let fetchedNews = await self.newsService.fetchData()
+        
+        if fetchedNews.count > 10 {
+            self.news = Array(news[0..<10])
+        } else {
+            self.news = news
+        }
+        self.isDownloadingNews = false
     }
 }

@@ -3,8 +3,13 @@ import FirebaseCore
 import FirebaseAuth
 
 struct NewsView: View {
-    @StateObject var vm = NewsViewModel()
+    @StateObject var vm: NewsViewModel
     @State var isSettingsPresented: Bool = false
+    
+    init(newsService: NewsServiceProtocol) {
+        _vm = StateObject(wrappedValue: NewsViewModel(newsService: NewsService(symbol: nil)))
+    }
+    
     var body: some View {
         VStack {
             headerView
@@ -15,7 +20,10 @@ struct NewsView: View {
                 ProgressView()
                 Spacer()
             }
-            
+        }
+        .task {
+            vm.isLoading = true
+            await vm.fetchNews()
         }
     }
     
@@ -25,7 +33,10 @@ struct NewsView: View {
                 .font(.title2)
                 .onTapGesture {
                     withAnimation {
-                        vm.reloadData()
+                        vm.isLoading = true
+                        Task {
+                           await vm.fetchNews()
+                        }
                         vm.shouldScroll.toggle()
                     }
                 }
@@ -73,6 +84,6 @@ struct NewsView: View {
 
 struct WatchlistView_Previews: PreviewProvider {
     static var previews: some View {
-        NewsView()
+        NewsView(newsService: NewsService(symbol: nil))
     }
 }

@@ -2,7 +2,7 @@ import Foundation
 import FirebaseFirestore
 import FirebaseAuth
 
-class CommentService: ObservableObject, CommentServiceProtocol {
+class CommentService: CommentServiceProtocol {
     @Published var isUpdated: Bool = true
     
     private var db = Firestore.firestore()

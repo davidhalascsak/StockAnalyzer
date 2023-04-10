@@ -14,11 +14,11 @@ class PortfolioViewModel: ObservableObject {
         assets = await self.portfolioService.fetchAssets()
         self.isLoading = false
     }
-}
-
-struct Asset: Hashable, Codable {
-    let symbol: String
-    let units: Double
-    let averagePrice: Double
-    let currentValue: Double
+    
+    func deleteAsset(at index: Int) async {
+        let assetSymbol = assets[index].symbol
+        
+        await self.portfolioService.deleteAsset(symbol: assetSymbol)
+        assets.remove(at: index)
+    }
 }

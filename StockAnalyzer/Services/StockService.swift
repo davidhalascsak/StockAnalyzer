@@ -28,12 +28,13 @@ class StockService: StockServiceProtocol {
     }
     
     func fetchPriceAtDate(date: String) async -> Double {
-        guard let url = URL(string: "https://financialmodelingprep.com/api/v3/historical-price-full\(self.symbol)?from=\(date)&to=\(date)&apikey=\(ApiKeys.financeApi)") else {return 0.0}
+        guard let url = URL(string: "https://financialmodelingprep.com/api/v3/historical-price-full/\(self.symbol)?from=\(date)&to=\(date)&apikey=\(ApiKeys.financeApi)") else {return 0.0}
         
         do {
             let (data, _) = try await URLSession.shared.data(from: url, delegate: nil)
             let decoder = JSONDecoder()
             let price = try? decoder.decode(PriceAtDate.self, from: data)
+           
             if let price = price {
                 if price.historical.count == 1 {
                     return price.historical[0].open

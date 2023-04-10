@@ -135,6 +135,7 @@ struct BarChartView: View {
                     RoundedRectangle(cornerRadius: 10)
                         .stroke(Color.gray, lineWidth: 2)
                 }
+                /*
                 HStack {
                     Text("10 years: ")
                         .fontWeight(.semibold)
@@ -151,6 +152,7 @@ struct BarChartView: View {
                     RoundedRectangle(cornerRadius: 10)
                         .stroke(Color.gray, lineWidth: 2)
                 }
+                */
             }
         }
     }
@@ -189,7 +191,7 @@ struct BarChartView: View {
         var oneYear: String = ""
         var threeYear: String = ""
         var fiveYear: String = ""
-        var tenYear: String = ""
+        //var tenYear: String = ""
         
         if (data.count - 1) >= 0 && (data.count - 2) >= 0 {
             let multiplier = data[data.count - 1] >= 0 ? 1.0 : -1.0
@@ -205,12 +207,12 @@ struct BarChartView: View {
             oneYear = "-"
         }
         
-        if (data.count - 1) >= 0 && (data.count - 4) >= 0 {
+        if (data.count - 1) >= 0 && (data.count - 3) >= 0 {
             let multiplier = data[data.count - 1] >= 0 ? 1.0 : -1.0
             
-            threeYear = String(format: "%.1f", multiplier * (pow(Double(data[data.count - 1]) / Double(data[data.count - 4]), 1.0/3.0) - 1.0) * 100)
+            threeYear = String(format: "%.1f", multiplier * (pow(Double(data[data.count - 1]) / Double(data[data.count - 3]), 1.0/3.0) - 1.0) * 100)
             
-            if threeYear == "nan" || self.checkNums(lfs: data[data.count - 1], rfs: data[data.count - 4]) {
+            if threeYear == "nan" || self.checkNums(lfs: data[data.count - 1], rfs: data[data.count - 3]) {
                 threeYear = "-"
             } else {
                 threeYear = threeYear[0] == "-" ? "\(threeYear)%" : "+\(threeYear)%"
@@ -219,12 +221,12 @@ struct BarChartView: View {
             threeYear = "-"
         }
         
-        if (data.count - 1) >= 0 && (data.count - 6) >= 0 {
+        if (data.count - 1) >= 0 && (data.count - 5) >= 0 {
             let multiplier = data[data.count - 1] >= 0 ? 1.0 : -1.0
             
-            fiveYear = String(format: "%.1f", multiplier * (pow(Double(data[data.count - 1]) / Double(data[data.count - 6]), 1.0/5.0) - 1.0) * 100)
+            fiveYear = String(format: "%.1f", multiplier * (pow(Double(data[data.count - 1]) / Double(data[data.count - 5]), 1.0/5.0) - 1.0) * 100)
             
-            if fiveYear == "nan" || self.checkNums(lfs: data[data.count - 1], rfs: data[data.count - 6]) {
+            if fiveYear == "nan" || self.checkNums(lfs: data[data.count - 1], rfs: data[data.count - 5]) {
                 fiveYear = "-"
             } else {
                 fiveYear = fiveYear[0] == "-" ? "\(fiveYear)%" : "+\(fiveYear)%"
@@ -232,7 +234,7 @@ struct BarChartView: View {
         } else {
             fiveYear = "-"
         }
-        
+        /*
         if (data.count - 1) >= 0 && (data.count - 10) >= 0 {
             let multiplier = data[data.count - 1] >= 0 ? 1.0 : -1.0
             
@@ -246,8 +248,10 @@ struct BarChartView: View {
         } else {
             tenYear = "-"
         }
+         */
 
-        return [oneYear, threeYear, fiveYear, tenYear]
+        //return [oneYear, threeYear, fiveYear, tenYear]
+        return [oneYear, threeYear, fiveYear]
     }
     
     func checkNums(lfs: Int, rfs: Int) -> Bool {

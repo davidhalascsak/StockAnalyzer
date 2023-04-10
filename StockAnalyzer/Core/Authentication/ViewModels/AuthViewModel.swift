@@ -2,6 +2,8 @@ import Foundation
 import FirebaseCore
 import FirebaseAuth
 
+// TODO: Extract the login and registration process into a service.
+
 @MainActor
 class AuthViewModel: ObservableObject {
     @Published var userData: AuthenticationUser = AuthenticationUser()

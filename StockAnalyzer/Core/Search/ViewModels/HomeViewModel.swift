@@ -1,6 +1,7 @@
 import Foundation
 import Combine
 
+@MainActor
 class HomeViewModel: ObservableObject {
     @Published var news: [News] = []
     @Published var isDownloadingNews: Bool = false
@@ -17,9 +18,10 @@ class HomeViewModel: ObservableObject {
         let fetchedNews = await self.newsService.fetchData()
         
         if fetchedNews.count > 10 {
-            self.news = Array(news[0..<10])
+            self.news = Array(fetchedNews[0..<10])
         } else {
-            self.news = news
+            
+            self.news = fetchedNews
         }
         self.isDownloadingNews = false
     }

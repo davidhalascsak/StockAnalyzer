@@ -2,6 +2,7 @@ import Foundation
 import Combine
 import SwiftUI
 
+@MainActor
 class ImageViewModel: ObservableObject {
     @Published var isLoading: Bool = false
     @Published var image: UIImage? = nil

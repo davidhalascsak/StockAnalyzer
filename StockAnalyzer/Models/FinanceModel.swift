@@ -22,7 +22,6 @@ struct IncomeStatement: Codable, Hashable {
     }
 }
 
-
 struct BalanceSheet: Decodable {
     let date: String
     let reportedCurrency: String

@@ -2,6 +2,7 @@ import SwiftUI
 
 struct NewAssetView: View {
     @StateObject var vm: NewAssetViewModel
+    @Environment(\.dismiss) var dismiss
     
     init(symbol: String, portfolioService: PortfolioServiceProtocol, stockService: StockServiceProtocol) {
         _vm = StateObject(wrappedValue: NewAssetViewModel(symbol: symbol, portfolioService: portfolioService, stockService: stockService))
@@ -12,10 +13,10 @@ struct NewAssetView: View {
             HStack {
                 Text("Units:")
                 Spacer()
-                TextField("Units", text: $vm.units)
+                TextField("Units", value: $vm.units, format: .number)
                     .keyboardType(.decimalPad)
                     .padding(5)
-                    .frame(width: 60)
+                    .frame(width: 80)
                     .background(Color.gray.opacity(0.1))
                     .cornerRadius(8)
             }
@@ -25,15 +26,14 @@ struct NewAssetView: View {
                 DatePicker("", selection: $vm.buyDate,in: ...Date.now, displayedComponents: .date)
                     .datePickerStyle(.compact)
                     .fixedSize()
-               
             }
             HStack {
                 Text("Price:")
                 Spacer()
-                TextField("Price", text: $vm.price)
+                TextField("Units", value: $vm.price, format: .number)
                     .keyboardType(.decimalPad)
                     .padding(5)
-                    .frame(width: 60)
+                    .frame(width: 80)
                     .background(Color.gray.opacity(0.1))
                     .cornerRadius(8)
             }
@@ -41,13 +41,16 @@ struct NewAssetView: View {
             HStack {
                 Text("Total Value:")
                 Spacer()
-                Text("$2000")
+                Text(vm.value)
             }
             .padding(.vertical, 5)
             HStack {
                 Spacer()
                 Button {
-                    
+                    Task {
+                        await vm.addAssetToPortfolio()
+                        dismiss()
+                    }
                 } label: {
                     Text("Add")
                         .foregroundColor(Color.white)
@@ -56,15 +59,30 @@ struct NewAssetView: View {
                         .frame(width: 100)
                         .background(Color.blue)
                         .cornerRadius(10)
-                    
                 }
-
                 Spacer()
             }
-            
         }
         .padding(.vertical)
         .padding(.horizontal, 50)
+        .onAppear {
+            Task {
+                await vm.fetchPrice()
+                vm.calculateValue()
+            }
+        }
+        .onChange(of: vm.units, perform: { _ in
+            vm.calculateValue()
+        })
+        .onChange(of: vm.price) { _ in
+            vm.calculateValue()
+        }
+        .onChange(of: vm.buyDate) { _ in
+            Task {
+                await vm.fetchPrice()
+                vm.calculateValue()
+            }
+        }
     }
 }
 

@@ -70,10 +70,21 @@ struct PortfolioView: View {
                         .listRowSeparator(.hidden)
                         .listRowInsets(EdgeInsets())
                 }
+                .onDelete(perform: delete)
             }
+            
             .listStyle(.plain)
             .scrollIndicators(.hidden)
             .listRowInsets(EdgeInsets())
+        }
+    }
+    
+    func delete(at offsets: IndexSet) {
+        let index = offsets.first ?? nil
+        if let index = index {
+            Task {
+                await vm.deleteAsset(at: index)
+            }
         }
     }
 }

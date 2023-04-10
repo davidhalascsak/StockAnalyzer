@@ -1,6 +1,7 @@
 import Foundation
 import Combine
 
+@MainActor
 class NewsViewModel: ObservableObject  {
     @Published var news: [News] = []
     @Published var shouldScroll: Bool = false

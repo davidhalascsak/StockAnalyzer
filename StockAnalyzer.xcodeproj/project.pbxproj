@@ -82,6 +82,7 @@
 		ECC2615929C1E1C500CE1B7C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = ECC2615829C1E1C400CE1B7C /* GoogleService-Info.plist */; };
 		ECCDEFA829A3C2C500034C76 /* CommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCDEFA729A3C2C500034C76 /* CommentView.swift */; };
 		ECCDEFAA29A3C30300034C76 /* CommentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCDEFA929A3C30300034C76 /* CommentViewModel.swift */; };
+		ECD264B629E532FF009F1C46 /* PortfolioRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECD264B529E532FF009F1C46 /* PortfolioRowViewModel.swift */; };
 		ECEBBFE0299920EE00104326 /* PostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECEBBFDF299920EE00104326 /* PostViewModel.swift */; };
 		ECF669CC2996F37900855894 /* PostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF669CB2996F37900855894 /* PostModel.swift */; };
 		ECF669CE2996F3C400855894 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF669CD2996F3C400855894 /* UserModel.swift */; };
@@ -166,6 +167,7 @@
 		ECC2615829C1E1C400CE1B7C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		ECCDEFA729A3C2C500034C76 /* CommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentView.swift; sourceTree = "<group>"; };
 		ECCDEFA929A3C30300034C76 /* CommentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewModel.swift; sourceTree = "<group>"; };
+		ECD264B529E532FF009F1C46 /* PortfolioRowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioRowViewModel.swift; sourceTree = "<group>"; };
 		ECEBBFDF299920EE00104326 /* PostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewModel.swift; sourceTree = "<group>"; };
 		ECF669CB2996F37900855894 /* PostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostModel.swift; sourceTree = "<group>"; };
 		ECF669CD2996F3C400855894 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
@@ -223,6 +225,7 @@
 			isa = PBXGroup;
 			children = (
 				EC02CC6A29DB5C0B0015690E /* PortfolioViewModel.swift */,
+				ECD264B529E532FF009F1C46 /* PortfolioRowViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -600,6 +603,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ECD264B629E532FF009F1C46 /* PortfolioRowViewModel.swift in Sources */,
 				ECA41EEC29B9EFB800DA03DA /* NewsRowView.swift in Sources */,
 				EC6802B929AB8EDF0019EE18 /* StockView.swift in Sources */,
 				EC015094298BCEDB00BAF650 /* SignupView.swift in Sources */,

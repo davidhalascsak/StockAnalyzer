@@ -50,7 +50,8 @@ class NewAssetViewModel: ObservableObject {
         let value = price * units
         
         if value != 0 {
-            let position = ["symbol": symbol, "date": formatter.string(from: buyDate), "units": units, "investedAmount": value] as [String : Any]
+            let position = ["symbol": symbol, "date": formatter.string(from: self.buyDate), "units": self.units, "price": self.price,
+                            "investedAmount": value] as [String : Any]
             
             if let userId = Auth.auth().currentUser?.uid {
                 let portfolio = try? await db.collection("users").document(userId).collection("portfolio").document(symbol).getDocument(as: Asset.self)

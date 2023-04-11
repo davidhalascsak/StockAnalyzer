@@ -56,9 +56,9 @@ struct PortfolioView: View {
             HStack(spacing: 20) {
                 Text("Assets")
                 Spacer()
-                Text("Units")
+                Text("Invested")
                 Spacer()
-                Text("Avg. Open")
+                Text("P / L")
                 Spacer()
                 Text("Value")
             }
@@ -66,7 +66,7 @@ struct PortfolioView: View {
             Divider()
             List {
                 ForEach(vm.assets, id: \.self) { asset in
-                    PortfolioRowView(asset: asset)
+                    PortfolioRowView(asset: asset, stockService: StockService(symbol: asset.symbol))
                         .listRowSeparator(.hidden)
                         .listRowInsets(EdgeInsets())
                 }

@@ -27,6 +27,25 @@ class StockService: StockServiceProtocol {
         return nil
     }
     
+    func fetchPriceInRealTime() async -> Double {
+        guard let url = URL(string: "https://financialmodelingprep.com/api/v3/quote-short/\(self.symbol)?apikey=\(ApiKeys.financeApi)")
+        else {return 0.0}
+        
+        do {
+            let (data, _) = try await URLSession.shared.data(from: url, delegate: nil)
+            let decoder = JSONDecoder()
+            let price = try? decoder.decode([RealTimePrice].self, from: data)
+           
+            if let price = price {
+                return price[0].price
+            }
+        } catch let error {
+            print(error.localizedDescription)
+        }
+        
+        return 0.0
+    }
+    
     func fetchPriceAtDate(date: String) async -> Double {
         guard let url = URL(string: "https://financialmodelingprep.com/api/v3/historical-price-full/\(self.symbol)?from=\(date)&to=\(date)&apikey=\(ApiKeys.financeApi)") else {return 0.0}
         
@@ -51,6 +70,7 @@ class StockService: StockServiceProtocol {
 
 protocol StockServiceProtocol {
     func fetchProfile() async -> Company?
+    func fetchPriceInRealTime() async -> Double
     func fetchPriceAtDate(date: String) async -> Double
 }
 

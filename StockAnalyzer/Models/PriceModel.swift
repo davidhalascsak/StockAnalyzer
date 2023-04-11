@@ -6,6 +6,12 @@ struct Price: Codable {
     let change: Double
 }
 
+struct RealTimePrice: Codable {
+    let symbol: String
+    let price: Double
+    let volume: Int
+}
+
 struct PriceAtDate: Codable {
     let historical: [DailyPrice]
     

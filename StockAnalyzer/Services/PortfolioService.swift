@@ -9,7 +9,7 @@ class PortfolioService: PortfolioServiceProtocol {
         var assets: [Asset] = []
         
         if let userId = Auth.auth().currentUser?.uid {
-            let snapshot = try? await db.collection("users").document(userId).collection("portfolio").getDocuments()
+            let snapshot = try? await db.collection("users").document(userId).collection("portfolio").order(by: "investedAmount", descending: true).getDocuments()
             if let snapshot = snapshot {
                 assets = snapshot.documents.compactMap({try? $0.data(as: Asset.self)})
                 for index in 0..<assets.count {

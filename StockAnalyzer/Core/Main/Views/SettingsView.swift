@@ -9,8 +9,8 @@ struct SettingsView: View {
     @State var isLoginPresented: Bool = false
     @State var isSignupPresented: Bool = false
     
-    init(userService: UserService) {
-        _vm = ObservedObject(wrappedValue: SettingsViewModel(userService: userService))
+    init(userService: UserService, sessionService: SessionServiceProtocol) {
+        _vm = ObservedObject(wrappedValue: SettingsViewModel(userService: userService, sessionService: SessionService()))
     }
     
     var body: some View {
@@ -29,7 +29,7 @@ struct SettingsView: View {
                 .background(Color.gray.opacity(0.2))
                 .cornerRadius(20)
                 
-                if sessionService.session != nil {
+                if vm.sessionService.getUserId() != nil {
                     Text("Sign out")
                         .font(.title)
                         .padding(.vertical)
@@ -96,7 +96,6 @@ struct SettingsView: View {
 struct SettingsView_Previews: PreviewProvider {
     
     static var previews: some View {
-        SettingsView(userService: UserService())
-            .environmentObject(SessionService.entity)
+        SettingsView(userService: UserService(), sessionService: SessionService())
     }
 }

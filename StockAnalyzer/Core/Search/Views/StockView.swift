@@ -10,13 +10,12 @@ struct ScrollViewOffsetPreferenceKey: PreferenceKey {
 
 struct StockView: View {
     @Environment(\.dismiss) private var dismiss
-    @EnvironmentObject var sessionService: SessionService
     @StateObject var vm: StockViewModel
     @State var isNewPostPresented: Bool = false
     @State var isAddAssetPresented: Bool = false
     
-    init(symbol: String) {
-        _vm = StateObject(wrappedValue: StockViewModel(symbol: symbol, stockService: StockService(symbol: symbol)))
+    init(symbol: String, stockService: StockServiceProtocol, sessionService: SessionServiceProtocol) {
+        _vm = StateObject(wrappedValue: StockViewModel(symbol: symbol, stockService: stockService, sessionService: sessionService))
         UIPageControl.appearance().currentPageIndicatorTintColor = .black
         UIPageControl.appearance().pageIndicatorTintColor = UIColor.black.withAlphaComponent(0.2)
     }
@@ -74,7 +73,7 @@ struct StockView: View {
                     }
                 }
                 .overlay(alignment: .bottomTrailing, content: {
-                    if vm.option == .home && vm.showPencil && sessionService.session != nil {
+                    if vm.option == .home && vm.showPencil && vm.sessionService.getUserId() != nil {
                         Image(systemName: "pencil")
                             .font(.title)
                             .foregroundColor(Color.white)
@@ -188,6 +187,6 @@ struct StockView: View {
 
 struct StockView_Previews: PreviewProvider {
     static var previews: some View {
-        StockView(symbol: "APPL")
+        StockView(symbol: "APPL", stockService: StockService(symbol: "AAPL"), sessionService: SessionService())
     }
 }

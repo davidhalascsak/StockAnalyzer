@@ -6,9 +6,11 @@ class SettingsViewModel: ObservableObject {
     @Published var user: User?
     
     let userService: UserServiceProtocol
+    let sessionService: SessionServiceProtocol
     
-    init(userService: UserServiceProtocol) {
+    init(userService: UserServiceProtocol, sessionService: SessionServiceProtocol) {
         self.userService = userService
+        self.sessionService = sessionService
     }
     
     func fetchUser() async {

@@ -9,8 +9,8 @@ struct FeedView: View {
     @State var isNewPostPresented: Bool = false
     @State var isSettingsPresented: Bool = false
     
-    init(userService: UserServiceProtocol, postService: PostServiceProtocol) {
-        _vm = StateObject(wrappedValue: FeedViewModel(userService: userService, postService: postService))
+    init(userService: UserServiceProtocol, postService: PostServiceProtocol, sessionService: SessionServiceProtocol) {
+        _vm = StateObject(wrappedValue: FeedViewModel(userService: userService, postService: postService, sessionService: sessionService))
     }
 
     var body: some View {
@@ -22,7 +22,7 @@ struct FeedView: View {
                         NewPostView(symbol: nil, postService: PostService())
                     })
                     .fullScreenCover(isPresented: $isSettingsPresented, content: {
-                        SettingsView(userService: UserService())
+                        SettingsView(userService: UserService(), sessionService: SessionService())
                     })
                     .sync($vm.isNewPostPresented, with: $isNewPostPresented)
                     .sync($vm.isSettingsPresented, with: $isSettingsPresented)
@@ -100,7 +100,7 @@ struct FeedView: View {
                 }
             }
             .overlay(alignment: .bottomTrailing, content: {
-                if sessionService.session != nil {
+                if vm.sessionService.getUserId() != nil {
                     Image(systemName: "pencil")
                         .font(.title)
                         .foregroundColor(Color.white)
@@ -121,8 +121,7 @@ struct FeedView: View {
 
 struct FeedView_Previews: PreviewProvider {
     static var previews: some View {
-        FeedView(userService: UserService(), postService: PostService())
-            .environmentObject(SessionService.entity)
+        FeedView(userService: UserService(), postService: PostService(), sessionService: SessionService())
     }
 }
 

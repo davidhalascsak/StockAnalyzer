@@ -18,7 +18,7 @@ struct StockAnalyzerApp: App {
     
     var body: some Scene {
         WindowGroup {
-            MainView().environmentObject(SessionService.entity)
+            MainView()
         }
     }
 }

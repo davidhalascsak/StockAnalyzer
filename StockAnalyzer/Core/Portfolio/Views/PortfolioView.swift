@@ -11,7 +11,7 @@ struct PortfolioView: View {
     }
     
     var body: some View {
-        VStack {
+        NavigationStack {
             headerView
             Divider()
             if(vm.isLoading == false) {
@@ -23,7 +23,7 @@ struct PortfolioView: View {
             }
         }
         .fullScreenCover(isPresented: $isSettingsPresented, content: {
-            SettingsView(userService: UserService())
+            SettingsView(userService: UserService(), sessionService: SessionService())
         })
         .task {
             vm.isLoading = true
@@ -66,16 +66,27 @@ struct PortfolioView: View {
             Divider()
             List {
                 ForEach(vm.assets, id: \.self) { asset in
-                    PortfolioRowView(asset: asset, stockService: StockService(symbol: asset.symbol))
-                        .listRowSeparator(.hidden)
-                        .listRowInsets(EdgeInsets())
+                    ZStack {
+                        PortfolioRowView(asset: asset, stockService: StockService(symbol: asset.symbol))
+                            
+                            
+                        NavigationLink {
+                            PositionView(asset: asset)
+                        } label: {
+                            EmptyView()
+                        }
+                        .opacity(0)
+                    }
+                    .alignmentGuide(.listRowSeparatorLeading) { dimension in
+                        dimension[.leading]
+                    }
+                    .listRowInsets(EdgeInsets())
                 }
                 .onDelete(perform: delete)
             }
-            
             .listStyle(.plain)
             .scrollIndicators(.hidden)
-            .listRowInsets(EdgeInsets())
+            .padding(.top, -8)
         }
     }
     
@@ -91,6 +102,6 @@ struct PortfolioView: View {
 
 struct PortfolioView_Previews: PreviewProvider {
     static var previews: some View {
-        PortfolioView(portfolioService: PortfolioService())
+        PortfolioView(portfolioService: TestPortfolioService())
     }
 }

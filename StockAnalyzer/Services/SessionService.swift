@@ -2,26 +2,11 @@ import Foundation
 import FirebaseAuth
 
 class SessionService: ObservableObject, SessionServiceProtocol {
-    static let entity = SessionService()
-    
-    @Published var session: FirebaseAuth.User?
-    var handle: AuthStateDidChangeListenerHandle?
-    
-    private init() {
-        self.listen()
-    }
-    
-    func listen() {
-       handle = Auth.auth().addStateDidChangeListener { (auth, user) in
-           if let user = user {
-               self.session = user
-           } else {
-               self.session = nil
-           }
-       }
+    func getUserId() -> String? {
+        return Auth.auth().currentUser?.uid
     }
 }
 
 protocol SessionServiceProtocol {
-    func listen()
+    func getUserId() -> String?
 }

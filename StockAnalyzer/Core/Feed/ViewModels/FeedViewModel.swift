@@ -13,10 +13,13 @@ class FeedViewModel: ObservableObject {
     
     let userService: UserServiceProtocol
     let postService: PostServiceProtocol
+    let sessionService: SessionServiceProtocol
     
-    init(userService: UserServiceProtocol, postService: PostServiceProtocol) {
+    
+    init(userService: UserServiceProtocol, postService: PostServiceProtocol, sessionService: SessionServiceProtocol) {
         self.userService = userService
         self.postService = postService
+        self.sessionService = sessionService
     }
     
     func fetchPosts() async {

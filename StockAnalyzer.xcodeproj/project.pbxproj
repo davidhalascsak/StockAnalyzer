@@ -84,6 +84,7 @@
 		ECCDEFAA29A3C30300034C76 /* CommentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCDEFA929A3C30300034C76 /* CommentViewModel.swift */; };
 		ECD264B629E532FF009F1C46 /* PortfolioRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECD264B529E532FF009F1C46 /* PortfolioRowViewModel.swift */; };
 		ECEBBFE0299920EE00104326 /* PostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECEBBFDF299920EE00104326 /* PostViewModel.swift */; };
+		ECF2AF0E29E718FF008306CF /* PositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF2AF0D29E718FF008306CF /* PositionView.swift */; };
 		ECF669CC2996F37900855894 /* PostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF669CB2996F37900855894 /* PostModel.swift */; };
 		ECF669CE2996F3C400855894 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF669CD2996F3C400855894 /* UserModel.swift */; };
 		ECF669D22997A2E800855894 /* FeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF669D12997A2E800855894 /* FeedViewModel.swift */; };
@@ -169,6 +170,7 @@
 		ECCDEFA929A3C30300034C76 /* CommentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewModel.swift; sourceTree = "<group>"; };
 		ECD264B529E532FF009F1C46 /* PortfolioRowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioRowViewModel.swift; sourceTree = "<group>"; };
 		ECEBBFDF299920EE00104326 /* PostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewModel.swift; sourceTree = "<group>"; };
+		ECF2AF0D29E718FF008306CF /* PositionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionView.swift; sourceTree = "<group>"; };
 		ECF669CB2996F37900855894 /* PostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostModel.swift; sourceTree = "<group>"; };
 		ECF669CD2996F3C400855894 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		ECF669D12997A2E800855894 /* FeedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewModel.swift; sourceTree = "<group>"; };
@@ -217,6 +219,7 @@
 			children = (
 				EC917269299547EA00EA924D /* PortfolioView.swift */,
 				EC02CC6629DB48E70015690E /* PortfolioRowView.swift */,
+				ECF2AF0D29E718FF008306CF /* PositionView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -679,6 +682,7 @@
 				EC84911C2996ACC800DD2413 /* PostView.swift in Sources */,
 				EC91727029955E9500EA924D /* SettingsView.swift in Sources */,
 				EC40027B29A91ADB00CD1036 /* SettingsViewModel.swift in Sources */,
+				ECF2AF0E29E718FF008306CF /* PositionView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -18,7 +18,7 @@ struct SearchView: View {
                 Spacer()
             }
             .fullScreenCover(isPresented: $isSettingsPresented, content: {
-                SettingsView(userService: UserService())
+                SettingsView(userService: UserService(), sessionService: SessionService())
             })
         }
     }
@@ -84,14 +84,22 @@ struct SearchView: View {
                         Spacer()
                         Text(result.exchangeShortName)
                     }
-                    NavigationLink(destination: StockView(symbol: result.symbol)) {
+                    .padding(.horizontal, 15)
+                    .padding(.vertical, 5)
+                    NavigationLink(destination: StockView(symbol: result.symbol, stockService: StockService(symbol: result.symbol), sessionService: SessionService())) {
                         EmptyView()
                     }
                     .opacity(0)
                 }
+                .alignmentGuide(.listRowSeparatorLeading) { dimension in
+                    dimension[.leading]
+                }
+                .listRowInsets(EdgeInsets())
             }
         }
+        .padding(.top, -8)
         .listStyle(.plain)
+        .scrollIndicators(.hidden)
     }
 }
 

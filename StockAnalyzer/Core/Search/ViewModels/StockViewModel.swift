@@ -10,12 +10,14 @@ class StockViewModel: ObservableObject {
     
     let symbol: String
     var stockService: StockServiceProtocol
+    var sessionService: SessionServiceProtocol
     
     var cancellables = Set<AnyCancellable>()
     
-    init(symbol: String, stockService: StockServiceProtocol) {
+    init(symbol: String, stockService: StockServiceProtocol, sessionService: SessionServiceProtocol) {
         self.symbol = symbol
         self.stockService = stockService
+        self.sessionService = sessionService
     }
     
     

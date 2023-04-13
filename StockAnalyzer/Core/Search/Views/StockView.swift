@@ -124,7 +124,7 @@ struct StockView: View {
                     PriceView(symbol: profile.symbol, currency: profile.currency)
                 }
                 Spacer()
-                ImageView(imageService: ImageService(url: profile.image))
+                ImageView(url: profile.image, imageService: ImageService())
                     .scaledToFit()
                     .cornerRadius(10)
                     .frame(height: 50)

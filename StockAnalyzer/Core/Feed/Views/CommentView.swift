@@ -5,8 +5,8 @@ struct CommentView: View {
     @ObservedObject var vm: CommentViewModel
     
     
-    init(post: Post, comment: Comment, commentService: CommentServiceProtocol) {
-        _vm = ObservedObject(wrappedValue: CommentViewModel(post: post, comment: comment, commentService: commentService))
+    init(post: Post, comment: Comment, commentService: CommentServiceProtocol, sessionService: SessionServiceProtocol) {
+        _vm = ObservedObject(wrappedValue: CommentViewModel(post: post, comment: comment, commentService: commentService, sessionService: sessionService))
     }
     
     var body: some View {
@@ -31,11 +31,11 @@ struct CommentView: View {
                     Image(systemName: vm.comment.isLiked ?? false ? "hand.thumbsup.fill" : "hand.thumbsup")
                         .foregroundColor(vm.comment.isLiked ?? false ? Color.blue : Color.black)
                         .onTapGesture {
-                            if vm.commentService.isUpdated {
+                            if vm.sessionService.getUserId() != nil && vm.commentService.isUpdated {
                                 vm.commentService.isUpdated = false
-                                if vm.comment.isLiked ?? false {
+                                if vm.post.isLiked ?? false {
                                     Task {
-                                        await vm.unlikeComment()
+                                        await vm.likeComment()
                                     }
                                 } else {
                                     Task {
@@ -61,7 +61,7 @@ struct CommentView: View {
      static let comment = Comment(userRef: "asd", body: "Buy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy Tesla", timestamp: Timestamp(date: Date()), likes: 5, user: user)
      
      static var previews: some View {
-         CommentView(post: post, comment: comment, commentService: CommentService())
+         CommentView(post: post, comment: comment, commentService: CommentService(), sessionService: SessionService())
      }
  }
  

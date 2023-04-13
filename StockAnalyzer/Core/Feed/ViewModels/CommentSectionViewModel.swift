@@ -8,11 +8,13 @@ class CommentSectionViewModel: ObservableObject {
     let post: Post
     var commentService: CommentServiceProtocol
     let userService: UserServiceProtocol
+    let sessionService: SessionServiceProtocol
     
-    init(post: Post, commentService: CommentServiceProtocol, userService: UserServiceProtocol) {
+    init(post: Post, commentService: CommentServiceProtocol, userService: UserServiceProtocol, sessionService: SessionServiceProtocol) {
         self.post = post
         self.commentService = commentService
         self.userService = userService
+        self.sessionService = sessionService
     }
     
     func fetchComments() async {

@@ -23,6 +23,7 @@
 		EC180CB4298C384D00671AA2 /* AuthenticationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC180CB3298C384D00671AA2 /* AuthenticationModel.swift */; };
 		EC180CB6298C387000671AA2 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC180CB5298C387000671AA2 /* AuthViewModel.swift */; };
 		EC180CB8298C3EEE00671AA2 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC180CB7298C3EEE00671AA2 /* MainView.swift */; };
+		EC2688B729E7C4CD00FF3021 /* PositionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC2688B629E7C4CC00FF3021 /* PositionViewModel.swift */; };
 		EC2880B929CCB3D700E4A085 /* FinanceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC2880B829CCB3D700E4A085 /* FinanceModel.swift */; };
 		EC330AAD29C76B5B009A0D30 /* ValuationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC330AAC29C76B5B009A0D30 /* ValuationViewModel.swift */; };
 		EC34DEC929D065BC007DE20E /* PieSliceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC34DEC829D065BC007DE20E /* PieSliceView.swift */; };
@@ -83,6 +84,8 @@
 		ECCDEFA829A3C2C500034C76 /* CommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCDEFA729A3C2C500034C76 /* CommentView.swift */; };
 		ECCDEFAA29A3C30300034C76 /* CommentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCDEFA929A3C30300034C76 /* CommentViewModel.swift */; };
 		ECD264B629E532FF009F1C46 /* PortfolioRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECD264B529E532FF009F1C46 /* PortfolioRowViewModel.swift */; };
+		ECDAC4CD29E8754E001B46A9 /* PositionRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECDAC4CC29E8754E001B46A9 /* PositionRowView.swift */; };
+		ECDAC4CF29E87662001B46A9 /* PositionRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECDAC4CE29E87662001B46A9 /* PositionRowViewModel.swift */; };
 		ECEBBFE0299920EE00104326 /* PostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECEBBFDF299920EE00104326 /* PostViewModel.swift */; };
 		ECF2AF0E29E718FF008306CF /* PositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF2AF0D29E718FF008306CF /* PositionView.swift */; };
 		ECF669CC2996F37900855894 /* PostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF669CB2996F37900855894 /* PostModel.swift */; };
@@ -111,6 +114,7 @@
 		EC180CB3298C384D00671AA2 /* AuthenticationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationModel.swift; sourceTree = "<group>"; };
 		EC180CB5298C387000671AA2 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		EC180CB7298C3EEE00671AA2 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		EC2688B629E7C4CC00FF3021 /* PositionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionViewModel.swift; sourceTree = "<group>"; };
 		EC2880B829CCB3D700E4A085 /* FinanceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinanceModel.swift; sourceTree = "<group>"; };
 		EC330AAC29C76B5B009A0D30 /* ValuationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValuationViewModel.swift; sourceTree = "<group>"; };
 		EC34DEC829D065BC007DE20E /* PieSliceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieSliceView.swift; sourceTree = "<group>"; };
@@ -169,6 +173,8 @@
 		ECCDEFA729A3C2C500034C76 /* CommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentView.swift; sourceTree = "<group>"; };
 		ECCDEFA929A3C30300034C76 /* CommentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewModel.swift; sourceTree = "<group>"; };
 		ECD264B529E532FF009F1C46 /* PortfolioRowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioRowViewModel.swift; sourceTree = "<group>"; };
+		ECDAC4CC29E8754E001B46A9 /* PositionRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionRowView.swift; sourceTree = "<group>"; };
+		ECDAC4CE29E87662001B46A9 /* PositionRowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionRowViewModel.swift; sourceTree = "<group>"; };
 		ECEBBFDF299920EE00104326 /* PostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewModel.swift; sourceTree = "<group>"; };
 		ECF2AF0D29E718FF008306CF /* PositionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionView.swift; sourceTree = "<group>"; };
 		ECF669CB2996F37900855894 /* PostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostModel.swift; sourceTree = "<group>"; };
@@ -220,6 +226,7 @@
 				EC917269299547EA00EA924D /* PortfolioView.swift */,
 				EC02CC6629DB48E70015690E /* PortfolioRowView.swift */,
 				ECF2AF0D29E718FF008306CF /* PositionView.swift */,
+				ECDAC4CC29E8754E001B46A9 /* PositionRowView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -229,6 +236,8 @@
 			children = (
 				EC02CC6A29DB5C0B0015690E /* PortfolioViewModel.swift */,
 				ECD264B529E532FF009F1C46 /* PortfolioRowViewModel.swift */,
+				EC2688B629E7C4CC00FF3021 /* PositionViewModel.swift */,
+				ECDAC4CE29E87662001B46A9 /* PositionRowViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -620,6 +629,7 @@
 				EC015092298BCEB500BAF650 /* LoginView.swift in Sources */,
 				ECF669CE2996F3C400855894 /* UserModel.swift in Sources */,
 				EC2880B929CCB3D700E4A085 /* FinanceModel.swift in Sources */,
+				ECDAC4CF29E87662001B46A9 /* PositionRowViewModel.swift in Sources */,
 				EC8FA49E29C0FD12009CE80E /* PriceViewModel.swift in Sources */,
 				ECF669D22997A2E800855894 /* FeedViewModel.swift in Sources */,
 				ECC2615729C1DBFD00CE1B7C /* ApiKeys.swift in Sources */,
@@ -639,10 +649,12 @@
 				ECA41EF029B9EFE600DA03DA /* NewsRowViewModel.swift in Sources */,
 				EC0F60CC29BE457E00C982EE /* FeedBodyViewModel.swift in Sources */,
 				EC34DEC929D065BC007DE20E /* PieSliceView.swift in Sources */,
+				EC2688B729E7C4CD00FF3021 /* PositionViewModel.swift in Sources */,
 				EC49E90C29A3939A003AE346 /* CommentSectionView.swift in Sources */,
 				EC6E627A29AA13210064110A /* NetworkingManager.swift in Sources */,
 				EC6802C129ABA8420019EE18 /* ImageViewModel.swift in Sources */,
 				ECF669CC2996F37900855894 /* PostModel.swift in Sources */,
+				ECDAC4CD29E8754E001B46A9 /* PositionRowView.swift in Sources */,
 				EC4CE36529B7ABC800F600CC /* SearchViewModel.swift in Sources */,
 				ECCDEFA829A3C2C500034C76 /* CommentView.swift in Sources */,
 				EC0C8A8129C4AA0300AAB674 /* FinancialViewModel.swift in Sources */,

@@ -73,7 +73,7 @@ struct FeedView: View {
                 Divider().id("top")
                 LazyVStack {
                     ForEach(vm.posts) { post in
-                        PostView(post: post)
+                        PostView(post: post, postService: PostService(), sessionService: SessionService())
                         Divider()
                     }
                     .onChange(of: vm.shouldScroll) { _ in

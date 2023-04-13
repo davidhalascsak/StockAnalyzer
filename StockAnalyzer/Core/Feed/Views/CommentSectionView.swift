@@ -5,8 +5,8 @@ struct CommentSectionView: View {
     @StateObject var vm: CommentSectionViewModel
     @Environment(\.dismiss) private var dismiss
 
-    init(post: Post, commentService: CommentServiceProtocol, userService: UserServiceProtocol) {
-        _vm = StateObject(wrappedValue: CommentSectionViewModel(post: post, commentService: commentService, userService: userService))
+    init(post: Post, commentService: CommentServiceProtocol, userService: UserServiceProtocol, sessionService: SessionServiceProtocol) {
+        _vm = StateObject(wrappedValue: CommentSectionViewModel(post: post, commentService: commentService, userService: userService, sessionService: sessionService))
     }
     
     var body: some View {
@@ -14,10 +14,10 @@ struct CommentSectionView: View {
             VStack(alignment: .leading) {
                 ScrollView(showsIndicators: false) {
                     ForEach(vm.comments) { comment in
-                        CommentView(post: vm.post, comment: comment, commentService: CommentService())
+                        CommentView(post: vm.post, comment: comment, commentService: CommentService(), sessionService: SessionService())
                     }
                 }
-                if Auth.auth().currentUser != nil {
+                if vm.sessionService.getUserId() != nil {
                     CommentBoxView(vm: vm)
                 } else {
                     Color.white
@@ -55,7 +55,7 @@ struct PostDetailView_Previews: PreviewProvider {
     static var previews: some View {
         let user = User(username: "istengyermeke", email: "david.halascsak@gmail.com", location: "Hungary")
         let post = Post(userRef: "asd", body: "Buy Tesla", timestamp: Timestamp(date: Date()), likes: 5, comments: 5, user: user)
-        CommentSectionView(post: post, commentService: CommentService(), userService: UserService())
+        CommentSectionView(post: post, commentService: CommentService(), userService: UserService(), sessionService: SessionService())
     }
 }
 

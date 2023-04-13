@@ -13,7 +13,7 @@ struct FeedBodyView: View {
         LazyVStack {
             if vm.isLoading == false {
                 ForEach(vm.posts) { post in
-                    PostView(post: post)
+                    PostView(post: post, postService: PostService(), sessionService: SessionService())
                     Divider()
                 }
             } else {

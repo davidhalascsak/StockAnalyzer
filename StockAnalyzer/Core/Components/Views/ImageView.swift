@@ -3,8 +3,8 @@ import SwiftUI
 struct ImageView: View {
     @StateObject var vm: ImageViewModel
     
-    init(imageService: ImageServiceProtocol) {
-        _vm = StateObject(wrappedValue: ImageViewModel(imageService: imageService))
+    init(url: String, imageService: ImageServiceProtocol) {
+        _vm = StateObject(wrappedValue: ImageViewModel(url: url, imageService: imageService))
     }
     
     var body: some View {
@@ -26,6 +26,6 @@ struct ImageView: View {
 
  struct ImageView_Previews: PreviewProvider {
      static var previews: some View {
-         ImageView(imageService: ImageService(url: "https://financialmodelingprep.com/image-stock/AAPL.png"))
+         ImageView(url: "https://financialmodelingprep.com/image-stock/AAPL.png", imageService: ImageService())
      }
  }

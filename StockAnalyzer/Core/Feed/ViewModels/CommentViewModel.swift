@@ -7,11 +7,13 @@ class CommentViewModel: ObservableObject {
     @Published var comment: Comment
     
     var commentService: CommentServiceProtocol
+    let sessionService: SessionServiceProtocol
     
-    init(post: Post, comment: Comment, commentService: CommentServiceProtocol) {
+    init(post: Post, comment: Comment, commentService: CommentServiceProtocol, sessionService: SessionServiceProtocol) {
         self.post = post
         self.comment = comment
         self.commentService = commentService
+        self.sessionService = sessionService
     }
     
     func likeComment() async {

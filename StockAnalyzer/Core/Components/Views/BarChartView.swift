@@ -135,7 +135,6 @@ struct BarChartView: View {
                     RoundedRectangle(cornerRadius: 10)
                         .stroke(Color.gray, lineWidth: 2)
                 }
-                /*
                 HStack {
                     Text("10 years: ")
                         .fontWeight(.semibold)
@@ -152,7 +151,7 @@ struct BarChartView: View {
                     RoundedRectangle(cornerRadius: 10)
                         .stroke(Color.gray, lineWidth: 2)
                 }
-                */
+                
             }
         }
     }
@@ -191,7 +190,7 @@ struct BarChartView: View {
         var oneYear: String = ""
         var threeYear: String = ""
         var fiveYear: String = ""
-        //var tenYear: String = ""
+        var tenYear: String = ""
         
         if (data.count - 1) >= 0 && (data.count - 2) >= 0 {
             let multiplier = data[data.count - 1] >= 0 ? 1.0 : -1.0
@@ -234,7 +233,7 @@ struct BarChartView: View {
         } else {
             fiveYear = "-"
         }
-        /*
+        
         if (data.count - 1) >= 0 && (data.count - 10) >= 0 {
             let multiplier = data[data.count - 1] >= 0 ? 1.0 : -1.0
             
@@ -248,10 +247,9 @@ struct BarChartView: View {
         } else {
             tenYear = "-"
         }
-         */
+         
 
-        //return [oneYear, threeYear, fiveYear, tenYear]
-        return [oneYear, threeYear, fiveYear]
+        return [oneYear, threeYear, fiveYear, tenYear]
     }
     
     func checkNums(lfs: Int, rfs: Int) -> Bool {

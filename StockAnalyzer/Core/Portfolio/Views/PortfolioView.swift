@@ -15,7 +15,13 @@ struct PortfolioView: View {
             headerView
             Divider()
             if(vm.isLoading == false) {
-                portfolioView
+                if vm.assets.count == 0 {
+                    Text("Your portfolio is empty.")
+                } else {
+                    Spacer()
+                    portfolio
+                    Spacer()
+                }
             } else {
                 Spacer()
                 ProgressView()
@@ -51,8 +57,8 @@ struct PortfolioView: View {
         .padding(.horizontal)
     }
     
-    var portfolioView: some View {
-        VStack(alignment: .leading) {
+    var portfolio: some View {
+        VStack {
             HStack(spacing: 20) {
                 Text("Assets")
                 Spacer()
@@ -71,7 +77,7 @@ struct PortfolioView: View {
                             
                             
                         NavigationLink {
-                            PositionView(asset: asset)
+                            PositionView(asset: asset, stockService: StockService(symbol: asset.symbol), imageService: ImageService())
                         } label: {
                             EmptyView()
                         }

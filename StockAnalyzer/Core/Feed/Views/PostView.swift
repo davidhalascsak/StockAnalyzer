@@ -7,8 +7,8 @@ import Firebase
 struct PostView: View {
     @ObservedObject var vm: PostViewModel
     
-    init(post: Post) {
-        _vm = ObservedObject(wrappedValue: PostViewModel(post: post, postService: PostService()))
+    init(post: Post, postService: PostServiceProtocol, sessionService: SessionServiceProtocol) {
+        _vm = ObservedObject(wrappedValue: PostViewModel(post: post, postService: postService, sessionService: sessionService))
     }
     
     var body: some View {
@@ -46,9 +46,10 @@ struct PostView: View {
                 Image(systemName: vm.post.isLiked ?? false ? "hand.thumbsup.fill" : "hand.thumbsup")
                     .foregroundColor(vm.post.isLiked ?? false ? Color.blue : Color.black)
                     .onTapGesture {
-                        if vm.postService.isUpdated {
+                        if vm.sessionService.getUserId() != nil && vm.postService.isUpdated {
                             vm.postService.isUpdated = false
                             if vm.post.isLiked ?? false {
+                                
                                 Task {
                                     await vm.unlikePost()
                                 }
@@ -61,7 +62,7 @@ struct PostView: View {
                     }
                 Text("\(vm.post.likes)")
                 NavigationLink {
-                    CommentSectionView(post: vm.post, commentService: CommentService(), userService: UserService())
+                    CommentSectionView(post: vm.post, commentService: CommentService(), userService: UserService(), sessionService: SessionService())
                 } label: {
                     Image(systemName: "message")
                         .foregroundColor(Color.black)
@@ -77,6 +78,6 @@ struct PostView: View {
     static var previews: some View {
         let user = User(username: "istengyermeke", email: "david.halascsak@gmail.com", location: "Hungary")
         let post = Post(userRef: "asd", body: "Buy Tesla", timestamp: Timestamp(date: Date()), likes: 5, comments: 5, user: user)
-        PostView(post: post)
+        PostView(post: post, postService: PostService(), sessionService: SessionService())
     }
  }

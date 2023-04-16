@@ -2,6 +2,7 @@ import SwiftUI
 import FirebaseCore
 import FirebaseAuth
 
+// TODO: show the portfolio screen only, if all of the assets are loaded in.
 struct PortfolioView: View {
     @StateObject var vm: PortfolioViewModel
     @State var isSettingsPresented: Bool = false
@@ -51,7 +52,12 @@ struct PortfolioView: View {
         HStack {
             Image(systemName: "arrow.triangle.2.circlepath")
                 .font(.title2)
-                .opacity(0)
+                .onTapGesture {
+                    Task {
+                        await vm.reloadPortfolio()
+                    }
+                }
+                .opacity(vm.sessionService.getUserId() != nil ? 1.0 : 0.0)
             Spacer()
             Text("Portfolio")
                 .font(.headline)
@@ -82,20 +88,21 @@ struct PortfolioView: View {
             Divider()
             List {
                 ForEach(vm.assets, id: \.self) { asset in
-                    ZStack {
-                        
-                            
-                        NavigationLink {
-                            PositionView(asset: asset, stockService: StockService(symbol: asset.symbol), portfolioService: PortfolioService(), imageService: ImageService())
-                        } label: {
-                            EmptyView()
+                    if let viewModel = vm.assetsViewModels[asset.symbol] {
+                        ZStack {
+                            PortfolioRowView(viewModel: viewModel)
+                            NavigationLink {
+                                PositionView(asset: asset, stockService: StockService(symbol: asset.symbol), portfolioService: PortfolioService(), imageService: ImageService())
+                            } label: {
+                                EmptyView()
+                            }
+                            .opacity(0)
                         }
-                        .opacity(0)
+                        .alignmentGuide(.listRowSeparatorLeading) { dimension in
+                            dimension[.leading]
+                        }
+                        .listRowInsets(EdgeInsets())
                     }
-                    .alignmentGuide(.listRowSeparatorLeading) { dimension in
-                        dimension[.leading]
-                    }
-                    .listRowInsets(EdgeInsets())
                 }
                 .onDelete(perform: delete)
             }

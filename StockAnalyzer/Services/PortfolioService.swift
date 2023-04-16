@@ -72,7 +72,7 @@ class PortfolioService: ObservableObject, PortfolioServiceProtocol {
             }
         }
     }
-    
+    // TODO: Delete the whole asset, if the last position is deleted -> add a position counter in the asset model
     func deletePosition(asset: Asset, position: Position) async {
         if let userId = Auth.auth().currentUser?.uid {
             let assetPath = db.collection("users").document(userId).collection("portfolio").document(asset.symbol)
@@ -87,6 +87,10 @@ class PortfolioService: ObservableObject, PortfolioServiceProtocol {
                     
                     try await assetPath.updateData(["investedAmount": investedAmount, "units": units, "averagePrice": averagePrice])
                     try await assetPath.collection("positions").document(id).delete()
+                    
+                    if asset.positions?.count == 1 {
+                        try await db.collection("users").document(userId).collection("portfolio").document(asset.symbol).delete()
+                    }
                 } catch let error {
                     print(error.localizedDescription)
                 }

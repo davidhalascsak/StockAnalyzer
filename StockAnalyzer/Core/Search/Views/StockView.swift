@@ -51,11 +51,9 @@ struct StockView: View {
                         ToolbarItem(placement: .navigationBarTrailing) {
                             Image(systemName: "plus.circle")
                                 .onTapGesture {
-                                    if vm.sessionService.getUserId() != nil {
-                                        isAddAssetPresented.toggle()
-                                    }
+                                    isAddAssetPresented.toggle()
                                 }
-                                .opacity(vm.sessionService.getUserId() != nil ? 0.0 : 1.0)
+                                .opacity(vm.sessionService.getUserId() != nil ? 1.0 : 0.0)
                         }
                     }
                     .background(

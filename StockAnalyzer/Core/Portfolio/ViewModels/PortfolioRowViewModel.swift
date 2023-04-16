@@ -24,13 +24,18 @@ class PortfolioRowViewModel: ObservableObject {
         
         if let assets = self.asset.positions {
             for position in assets {
-                let multiplier = self.stockPrice?.price ?? 0.0 / position.price
+                let multiplier = (self.stockPrice?.price ?? 0.0) / position.price
                 currentValue += multiplier * position.units * position.price
             }
         }
         
         self.currentValue = currentValue
         self.difference = currentValue - self.asset.investedAmount
+    }
+    
+    func updatePrice() async {
+        await fetchPrice()
+        calculateCurrentValue()
     }
     
     func toString(value: Double) -> String {

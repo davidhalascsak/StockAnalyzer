@@ -4,7 +4,7 @@ import Foundation
 class PortfolioViewModel: ObservableObject {
     @Published var assets: [Asset] = []
     @Published var isLoading: Bool = false
-    
+    @Published var assetsViewModels: [String: PortfolioRowViewModel] = [:]
     
     
     var portfolioService: PortfolioServiceProtocol
@@ -17,7 +17,19 @@ class PortfolioViewModel: ObservableObject {
     
     func fetchAssets() async {
         assets = await self.portfolioService.fetchAssets()
+        for asset in assets {
+            let vm = PortfolioRowViewModel(asset: asset, stockService: StockService(symbol: asset.symbol))
+            assetsViewModels[asset.symbol] = vm
+        }
         self.isLoading = false
+    }
+    
+    func reloadPortfolio() async {
+        for asset in assets {
+            if let vm = assetsViewModels[asset.symbol] {
+                await vm.updatePrice()
+            }
+        }
     }
     
     func deleteAsset(at index: Int) async {

@@ -1,5 +1,6 @@
 import SwiftUI
 
+// TODO: show the position screen only, if all of the positions are loaded in.
 struct PositionView: View {
     @Environment(\.dismiss) private var dismiss
     @StateObject var vm: PositionViewModel
@@ -30,16 +31,15 @@ struct PositionView: View {
                     }
                     Spacer()
                     VStack(alignment: .trailing) {
-                        Text(String(format: "%.2f", vm.companyProfile?.price ?? 0.0))
+                        Text(String(format: "%.2f", vm.price?.price ?? 0.0))
                             .fontWeight(.semibold)
                         Text(vm.changeInPrice())
-                            .foregroundColor(vm.companyProfile?.changes ?? 0 > 0 ? Color.green : vm.companyProfile?.changes ?? 0 == 0 ? Color.black : Color.red)
+                            .foregroundColor(vm.price?.change ?? 0 > 0 ? Color.green : vm.companyProfile?.changes ?? 0 == 0 ? Color.black : Color.red)
                     }
                 }
                 .padding()
                 Divider()
                 positions
-                
             } else {
                 ProgressView()
             }
@@ -47,6 +47,7 @@ struct PositionView: View {
         .task {
             vm.isLoading = true
             await vm.fetchData()
+            vm.isLoading = false
         }
         .navigationBarBackButtonHidden()
         .toolbar {
@@ -54,6 +55,15 @@ struct PositionView: View {
                 Image(systemName: "arrowshape.backward")
                     .onTapGesture {
                         dismiss()
+                    }
+            }
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Image(systemName: "arrow.triangle.2.circlepath")
+                    .font(.title2)
+                    .onTapGesture {
+                        Task {
+                            await vm.reloadAsset()
+                        }
                     }
             }
         }
@@ -74,11 +84,13 @@ struct PositionView: View {
             Divider()
             List {
                 ForEach(vm.asset.positions ?? [], id: \.self) { position in
-                    PositionRowView(position: position, stockService: StockService(symbol: position.symbol))
-                        .alignmentGuide(.listRowSeparatorLeading) { dimension in
-                            dimension[.leading]
-                        }
-                        .listRowInsets(EdgeInsets())
+                    if let viewModel = vm.positionViewModels[position.symbol] {
+                        PositionRowView(viewModel: viewModel)
+                            .alignmentGuide(.listRowSeparatorLeading) { dimension in
+                                dimension[.leading]
+                            }
+                            .listRowInsets(EdgeInsets())
+                    }
                 }
                 .onDelete(perform: delete)
             }

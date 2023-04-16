@@ -3,8 +3,8 @@ import SwiftUI
 struct PortfolioRowView: View {
     @StateObject var vm: PortfolioRowViewModel
     
-    init(asset: Asset, stockService: StockServiceProtocol) {
-        _vm = StateObject(wrappedValue: PortfolioRowViewModel(asset: asset, stockService: stockService))
+    init(viewModel: PortfolioRowViewModel) {
+        _vm = StateObject(wrappedValue: viewModel)
     }
     
     var body: some View {
@@ -40,6 +40,6 @@ struct PortfolioRowView: View {
 struct PortfolioRowView_Previews: PreviewProvider {
     static let asset = Asset(symbol: "Apple", units: 1.00, averagePrice: 132.00, investedAmount: 160.00)
     static var previews: some View {
-        PortfolioRowView(asset: asset, stockService: StockService(symbol: "AAPL"))
+        PortfolioRowView(viewModel: PortfolioRowViewModel(asset: asset, stockService: StockService(symbol: asset.symbol)))
     }
 }

@@ -3,8 +3,8 @@ import SwiftUI
 struct PositionRowView: View {
     @StateObject var vm: PositionRowViewModel
     
-    init(position: Position, stockService: StockServiceProtocol) {
-        _vm = StateObject(wrappedValue: PositionRowViewModel(position: position, stockService: stockService))
+    init(viewModel: PositionRowViewModel) {
+        _vm = StateObject(wrappedValue: viewModel)
     }
     
     var body: some View {
@@ -39,6 +39,6 @@ struct PositionRowView: View {
 struct PositionRowView_Previews: PreviewProvider {
     static let position = Position(symbol: "AAPL", date: "2020-02-02", units: 2.0, price: 132.5, investedAmount: 265.0)
     static var previews: some View {
-        PositionRowView(position: position, stockService: StockService(symbol: "AAPL"))
+        PositionRowView(viewModel: PositionRowViewModel(position: position, stockService: StockService(symbol: position.symbol)))
     }
 }

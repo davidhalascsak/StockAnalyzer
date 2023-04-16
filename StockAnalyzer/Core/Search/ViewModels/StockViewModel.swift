@@ -20,7 +20,6 @@ class StockViewModel: ObservableObject {
         self.sessionService = sessionService
     }
     
-    
     func fetchData() async {
         self.companyProfile = await self.stockService.fetchProfile()
     }

@@ -18,6 +18,7 @@ struct StockView: View {
         _vm = StateObject(wrappedValue: StockViewModel(symbol: symbol, stockService: stockService, sessionService: sessionService))
         UIPageControl.appearance().currentPageIndicatorTintColor = .black
         UIPageControl.appearance().pageIndicatorTintColor = UIColor.black.withAlphaComponent(0.2)
+        UITabBar.appearance().isTranslucent = false
     }
     
     var body: some View {
@@ -50,8 +51,11 @@ struct StockView: View {
                         ToolbarItem(placement: .navigationBarTrailing) {
                             Image(systemName: "plus.circle")
                                 .onTapGesture {
-                                    isAddAssetPresented.toggle()
+                                    if vm.sessionService.getUserId() != nil {
+                                        isAddAssetPresented.toggle()
+                                    }
                                 }
+                                .opacity(vm.sessionService.getUserId() != nil ? 0.0 : 1.0)
                         }
                     }
                     .background(
@@ -100,7 +104,6 @@ struct StockView: View {
             }
         }
         .task {
-            
             await vm.fetchData()
         }
     }
@@ -121,7 +124,7 @@ struct StockView: View {
                             RoundedRectangle(cornerRadius: 20)
                                 .stroke(Color.gray, lineWidth: 1)
                         )
-                    PriceView(symbol: profile.symbol, currency: profile.currency)
+                    PriceView(symbol: profile.symbol, currency: profile.currency, stockService: StockService(symbol: profile.symbol))
                 }
                 Spacer()
                 ImageView(url: profile.image, imageService: ImageService())

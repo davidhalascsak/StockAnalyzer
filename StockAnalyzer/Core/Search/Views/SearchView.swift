@@ -3,8 +3,13 @@ import FirebaseCore
 import FirebaseAuth
 
 struct SearchView: View {
-    @StateObject var vm = SearchViewModel()
+    @StateObject var vm: SearchViewModel
     @State var isSettingsPresented: Bool = false
+    
+    init(searchService: SearchServiceProtocol) {
+        _vm = StateObject(wrappedValue: SearchViewModel(searchService: searchService))
+        UITabBar.appearance().isTranslucent = false
+    }
     
     var body: some View {
         NavigationStack {
@@ -20,6 +25,19 @@ struct SearchView: View {
             .fullScreenCover(isPresented: $isSettingsPresented, content: {
                 SettingsView(userService: UserService(), sessionService: SessionService())
             })
+            .onChange(of: vm.searchText) { _ in
+                
+                Task {
+                    vm.searchTask?.cancel()
+                    
+                    let task = Task.detached {
+                        try await Task.sleep(nanoseconds: 500_000_000)
+                        await vm.fetchData()
+                    }
+                    
+                    vm.searchTask = task
+                }
+            }
         }
     }
     
@@ -105,6 +123,6 @@ struct SearchView: View {
 
 struct SearchView_Previews: PreviewProvider {
     static var previews: some View {
-        SearchView()
+        SearchView(searchService: SearchService())
     }
 }

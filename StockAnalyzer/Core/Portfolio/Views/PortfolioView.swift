@@ -6,8 +6,8 @@ struct PortfolioView: View {
     @StateObject var vm: PortfolioViewModel
     @State var isSettingsPresented: Bool = false
     
-    init(portfolioService: PortfolioServiceProtocol) {
-        _vm = StateObject(wrappedValue: PortfolioViewModel(portfolioService: portfolioService))
+    init(portfolioService: PortfolioServiceProtocol, sessionService: SessionServiceProtocol) {
+        _vm = StateObject(wrappedValue: PortfolioViewModel(portfolioService: portfolioService, sessionService: sessionService))
     }
     
     var body: some View {
@@ -16,11 +16,11 @@ struct PortfolioView: View {
             Divider()
             if(vm.isLoading == false) {
                 if vm.assets.count == 0 {
-                    Text("Your portfolio is empty.")
+                    Spacer()
+                    Text(vm.sessionService.getUserId() == nil ? "Login to see your portfolio." : "Your portfolio is empty.")
+                    Spacer()
                 } else {
-                    Spacer()
                     portfolio
-                    Spacer()
                 }
             } else {
                 Spacer()
@@ -31,9 +31,19 @@ struct PortfolioView: View {
         .fullScreenCover(isPresented: $isSettingsPresented, content: {
             SettingsView(userService: UserService(), sessionService: SessionService())
         })
+        .onChange(of: isSettingsPresented, perform: { newValue in
+            if newValue == false {
+                Task {
+                    vm.isLoading = true
+                    await vm.fetchAssets()
+                }
+            }
+        })
         .task {
-            vm.isLoading = true
-            await vm.fetchAssets()
+            if vm.sessionService.getUserId() != nil {
+                vm.isLoading = true
+                await vm.fetchAssets()
+            }
         }
     }
     
@@ -73,11 +83,10 @@ struct PortfolioView: View {
             List {
                 ForEach(vm.assets, id: \.self) { asset in
                     ZStack {
-                        PortfolioRowView(asset: asset, stockService: StockService(symbol: asset.symbol))
-                            
+                        
                             
                         NavigationLink {
-                            PositionView(asset: asset, stockService: StockService(symbol: asset.symbol), imageService: ImageService())
+                            PositionView(asset: asset, stockService: StockService(symbol: asset.symbol), portfolioService: PortfolioService(), imageService: ImageService())
                         } label: {
                             EmptyView()
                         }
@@ -108,6 +117,6 @@ struct PortfolioView: View {
 
 struct PortfolioView_Previews: PreviewProvider {
     static var previews: some View {
-        PortfolioView(portfolioService: TestPortfolioService())
+        PortfolioView(portfolioService: TestPortfolioService(), sessionService: SessionService())
     }
 }

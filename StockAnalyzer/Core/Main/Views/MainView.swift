@@ -24,12 +24,12 @@ struct MainView: View {
                         Image(systemName: "newspaper") 
                     }
                     .tag("News")
-                PortfolioView(portfolioService: PortfolioService())
+                PortfolioView(portfolioService: PortfolioService(), sessionService: SessionService())
                     .tabItem {
                         Image(systemName: "briefcase")
                     }
                     .tag("Portfolio")
-                SearchView()
+                SearchView(searchService: SearchService())
                     .tabItem {
                         Image(systemName: "magnifyingglass")
                     }

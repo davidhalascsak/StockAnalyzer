@@ -4,8 +4,8 @@ struct PositionView: View {
     @Environment(\.dismiss) private var dismiss
     @StateObject var vm: PositionViewModel
     
-    init(asset: Asset, stockService: StockServiceProtocol, imageService: ImageServiceProtocol) {
-        _vm = StateObject(wrappedValue: PositionViewModel(asset: asset, stockService: stockService, imageService: imageService))
+    init(asset: Asset, stockService: StockServiceProtocol, portfolioService: PortfolioServiceProtocol, imageService: ImageServiceProtocol) {
+        _vm = StateObject(wrappedValue: PositionViewModel(asset: asset, stockService: stockService, portfolioService: PortfolioService(), imageService: imageService))
     }
     
     var body: some View {
@@ -104,7 +104,7 @@ struct PositionView: View {
      static let asset = Asset(symbol: "AAPL", units: 2.0, averagePrice: 132.5, investedAmount: 265.0, positions: [position1, position2])
      
      static var previews: some View {
-         PositionView(asset: asset, stockService: StockService(symbol: "AAPL"), imageService: ImageService())
+         PositionView(asset: asset, stockService: StockService(symbol: "AAPL"), portfolioService: PortfolioService(), imageService: ImageService())
      }
  }
  

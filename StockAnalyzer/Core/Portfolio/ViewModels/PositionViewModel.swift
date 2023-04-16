@@ -10,10 +10,12 @@ class PositionViewModel: ObservableObject {
     let asset: Asset
     let stockService: StockServiceProtocol
     let imageService: ImageServiceProtocol
+    let portfolioService: PortfolioServiceProtocol
     
-    init(asset: Asset, stockService: StockServiceProtocol, imageService: ImageServiceProtocol) {
+    init(asset: Asset, stockService: StockServiceProtocol,portfolioService: PortfolioServiceProtocol, imageService: ImageServiceProtocol) {
         self.asset = asset
         self.stockService = stockService
+        self.portfolioService = portfolioService
         self.imageService = imageService
     }
     
@@ -37,6 +39,10 @@ class PositionViewModel: ObservableObject {
     }
     
     func deletePosition(at index: Int) async {
+        let position = self.asset.positions?[index]
         
+        if let position = position {
+            await self.portfolioService.deletePosition(asset: asset, position: position)
+        }
     }
 }

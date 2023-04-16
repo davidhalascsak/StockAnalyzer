@@ -6,7 +6,7 @@ class PositionRowViewModel: ObservableObject {
     let position: Position
     let stockService: StockServiceProtocol
     
-    var stockPrice: Double = 0.0
+    var stockPrice: Price?
     var difference: Double = 0.0
     var currentValue: Double = 0.0
     
@@ -21,7 +21,7 @@ class PositionRowViewModel: ObservableObject {
     }
     
     func calculateCurrentValue() {
-        let multiplier = self.stockPrice / position.price
+        let multiplier = self.stockPrice?.price ?? 0.0 / position.price
         self.currentValue = multiplier * position.units * position.price
         self.difference = currentValue - self.position.investedAmount
     }

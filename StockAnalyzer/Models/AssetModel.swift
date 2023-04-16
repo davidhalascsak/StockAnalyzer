@@ -1,4 +1,7 @@
 import Foundation
+import CoreData
+import FirebaseFirestoreSwift
+import FirebaseFirestore
 
 struct Asset: Hashable, Codable {
     let symbol: String
@@ -10,6 +13,7 @@ struct Asset: Hashable, Codable {
 }
 
 struct Position: Hashable, Codable {
+    @DocumentID var id: String?
     let symbol: String
     let date: String
     let units: Double

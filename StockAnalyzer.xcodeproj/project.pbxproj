@@ -12,7 +12,6 @@
 		EC02CC6729DB48E70015690E /* PortfolioRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC02CC6629DB48E70015690E /* PortfolioRowView.swift */; };
 		EC02CC6B29DB5C0B0015690E /* PortfolioViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC02CC6A29DB5C0B0015690E /* PortfolioViewModel.swift */; };
 		EC02CC6D29DB5C640015690E /* PortfolioService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC02CC6C29DB5C640015690E /* PortfolioService.swift */; };
-		EC02CC7029DB68030015690E /* Portfolio.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EC02CC6E29DB68030015690E /* Portfolio.xcdatamodeld */; };
 		EC03FC2629DA1BA2000083F0 /* ValuationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC03FC2529DA1BA2000083F0 /* ValuationModel.swift */; };
 		EC0C8A8129C4AA0300AAB674 /* FinancialViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC0C8A8029C4AA0300AAB674 /* FinancialViewModel.swift */; };
 		EC0F60CA29BE456F00C982EE /* FeedBodyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC0F60C929BE456F00C982EE /* FeedBodyView.swift */; };
@@ -23,6 +22,7 @@
 		EC180CB4298C384D00671AA2 /* AuthenticationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC180CB3298C384D00671AA2 /* AuthenticationModel.swift */; };
 		EC180CB6298C387000671AA2 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC180CB5298C387000671AA2 /* AuthViewModel.swift */; };
 		EC180CB8298C3EEE00671AA2 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC180CB7298C3EEE00671AA2 /* MainView.swift */; };
+		EC222F9F29EA7E6500B48930 /* SearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC222F9E29EA7E6500B48930 /* SearchService.swift */; };
 		EC2688B729E7C4CD00FF3021 /* PositionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC2688B629E7C4CC00FF3021 /* PositionViewModel.swift */; };
 		EC2880B929CCB3D700E4A085 /* FinanceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC2880B829CCB3D700E4A085 /* FinanceModel.swift */; };
 		EC330AAD29C76B5B009A0D30 /* ValuationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC330AAC29C76B5B009A0D30 /* ValuationViewModel.swift */; };
@@ -103,7 +103,6 @@
 		EC02CC6629DB48E70015690E /* PortfolioRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioRowView.swift; sourceTree = "<group>"; };
 		EC02CC6A29DB5C0B0015690E /* PortfolioViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioViewModel.swift; sourceTree = "<group>"; };
 		EC02CC6C29DB5C640015690E /* PortfolioService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioService.swift; sourceTree = "<group>"; };
-		EC02CC6F29DB68030015690E /* Portfolio.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Portfolio.xcdatamodel; sourceTree = "<group>"; };
 		EC03FC2529DA1BA2000083F0 /* ValuationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValuationModel.swift; sourceTree = "<group>"; };
 		EC0C8A8029C4AA0300AAB674 /* FinancialViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinancialViewModel.swift; sourceTree = "<group>"; };
 		EC0F60C929BE456F00C982EE /* FeedBodyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedBodyView.swift; sourceTree = "<group>"; };
@@ -114,6 +113,7 @@
 		EC180CB3298C384D00671AA2 /* AuthenticationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationModel.swift; sourceTree = "<group>"; };
 		EC180CB5298C387000671AA2 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		EC180CB7298C3EEE00671AA2 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		EC222F9E29EA7E6500B48930 /* SearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchService.swift; sourceTree = "<group>"; };
 		EC2688B629E7C4CC00FF3021 /* PositionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionViewModel.swift; sourceTree = "<group>"; };
 		EC2880B829CCB3D700E4A085 /* FinanceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinanceModel.swift; sourceTree = "<group>"; };
 		EC330AAC29C76B5B009A0D30 /* ValuationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValuationViewModel.swift; sourceTree = "<group>"; };
@@ -336,7 +336,6 @@
 			children = (
 				EC6E627929AA13210064110A /* NetworkingManager.swift */,
 				ECC2615629C1DBFD00CE1B7C /* ApiKeys.swift */,
-				EC02CC6E29DB68030015690E /* Portfolio.xcdatamodeld */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -528,6 +527,7 @@
 				EC6802C629ABD8110019EE18 /* NewsService.swift */,
 				ECA41EF129B9F00600DA03DA /* ImageService.swift */,
 				EC02CC6C29DB5C640015690E /* PortfolioService.swift */,
+				EC222F9E29EA7E6500B48930 /* SearchService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -615,6 +615,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EC222F9F29EA7E6500B48930 /* SearchService.swift in Sources */,
 				ECD264B629E532FF009F1C46 /* PortfolioRowViewModel.swift in Sources */,
 				ECA41EEC29B9EFB800DA03DA /* NewsRowView.swift in Sources */,
 				EC6802B929AB8EDF0019EE18 /* StockView.swift in Sources */,
@@ -682,7 +683,6 @@
 				EC49E90E29A393D1003AE346 /* CommentSectionViewModel.swift in Sources */,
 				EC91726C299547F600EA924D /* SearchView.swift in Sources */,
 				EC49E91029A398A8003AE346 /* CommentModel.swift in Sources */,
-				EC02CC7029DB68030015690E /* Portfolio.xcdatamodeld in Sources */,
 				EC02CC6B29DB5C0B0015690E /* PortfolioViewModel.swift in Sources */,
 				ECEBBFE0299920EE00104326 /* PostViewModel.swift in Sources */,
 				EC6802B729AB767E0019EE18 /* StockService.swift in Sources */,
@@ -952,19 +952,6 @@
 			productName = FirebaseFirestoreSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
-
-/* Begin XCVersionGroup section */
-		EC02CC6E29DB68030015690E /* Portfolio.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				EC02CC6F29DB68030015690E /* Portfolio.xcdatamodel */,
-			);
-			currentVersion = EC02CC6F29DB68030015690E /* Portfolio.xcdatamodel */;
-			path = Portfolio.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = EC90D60C298ACED3001D4520 /* Project object */;
 }

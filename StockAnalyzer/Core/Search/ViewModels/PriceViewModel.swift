@@ -1,33 +1,25 @@
 import Foundation
 import Combine
 
+@MainActor
 class PriceViewModel: ObservableObject {
     @Published var stockPrice: Price?
     @Published var timer = Timer.publish(every: 3, on: .main, in: .common).autoconnect()
     
     let symbol: String
     let currency: String
-    var counter: Int = 0
+    let stockService: StockServiceProtocol
     
-    var cancellables = Set<AnyCancellable>()
     
-    init(symbol: String, currency: String) {
+    
+    init(symbol: String, currency: String, stockService: StockServiceProtocol) {
         self.symbol = symbol
         self.currency = currency
-        fetchData()
+        self.stockService = stockService
     }
     
-    func fetchData() {
-        guard let url = URL(string: "https://financialmodelingprep.com/api/v3/quote/\(self.symbol)?apikey=\(ApiKeys.financeApi)")
-        else {return}
-        
-        NetworkingManager.download(url: url)
-            .decode(type: [Price].self, decoder: JSONDecoder())
-            .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: NetworkingManager.handleCompletion, receiveValue: { [weak self] (stockPrice) in
-                self?.stockPrice = stockPrice[0]
-            })
-            .store(in: &cancellables)
+    func fetchData() async {
+        self.stockPrice = await self.stockService.fetchPriceInRealTime()
     }
 }
 

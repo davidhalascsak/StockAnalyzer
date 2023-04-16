@@ -6,7 +6,7 @@ class PortfolioRowViewModel: ObservableObject {
     
     let asset: Asset
     var stockService: StockServiceProtocol
-    var stockPrice: Double = 0.0
+    var stockPrice: Price?
     var difference: Double = 0.0
     var currentValue: Double = 0.0
     
@@ -24,7 +24,7 @@ class PortfolioRowViewModel: ObservableObject {
         
         if let assets = self.asset.positions {
             for position in assets {
-                let multiplier = self.stockPrice / position.price
+                let multiplier = self.stockPrice?.price ?? 0.0 / position.price
                 currentValue += multiplier * position.units * position.price
             }
         }

@@ -17,7 +17,6 @@ class NewAssetViewModel: ObservableObject {
         return formatter
     }
     
-    
     let symbol: String
     var portfolioService: PortfolioServiceProtocol
     var stockService: StockServiceProtocol
@@ -50,27 +49,8 @@ class NewAssetViewModel: ObservableObject {
         let value = price * units
         
         if value != 0 {
-            let position = ["symbol": symbol, "date": formatter.string(from: self.buyDate), "units": self.units, "price": self.price,
-                            "investedAmount": value] as [String : Any]
-            
-            if let userId = Auth.auth().currentUser?.uid {
-                let portfolio = try? await db.collection("users").document(userId).collection("portfolio").document(symbol).getDocument(as: Asset.self)
-                
-                let newUnits = (portfolio?.units ?? 0.0) + self.units
-                let newAmount = (portfolio?.investedAmount ?? 0.0) + (self.units * self.price)
-                let newAveragePrice = newAmount / newUnits
-                
-                let newPortfolio = ["symbol": symbol, "units": newUnits, "averagePrice": newAveragePrice, "investedAmount": newAmount] as [String : Any]
-                
-                do {
-                    try await self.db.collection("users").document(userId).collection("portfolio").document(symbol).setData(newPortfolio)
-                    let _ = try await self.db.collection("users").document(userId).collection("portfolio").document(symbol).collection("positions").addDocument(data: position)
-                } catch let error {
-                    print(error.localizedDescription)
-                }
-            } else {
-                //TODO: store data locally
-            }
+            let position = Position(symbol: symbol, date: formatter.string(from: self.buyDate), units: self.units, price: self.price, investedAmount: value)
+            await self.portfolioService.addAsset(position: position)
         }
     }
 }

@@ -2,13 +2,13 @@ import Foundation
 
 @MainActor
 class PortfolioRowViewModel: ObservableObject {
+    @Published var stockPrice: Price?
+    @Published var currentValue: Double = 0.0
+    @Published var difference: Double = 0.0
     @Published var isLoading: Bool = false
     
     let asset: Asset
     var stockService: StockServiceProtocol
-    var stockPrice: Price?
-    var difference: Double = 0.0
-    var currentValue: Double = 0.0
     
     init(asset: Asset, stockService: StockServiceProtocol) {
         self.asset = asset

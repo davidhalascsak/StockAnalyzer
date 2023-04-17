@@ -46,8 +46,9 @@ class PortfolioService: ObservableObject, PortfolioServiceProtocol {
             let newUnits = (portfolio?.units ?? 0.0) + position.units
             let newAmount = (portfolio?.investedAmount ?? 0.0) + (position.units * position.price)
             let newAveragePrice = newAmount / newUnits
+            let newPositionCount = (portfolio?.positionCount ?? 0) + 1
             
-            let newPortfolio = ["symbol": position.symbol, "units": newUnits, "averagePrice": newAveragePrice, "investedAmount": newAmount] as [String : Any]
+            let newPortfolio = ["symbol": position.symbol, "units": newUnits, "averagePrice": newAveragePrice, "investedAmount": newAmount, "positionCount": newPositionCount] as [String : Any]
             
             do {
                 try await self.db.collection("users").document(userId).collection("portfolio").document(position.symbol).setData(newPortfolio)
@@ -72,8 +73,8 @@ class PortfolioService: ObservableObject, PortfolioServiceProtocol {
             }
         }
     }
-    // TODO: Delete the whole asset, if the last position is deleted -> add a position counter in the asset model
-    func deletePosition(asset: Asset, position: Position) async {
+    
+    func deletePosition(asset: Asset, position: Position) async -> Bool {
         if let userId = Auth.auth().currentUser?.uid {
             let assetPath = db.collection("users").document(userId).collection("portfolio").document(asset.symbol)
             
@@ -88,14 +89,20 @@ class PortfolioService: ObservableObject, PortfolioServiceProtocol {
                     try await assetPath.updateData(["investedAmount": investedAmount, "units": units, "averagePrice": averagePrice])
                     try await assetPath.collection("positions").document(id).delete()
                     
-                    if asset.positions?.count == 1 {
+                    let newPositionCount = asset.positionCount - 1
+                    
+                    if newPositionCount == 0 {
                         try await db.collection("users").document(userId).collection("portfolio").document(asset.symbol).delete()
+                    } else {
+                        try await db.collection("users").document(userId).collection("portfolio").document(asset.symbol).updateData(["positionCount": newPositionCount])
                     }
+                    return true
                 } catch let error {
                     print(error.localizedDescription)
                 }
             }
         }
+        return false
     }
 }
 
@@ -103,8 +110,8 @@ class TestPortfolioService: PortfolioServiceProtocol {
     var assets: [Asset] = []
     
     init() {
-        let asset1 = Asset(symbol: "AAPL", units: 2.0, averagePrice: 132.5, investedAmount: 265.0)
-        let asset2 = Asset(symbol: "MSFT", units: 3.0, averagePrice: 230.0, investedAmount: 690.0)
+        let asset1 = Asset(symbol: "AAPL", units: 2.0, averagePrice: 132.5, investedAmount: 265.0, positionCount: 1)
+        let asset2 = Asset(symbol: "MSFT", units: 3.0, averagePrice: 230.0, investedAmount: 690.0, positionCount: 1)
         
         self.assets.append(asset1)
         self.assets.append(asset2)
@@ -137,15 +144,17 @@ class TestPortfolioService: PortfolioServiceProtocol {
         assets.removeAll(where: {$0.symbol == symbol})
     }
     
-    func deletePosition(asset: Asset, position: Position) async {
+    func deletePosition(asset: Asset, position: Position) async -> Bool {
         let investedAmount = asset.investedAmount - position.investedAmount
         let units = asset.units - position.units
         let averagePrice = investedAmount / units
         
-        let newAsset = Asset(symbol: asset.symbol, units: units, averagePrice: averagePrice, investedAmount: investedAmount)
+        let newAsset = Asset(symbol: asset.symbol, units: units, averagePrice: averagePrice, investedAmount: investedAmount, positionCount: 1)
         
         self.assets.removeAll(where: {$0.symbol == asset.symbol})
         self.assets.append(newAsset)
+        
+        return true
     }
 }
 
@@ -154,5 +163,5 @@ protocol PortfolioServiceProtocol {
     func fetchPositions(symbol: String) async -> [Position]
     func addAsset(position: Position) async
     func deleteAsset(symbol: String) async
-    func deletePosition(asset: Asset, position: Position) async
+    func deletePosition(asset: Asset, position: Position) async -> Bool
 }

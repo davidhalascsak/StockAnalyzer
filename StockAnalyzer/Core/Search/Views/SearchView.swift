@@ -38,6 +38,10 @@ struct SearchView: View {
                     vm.searchTask = task
                 }
             }
+            .onDisappear {
+                vm.searchText = ""
+                vm.searchResult = []
+            }
         }
     }
     

@@ -84,7 +84,7 @@ struct PositionView: View {
             Divider()
             List {
                 ForEach(vm.asset.positions ?? [], id: \.self) { position in
-                    if let viewModel = vm.positionViewModels[position.symbol] {
+                    if let viewModel = vm.positionViewModels[position.id ?? ""] {
                         PositionRowView(viewModel: viewModel)
                             .alignmentGuide(.listRowSeparatorLeading) { dimension in
                                 dimension[.leading]
@@ -105,6 +105,9 @@ struct PositionView: View {
         if let index = index {
             Task {
                 await vm.deletePosition(at: index)
+                if vm.asset.positions?.count == 0 {
+                    dismiss()
+                }
             }
         }
     }
@@ -113,7 +116,7 @@ struct PositionView: View {
  struct PositionView_Previews: PreviewProvider {
      static let position1 = Position(symbol: "AAPL", date: "2020-02-02", units: 2.0, price: 132.5, investedAmount: 265.0)
      static let position2 = Position(symbol: "MSFT", date: "2020-02-02", units: 3.0, price: 230.0, investedAmount: 690.0)
-     static let asset = Asset(symbol: "AAPL", units: 2.0, averagePrice: 132.5, investedAmount: 265.0, positions: [position1, position2])
+     static let asset = Asset(symbol: "AAPL", units: 2.0, averagePrice: 132.5, investedAmount: 265.0, positionCount: 2, positions: [position1, position2])
      
      static var previews: some View {
          PositionView(asset: asset, stockService: StockService(symbol: "AAPL"), portfolioService: PortfolioService(), imageService: ImageService())

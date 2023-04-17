@@ -6,7 +6,6 @@ class PortfolioViewModel: ObservableObject {
     @Published var isLoading: Bool = false
     @Published var assetsViewModels: [String: PortfolioRowViewModel] = [:]
     
-    
     var portfolioService: PortfolioServiceProtocol
     var sessionService: SessionServiceProtocol
     
@@ -21,6 +20,7 @@ class PortfolioViewModel: ObservableObject {
             let vm = PortfolioRowViewModel(asset: asset, stockService: StockService(symbol: asset.symbol))
             assetsViewModels[asset.symbol] = vm
         }
+        
         self.isLoading = false
     }
     

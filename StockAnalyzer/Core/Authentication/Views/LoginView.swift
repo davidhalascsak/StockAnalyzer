@@ -89,6 +89,6 @@ struct LoginView: View {
 
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginView(vm: AuthViewModel(isLogin: true))
+        LoginView(vm: AuthViewModel(isLogin: true, userService: UserService(), sessionService: SessionService()))
     }
 }

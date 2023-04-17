@@ -8,6 +8,7 @@ struct Asset: Hashable, Codable {
     let units: Double
     let averagePrice: Double
     let investedAmount: Double
+    let positionCount: Double
     
     var positions: [Position]?
 }

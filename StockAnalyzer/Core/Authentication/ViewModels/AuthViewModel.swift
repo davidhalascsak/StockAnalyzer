@@ -2,8 +2,6 @@ import Foundation
 import FirebaseCore
 import FirebaseAuth
 
-// TODO: Extract the login and registration process into a service.
-
 @MainActor
 class AuthViewModel: ObservableObject {
     @Published var userData: AuthenticationUser = AuthenticationUser()
@@ -13,9 +11,10 @@ class AuthViewModel: ObservableObject {
     @Published var alertTitle: String = ""
     @Published var isLogin: Bool
     
-    init(isLogin: Bool) {
-        self.isLogin = isLogin
-    }
+    
+    let userService: UserServiceProtocol
+    let sessionService: SessionServiceProtocol
+    let locale = Locale(identifier: "en-US")
     
     var countries: [String] {
         let codes = NSLocale.isoCountryCodes
@@ -25,8 +24,12 @@ class AuthViewModel: ObservableObject {
             
         return countries.sorted()
     }
-    let locale = Locale(identifier: "en-US")
-    let userService = UserService()
+    
+    init(isLogin: Bool, userService: UserServiceProtocol, sessionService: SessionServiceProtocol) {
+        self.isLogin = isLogin
+        self.userService = userService
+        self.sessionService = sessionService
+    }
     
     public func checkLogin() async {
         if userData.email.count < 5 {
@@ -54,11 +57,13 @@ class AuthViewModel: ObservableObject {
         }
         
         do {
-            let result =  try await Auth.auth().signIn(withEmail: userData.email, password: userData.password)
+            try await self.sessionService.login(email: userData.email, password: userData.password)
             
-            if !result.user.isEmailVerified {
+            let isVerified = await sessionService.isUserVerified()
+            
+            if !isVerified {
                 do {
-                    try Auth.auth().signOut()
+                    try self.sessionService.logout()
                     
                     self.alertTitle = "Error"
                     self.alertText = "You must verify your account!"
@@ -132,7 +137,7 @@ class AuthViewModel: ObservableObject {
             }
         }
         do {
-            let result = try await Auth.auth().createUser(withEmail: userData.email, password: userData.password)
+            try await sessionService.register(email: userData.email, password: userData.password)
             
             var isUsernameInUse: Bool = false
             
@@ -151,7 +156,7 @@ class AuthViewModel: ObservableObject {
                 return
             } else {
                 do {
-                    try await result.user.sendEmailVerification()
+                    try await self.sessionService.sendVerificationEmail()
                 } catch {
                     self.alertTitle = "Error"
                     self.alertText = "Error while sending verification email!"
@@ -168,11 +173,11 @@ class AuthViewModel: ObservableObject {
             return
         }
         
-        let newUser = User(id: Auth.auth().currentUser?.uid ?? "", username: self.userData.username, email: self.userData.email, location: self.userData.location)
+        let newUser = User(id: self.sessionService.getUserId() ?? "", username: self.userData.username, email: self.userData.email, location: self.userData.location)
         
         do {
             try await self.userService.createUser(user: newUser)
-            try Auth.auth().signOut()
+            try self.sessionService.logout()
         } catch {
             self.alertTitle = "Error"
             self.alertText = "Error while creating the user!"
@@ -191,11 +196,4 @@ class AuthViewModel: ObservableObject {
         let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
         return emailPred.evaluate(with: email)
     }
-    
-    func countryFlag(_ countryCode: String) -> String {
-      String(String.UnicodeScalarView(countryCode.unicodeScalars.compactMap {
-        UnicodeScalar(127397 + $0.value)
-      }))
-    }
-
 }

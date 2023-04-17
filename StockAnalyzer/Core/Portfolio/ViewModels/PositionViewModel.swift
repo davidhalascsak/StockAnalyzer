@@ -8,8 +8,9 @@ class PositionViewModel: ObservableObject {
     @Published var logo: UIImage?
     @Published var isLoading: Bool = false
     @Published var positionViewModels: [String: PositionRowViewModel] = [:]
+    @Published var shouldDismiss: Bool = false
     
-    let asset: Asset
+    var asset: Asset
     let stockService: StockServiceProtocol
     let imageService: ImageServiceProtocol
     let portfolioService: PortfolioServiceProtocol
@@ -31,7 +32,7 @@ class PositionViewModel: ObservableObject {
         
         for position in asset.positions ?? [] {
             let vm = PositionRowViewModel(position: position, stockService: StockService(symbol: position.symbol))
-            positionViewModels[asset.symbol] = vm
+            positionViewModels[position.id ?? ""] = vm
         }
     }
     
@@ -48,7 +49,6 @@ class PositionViewModel: ObservableObject {
     
     func reloadAsset() async {
         self.price = await self.stockService.fetchPriceInRealTime()
-        
         for position in self.asset.positions ?? [] {
             if let vm = positionViewModels[position.symbol] {
                 await vm.updatePrice()
@@ -60,7 +60,10 @@ class PositionViewModel: ObservableObject {
         let position = self.asset.positions?[index]
         
         if let position = position {
-            await self.portfolioService.deletePosition(asset: asset, position: position)
+            let result = await self.portfolioService.deletePosition(asset: asset, position: position)
+            if result {
+                self.asset.positions?.remove(at: index)
+            }
         }
     }
 }

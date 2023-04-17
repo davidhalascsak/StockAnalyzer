@@ -38,7 +38,7 @@ struct PortfolioRowView: View {
 }
 
 struct PortfolioRowView_Previews: PreviewProvider {
-    static let asset = Asset(symbol: "Apple", units: 1.00, averagePrice: 132.00, investedAmount: 160.00)
+    static let asset = Asset(symbol: "Apple", units: 1.00, averagePrice: 132.00, investedAmount: 160.00, positionCount: 1)
     static var previews: some View {
         PortfolioRowView(viewModel: PortfolioRowViewModel(asset: asset, stockService: StockService(symbol: asset.symbol)))
     }

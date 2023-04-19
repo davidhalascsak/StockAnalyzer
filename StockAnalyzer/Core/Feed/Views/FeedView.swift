@@ -9,8 +9,8 @@ struct FeedView: View {
     @State var isNewPostPresented: Bool = false
     @State var isSettingsPresented: Bool = false
     
-    init(userService: UserServiceProtocol, postService: PostServiceProtocol, sessionService: SessionServiceProtocol) {
-        _vm = StateObject(wrappedValue: FeedViewModel(userService: userService, postService: postService, sessionService: sessionService))
+    init(userService: UserServiceProtocol, postService: PostServiceProtocol, sessionService: SessionServiceProtocol, imageService: ImageServiceProtocol) {
+        _vm = StateObject(wrappedValue: FeedViewModel(userService: userService, postService: postService, sessionService: sessionService, imageService: imageService))
     }
 
     var body: some View {
@@ -22,7 +22,7 @@ struct FeedView: View {
                         NewPostView(symbol: nil, postService: PostService())
                     })
                     .fullScreenCover(isPresented: $isSettingsPresented, content: {
-                        SettingsView(userService: UserService(), sessionService: SessionService())
+                        SettingsView(userService: UserService(), sessionService: SessionService(), imageService: ImageService())
                     })
                     .sync($vm.isNewPostPresented, with: $isNewPostPresented)
                     .sync($vm.isSettingsPresented, with: $isSettingsPresented)
@@ -121,7 +121,7 @@ struct FeedView: View {
 
 struct FeedView_Previews: PreviewProvider {
     static var previews: some View {
-        FeedView(userService: UserService(), postService: PostService(), sessionService: SessionService())
+        FeedView(userService: UserService(), postService: PostService(), sessionService: SessionService(), imageService: ImageService())
     }
 }
 

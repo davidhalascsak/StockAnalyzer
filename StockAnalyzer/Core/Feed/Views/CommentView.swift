@@ -11,7 +11,7 @@ struct CommentView: View {
     
     var body: some View {
         HStack(alignment: .top) {
-            Rectangle()
+            ImageView(url: vm.post.user?.imageUrl ?? "", imageService: ImageService())
                 .frame(width: 40, height: 40)
                 .cornerRadius(10)
             VStack(alignment: .leading) {
@@ -55,7 +55,7 @@ struct CommentView: View {
 
 
  struct CommentView_Previews: PreviewProvider {
-     static let user = User(username: "istengyermeke", email: "david.halascsak@gmail.com", location: "Hungary")
+     static let user = User(username: "istengyermeke", email: "david.halascsak@gmail.com", location: "Hungary", imageUrl: "")
      static let post = Post(userRef: "asd", body: "Elon is the king", timestamp: Timestamp(date: Date()), likes: 2, comments: 1)
          
      static let comment = Comment(userRef: "asd", body: "Buy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy Tesla", timestamp: Timestamp(date: Date()), likes: 5, user: user)

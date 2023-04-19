@@ -1,7 +1,9 @@
 import Foundation
 import Combine
 
+@MainActor
 class ValuationViewModel: ObservableObject {
+    @Published var isLoading: Bool = true
     @Published var ratios: Ratios?
     @Published var marketCap: MarketCap?
     @Published var growthRates: GrowthRates?
@@ -15,19 +17,14 @@ class ValuationViewModel: ObservableObject {
     
     var cancellables = Set<AnyCancellable>()
     
-    var isLoaded: Bool {
-        return ratios != nil && marketCap != nil && growthRates != nil && metrics != nil
-    }
-    
     let company: Company
+    let stockService: StockServiceProtocol
     let options = ["Net Income", "Free Cash Flow"]
     
-    init(company: Company) {
+    init(company: Company, stockService: StockServiceProtocol) {
         self.company = company
-        fetchMarketCap()
-        fetchRatios()
-        fetchGrowthRates()
-        fetchMetrics()
+        self.stockService = stockService
+        
         listenToChanges()
     }
     
@@ -41,54 +38,23 @@ class ValuationViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
-    func fetchMarketCap() {
-        guard let url = URL(string: "https://financialmodelingprep.com/api/v3/market-capitalization/\(company.symbol)?apikey=\(ApiKeys.financeApi)") else {return}
-                
-        NetworkingManager.download(url: url)
-            .decode(type: [MarketCap].self, decoder: JSONDecoder())
-            .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: NetworkingManager.handleCompletion) { [weak self] enterpriseValue in
-                self?.marketCap = enterpriseValue[0]
-            }
-            .store(in: &cancellables)
-    }
-    
-    func fetchRatios() {
-        guard let url = URL(string: "https://financialmodelingprep.com/api/v3/ratios-ttm/\(company.symbol)?apikey=\(ApiKeys.financeApi)") else {return}
-                
-        NetworkingManager.download(url: url)
-            .decode(type: [Ratios].self, decoder: JSONDecoder())
-            .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: NetworkingManager.handleCompletion) { [weak self] ratios in
-                self?.ratios = ratios[0]
-            }
-            .store(in: &cancellables)
-    }
-    
-    func fetchGrowthRates() {
-        guard let url = URL(string: "https://financialmodelingprep.com/api/v3/financial-growth/\(company.symbol)?limit=1&apikey=\(ApiKeys.financeApi)") else {return}
-        NetworkingManager.download(url: url)
-            .decode(type: [GrowthRates].self, decoder: JSONDecoder())
-            .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: NetworkingManager.handleCompletion) { [weak self] growthRates in
-                self?.growthRates = growthRates[0]
-                
-                self?.growthRate = min(max(Int((self?.growthRates?.netIncomeGrowth ?? 0.0) * 100),3), 20)
-                
-            }
-            .store(in: &cancellables)
-    }
-    
-    func fetchMetrics() {
-        guard let url = URL(string: "https://financialmodelingprep.com/api/v3/key-metrics-ttm/\(company.symbol)?limit=1&apikey=\(ApiKeys.financeApi)") else {return}
-        NetworkingManager.download(url: url)
-            .decode(type: [Metrics].self, decoder: JSONDecoder())
-            .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: NetworkingManager.handleCompletion) { [weak self] metrics in
-                self?.metrics = metrics[0]
-                self?.baseValue = String(format: "%.2f",self?.metrics?.netIncomePerShareTTM ?? 0.0)
-            }
-            .store(in: &cancellables)
+    func fetchData() async {
+        async let fetchRatios = self.stockService.fetchRatios()
+        async let fetchMarketCap = self.stockService.fetchMarketCap()
+        async let fetchGrowthRates = self.stockService.fetchGrowthRates()
+        async let fetchMetrics = self.stockService.fetchMetrics()
+        
+        let (ratios, marketCap, growthRates, metrics) = await (fetchRatios, fetchMarketCap, fetchGrowthRates, fetchMetrics)
+        
+        self.ratios = ratios
+        self.marketCap = marketCap
+        self.growthRates = growthRates
+        self.metrics = metrics
+        
+        self.baseValue = String(format: "%.2f", self.metrics?.netIncomePerShareTTM ?? 0.0)
+        self.growthRate = min(max(Int((self.growthRates?.netIncomeGrowth ?? 0.0) * 100), 3), 20)
+        
+        self.isLoading = false
     }
     
     func formatPrice(price: Int) -> String {

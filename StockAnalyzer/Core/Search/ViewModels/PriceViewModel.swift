@@ -10,8 +10,6 @@ class PriceViewModel: ObservableObject {
     let currency: String
     let stockService: StockServiceProtocol
     
-    
-    
     init(symbol: String, currency: String, stockService: StockServiceProtocol) {
         self.symbol = symbol
         self.currency = currency

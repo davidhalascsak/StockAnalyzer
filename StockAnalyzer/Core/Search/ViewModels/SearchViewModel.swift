@@ -9,8 +9,6 @@ class SearchViewModel: ObservableObject {
     
     let searchService: SearchServiceProtocol
     
-    private var cancellables = Set<AnyCancellable>()
-    
     init(searchService: SearchServiceProtocol) {
         self.searchService = searchService
     }

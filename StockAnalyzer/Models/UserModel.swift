@@ -1,10 +1,14 @@
 import Foundation
+import UIKit
 import FirebaseFirestoreSwift
 import FirebaseFirestore
 
 struct User: Identifiable, Codable {
     @DocumentID var id: String?
-    var username: String
-    var email: String
-    var location: String
+    let username: String
+    let email: String
+    let location: String
+    var imageUrl: String
+    
+    var image: Data?
 }

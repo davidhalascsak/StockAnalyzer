@@ -9,6 +9,10 @@ class NewAssetViewModel: ObservableObject {
     @Published var price: Double = 0.0
     @Published var value: String = ""
     
+    let symbol: String
+    var portfolioService: PortfolioServiceProtocol
+    var stockService: StockServiceProtocol
+    
     private var db = Firestore.firestore()
     private var formatter: DateFormatter {
         let formatter = DateFormatter()
@@ -16,10 +20,6 @@ class NewAssetViewModel: ObservableObject {
         
         return formatter
     }
-    
-    let symbol: String
-    var portfolioService: PortfolioServiceProtocol
-    var stockService: StockServiceProtocol
     
     init(symbol: String, portfolioService: PortfolioServiceProtocol, stockService: StockServiceProtocol) {
         self.symbol = symbol

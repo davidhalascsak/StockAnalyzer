@@ -23,7 +23,7 @@ struct SearchView: View {
                 Spacer()
             }
             .fullScreenCover(isPresented: $isSettingsPresented, content: {
-                SettingsView(userService: UserService(), sessionService: SessionService())
+                SettingsView(userService: UserService(), sessionService: SessionService(), imageService: ImageService())
             })
             .onChange(of: vm.searchText) { _ in
                 

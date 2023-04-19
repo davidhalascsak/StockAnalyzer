@@ -30,7 +30,7 @@ struct PortfolioView: View {
             }
         }
         .fullScreenCover(isPresented: $isSettingsPresented, content: {
-            SettingsView(userService: UserService(), sessionService: SessionService())
+            SettingsView(userService: UserService(), sessionService: SessionService(), imageService: ImageService())
         })
         .onChange(of: isSettingsPresented, perform: { newValue in
             if newValue == false {

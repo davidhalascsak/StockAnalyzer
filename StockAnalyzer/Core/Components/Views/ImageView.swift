@@ -13,7 +13,12 @@ struct ImageView: View {
                 Image(uiImage: image)
                     .resizable()
             } else {
-                ProgressView()
+                if vm.isLoading {
+                    ProgressView()
+                } else {
+                    Rectangle()
+                }
+                
             }
         }
         .task {

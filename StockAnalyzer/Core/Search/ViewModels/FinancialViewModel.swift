@@ -1,78 +1,32 @@
 import Foundation
-import Combine
 
+@MainActor
 class FinancialViewModel: ObservableObject {
     @Published var incomeStatement: [IncomeStatement] = []
     @Published var balanceSheet: [BalanceSheet] = []
     @Published var cashFlowStatement: [CashFlowStatement] = []
-    @Published var isLoading: Bool = false
-    @Published var loadCounter: Int = 0
+    @Published var isLoading: Bool = true
     
     let company: Company
+    let financeService: FinanceServiceProtocol
     
-    init(company: Company) {
+    init(company: Company, financeService: FinanceServiceProtocol) {
         self.company = company
-        self.isLoading = true
-        addListeners()
+        self.financeService = financeService
     }
     
-    var cancellables = Set<AnyCancellable>()
-    
-    func addListeners() {
-        fetchIncome()
-        fetchBalance()
-        fetchCashFlow()
-    }
-    
-    func fetchIncome() {
-        guard let url = URL(string: "https://financialmodelingprep.com/api/v3/income-statement/\(company.symbol)?limit=10&apikey=\(ApiKeys.financeApi)") else {return}
+    func fetchData() async {
+        async let fetchIncomeStatement = self.financeService.fetchIncomeStatement()
+        async let fetchBalanceSheet = self.financeService.fetchBalanceSheet()
+        async let fetchCashFlowStatement = self.financeService.fetchCashFlowStatement()
         
-        NetworkingManager.download(url: url)
-            .decode(type: [IncomeStatement].self, decoder: JSONDecoder())
-            .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: NetworkingManager.handleCompletion) { [weak self] incomeStatement in
-                self?.incomeStatement = incomeStatement
-                self?.loadCounter += 1
-                if self?.loadCounter == 3 {
-                    self?.isLoading = false
-                    self?.loadCounter = 0
-                }
-            }
-            .store(in: &cancellables)
-    }
-    
-    func fetchBalance() {
-        guard let url = URL(string: "https://financialmodelingprep.com/api/v3/balance-sheet-statement/\(company.symbol)?limit=10&apikey=\(ApiKeys.financeApi)") else {return}
+        let (incomeStatement, balanceSheet, cashFlowStatement) = await (fetchIncomeStatement, fetchBalanceSheet, fetchCashFlowStatement)
         
-        NetworkingManager.download(url: url)
-            .decode(type: [BalanceSheet].self, decoder: JSONDecoder())
-            .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: NetworkingManager.handleCompletion) { [weak self] balanceSheet in
-                self?.balanceSheet = balanceSheet
-                self?.loadCounter += 1
-                if self?.loadCounter == 3 {
-                    self?.isLoading = false
-                    self?.loadCounter = 0
-                }
-            }
-            .store(in: &cancellables)
-    }
-    
-    func fetchCashFlow() {
-        guard let url = URL(string: "https://financialmodelingprep.com/api/v3/cash-flow-statement/\(company.symbol)?limit=10&apikey=\(ApiKeys.financeApi)") else {return}
+        self.incomeStatement = incomeStatement
+        self.balanceSheet = balanceSheet
+        self.cashFlowStatement = cashFlowStatement
         
-        NetworkingManager.download(url: url)
-            .decode(type: [CashFlowStatement].self, decoder: JSONDecoder())
-            .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: NetworkingManager.handleCompletion) { [weak self] cashFlow in
-                self?.cashFlowStatement = cashFlow
-                self?.loadCounter += 1
-                if self?.loadCounter == 3 {
-                    self?.isLoading = false
-                    self?.loadCounter = 0
-                }
-            }
-            .store(in: &cancellables)
+        self.isLoading = false
     }
     
     func calculateROE() -> String {

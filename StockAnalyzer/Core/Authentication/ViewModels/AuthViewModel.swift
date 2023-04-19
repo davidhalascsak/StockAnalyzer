@@ -1,4 +1,5 @@
 import Foundation
+import UIKit
 import FirebaseCore
 import FirebaseAuth
 
@@ -14,6 +15,8 @@ class AuthViewModel: ObservableObject {
     
     let userService: UserServiceProtocol
     let sessionService: SessionServiceProtocol
+    let imageService: ImageServiceProtocol
+    
     let locale = Locale(identifier: "en-US")
     
     var countries: [String] {
@@ -25,10 +28,11 @@ class AuthViewModel: ObservableObject {
         return countries.sorted()
     }
     
-    init(isLogin: Bool, userService: UserServiceProtocol, sessionService: SessionServiceProtocol) {
+    init(isLogin: Bool, userService: UserServiceProtocol, sessionService: SessionServiceProtocol, imageService: ImageServiceProtocol) {
         self.isLogin = isLogin
         self.userService = userService
         self.sessionService = sessionService
+        self.imageService = imageService
     }
     
     public func checkLogin() async {
@@ -62,15 +66,11 @@ class AuthViewModel: ObservableObject {
             let isVerified = await sessionService.isUserVerified()
             
             if !isVerified {
-                do {
-                    try self.sessionService.logout()
-                    
-                    self.alertTitle = "Error"
-                    self.alertText = "You must verify your account!"
-                    self.showAlert.toggle()
-                } catch let error {
-                    print(error)
-                }
+                _ = self.sessionService.logout()
+                
+                self.alertTitle = "Error"
+                self.alertText = "You must verify your account!"
+                self.showAlert.toggle()
                 
                 return
             }
@@ -136,59 +136,61 @@ class AuthViewModel: ObservableObject {
                 return
             }
         }
-        do {
-            try await sessionService.register(email: userData.email, password: userData.password)
-            
-            var isUsernameInUse: Bool = false
-            
-            let users = await self.userService.fetchAllUser()
-            users.forEach { user in
-                if user.username == self.userData.username {
-                    isUsernameInUse = true
-                }
+        var isUsernameInUse: Bool = false
+        
+        let users = await self.userService.fetchAllUser()
+        users.forEach { user in
+            if user.username == self.userData.username {
+                isUsernameInUse = true
             }
-            
-            if isUsernameInUse {
-                self.alertTitle = "Error"
-                self.alertText = "The username is already in use!"
-                self.showAlert.toggle()
-                
-                return
-            } else {
-                do {
-                    try await self.sessionService.sendVerificationEmail()
-                } catch {
-                    self.alertTitle = "Error"
-                    self.alertText = "Error while sending verification email!"
-                    self.showAlert.toggle()
-                    
-                    return
-                }
-            }
-        } catch {
+        }
+        
+        if isUsernameInUse {
             self.alertTitle = "Error"
-            self.alertText = "The email is already in use!"
+            self.alertText = "The username is already in use!"
             self.showAlert.toggle()
             
             return
         }
         
-        let newUser = User(id: self.sessionService.getUserId() ?? "", username: self.userData.username, email: self.userData.email, location: self.userData.location)
+        let image = UIImage(named: "default_avatar")
         
-        do {
-            try await self.userService.createUser(user: newUser)
-            try self.sessionService.logout()
-        } catch {
-            self.alertTitle = "Error"
-            self.alertText = "Error while creating the user!"
-            self.showAlert.toggle()
-            self.isCorrect.toggle()
+        if let image = image {
+            let imageUrl = await self.imageService.uploadImage(image: image)
+            
+            
+            if let imageUrl = imageUrl {
+                do {
+                    try await sessionService.register(email: userData.email, password: userData.password)
+                    
+                    let newUser = User(id: self.sessionService.getUserId() ?? "", username: self.userData.username, email: self.userData.email, location: self.userData.location, imageUrl: imageUrl)
+                    
+                    do {
+                        try await self.sessionService.sendVerificationEmail()
+                    } catch {
+                        self.alertTitle = "Error"
+                        self.alertText = "Error while sending verification email!"
+                        self.showAlert.toggle()
+                        
+                        return
+                    }
+                    _ = self.sessionService.logout()
+                    try await self.userService.createUser(user: newUser)
+                    
+                } catch let error {
+                    print(error)
+                    self.alertTitle = "Error"
+                    self.alertText = "Error while creating the user!"
+                    self.showAlert.toggle()
+                    self.isCorrect.toggle()
+                }
+                
+                self.alertTitle = "Success"
+                self.alertText = "Please verify your account, before login!"
+                self.showAlert.toggle()
+                self.isCorrect.toggle()
+            }
         }
-        
-        self.alertTitle = "Success"
-        self.alertText = "Please verify your account, before login!"
-        self.showAlert.toggle()
-        self.isCorrect.toggle()
     }
     
     private func isValidEmail(_ email: String) -> Bool {

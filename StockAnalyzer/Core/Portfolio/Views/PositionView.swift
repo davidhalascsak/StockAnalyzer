@@ -13,17 +13,11 @@ struct PositionView: View {
         VStack(alignment: .leading) {
             if vm.isLoading == false {
                 HStack(alignment: .top) {
-                    if let logo = vm.logo {
-                        Image(uiImage: logo)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 60, height: 60)
-                            .cornerRadius(10)
-                    } else {
-                        Rectangle()
-                            .frame(width: 60, height: 60)
-                            .cornerRadius(10)
-                    }
+                    ImageView(url: vm.companyProfile?.image ?? "", imageService: ImageService())
+                        .scaledToFit()
+                        .cornerRadius(10)
+                        .frame(height: 50)
+                        .frame(maxWidth: 50)
                     VStack(alignment: .leading) {
                         Text(vm.asset.symbol)
                             .fontWeight(.semibold)

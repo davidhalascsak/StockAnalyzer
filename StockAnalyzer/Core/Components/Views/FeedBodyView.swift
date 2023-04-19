@@ -4,8 +4,8 @@ struct FeedBodyView: View {
     @StateObject var vm: FeedBodyViewModel
     @Binding var isNewViewPresented: Bool
     
-    init(symbol: String, isNewViewPresented: Binding<Bool>, userService: UserService, postService: PostService) {
-        _vm = StateObject(wrappedValue: FeedBodyViewModel(symbol: symbol, userService: userService, postService: postService))
+    init(symbol: String, isNewViewPresented: Binding<Bool>, userService: UserService, postService: PostService, imageService: ImageServiceProtocol) {
+        _vm = StateObject(wrappedValue: FeedBodyViewModel(symbol: symbol, userService: userService, postService: postService, imageService: imageService))
         _isNewViewPresented = isNewViewPresented
     }
     
@@ -41,6 +41,6 @@ struct FeedBodyView_Previews: PreviewProvider {
     @State static var isNewViewPresented: Bool = false
     
     static var previews: some View {
-        FeedBodyView(symbol: "Apple", isNewViewPresented: $isNewViewPresented, userService: UserService(), postService: PostService())
+        FeedBodyView(symbol: "Apple", isNewViewPresented: $isNewViewPresented, userService: UserService(), postService: PostService(), imageService: ImageService())
     }
 }

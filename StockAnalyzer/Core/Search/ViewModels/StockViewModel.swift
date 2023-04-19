@@ -12,8 +12,6 @@ class StockViewModel: ObservableObject {
     var stockService: StockServiceProtocol
     var sessionService: SessionServiceProtocol
     
-    var cancellables = Set<AnyCancellable>()
-    
     init(symbol: String, stockService: StockServiceProtocol, sessionService: SessionServiceProtocol) {
         self.symbol = symbol
         self.stockService = stockService

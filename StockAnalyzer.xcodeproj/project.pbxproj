@@ -25,6 +25,7 @@
 		EC222F9F29EA7E6500B48930 /* SearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC222F9E29EA7E6500B48930 /* SearchService.swift */; };
 		EC2688B729E7C4CD00FF3021 /* PositionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC2688B629E7C4CC00FF3021 /* PositionViewModel.swift */; };
 		EC2880B929CCB3D700E4A085 /* FinanceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC2880B829CCB3D700E4A085 /* FinanceModel.swift */; };
+		EC318E9E29F040B600CEA56B /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = EC318E9D29F040B600CEA56B /* FirebaseStorage */; };
 		EC330AAD29C76B5B009A0D30 /* ValuationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC330AAC29C76B5B009A0D30 /* ValuationViewModel.swift */; };
 		EC34DEC929D065BC007DE20E /* PieSliceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC34DEC829D065BC007DE20E /* PieSliceView.swift */; };
 		EC3CEAA929BB8F340048FADE /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC3CEAA829BB8F340048FADE /* HomeView.swift */; };
@@ -43,6 +44,7 @@
 		EC49E91229A398FF003AE346 /* CommentService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC49E91129A398FF003AE346 /* CommentService.swift */; };
 		EC4CE36529B7ABC800F600CC /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC4CE36429B7ABC800F600CC /* SearchViewModel.swift */; };
 		EC4CE36729B7AE4900F600CC /* SearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC4CE36629B7AE4900F600CC /* SearchModel.swift */; };
+		EC63E14029EEF92500DA0A4C /* FinanceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC63E13F29EEF92500DA0A4C /* FinanceService.swift */; };
 		EC650B3A29BCDAF200D508D8 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC650B3929BCDAF200D508D8 /* AboutView.swift */; };
 		EC67E32B299543B9002EBC2C /* FeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC67E32A299543B9002EBC2C /* FeedView.swift */; };
 		EC6802B729AB767E0019EE18 /* StockService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC6802B629AB767E0019EE18 /* StockService.swift */; };
@@ -130,6 +132,7 @@
 		EC49E91129A398FF003AE346 /* CommentService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentService.swift; sourceTree = "<group>"; };
 		EC4CE36429B7ABC800F600CC /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		EC4CE36629B7AE4900F600CC /* SearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchModel.swift; sourceTree = "<group>"; };
+		EC63E13F29EEF92500DA0A4C /* FinanceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinanceService.swift; sourceTree = "<group>"; };
 		EC650B3929BCDAF200D508D8 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		EC67E32A299543B9002EBC2C /* FeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedView.swift; sourceTree = "<group>"; };
 		EC6802B629AB767E0019EE18 /* StockService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockService.swift; sourceTree = "<group>"; };
@@ -195,6 +198,7 @@
 				EC40113B298BBE260033F54B /* FirebaseFunctions in Frameworks */,
 				EC401133298BBE260033F54B /* FirebaseAnalytics in Frameworks */,
 				EC401135298BBE260033F54B /* FirebaseAuth in Frameworks */,
+				EC318E9E29F040B600CEA56B /* FirebaseStorage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -528,6 +532,7 @@
 				ECA41EF129B9F00600DA03DA /* ImageService.swift */,
 				EC02CC6C29DB5C640015690E /* PortfolioService.swift */,
 				EC222F9E29EA7E6500B48930 /* SearchService.swift */,
+				EC63E13F29EEF92500DA0A4C /* FinanceService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -554,6 +559,7 @@
 				EC401138298BBE260033F54B /* FirebaseFirestore */,
 				EC40113A298BBE260033F54B /* FirebaseFunctions */,
 				ECF669D42997C0C100855894 /* FirebaseFirestoreSwift */,
+				EC318E9D29F040B600CEA56B /* FirebaseStorage */,
 			);
 			productName = StockAnalyzer;
 			productReference = EC90D614298ACED3001D4520 /* StockAnalyzer.app */;
@@ -666,6 +672,7 @@
 				EC917268299547DE00EA924D /* NewsView.swift in Sources */,
 				EC7088B829DC9C890088941A /* NewAssetViewModel.swift in Sources */,
 				EC4CE36729B7AE4900F600CC /* SearchModel.swift in Sources */,
+				EC63E14029EEF92500DA0A4C /* FinanceService.swift in Sources */,
 				EC40027929A9047A00CD1036 /* SessionService.swift in Sources */,
 				ECA41EF429BA142000DA03DA /* CompanyModel.swift in Sources */,
 				EC6802C729ABD8110019EE18 /* NewsService.swift in Sources */,
@@ -926,6 +933,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		EC318E9D29F040B600CEA56B /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EC401131298BBE260033F54B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
+		};
 		EC401132298BBE260033F54B /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = EC401131298BBE260033F54B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;

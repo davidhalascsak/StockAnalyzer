@@ -1,5 +1,7 @@
 import Foundation
-import FirebaseAuth
+import UIKit
+import Firebase
+import FirebaseStorage
 
 class SessionService: ObservableObject, SessionServiceProtocol {
     func getUserId() -> String? {
@@ -14,12 +16,19 @@ class SessionService: ObservableObject, SessionServiceProtocol {
         return Auth.auth().currentUser?.isEmailVerified ?? false
     }
     
-    func logout() throws {
-        try Auth.auth().signOut()
+    func logout() -> Bool {
+        do {
+            try Auth.auth().signOut()
+            
+            return true
+        } catch let error {
+            print(error.localizedDescription)
+        }
+        return false
     }
     
     func register(email: String, password: String) async throws {
-       try await Auth.auth().createUser(withEmail: email, password: password)
+        try await Auth.auth().createUser(withEmail: email, password: password)
     }
     
     func sendVerificationEmail() async throws {
@@ -31,7 +40,7 @@ protocol SessionServiceProtocol {
     func getUserId() -> String?
     func login(email: String, password: String) async throws
     func isUserVerified() async -> Bool
-    func logout() throws
+    func logout() -> Bool
     func register(email: String, password: String) async throws
     func sendVerificationEmail() async throws
 }

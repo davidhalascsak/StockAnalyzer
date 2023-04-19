@@ -1,24 +1,47 @@
 import SwiftUI
+import PhotosUI
 import FirebaseAuth
 
 struct SettingsView: View {
-    @EnvironmentObject var sessionService: SessionService
     @Environment(\.dismiss) private var dismiss
     @ObservedObject var vm: SettingsViewModel
     
     @State var isLoginPresented: Bool = false
     @State var isSignupPresented: Bool = false
     
-    init(userService: UserService, sessionService: SessionServiceProtocol) {
-        _vm = ObservedObject(wrappedValue: SettingsViewModel(userService: userService, sessionService: SessionService()))
+    init(userService: UserService, sessionService: SessionServiceProtocol, imageService: ImageServiceProtocol) {
+        _vm = ObservedObject(wrappedValue: SettingsViewModel(userService: userService, sessionService: sessionService, imageService: imageService))
     }
     
     var body: some View {
         NavigationStack {
             VStack(alignment: .leading) {
                 HStack {
-                    Circle()
-                        .frame(width: 50, height: 50)
+                    if vm.sessionService.getUserId() != nil {
+                        PhotosPicker(selection: $vm.selectedPhoto,  matching: .images) {
+                            if let imageData = vm.user?.image {
+                                let image = UIImage(data: imageData)
+                                if let image = image {
+                                    Image(uiImage: image)
+                                        .resizable()
+                                        .aspectRatio(1.0, contentMode: .fit)
+                                        .cornerRadius(10)
+                                } else {
+                                    Image("default_avatar")
+                                        .resizable()
+                                        .aspectRatio(1.0, contentMode: .fit)
+                                        .cornerRadius(10)
+                                }
+                            }
+                        }
+                        .onChange(of: vm.selectedPhoto) { newItem in
+                            Task {
+                                if let data = try? await newItem?.loadTransferable(type: Data.self) {
+                                    //profileImage = UIImage(data: data)
+                                }
+                            }
+                        }
+                    }
                     Text("\(vm.user?.username ?? "No user")")
                         .font(.title)
                     Spacer()
@@ -34,9 +57,8 @@ struct SettingsView: View {
                         .font(.title)
                         .padding(.vertical)
                         .onTapGesture {
-                            try! Auth.auth().signOut()
-                            Task {
-                                await vm.fetchUser()
+                            if vm.sessionService.logout() {
+                                vm.user = nil
                             }
                         }
                 } else {
@@ -96,6 +118,6 @@ struct SettingsView: View {
 struct SettingsView_Previews: PreviewProvider {
     
     static var previews: some View {
-        SettingsView(userService: UserService(), sessionService: SessionService())
+        SettingsView(userService: UserService(), sessionService: SessionService(), imageService: ImageService())
     }
 }

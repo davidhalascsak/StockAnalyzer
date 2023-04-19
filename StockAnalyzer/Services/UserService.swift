@@ -25,7 +25,7 @@ class UserService: UserServiceProtocol {
     }
     
     func createUser(user: User) async throws {
-        let data = ["username": user.username, "email": user.email, "location": user.location]
+        let data = ["username": user.username, "email": user.email, "location": user.location, "imageUrl": user.imageUrl]
         
         do {
             try await db.collection("users").document(user.id ?? "").setData(data)

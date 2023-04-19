@@ -33,9 +33,9 @@ struct StockView: View {
                         case .home:
                             HomeView(company: company, newsService: NewsService(symbol: company.symbol), isNewViewPresented: $isNewPostPresented)
                         case .financials:
-                            FinancialView(company: company)
+                            FinancialView(company: company, financeService: FinanceService(symbol: company.symbol))
                         case .valuation:
-                            ValuationView(company: company)
+                            ValuationView(company: company, stockService: StockService(symbol: company.symbol))
                         case .about:
                             AboutView(company: company)
                         }

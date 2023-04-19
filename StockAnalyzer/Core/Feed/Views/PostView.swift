@@ -23,7 +23,7 @@ struct PostView: View {
     var postRowView: some View {
         VStack(alignment: .leading) {
             HStack() {
-                Rectangle()
+                ImageView(url: vm.post.user?.imageUrl ?? "", imageService: ImageService())
                     .frame(width: 40, height: 40)
                     .cornerRadius(10)
                 VStack(alignment: .leading) {
@@ -76,7 +76,7 @@ struct PostView: View {
  struct PostView_Previews: PreviewProvider {
  
     static var previews: some View {
-        let user = User(username: "istengyermeke", email: "david.halascsak@gmail.com", location: "Hungary")
+        let user = User(username: "istengyermeke", email: "david.halascsak@gmail.com", location: "Hungary", imageUrl: "")
         let post = Post(userRef: "asd", body: "Buy Tesla", timestamp: Timestamp(date: Date()), likes: 5, comments: 5, user: user)
         PostView(post: post, postService: PostService(), sessionService: SessionService())
     }

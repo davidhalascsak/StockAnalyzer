@@ -109,6 +109,6 @@ struct SignupView: View {
 
 struct SignupView_Previews: PreviewProvider {
     static var previews: some View {
-        SignupView(vm: AuthViewModel(isLogin: false, userService: UserService(), sessionService: SessionService()))
+        SignupView(vm: AuthViewModel(isLogin: false, userService: UserService(), sessionService: SessionService(), imageService: ImageService()))
     }
 }

@@ -8,7 +8,7 @@ struct StartView: View {
     @StateObject private var vm: AuthViewModel
     
     init(isLogin: Bool) {
-        _vm = StateObject(wrappedValue: AuthViewModel(isLogin: isLogin, userService: UserService(), sessionService: SessionService()))
+        _vm = StateObject(wrappedValue: AuthViewModel(isLogin: isLogin, userService: UserService(), sessionService: SessionService(), imageService: ImageService()))
     }
     
     var body: some View {

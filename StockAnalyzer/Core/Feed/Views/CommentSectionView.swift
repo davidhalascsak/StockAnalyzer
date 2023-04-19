@@ -53,7 +53,7 @@ struct CommentSectionView: View {
 
 struct PostDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        let user = User(username: "istengyermeke", email: "david.halascsak@gmail.com", location: "Hungary")
+        let user = User(username: "istengyermeke", email: "david.halascsak@gmail.com", location: "Hungary", imageUrl: "")
         let post = Post(userRef: "asd", body: "Buy Tesla", timestamp: Timestamp(date: Date()), likes: 5, comments: 5, user: user)
         CommentSectionView(post: post, commentService: CommentService(), userService: UserService(), sessionService: SessionService())
     }
@@ -65,7 +65,7 @@ struct CommentBoxView: View {
     
     var body: some View {
         HStack {
-            Rectangle()
+            ImageView(url: vm.post.user?.imageUrl ?? "", imageService: ImageService())
                 .frame(width: 40, height: 40)
                 .cornerRadius(10)
             HStack {

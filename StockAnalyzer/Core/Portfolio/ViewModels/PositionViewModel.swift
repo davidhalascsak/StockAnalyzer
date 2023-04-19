@@ -5,7 +5,6 @@ import UIKit
 class PositionViewModel: ObservableObject {
     @Published var companyProfile: Company?
     @Published var price: Price?
-    @Published var logo: UIImage?
     @Published var isLoading: Bool = false
     @Published var positionViewModels: [String: PositionRowViewModel] = [:]
     @Published var shouldDismiss: Bool = false
@@ -25,10 +24,6 @@ class PositionViewModel: ObservableObject {
     func fetchData() async {
         self.companyProfile = await self.stockService.fetchProfile()
         self.price = await self.stockService.fetchPriceInRealTime()
-        
-        if let companyProfile = self.companyProfile {
-            self.logo = await self.imageService.fetchData(url: companyProfile.image)
-        }
         
         for position in asset.positions ?? [] {
             let vm = PositionRowViewModel(position: position, stockService: StockService(symbol: position.symbol))

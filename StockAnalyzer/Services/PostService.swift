@@ -11,6 +11,7 @@ class PostService: PostServiceProtocol {
     func fetchPosts(symbol: String?) async -> [Post] {
         var posts = [Post]()
         
+                
         if let symbol = symbol {
             let snapshot = try? await db.collection("posts").whereField("symbol", isEqualTo: symbol).order(by: "timestamp", descending: true).getDocuments()
             guard let snapshot = snapshot else {return []}

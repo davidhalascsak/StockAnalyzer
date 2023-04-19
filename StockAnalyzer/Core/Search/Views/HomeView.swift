@@ -22,7 +22,7 @@ struct HomeView: View {
                     .font(.title2)
                     .fontWeight(.semibold)
                     .padding(.horizontal)
-                FeedBodyView(symbol: vm.companyProfile.symbol, isNewViewPresented: $isNewViewPresented, userService: UserService(), postService: PostService())
+                FeedBodyView(symbol: vm.companyProfile.symbol, isNewViewPresented: $isNewViewPresented, userService: UserService(), postService: PostService(), imageService: ImageService())
             } else {
                 ProgressView()
             }

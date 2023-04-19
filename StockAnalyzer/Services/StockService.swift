@@ -65,6 +65,78 @@ class StockService: StockServiceProtocol {
         
         return 0.0
     }
+    
+    func fetchMarketCap() async -> MarketCap? {
+        guard let url = URL(string: "https://financialmodelingprep.com/api/v3/market-capitalization/\(self.symbol)?apikey=\(ApiKeys.financeApi)") else {return nil}
+        
+        do {
+            let (data, _) = try await URLSession.shared.data(from: url, delegate: nil)
+            let decoder = JSONDecoder()
+            let marketCap = try? decoder.decode([MarketCap].self, from: data)
+           
+            if let marketCap = marketCap {
+                return marketCap[0]
+            }
+        } catch let error {
+            print(error.localizedDescription)
+        }
+        
+        return nil
+    }
+    
+    func fetchRatios() async -> Ratios? {
+        guard let url = URL(string: "https://financialmodelingprep.com/api/v3/ratios-ttm/\(self.symbol)?apikey=\(ApiKeys.financeApi)") else {return nil}
+                
+        do {
+            let (data, _) = try await URLSession.shared.data(from: url, delegate: nil)
+            let decoder = JSONDecoder()
+            let ratios = try? decoder.decode([Ratios].self, from: data)
+           
+            if let ratios = ratios {
+                return ratios[0]
+            }
+        } catch let error {
+            print(error.localizedDescription)
+        }
+        
+        return nil
+    }
+    
+    func fetchGrowthRates() async -> GrowthRates? {
+        guard let url = URL(string: "https://financialmodelingprep.com/api/v3/financial-growth/\(self.symbol)?limit=1&apikey=\(ApiKeys.financeApi)") else {return nil}
+        
+        do {
+            let (data, _) = try await URLSession.shared.data(from: url, delegate: nil)
+            let decoder = JSONDecoder()
+            let growthRates = try? decoder.decode([GrowthRates].self, from: data)
+           
+            if let growthRates = growthRates {
+                return growthRates[0]
+            }
+        } catch let error {
+            print(error.localizedDescription)
+        }
+        
+        return nil
+    }
+    
+    func fetchMetrics() async -> Metrics? {
+        guard let url = URL(string: "https://financialmodelingprep.com/api/v3/key-metrics-ttm/\(self.symbol)?limit=1&apikey=\(ApiKeys.financeApi)") else {return nil}
+        
+        do {
+            let (data, _) = try await URLSession.shared.data(from: url, delegate: nil)
+            let decoder = JSONDecoder()
+            let metrics = try? decoder.decode([Metrics].self, from: data)
+           
+            if let metrics = metrics {
+                return metrics[0]
+            }
+        } catch let error {
+            print(error.localizedDescription)
+        }
+        
+        return nil
+    }
 }
 
 
@@ -72,5 +144,9 @@ protocol StockServiceProtocol {
     func fetchProfile() async -> Company?
     func fetchPriceInRealTime() async -> Price?
     func fetchPriceAtDate(date: String) async -> Double
+    func fetchMarketCap() async -> MarketCap?
+    func fetchRatios() async -> Ratios?
+    func fetchGrowthRates() async -> GrowthRates?
+    func fetchMetrics() async -> Metrics?
 }
 

@@ -5,7 +5,7 @@ import SwiftUI
 @MainActor
 class ImageViewModel: ObservableObject {
     @Published var isLoading: Bool = false
-    @Published var image: UIImage? = nil
+    @Published var image: UIImage?
     
     let url: String
     let imageService: ImageServiceProtocol
@@ -16,7 +16,10 @@ class ImageViewModel: ObservableObject {
     }
     
     func fetchData() async {
-        self.image = await self.imageService.fetchData(url: self.url)
+        let data = await self.imageService.fetchData(url: self.url)
+        if let data = data {
+            self.image = self.imageService.convertDataToImage(imageData: data)
+        }
         self.isLoading = false
     }
 }

@@ -15,7 +15,7 @@ struct HomeView: View {
     var body: some View {
         VStack(alignment: .leading) {
             if vm.isDownloadingNews == false {
-                ChartView(symbol: vm.companyProfile.symbol, exchange: vm.companyProfile.exchangeShortName)
+                ChartView(symbol: vm.companyProfile.symbol, exchange: vm.companyProfile.exchangeShortName, chartService: ChartService(symbol: vm.companyProfile.symbol))
                     .padding(.bottom, 2.0)
                 newsView
                 Text("Feed")

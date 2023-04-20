@@ -3,11 +3,11 @@ import Charts
 
 struct ChartView: View {
     @StateObject var vm: ChartViewModel
-    @State var selectedType: ChartOption = .oneDay
     
-    init(symbol: String, exchange: String) {
-        _vm = StateObject(wrappedValue: ChartViewModel(symbol: symbol, exchange: exchange))
+    init(symbol: String, exchange: String, chartService: ChartServiceProtocol) {
+        _vm = StateObject(wrappedValue: ChartViewModel(symbol: symbol, exchange: exchange, chartService: chartService))
     }
+    
     var body: some View {
         VStack {
             if vm.isLoading == false {
@@ -18,14 +18,20 @@ struct ChartView: View {
             }
             chartOptionPicker
                 .padding(.vertical, 5)
-                .onChange(of: selectedType, perform: { _ in
-                    vm.selectedType = selectedType
-                    vm.fetchData()
+                .onChange(of: vm.selectedType, perform: { _ in
+                    Task {
+                        await vm.fetchData()
+                    }
                 })
         }
         .frame(height: 200)
         .frame(maxWidth: .infinity)
         .padding()
+        .onAppear {
+            Task {
+                await vm.fetchData()
+            }
+        }
     }
     
     var chartView: some View {
@@ -47,8 +53,8 @@ struct ChartView: View {
         }
         .chartXAxis { chartXAxis }
         .chartYAxis { chartYAxis }
-        .chartXScale(domain: (vm.xAxisData!.axisStart)...(vm.xAxisData!.axisEnd))
-        .chartYScale(domain: (vm.yAxisData!.axisStart)...(vm.yAxisData!.axisEnd))
+        .chartXScale(domain: (vm.xAxisData?.axisStart ?? 0.0)...(vm.xAxisData?.axisEnd ?? 0.0))
+        .chartYScale(domain: (vm.yAxisData?.axisStart ?? 0.0)...(vm.yAxisData?.axisEnd ?? 0.0))
         .chartPlotStyle { chartPlotStyle($0) }
     }
     
@@ -57,34 +63,38 @@ struct ChartView: View {
             Text("1D")
                 .padding(.horizontal, 15)
                 .padding(.vertical, 5)
-                .fontWeight(selectedType == .oneDay ? .bold : nil)
-                .background(selectedType == .oneDay ? Color.gray.opacity(0.2).cornerRadius(20) : nil)
+                .fontWeight(vm.selectedType == .oneDay ? .bold : nil)
+                .background(vm.selectedType == .oneDay ? Color.gray.opacity(0.2).cornerRadius(20) : nil)
                 .onTapGesture {
-                    selectedType = .oneDay
+                    vm.isLoading = true
+                    vm.selectedType = .oneDay
                 }
             Text("1W")
                 .padding(.horizontal, 15)
                 .padding(.vertical, 5)
-                .fontWeight(selectedType == .oneWeek ? .semibold : nil)
-                .background(selectedType == .oneWeek ? Color.gray.opacity(0.2).cornerRadius(20) : nil)
+                .fontWeight(vm.selectedType == .oneWeek ? .semibold : nil)
+                .background(vm.selectedType == .oneWeek ? Color.gray.opacity(0.2).cornerRadius(20) : nil)
                 .onTapGesture {
-                    selectedType = .oneWeek
+                    vm.isLoading = true
+                    vm.selectedType = .oneWeek
                 }
             Text("1M")
                 .padding(.horizontal, 15)
                 .padding(.vertical, 5)
-                .fontWeight(selectedType == .oneMonth ? .semibold : nil)
-                .background(selectedType == .oneMonth ? Color.gray.opacity(0.2).cornerRadius(20) : nil)
+                .fontWeight(vm.selectedType == .oneMonth ? .semibold : nil)
+                .background(vm.selectedType == .oneMonth ? Color.gray.opacity(0.2).cornerRadius(20) : nil)
                 .onTapGesture {
-                    selectedType = .oneMonth
+                    vm.isLoading = true
+                    vm.selectedType = .oneMonth
                 }
             Text("1Y")
                 .padding(.horizontal, 15)
                 .padding(.vertical, 5)
-                .fontWeight(selectedType == .oneYear ? .semibold : nil)
-                .background(selectedType == .oneYear ? Color.gray.opacity(0.2).cornerRadius(20) : nil)
+                .fontWeight(vm.selectedType == .oneYear ? .semibold : nil)
+                .background(vm.selectedType == .oneYear ? Color.gray.opacity(0.2).cornerRadius(20) : nil)
                 .onTapGesture {
-                    selectedType = .oneYear
+                    vm.isLoading = true
+                    vm.selectedType = .oneYear
                 }
         }
     }
@@ -139,7 +149,7 @@ struct ChartView: View {
 
 struct ChartView_Previews: PreviewProvider {
     static var previews: some View {
-        ChartView(symbol: "AAPL", exchange: "NASDAQ")
+        ChartView(symbol: "AAPL", exchange: "NASDAQ", chartService: ChartService(symbol: "AAPL"))
     }
 }
 

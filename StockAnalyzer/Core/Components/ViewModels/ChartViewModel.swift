@@ -1,21 +1,20 @@
 import Foundation
 import Combine
 
+@MainActor
 class ChartViewModel: ObservableObject {
-    var fiveMinutesData: [ChartData] = []
-    var hourlyData: [ChartData] = []
-    var dailyData: [ChartData] = []
-    
     @Published var chartData: [ChartData] = []
     @Published var xAxisData: ChartAxisData?
     @Published var yAxisData: ChartAxisData?
-    
     @Published var minValues: [String: Double] = [:]
     @Published var maxValues: [String: Double] = [:]
-    
     @Published var selectedType: ChartOption = .oneDay
+    @Published var isLoading: Bool = true
     
-    @Published var isLoading: Bool = false
+    var fiveMinutesData: [ChartData] = []
+    var hourlyData: [ChartData] = []
+    var dailyData: [ChartData] = []
+    let chartService: ChartServiceProtocol
     
     
     var cancellables = Set<AnyCancellable>()
@@ -31,7 +30,6 @@ class ChartViewModel: ObservableObject {
                 return "MMMM"
         }
     }
-    
     let symbol: String
     let exchange: String
     var openDate: String {
@@ -68,124 +66,84 @@ class ChartViewModel: ObservableObject {
     let chartOptions = ["1D", "1W", "1M", "1Y"]
     let dateFormatter = DateFormatter()
     
-    init(symbol: String, exchange: String) {
+    init(symbol: String, exchange: String, chartService: ChartServiceProtocol) {
         self.symbol = symbol
         self.exchange = exchange
-        
-        fetchData()
+        self.chartService = chartService
     }
     
-    func fetchData() {
-        self.isLoading = true
+    func fetchData() async {
         switch self.selectedType {
         case .oneDay, .oneWeek:
-            get5Min(symbol: self.symbol)
+            await get5Min(symbol: self.symbol)
         case .oneMonth:
-            getHourly(symbol: self.symbol)
+            await getHourly(symbol: self.symbol)
         default:
-            getDaily(symbol: self.symbol)
+            await getDaily(symbol: self.symbol)
         }
     }
     
-    func get5Min(symbol: String) {
-        
+    func get5Min(symbol: String) async {
         if self.fiveMinutesData.isEmpty {
-            guard let url = URL(string:  "https://financialmodelingprep.com/api/v3/historical-chart/5min/\(symbol)?apikey=\(ApiKeys.financeApi)")
-            else {return}
+            self.fiveMinutesData = await self.chartService.get5Min()
+                    
+            if self.selectedType == .oneDay {
+                self.chartData = self.createDailyData(data: self.fiveMinutesData)
+            } else {
+                self.chartData = self.createWeeklyData(data: self.fiveMinutesData)
+            }
             
-            NetworkingManager.download(url: url)
-                .decode(type: [ChartData].self, decoder: JSONDecoder())
-                .receive(on: DispatchQueue.main)
-                .sink(receiveCompletion: NetworkingManager.handleCompletion, receiveValue: { [weak self] (returnedData) in
-                    self?.fiveMinutesData = returnedData
-                    
-                    if self?.selectedType == .oneDay {
-                        self?.chartData = self?.createDailyData(data: self?.fiveMinutesData ?? []) ?? []
-                    } else {
-                        self?.chartData = self?.createWeeklyData(data: self?.fiveMinutesData ?? []) ?? []
-                    }
-                    
-                    self?.xAxisData = self?.xAxisChartData()
-                    self?.yAxisData = self?.yAxisChartData()
-                    
-                    self?.isLoading = false
-                })
-                .store(in: &cancellables)
+            self.xAxisData = self.xAxisChartData()
+            self.yAxisData = self.yAxisChartData()
         } else {
             if self.selectedType == .oneDay {
                 self.chartData = self.createDailyData(data: self.fiveMinutesData)
             } else {
                 self.chartData = self.createWeeklyData(data: self.fiveMinutesData)
             }
+            
             self.xAxisData = self.xAxisChartData()
             self.yAxisData = self.yAxisChartData()
-            self.isLoading = false
         }
+        
+        self.isLoading = false
     }
     
-    func getHourly(symbol: String) {
+    func getHourly(symbol: String) async {
         if self.hourlyData.isEmpty {
-            guard let url = URL(string:  "https://financialmodelingprep.com/api/v3/historical-chart/1hour/\(symbol)?apikey=\(ApiKeys.financeApi)")
-            else {return}
+            self.hourlyData = await self.chartService.getHourly()
             
-            NetworkingManager.download(url: url)
-                .decode(type: [ChartData].self, decoder: JSONDecoder())
-                .receive(on: DispatchQueue.main)
-                .sink(receiveCompletion: NetworkingManager.handleCompletion, receiveValue: { [weak self] (returnedData) in
-                    self?.hourlyData = returnedData
-                    
-                    self?.chartData = self?.createMonthlyData(data: self?.hourlyData ?? []) ?? []
-                    self?.xAxisData = self?.xAxisChartData()
-                    self?.yAxisData = self?.yAxisChartData()
-                    
-                    self?.isLoading = false
-                })
-                .store(in: &cancellables)
+            self.chartData = self.createMonthlyData(data: self.hourlyData)
+            self.xAxisData = self.xAxisChartData()
+            self.yAxisData = self.yAxisChartData()
         } else {
             self.chartData = self.createMonthlyData(data: self.hourlyData)
             self.xAxisData = self.xAxisChartData()
             self.yAxisData = self.yAxisChartData()
-            self.isLoading = false
         }
+        
+        self.isLoading = false
     }
     
-    func getDaily(symbol: String) {
+    func getDaily(symbol: String) async {
         if self.dailyData.isEmpty {
-            let formatter = DateFormatter()
-            formatter.dateFormat = "yyyy-MM-dd"
+            self.dailyData = await self.chartService.getDaily()
+            self.chartData = self.dailyData
+            self.xAxisData = self.xAxisChartData()
             
-            let startDate = Calendar.current.date(byAdding: .year, value: -1, to: Date())!
+            self.minValues["1Y"] = self.dailyData.map {$0.open}.min()
+            self.maxValues["1Y"] = self.dailyData.map {$0.open}.max()
             
-            guard let url = URL(string: "https://financialmodelingprep.com/api/v3/historical-price-full/\(symbol)?from=\(formatter.string(from: startDate))&to=\(formatter.string(from: Date()))&apikey=\(ApiKeys.financeApi)")
-            else {return}
-            
-            NetworkingManager.download(url: url)
-                .decode(type: HistoricPrice.self, decoder: JSONDecoder())
-                .receive(on: DispatchQueue.main)
-                .sink(receiveCompletion: NetworkingManager.handleCompletion, receiveValue: { [weak self] (returnedData) in
-                    self?.dailyData = returnedData.historical.reversed()
-                    
-                    self?.chartData = self?.dailyData ?? []
-                    self?.xAxisData = self?.xAxisChartData()
-                    
-                    self?.minValues["1Y"] = self?.dailyData.map {$0.open}.min()
-                    self?.maxValues["1Y"] = self?.dailyData.map {$0.open}.max()
-                    
-                    self?.yAxisData = self?.yAxisChartData()
-                    
-                    self?.isLoading = false
-                })
-                .store(in: &cancellables)
+            self.yAxisData = self.yAxisChartData()
         } else {
             self.chartData = self.dailyData
             self.xAxisData = self.xAxisChartData()
             self.yAxisData = self.yAxisChartData()
-            self.isLoading = false
         }
+        self.isLoading = false
     }
     
     func createDailyData(data: [ChartData]) -> [ChartData] {
-        
         var daily = [ChartData]()
         for i in 0..<data.count {
             if data[i].date[0..<10] == data[0].date[0..<10] {
@@ -216,7 +174,7 @@ class ChartViewModel: ObservableObject {
                 dayCount += 1
             }
         }
-        
+
         self.minValues["1W"] = weekly.map {$0.open}.min()
         self.maxValues["1W"] = weekly.map {$0.open}.max()
         
@@ -353,7 +311,6 @@ class ChartViewModel: ObservableObject {
                 value = 4
         }
         
-        
         var set = Set<DateComponents>()
         var date = startDate
         
@@ -380,29 +337,6 @@ class ChartViewModel: ObservableObject {
         } else {
             formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         }
-        
         return formatter.date(from: dateString)!
     }
-}
-
-struct ChartData: Codable, Hashable {
-    let date: String
-    let open: Double
-    let close: Double
-}
-
-struct HistoricPrice: Codable, Hashable {
-    let symbol: String
-    let historical: [ChartData]
-}
-    
-struct ChartAxisData {
-    let axisStart: Double
-    let axisEnd: Double
-    let strideBy: Double
-    let map: [String: String]
-}
-
-enum ChartOption: String {
-    case oneDay = "1D", oneWeek = "1W", oneMonth = "1M", oneYear = "1Y"
 }

@@ -1,7 +1,9 @@
 import Foundation
-import Combine
 
-class ChartService {
+class ChartService: ChartServiceProtocol {
     
 }
 
+protocol ChartServiceProtocol {
+    
+}

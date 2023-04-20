@@ -23,6 +23,7 @@
 		EC180CB6298C387000671AA2 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC180CB5298C387000671AA2 /* AuthViewModel.swift */; };
 		EC180CB8298C3EEE00671AA2 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC180CB7298C3EEE00671AA2 /* MainView.swift */; };
 		EC222F9F29EA7E6500B48930 /* SearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC222F9E29EA7E6500B48930 /* SearchService.swift */; };
+		EC22E86A29F185470043AA40 /* ChartService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC22E86929F185470043AA40 /* ChartService.swift */; };
 		EC2688B729E7C4CD00FF3021 /* PositionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC2688B629E7C4CC00FF3021 /* PositionViewModel.swift */; };
 		EC2880B929CCB3D700E4A085 /* FinanceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC2880B829CCB3D700E4A085 /* FinanceModel.swift */; };
 		EC318E9E29F040B600CEA56B /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = EC318E9D29F040B600CEA56B /* FirebaseStorage */; };
@@ -116,6 +117,7 @@
 		EC180CB5298C387000671AA2 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		EC180CB7298C3EEE00671AA2 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		EC222F9E29EA7E6500B48930 /* SearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchService.swift; sourceTree = "<group>"; };
+		EC22E86929F185470043AA40 /* ChartService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartService.swift; sourceTree = "<group>"; };
 		EC2688B629E7C4CC00FF3021 /* PositionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionViewModel.swift; sourceTree = "<group>"; };
 		EC2880B829CCB3D700E4A085 /* FinanceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinanceModel.swift; sourceTree = "<group>"; };
 		EC330AAC29C76B5B009A0D30 /* ValuationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValuationViewModel.swift; sourceTree = "<group>"; };
@@ -533,6 +535,7 @@
 				EC02CC6C29DB5C640015690E /* PortfolioService.swift */,
 				EC222F9E29EA7E6500B48930 /* SearchService.swift */,
 				EC63E13F29EEF92500DA0A4C /* FinanceService.swift */,
+				EC22E86929F185470043AA40 /* ChartService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -651,6 +654,7 @@
 				ECA933FD29C22B01003E60FE /* ExchangeModel.swift in Sources */,
 				ECA41EF229B9F00600DA03DA /* ImageService.swift in Sources */,
 				EC90D618298ACED3001D4520 /* StockAnalyzerApp.swift in Sources */,
+				EC22E86A29F185470043AA40 /* ChartService.swift in Sources */,
 				EC180CB8298C3EEE00671AA2 /* MainView.swift in Sources */,
 				EC650B3A29BCDAF200D508D8 /* AboutView.swift in Sources */,
 				ECA41EF029B9EFE600DA03DA /* NewsRowViewModel.swift in Sources */,

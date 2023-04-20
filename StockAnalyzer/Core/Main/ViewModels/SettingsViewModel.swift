@@ -21,19 +21,26 @@ class SettingsViewModel: ObservableObject {
     }
     
     func fetchUser() async {
-        guard let id = Auth.auth().currentUser?.uid else {return}
+        guard let id = Auth.auth().currentUser?.uid else {
+            self.isLoading = false
+            return
+        }
         
         self.user = await userService.fetchUser(id: id)
         self.user?.image = await imageService.fetchData(url: user?.imageUrl ?? "")
-        
         self.isLoading = false
     }
     
     func updatePicture(data: Data) async {
         if let user = self.user {
-            let result = await imageService.updateImage(url: user.imageUrl, data: data)
-            print(result)
+            _ = await imageService.updateImage(url: user.imageUrl, data: data)
             self.isUpdatingProfile = false
         }
     }
+    
+    func logout() {
+        _ = self.sessionService.logout()
+        self.user = nil
+    }
+
 }

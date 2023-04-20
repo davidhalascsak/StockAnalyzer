@@ -22,9 +22,7 @@ struct SettingsView: View {
                         .font(.title)
                         .padding(.vertical)
                         .onTapGesture {
-                            if vm.sessionService.logout() {
-                                vm.user = nil
-                            }
+                            vm.logout()
                         }
                 } else {
                     Text("Sign in")
@@ -86,6 +84,7 @@ struct SettingsView: View {
                     if !vm.isUpdatingProfile {
                         PhotosPicker(selection: $vm.selectedPhoto,  matching: .images) {
                             ImageView(url: user.imageUrl, defaultImage: "default_avatar", imageService: ImageService())
+                                .frame(width: 60)
                                 .aspectRatio(1.0, contentMode: .fit)
                                 .cornerRadius(10)
                         }
@@ -101,7 +100,7 @@ struct SettingsView: View {
                         }
                     } else {
                         ProgressView()
-                            .padding(.horizontal, 10)
+                            .frame(width: 60)
                     }
                     Text(user.username)
                         .font(.title)

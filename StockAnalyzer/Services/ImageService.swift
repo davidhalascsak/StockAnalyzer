@@ -33,7 +33,8 @@ class ImageService: ImageServiceProtocol {
             
             return url.absoluteString
         } catch let error {
-            print(error)
+            print("DEBUG: Error upload")
+            print(error.localizedDescription)
         }
         
         return nil
@@ -50,7 +51,8 @@ class ImageService: ImageServiceProtocol {
             
             return true
         } catch let error {
-            print(error)
+            print("DEBUG: Error update")
+            print(error.localizedDescription)
         }
         
         return false

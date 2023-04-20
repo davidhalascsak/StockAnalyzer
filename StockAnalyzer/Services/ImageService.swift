@@ -27,8 +27,6 @@ class ImageService: ImageServiceProtocol {
         let fileName = NSUUID().uuidString
         let reference = Storage.storage().reference(withPath: "/pictures/\(fileName)")
         
-        
-        
         do {
             _ = try await reference.putDataAsync(compressedImage)
             let url = try await reference.downloadURL()
@@ -40,10 +38,28 @@ class ImageService: ImageServiceProtocol {
         
         return nil
     }
+    
+    func updateImage(url: String, data: Data) async -> Bool {
+        guard let image = UIImage(data: data) else {return false}
+        guard let compressedImage = image.jpegData(compressionQuality: 0.5) else {return false}
+        
+        let reference = Storage.storage().reference(forURL: url)
+        
+        do {
+            _ = try await reference.putDataAsync(compressedImage)
+            
+            return true
+        } catch let error {
+            print(error)
+        }
+        
+        return false
+    }
 }
 
 protocol ImageServiceProtocol {
     func fetchData(url: String) async -> Data?
     func convertDataToImage(imageData: Data) -> UIImage?
     func uploadImage(image: UIImage) async -> String?
+    func updateImage(url: String, data: Data) async -> Bool
 }

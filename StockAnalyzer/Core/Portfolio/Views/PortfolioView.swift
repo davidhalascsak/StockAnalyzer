@@ -2,7 +2,6 @@ import SwiftUI
 import FirebaseCore
 import FirebaseAuth
 
-// TODO: show the portfolio screen only, if all of the assets are loaded in.
 struct PortfolioView: View {
     @StateObject var vm: PortfolioViewModel
     @State var isSettingsPresented: Bool = false

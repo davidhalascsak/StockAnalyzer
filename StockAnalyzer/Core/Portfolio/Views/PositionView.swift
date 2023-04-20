@@ -1,6 +1,5 @@
 import SwiftUI
 
-// TODO: show the position screen only, if all of the positions are loaded in.
 struct PositionView: View {
     @Environment(\.dismiss) private var dismiss
     @StateObject var vm: PositionViewModel
@@ -13,7 +12,7 @@ struct PositionView: View {
         VStack(alignment: .leading) {
             if vm.isLoading == false {
                 HStack(alignment: .top) {
-                    ImageView(url: vm.companyProfile?.image ?? "", imageService: ImageService())
+                    ImageView(url: vm.companyProfile?.image ?? "", defaultImage: "", imageService: ImageService())
                         .scaledToFit()
                         .cornerRadius(10)
                         .frame(height: 50)

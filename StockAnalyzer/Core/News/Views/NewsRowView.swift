@@ -29,7 +29,7 @@ struct NewsRowView: View {
     }
     
     var imageView: some View {
-        ImageView(url: vm.news.image_url, imageService: ImageService())
+        ImageView(url: vm.news.image_url, defaultImage: "", imageService: ImageService())
             .frame(width: 100, height: 100)
             .cornerRadius(20)
     }

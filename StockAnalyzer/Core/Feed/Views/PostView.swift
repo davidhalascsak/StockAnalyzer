@@ -23,7 +23,7 @@ struct PostView: View {
     var postRowView: some View {
         VStack(alignment: .leading) {
             HStack() {
-                ImageView(url: vm.post.user?.imageUrl ?? "", imageService: ImageService())
+                ImageView(url: vm.post.user?.imageUrl ?? "", defaultImage: "", imageService: ImageService())
                     .frame(width: 40, height: 40)
                     .cornerRadius(10)
                 VStack(alignment: .leading) {

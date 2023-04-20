@@ -65,7 +65,7 @@ struct CommentBoxView: View {
     
     var body: some View {
         HStack {
-            ImageView(url: vm.post.user?.imageUrl ?? "", imageService: ImageService())
+            ImageView(url: vm.post.user?.imageUrl ?? "", defaultImage: "", imageService: ImageService())
                 .frame(width: 40, height: 40)
                 .cornerRadius(10)
             HStack {

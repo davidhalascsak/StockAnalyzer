@@ -16,42 +16,7 @@ struct SettingsView: View {
     var body: some View {
         NavigationStack {
             VStack(alignment: .leading) {
-                HStack {
-                    if vm.sessionService.getUserId() != nil {
-                        PhotosPicker(selection: $vm.selectedPhoto,  matching: .images) {
-                            if let imageData = vm.user?.image {
-                                let image = UIImage(data: imageData)
-                                if let image = image {
-                                    Image(uiImage: image)
-                                        .resizable()
-                                        .aspectRatio(1.0, contentMode: .fit)
-                                        .cornerRadius(10)
-                                } else {
-                                    Image("default_avatar")
-                                        .resizable()
-                                        .aspectRatio(1.0, contentMode: .fit)
-                                        .cornerRadius(10)
-                                }
-                            }
-                        }
-                        .onChange(of: vm.selectedPhoto) { newItem in
-                            Task {
-                                if let data = try? await newItem?.loadTransferable(type: Data.self) {
-                                    //profileImage = UIImage(data: data)
-                                }
-                            }
-                        }
-                    }
-                    Text("\(vm.user?.username ?? "No user")")
-                        .font(.title)
-                    Spacer()
-                }
-                .padding()
-                .frame(height: 100)
-                .frame(maxWidth: .infinity)
-                .background(Color.gray.opacity(0.2))
-                .cornerRadius(20)
-                
+                header
                 if vm.sessionService.getUserId() != nil {
                     Text("Sign out")
                         .font(.title)
@@ -112,6 +77,49 @@ struct SettingsView: View {
         .task({
             await vm.fetchUser()
         })
+    }
+    
+    var header: some View {
+        HStack {
+            if vm.isLoading == false {
+                if let user = vm.user {
+                    if !vm.isUpdatingProfile {
+                        PhotosPicker(selection: $vm.selectedPhoto,  matching: .images) {
+                            ImageView(url: user.imageUrl, defaultImage: "default_avatar", imageService: ImageService())
+                                .aspectRatio(1.0, contentMode: .fit)
+                                .cornerRadius(10)
+                        }
+                        .onChange(of: vm.selectedPhoto) { newItem in
+                            Task {
+                                if let data = try? await newItem?.loadTransferable(type: Data.self) {
+                                    vm.isUpdatingProfile = true
+                                    Task {
+                                        await vm.updatePicture(data: data)
+                                    }
+                                }
+                            }
+                        }
+                    } else {
+                        ProgressView()
+                            .padding(.horizontal, 10)
+                    }
+                    Text(user.username)
+                        .font(.title)
+                    Spacer()
+                } else {
+                    Text("No user")
+                        .font(.title)
+                    Spacer()
+                }
+            } else {
+                ProgressView()
+            }
+        }
+        .padding()
+        .frame(height: 100)
+        .frame(maxWidth: .infinity)
+        .background(Color.gray.opacity(0.2))
+        .cornerRadius(20)
     }
 }
 

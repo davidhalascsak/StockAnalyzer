@@ -1,16 +1,15 @@
 import SwiftUI
 
 public struct PieChartView: View {
-    public let values: [Int]
-    public let names: [String]
-    public let formatter: (Int) -> String
+    @State var activeIndex: Int = -1
+    let values: [Int]
+    let names: [String]
+    let formatter: (Int) -> String
+    var colors: [Color]
+    var widthFraction: CGFloat
+    var innerRadiusFraction: CGFloat
     
-    public var colors: [Color]
     
-    public var widthFraction: CGFloat
-    public var innerRadiusFraction: CGFloat
-    
-    @State private var activeIndex: Int = -1
     
     var slices: [PieSliceData] {
         let sum: Int = values.reduce(0, +)

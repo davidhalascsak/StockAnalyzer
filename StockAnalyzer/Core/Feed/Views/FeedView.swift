@@ -99,7 +99,7 @@ struct FeedView: View {
                     }
                 }
             }
-            .overlay(alignment: .bottomTrailing, content: {
+            .overlay(alignment: .bottomTrailing) {
                 if vm.sessionService.getUserId() != nil {
                     Image(systemName: "pencil")
                         .font(.title)
@@ -112,7 +112,7 @@ struct FeedView: View {
                             vm.isNewPostPresented.toggle()
                         }
                 }
-            })
+            }
         }
     }
 }

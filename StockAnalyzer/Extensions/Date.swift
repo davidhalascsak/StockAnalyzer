@@ -1,6 +1,5 @@
 import Foundation
 
-
 extension Date {
     func dateComponents(timezone: TimeZone, selectedType: ChartOption, calendar: Calendar = .current) -> DateComponents {
         let current = calendar.dateComponents(in: timezone, from: self)

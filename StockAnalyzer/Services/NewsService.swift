@@ -1,5 +1,4 @@
 import Foundation
-import Combine
 
 class NewsService: NewsServiceProtocol {
     let symbol: String?

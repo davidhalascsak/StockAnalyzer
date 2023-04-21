@@ -55,7 +55,6 @@
 		EC6802BF29ABA8310019EE18 /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC6802BE29ABA8310019EE18 /* ImageView.swift */; };
 		EC6802C129ABA8420019EE18 /* ImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC6802C029ABA8420019EE18 /* ImageViewModel.swift */; };
 		EC6802C729ABD8110019EE18 /* NewsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC6802C629ABD8110019EE18 /* NewsService.swift */; };
-		EC6E627A29AA13210064110A /* NetworkingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC6E627929AA13210064110A /* NetworkingManager.swift */; };
 		EC6E627E29AA15270064110A /* NewsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC6E627D29AA15270064110A /* NewsModel.swift */; };
 		EC6E628029AA3A820064110A /* NewsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC6E627F29AA3A820064110A /* NewsViewModel.swift */; };
 		EC7088B629DC80290088941A /* NewAssetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC7088B529DC80290088941A /* NewAssetView.swift */; };
@@ -63,6 +62,9 @@
 		EC72691729AD2149002FAB32 /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC72691629AD2149002FAB32 /* ChartView.swift */; };
 		EC72691929AD2347002FAB32 /* ChartViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC72691829AD2347002FAB32 /* ChartViewModel.swift */; };
 		EC734CAE29CF07B700F295CB /* PieChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC734CAD29CF07B700F295CB /* PieChartView.swift */; };
+		EC79D40329F2715F00DF900E /* BarChartViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC79D40229F2715F00DF900E /* BarChartViewModel.swift */; };
+		EC79D40529F273AD00DF900E /* GrowthRateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC79D40429F273AD00DF900E /* GrowthRateView.swift */; };
+		EC79D40729F278B800DF900E /* NewPostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC79D40629F278B800DF900E /* NewPostViewModel.swift */; };
 		EC82004D29CB79140014E95C /* BarChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC82004C29CB79140014E95C /* BarChartView.swift */; };
 		EC84911C2996ACC800DD2413 /* PostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC84911B2996ACC800DD2413 /* PostView.swift */; };
 		EC8FA49C29C0FB5D009CE80E /* PriceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC8FA49B29C0FB5C009CE80E /* PriceView.swift */; };
@@ -145,7 +147,6 @@
 		EC6802BE29ABA8310019EE18 /* ImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
 		EC6802C029ABA8420019EE18 /* ImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewModel.swift; sourceTree = "<group>"; };
 		EC6802C629ABD8110019EE18 /* NewsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsService.swift; sourceTree = "<group>"; };
-		EC6E627929AA13210064110A /* NetworkingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingManager.swift; sourceTree = "<group>"; };
 		EC6E627D29AA15270064110A /* NewsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsModel.swift; sourceTree = "<group>"; };
 		EC6E627F29AA3A820064110A /* NewsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsViewModel.swift; sourceTree = "<group>"; };
 		EC7088B529DC80290088941A /* NewAssetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAssetView.swift; sourceTree = "<group>"; };
@@ -153,6 +154,9 @@
 		EC72691629AD2149002FAB32 /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
 		EC72691829AD2347002FAB32 /* ChartViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartViewModel.swift; sourceTree = "<group>"; };
 		EC734CAD29CF07B700F295CB /* PieChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieChartView.swift; sourceTree = "<group>"; };
+		EC79D40229F2715F00DF900E /* BarChartViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarChartViewModel.swift; sourceTree = "<group>"; };
+		EC79D40429F273AD00DF900E /* GrowthRateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrowthRateView.swift; sourceTree = "<group>"; };
+		EC79D40629F278B800DF900E /* NewPostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPostViewModel.swift; sourceTree = "<group>"; };
 		EC82004C29CB79140014E95C /* BarChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarChartView.swift; sourceTree = "<group>"; };
 		EC84911B2996ACC800DD2413 /* PostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostView.swift; sourceTree = "<group>"; };
 		EC8FA49B29C0FB5C009CE80E /* PriceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceView.swift; sourceTree = "<group>"; };
@@ -280,6 +284,7 @@
 				EC0F60C929BE456F00C982EE /* FeedBodyView.swift */,
 				EC734CAD29CF07B700F295CB /* PieChartView.swift */,
 				EC34DEC829D065BC007DE20E /* PieSliceView.swift */,
+				EC79D40429F273AD00DF900E /* GrowthRateView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -290,6 +295,7 @@
 				EC72691829AD2347002FAB32 /* ChartViewModel.swift */,
 				EC6802C029ABA8420019EE18 /* ImageViewModel.swift */,
 				EC0F60CB29BE457E00C982EE /* FeedBodyViewModel.swift */,
+				EC79D40229F2715F00DF900E /* BarChartViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -343,7 +349,6 @@
 		EC6E628129AA7DA70064110A /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				EC6E627929AA13210064110A /* NetworkingManager.swift */,
 				ECC2615629C1DBFD00CE1B7C /* ApiKeys.swift */,
 			);
 			path = Utilities;
@@ -502,6 +507,7 @@
 				ECEBBFDF299920EE00104326 /* PostViewModel.swift */,
 				EC49E90D29A393D1003AE346 /* CommentSectionViewModel.swift */,
 				ECCDEFA929A3C30300034C76 /* CommentViewModel.swift */,
+				EC79D40629F278B800DF900E /* NewPostViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -658,6 +664,7 @@
 				ECA41EF229B9F00600DA03DA /* ImageService.swift in Sources */,
 				EC90D618298ACED3001D4520 /* StockAnalyzerApp.swift in Sources */,
 				EC22E86A29F185470043AA40 /* ChartService.swift in Sources */,
+				EC79D40329F2715F00DF900E /* BarChartViewModel.swift in Sources */,
 				EC180CB8298C3EEE00671AA2 /* MainView.swift in Sources */,
 				EC650B3A29BCDAF200D508D8 /* AboutView.swift in Sources */,
 				ECA41EF029B9EFE600DA03DA /* NewsRowViewModel.swift in Sources */,
@@ -666,10 +673,10 @@
 				EC22E86E29F1AD580043AA40 /* ChartModel.swift in Sources */,
 				EC2688B729E7C4CD00FF3021 /* PositionViewModel.swift in Sources */,
 				EC49E90C29A3939A003AE346 /* CommentSectionView.swift in Sources */,
-				EC6E627A29AA13210064110A /* NetworkingManager.swift in Sources */,
 				EC6802C129ABA8420019EE18 /* ImageViewModel.swift in Sources */,
 				ECF669CC2996F37900855894 /* PostModel.swift in Sources */,
 				ECDAC4CD29E8754E001B46A9 /* PositionRowView.swift in Sources */,
+				EC79D40729F278B800DF900E /* NewPostViewModel.swift in Sources */,
 				EC4CE36529B7ABC800F600CC /* SearchViewModel.swift in Sources */,
 				ECCDEFA829A3C2C500034C76 /* CommentView.swift in Sources */,
 				EC0C8A8129C4AA0300AAB674 /* FinancialViewModel.swift in Sources */,
@@ -704,6 +711,7 @@
 				EC8FA4A029C10D34009CE80E /* PriceModel.swift in Sources */,
 				ECB0F04F29B33D4A002AF29C /* Date.swift in Sources */,
 				EC6802BF29ABA8310019EE18 /* ImageView.swift in Sources */,
+				EC79D40529F273AD00DF900E /* GrowthRateView.swift in Sources */,
 				EC0F60CA29BE456F00C982EE /* FeedBodyView.swift in Sources */,
 				EC8FA49C29C0FB5D009CE80E /* PriceView.swift in Sources */,
 				EC84911C2996ACC800DD2413 /* PostView.swift in Sources */,

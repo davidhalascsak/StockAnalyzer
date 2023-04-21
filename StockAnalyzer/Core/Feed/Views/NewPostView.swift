@@ -1,25 +1,22 @@
 import SwiftUI
 
 struct NewPostView: View {
+    @StateObject var vm: NewPostViewModel
     @Environment(\.dismiss) private var dismiss
-    @State var textContent: String = ""
     @FocusState var focusedField: FocusedField?
-    let postService: PostServiceProtocol
-    let symbol: String?
     
     enum FocusedField {
         case field
     }
     
     init(symbol: String?, postService: PostServiceProtocol) {
-        self.symbol = symbol
-        self.postService = postService
+        _vm = StateObject(wrappedValue: NewPostViewModel(symbol: symbol, postService: postService))
     }
     
     var body: some View {
         NavigationStack {
             VStack {
-                TextField("Type here...", text: $textContent, axis: .vertical)
+                TextField("Type here...", text: $vm.textContent, axis: .vertical)
                     .autocorrectionDisabled()
                     .focused($focusedField, equals: .field)
                     .padding()
@@ -31,11 +28,11 @@ struct NewPostView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing){
                     Text("Post")
-                        .foregroundColor(Color.black.opacity(textContent.count > 0 ? 1.0 : 0.5))
+                        .foregroundColor(Color.black.opacity(vm.textContent.count > 0 ? 1.0 : 0.5))
                         .onTapGesture {
-                            if self.textContent.count > 0 {
+                            if vm.textContent.count > 0 {
                                 Task {
-                                    await postService.createPost(body: textContent, symbol: symbol)
+                                    await vm.createPost()
                                     dismiss()
                                 }
                             }

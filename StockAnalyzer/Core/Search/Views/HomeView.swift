@@ -2,7 +2,6 @@ import SwiftUI
 
 struct HomeView: View {
     @StateObject var vm: HomeViewModel
-    @State var isExpanded: Bool = false
     @Binding var isNewViewPresented: Bool
     
     init(company: Company, newsService: NewsServiceProtocol, isNewViewPresented: Binding<Bool>) {

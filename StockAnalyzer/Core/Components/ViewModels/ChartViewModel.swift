@@ -15,8 +15,6 @@ class ChartViewModel: ObservableObject {
     var dailyData: [ChartData] = []
     let chartService: ChartServiceProtocol
     
-    
-    var cancellables = Set<AnyCancellable>()
     var dateFormat: String {
         switch self.selectedType {
             case .oneDay:

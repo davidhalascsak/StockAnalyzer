@@ -35,6 +35,30 @@ class UserService: UserServiceProtocol {
     }
 }
 
+class MockUserService: UserServiceProtocol {
+    var users: [User] = []
+    
+    init() {
+        let user1 = User(id: "asd123", username: "david", email: "david@gmail.com", location: "Hungary", imageUrl: "")
+        
+        let user2 = User(id: "asd321", username: "bob", email: "bob@gmail.com", location: "Hungary", imageUrl: "")
+        
+        users.append(user1)
+        users.append(user2)
+    }
+    func fetchAllUser() async -> [User] {
+        return self.users
+    }
+    
+    func fetchUser(id: String) async -> User? {
+        return self.users.first(where: {$0.id == id})
+    }
+    
+    func createUser(user: User) async throws {
+        users.append(user)
+    }
+}
+
 protocol UserServiceProtocol {
     func fetchAllUser() async -> [User]
     func fetchUser(id: String) async -> User?

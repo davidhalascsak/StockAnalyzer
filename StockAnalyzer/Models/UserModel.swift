@@ -12,3 +12,10 @@ struct User: Identifiable, Codable {
     
     var image: Data?
 }
+
+struct AuthUser {
+    let id: String
+    let email: String
+    let password: String
+    let isVerified: Bool
+}

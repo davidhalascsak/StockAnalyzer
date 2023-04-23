@@ -21,7 +21,7 @@ class SettingsViewModel: ObservableObject {
     }
     
     func fetchUser() async {
-        guard let id = Auth.auth().currentUser?.uid else {
+        guard let id = sessionService.getUserId() else {
             self.isLoading = false
             return
         }

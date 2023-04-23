@@ -68,7 +68,14 @@ struct LoginView: View {
                 dismiss()
             })
             .alert(vm.alertTitle, isPresented: $showAlert, actions: {
-                Button("Ok", role: .cancel, action: {})
+                if(vm.alertTitle == "Verification Error") {
+                    Button("Send again", role: .none) {
+                        Task {
+                            await vm.sendVerificationEmail()
+                        }
+                    }
+                }
+                Button("Ok", role: .cancel, action: { vm.logout() })
             }, message: {
                 Text(vm.alertText)
             })

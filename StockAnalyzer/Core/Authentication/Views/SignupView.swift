@@ -77,20 +77,20 @@ struct SignupView: View {
             }
             .padding()
             .alert(vm.alertTitle, isPresented: $vm.showAlert, actions: {
-                    Button("Ok", role: .cancel, action: {
-                        if vm.isCorrect {
-                            vm.isCorrect.toggle()
-                            vm.showAlert.toggle()
-                            vm.userData.username = ""
-                            vm.alertTitle = ""
-                            vm.alertText = ""
-                            vm.userData.email = ""
-                            vm.userData.password = ""
-                            vm.userData.passwordAgain = ""
-                            
-                            dismiss()
-                        }
-                    })
+                Button("Ok", role: .cancel, action: {
+                    if vm.isCorrect {
+                        vm.isCorrect.toggle()
+                        vm.showAlert.toggle()
+                        vm.userData.username = ""
+                        vm.alertTitle = ""
+                        vm.alertText = ""
+                        vm.userData.email = ""
+                        vm.userData.password = ""
+                        vm.userData.passwordAgain = ""
+                        
+                        dismiss()
+                    }
+                })
             }, message: {
                 Text(vm.alertText)
             })

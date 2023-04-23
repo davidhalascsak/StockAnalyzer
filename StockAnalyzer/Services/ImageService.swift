@@ -32,7 +32,6 @@ class ImageService: ImageServiceProtocol {
             
             return url.absoluteString
         } catch let error {
-            print("DEBUG: Error upload")
             print(error.localizedDescription)
         }
         
@@ -50,12 +49,45 @@ class ImageService: ImageServiceProtocol {
             
             return true
         } catch let error {
-            print("DEBUG: Error update")
             print(error.localizedDescription)
         }
         
         return false
     }
+}
+
+
+class MockImageService: ImageServiceProtocol {
+    var imageUrls: [String] = []
+    
+    init() {
+        let url1 = UUID().uuidString
+        let url2 = UUID().uuidString
+        let url3 = UUID().uuidString
+        
+        imageUrls.append(contentsOf: [url1, url2, url3])
+    }
+    
+    func fetchData(url: String) async -> Data? {
+        return nil
+    }
+    
+    func convertDataToImage(imageData: Data) -> UIImage? {
+        return nil
+    }
+    
+    func uploadImage(image: UIImage) async -> String? {
+        let imageUrl = UUID().uuidString
+        imageUrls.append(imageUrl)
+        
+        return imageUrl
+    }
+    
+    func updateImage(url: String, data: Data) async -> Bool {
+        return false
+    }
+    
+    
 }
 
 protocol ImageServiceProtocol {

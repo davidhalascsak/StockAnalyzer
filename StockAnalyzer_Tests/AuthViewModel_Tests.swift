@@ -2,6 +2,7 @@ import XCTest
 
 @testable import StockAnalyzer
 
+@MainActor
 final class AuthViewModel_Tests: XCTestCase {
 
     override func setUpWithError() throws {
@@ -12,7 +13,7 @@ final class AuthViewModel_Tests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    @MainActor func test_AuthViewModel_isLogin_shouldBeTrue() throws {
+    func test_AuthViewModel_isLogin_shouldBeTrue() throws {
         //Given
         let isLogin: Bool = true
         
@@ -23,7 +24,7 @@ final class AuthViewModel_Tests: XCTestCase {
         XCTAssertTrue(vm.isLogin)
     }
     
-    @MainActor func test_AuthViewModel_isLogin_shouldBeFalse() throws {
+    func test_AuthViewModel_isLogin_shouldBeFalse() throws {
         //Given
         let isLogin: Bool = false
         
@@ -34,7 +35,7 @@ final class AuthViewModel_Tests: XCTestCase {
         XCTAssertFalse(vm.isLogin)
     }
     
-    @MainActor func test_AuthViewModel_login_emailShouldBeShorterThanRequired() async throws {
+    func test_AuthViewModel_login_emailShouldBeShorterThanRequired() async throws {
         //Given
         let vm = AuthViewModel(isLogin: true, userService: MockUserService(), sessionService: MockSessionService(), imageService: MockImageService())
         
@@ -48,7 +49,7 @@ final class AuthViewModel_Tests: XCTestCase {
         XCTAssertEqual("The email must be at least 5 characters long!", vm.alertText)
     }
     
-    @MainActor func test_AuthViewModel_login_emailShouldBeLongEnough() async throws {
+    func test_AuthViewModel_login_emailShouldBeLongEnough() async throws {
         //Given
         let vm = AuthViewModel(isLogin: true, userService: MockUserService(), sessionService: MockSessionService(), imageService: MockImageService())
         
@@ -63,7 +64,7 @@ final class AuthViewModel_Tests: XCTestCase {
         XCTAssertEqual("The password must be at least 6 characters long!", vm.alertText)
     }
     
-    @MainActor func test_AuthViewModel_login_validEmailFormatShouldBeTrue() async throws {
+    func test_AuthViewModel_login_validEmailFormatShouldBeTrue() async throws {
         //Given
         let vm = AuthViewModel(isLogin: true, userService: MockUserService(), sessionService: MockSessionService(), imageService: MockImageService())
         
@@ -77,7 +78,7 @@ final class AuthViewModel_Tests: XCTestCase {
         XCTAssertEqual("The password must be at least 6 characters long!", vm.alertText)
     }
     
-    @MainActor func test_AuthViewModel_login_validEmailFormatShouldBeFalse() async throws {
+    func test_AuthViewModel_login_validEmailFormatShouldBeFalse() async throws {
         //Given
         let vm = AuthViewModel(isLogin: true, userService: MockUserService(), sessionService: MockSessionService(), imageService: MockImageService())
         
@@ -91,7 +92,7 @@ final class AuthViewModel_Tests: XCTestCase {
         XCTAssertEqual("The email format is not valid!", vm.alertText)
     }
     
-    @MainActor func test_AuthViewModel_login_passwordShouldBeShorterThanRequired() async throws {
+    func test_AuthViewModel_login_passwordShouldBeShorterThanRequired() async throws {
         //Given
         let vm = AuthViewModel(isLogin: true, userService: MockUserService(), sessionService: MockSessionService(), imageService: MockImageService())
         
@@ -107,7 +108,7 @@ final class AuthViewModel_Tests: XCTestCase {
         XCTAssertEqual("The password must be at least 6 characters long!", vm.alertText)
     }
     
-    @MainActor func test_AuthViewModel_login_userIsVerifiedTrue() async throws {
+    func test_AuthViewModel_login_userIsVerifiedTrue() async throws {
         //Given
         let vm = AuthViewModel(isLogin: true, userService: MockUserService(), sessionService: MockSessionService(), imageService: MockImageService())
         
@@ -120,7 +121,7 @@ final class AuthViewModel_Tests: XCTestCase {
         XCTAssertFalse(vm.showAlert)
     }
     
-    @MainActor func test_AuthViewModel_login_userIsVerifiedFalse() async throws {
+    func test_AuthViewModel_login_userIsVerifiedFalse() async throws {
         //Given
         let vm = AuthViewModel(isLogin: true, userService: MockUserService(), sessionService: MockSessionService(), imageService: MockImageService())
         
@@ -135,7 +136,7 @@ final class AuthViewModel_Tests: XCTestCase {
         XCTAssertEqual("You must verify your account!", vm.alertText)
     }
     
-    @MainActor func test_AuthViewModel_login_passwordDoesNotMatch() async throws {
+    func test_AuthViewModel_login_passwordDoesNotMatch() async throws {
         //Given
         let vm = AuthViewModel(isLogin: true, userService: MockUserService(), sessionService: MockSessionService(), imageService: MockImageService())
         
@@ -151,7 +152,7 @@ final class AuthViewModel_Tests: XCTestCase {
     }
     
     
-    @MainActor func test_AuthViewModel_login_userIsNotFound() async throws {
+    func test_AuthViewModel_login_userIsNotFound() async throws {
         //Given
         let vm = AuthViewModel(isLogin: true, userService: MockUserService(), sessionService: MockSessionService(), imageService: MockImageService())
         
@@ -166,7 +167,7 @@ final class AuthViewModel_Tests: XCTestCase {
         XCTAssertEqual("The user is not found!", vm.alertText)
     }
     
-    @MainActor func test_AuthViewModel_login_shouldBeSuccessful() async throws {
+    func test_AuthViewModel_login_shouldBeSuccessful() async throws {
         //Given
         let vm = AuthViewModel(isLogin: true, userService: MockUserService(), sessionService: MockSessionService(), imageService: MockImageService())
         
@@ -181,7 +182,7 @@ final class AuthViewModel_Tests: XCTestCase {
         XCTAssertEqual("", vm.alertText)
     }
     
-    @MainActor func test_AuthViewModel_registration_usernameShouldBeShorterThanRequired() async throws {
+    func test_AuthViewModel_registration_usernameShouldBeShorterThanRequired() async throws {
         //Given
         let vm = AuthViewModel(isLogin: true, userService: MockUserService(), sessionService: MockSessionService(), imageService: MockImageService())
         
@@ -196,7 +197,7 @@ final class AuthViewModel_Tests: XCTestCase {
     }
     
     
-    @MainActor func test_AuthViewModel_registration_usernameShouldBeLongEnough() async throws {
+    func test_AuthViewModel_registration_usernameShouldBeLongEnough() async throws {
         //Given
         let vm = AuthViewModel(isLogin: true, userService: MockUserService(), sessionService: MockSessionService(), imageService: MockImageService())
         
@@ -210,7 +211,7 @@ final class AuthViewModel_Tests: XCTestCase {
         XCTAssertEqual("The email must be at least 5 characters long!", vm.alertText)
     }
     
-    @MainActor func test_AuthViewModel_registration_emailShouldBeShorterThanRequired() async throws {
+    func test_AuthViewModel_registration_emailShouldBeShorterThanRequired() async throws {
         //Given
         let vm = AuthViewModel(isLogin: true, userService: MockUserService(), sessionService: MockSessionService(), imageService: MockImageService())
         
@@ -225,7 +226,7 @@ final class AuthViewModel_Tests: XCTestCase {
         XCTAssertEqual("The email must be at least 5 characters long!", vm.alertText)
     }
     
-    @MainActor func test_AuthViewModel_registration_emailShouldBeInvalid() async throws {
+   func test_AuthViewModel_registration_emailShouldBeInvalid() async throws {
         //Given
         let vm = AuthViewModel(isLogin: true, userService: MockUserService(), sessionService: MockSessionService(), imageService: MockImageService())
         
@@ -240,7 +241,7 @@ final class AuthViewModel_Tests: XCTestCase {
         XCTAssertEqual("The email format is not valid!", vm.alertText)
     }
     
-    @MainActor func test_AuthViewModel_registration_emailShouldBeValid() async throws {
+    func test_AuthViewModel_registration_emailShouldBeValid() async throws {
         //Given
         let vm = AuthViewModel(isLogin: true, userService: MockUserService(), sessionService: MockSessionService(), imageService: MockImageService())
         
@@ -255,7 +256,7 @@ final class AuthViewModel_Tests: XCTestCase {
         XCTAssertEqual("The password must be at least 6 characters long!", vm.alertText)
     }
     
-    @MainActor func test_AuthViewModel_registration_passwordShorterThanRequired() async throws {
+    func test_AuthViewModel_registration_passwordShorterThanRequired() async throws {
         //Given
         let vm = AuthViewModel(isLogin: true, userService: MockUserService(), sessionService: MockSessionService(), imageService: MockImageService())
         
@@ -271,7 +272,7 @@ final class AuthViewModel_Tests: XCTestCase {
         XCTAssertEqual("The password must be at least 6 characters long!", vm.alertText)
     }
     
-    @MainActor func test_AuthViewModel_registration_passwordShouldBeLongEnough() async throws {
+    func test_AuthViewModel_registration_passwordShouldBeLongEnough() async throws {
         //Given
         let vm = AuthViewModel(isLogin: true, userService: MockUserService(), sessionService: MockSessionService(), imageService: MockImageService())
         
@@ -287,7 +288,7 @@ final class AuthViewModel_Tests: XCTestCase {
         XCTAssertEqual("The two passwords does not match!", vm.alertText)
     }
     
-    @MainActor func test_AuthViewModel_registration_twoPasswordsDoesNotMatch() async throws {
+    func test_AuthViewModel_registration_twoPasswordsDoesNotMatch() async throws {
         //Given
         let vm = AuthViewModel(isLogin: true, userService: MockUserService(), sessionService: MockSessionService(), imageService: MockImageService())
         
@@ -304,7 +305,7 @@ final class AuthViewModel_Tests: XCTestCase {
         XCTAssertEqual("The two passwords does not match!", vm.alertText)
     }
     
-    @MainActor func test_AuthViewModel_registration_usernameInUseShouldBeTrue() async throws {
+    func test_AuthViewModel_registration_usernameInUseShouldBeTrue() async throws {
         //Given
         let vm = AuthViewModel(isLogin: true, userService: MockUserService(), sessionService: MockSessionService(), imageService: MockImageService())
         
@@ -321,7 +322,7 @@ final class AuthViewModel_Tests: XCTestCase {
         XCTAssertEqual("The username is already in use!", vm.alertText)
     }
     
-    @MainActor func test_AuthViewModel_registration_emailIsAlreadyInUseShouldBeTrue() async throws {
+    func test_AuthViewModel_registration_emailIsAlreadyInUseShouldBeTrue() async throws {
         //Given
         let vm = AuthViewModel(isLogin: true, userService: MockUserService(), sessionService: MockSessionService(), imageService: MockImageService())
         
@@ -338,7 +339,7 @@ final class AuthViewModel_Tests: XCTestCase {
         XCTAssertEqual("The email is already in use!", vm.alertText)
     }
     
-    @MainActor func test_AuthViewModel_registration_shouldBeSuccessful() async throws {
+    func test_AuthViewModel_registration_shouldBeSuccessful() async throws {
         //Given
         let vm = AuthViewModel(isLogin: true, userService: MockUserService(), sessionService: MockSessionService(), imageService: MockImageService())
         

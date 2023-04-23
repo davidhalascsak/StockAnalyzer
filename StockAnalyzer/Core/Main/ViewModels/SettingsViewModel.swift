@@ -6,6 +6,9 @@ import FirebaseAuth
 @MainActor
 class SettingsViewModel: ObservableObject {
     @Published var user: User?
+    @Published var showAlert: Bool = false
+    @Published var alertTitle: String = ""
+    @Published var alertText: String = ""
     @Published var selectedPhoto: PhotosPickerItem?
     @Published var isLoading: Bool = true
     @Published var isUpdatingProfile: Bool = false
@@ -25,16 +28,25 @@ class SettingsViewModel: ObservableObject {
             self.isLoading = false
             return
         }
-        
         self.user = await userService.fetchUser(id: id)
-        self.user?.image = await imageService.fetchData(url: user?.imageUrl ?? "")
+        self.user?.image = await imageService.fetchImageData(url: user?.imageUrl ?? "")
         self.isLoading = false
     }
     
     func updatePicture(data: Data) async {
         if let user = self.user {
-            _ = await imageService.updateImage(url: user.imageUrl, data: data)
+            let result = await imageService.updateImage(url: user.imageUrl, data: data)
             self.isUpdatingProfile = false
+            
+            if result == true {
+                self.alertTitle = "Success"
+                self.alertText = "The change of the profile picture was successful."
+                self.showAlert.toggle()
+            } else {
+                self.alertTitle = "Error"
+                self.alertText = "The change of the profile picture was unsuccessful."
+                self.showAlert.toggle()
+            }
         }
     }
     

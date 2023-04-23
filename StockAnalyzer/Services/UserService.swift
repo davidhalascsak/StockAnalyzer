@@ -39,9 +39,9 @@ class MockUserService: UserServiceProtocol {
     var users: [User] = []
     
     init() {
-        let user1 = User(id: "asd123", username: "david", email: "david@gmail.com", location: "Hungary", imageUrl: "")
+        let user1 = User(id: "asd123", username: "david", email: "david@gmail.com", location: "Hungary", imageUrl: "https://test_image.com")
         
-        let user2 = User(id: "asd321", username: "bob", email: "bob@gmail.com", location: "Hungary", imageUrl: "")
+        let user2 = User(id: "asd321", username: "bob", email: "bob@gmail.com", location: "Hungary", imageUrl: "test_image.com")
         
         users.append(user1)
         users.append(user2)

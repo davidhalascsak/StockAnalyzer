@@ -3,7 +3,7 @@ import SwiftUI
 import FirebaseStorage
 
 class ImageService: ImageServiceProtocol {
-    func fetchData(url: String) async -> Data? {
+    func fetchImageData(url: String) async -> Data? {
         guard let url = URL(string: url) else {return nil}
         
         do {
@@ -58,40 +58,56 @@ class ImageService: ImageServiceProtocol {
 
 
 class MockImageService: ImageServiceProtocol {
-    var imageUrls: [String] = []
+    var imageUrls: [String: Data] = [:]
     
     init() {
-        let url1 = UUID().uuidString
-        let url2 = UUID().uuidString
-        let url3 = UUID().uuidString
-        
-        imageUrls.append(contentsOf: [url1, url2, url3])
+        let image = UIImage(named: "default_avatar")
+        let data = image?.jpegData(compressionQuality: 0.5)
+        imageUrls["https://test_image.com"] = data ?? Data()
     }
     
-    func fetchData(url: String) async -> Data? {
-        return nil
+    func fetchImageData(url: String) async -> Data? {
+        guard URL(string: url) != nil else {return nil}
+        
+        if Bool.random() {
+            guard let image = UIImage(named: "default_avatar") else {return nil}
+            
+            guard let data = image.jpegData(compressionQuality: 0.5) else {return nil}
+            
+            return data
+        } else {
+            return nil
+        }
     }
     
     func convertDataToImage(imageData: Data) -> UIImage? {
-        return nil
+        return UIImage(data: imageData)
     }
     
     func uploadImage(image: UIImage) async -> String? {
+        guard let image = UIImage(named: "default_avatar") else {return nil}
+        guard let data = image.jpegData(compressionQuality: 0.5) else {return nil}
+        
         let imageUrl = UUID().uuidString
-        imageUrls.append(imageUrl)
+        imageUrls[imageUrl] = data
         
         return imageUrl
     }
     
     func updateImage(url: String, data: Data) async -> Bool {
-        return false
+        if self.imageUrls.contains(where: {$0.key == url}) && !data.isEmpty {
+            self.imageUrls[url] = data
+            return true
+        } else {
+            return false
+        }
     }
     
     
 }
 
 protocol ImageServiceProtocol {
-    func fetchData(url: String) async -> Data?
+    func fetchImageData(url: String) async -> Data?
     func convertDataToImage(imageData: Data) -> UIImage?
     func uploadImage(image: UIImage) async -> String?
     func updateImage(url: String, data: Data) async -> Bool

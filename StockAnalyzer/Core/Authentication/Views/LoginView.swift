@@ -7,8 +7,6 @@ import FirebaseAuth
 struct LoginView: View {
     @Environment(\.dismiss) private var dismiss
     @ObservedObject var vm: AuthViewModel
-    @State var isCorrect: Bool = false
-    @State var showAlert: Bool = false
     
     var body: some View {
         NavigationStack {
@@ -25,8 +23,6 @@ struct LoginView: View {
                     .padding(10)
                     .background(Color.gray.opacity(0.2))
                     .cornerRadius(15)
-                
-                
                 Button {
                     Task {
                         await vm.checkLogin()
@@ -41,10 +37,8 @@ struct LoginView: View {
                         .background(Color.blue)
                         .cornerRadius(15)
                 }
-                
                 Divider()
                     .padding(.vertical)
-                
                 HStack {
                     Text("Don't have an account?")
                     Button {
@@ -59,35 +53,32 @@ struct LoginView: View {
                         Text("Sign up")
                             .foregroundColor(Color.blue)
                     }
+                    Spacer()
                 }
-                
-                Spacer()
-            }
-            .padding()
-            .onChange(of: vm.isCorrect, perform: { newValue in
-                dismiss()
-            })
-            .alert(vm.alertTitle, isPresented: $showAlert, actions: {
-                if(vm.alertTitle == "Verification Error") {
-                    Button("Send again", role: .none) {
-                        Task {
-                            await vm.sendVerificationEmail()
+                .padding()
+                .onChange(of: vm.isCorrect, perform: { newValue in
+                    dismiss()
+                })
+                .alert(vm.alertTitle, isPresented: $vm.showAlert) {
+                    if(vm.alertTitle == "Verification Error") {
+                        Button("Send again", role: .none) {
+                            Task {
+                                await vm.sendVerificationEmail()
+                            }
                         }
                     }
+                    Button("Ok", role: .cancel, action: { vm.logout() })
+                } message: {
+                    Text(vm.alertText)
                 }
-                Button("Ok", role: .cancel, action: { vm.logout() })
-            }, message: {
-                Text(vm.alertText)
-            })
-            .sync($vm.isCorrect, with: $isCorrect)
-            .sync($vm.showAlert, with: $showAlert)
-            .navigationBarBackButtonHidden()
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Image(systemName: "arrowshape.backward")
-                        .onTapGesture {
-                            dismiss()
-                        }
+                .navigationBarBackButtonHidden()
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Image(systemName: "arrowshape.backward")
+                            .onTapGesture {
+                                dismiss()
+                            }
+                    }
                 }
             }
         }

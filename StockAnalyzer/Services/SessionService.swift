@@ -62,13 +62,11 @@ class MockSessionService: ObservableObject, SessionServiceProtocol {
     var currentUser: AuthUser?
 
     init() {
-        let uid1 = UUID().uuidString
-        let user1 = User(id: uid1, username: "david", email: "david@domain.com", location: "Hungary", imageUrl: "")
-        let authUser1 = AuthUser(id: uid1, email: "david@domain.com", password: "asd123", isVerified: true)
+        let user1 = User(id: "asd123", username: "david", email: "david@domain.com", location: "Hungary", imageUrl: "")
+        let authUser1 = AuthUser(id: "asd123", email: "david@domain.com", password: "asd123", isVerified: true)
         
-        let uid2 = UUID().uuidString
-        let user2 = User(id: uid2, username: "bob", email: "bob@domain.com", location: "Hungary", imageUrl: "")
-        let authUser2 = AuthUser(id: uid2, email: "bob@domain.com", password: "asd123", isVerified: false)
+        let user2 = User(id: "asd321", username: "bob", email: "bob@domain.com", location: "Hungary", imageUrl: "")
+        let authUser2 = AuthUser(id: "asd321", email: "bob@domain.com", password: "asd123", isVerified: false)
         
         users.append(user1)
         users.append(user2)

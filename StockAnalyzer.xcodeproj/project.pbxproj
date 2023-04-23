@@ -97,6 +97,7 @@
 		ECD264B629E532FF009F1C46 /* PortfolioRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECD264B529E532FF009F1C46 /* PortfolioRowViewModel.swift */; };
 		ECDAC4CD29E8754E001B46A9 /* PositionRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECDAC4CC29E8754E001B46A9 /* PositionRowView.swift */; };
 		ECDAC4CF29E87662001B46A9 /* PositionRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECDAC4CE29E87662001B46A9 /* PositionRowViewModel.swift */; };
+		ECDBEAB329F59AC800ABA499 /* SettingsViewModel_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECDBEAB229F59AC800ABA499 /* SettingsViewModel_Tests.swift */; };
 		ECEBBFE0299920EE00104326 /* PostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECEBBFDF299920EE00104326 /* PostViewModel.swift */; };
 		ECF2AF0E29E718FF008306CF /* PositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF2AF0D29E718FF008306CF /* PositionView.swift */; };
 		ECF669CC2996F37900855894 /* PostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF669CB2996F37900855894 /* PostModel.swift */; };
@@ -110,6 +111,13 @@
 
 /* Begin PBXContainerItemProxy section */
 		ECA9AE0829F541C100DDC19B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EC90D60C298ACED3001D4520 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EC90D613298ACED3001D4520;
+			remoteInfo = StockAnalyzer;
+		};
+		ECDBEAAD29F59A3900ABA499 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = EC90D60C298ACED3001D4520 /* Project object */;
 			proxyType = 1;
@@ -203,6 +211,8 @@
 		ECD264B529E532FF009F1C46 /* PortfolioRowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioRowViewModel.swift; sourceTree = "<group>"; };
 		ECDAC4CC29E8754E001B46A9 /* PositionRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionRowView.swift; sourceTree = "<group>"; };
 		ECDAC4CE29E87662001B46A9 /* PositionRowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionRowViewModel.swift; sourceTree = "<group>"; };
+		ECDBEAA729F59A3900ABA499 /* StockAnalyzer_UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StockAnalyzer_UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		ECDBEAB229F59AC800ABA499 /* SettingsViewModel_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel_Tests.swift; sourceTree = "<group>"; };
 		ECEBBFDF299920EE00104326 /* PostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewModel.swift; sourceTree = "<group>"; };
 		ECF2AF0D29E718FF008306CF /* PositionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionView.swift; sourceTree = "<group>"; };
 		ECF669CB2996F37900855894 /* PostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostModel.swift; sourceTree = "<group>"; };
@@ -235,6 +245,13 @@
 				ECA9AE1629F5595D00DDC19B /* FirebaseStorage in Frameworks */,
 				ECA9AE1429F5595D00DDC19B /* FirebaseAuth in Frameworks */,
 				ECA9AE1229F5590200DDC19B /* FirebaseFirestoreSwift in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ECDBEAA429F59A3900ABA499 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -414,6 +431,7 @@
 			children = (
 				EC90D616298ACED3001D4520 /* StockAnalyzer */,
 				ECA9AE0529F541C100DDC19B /* StockAnalyzer_Tests */,
+				ECDBEAA829F59A3900ABA499 /* StockAnalyzer_UITests */,
 				EC90D615298ACED3001D4520 /* Products */,
 				ECF669D32997C0C100855894 /* Frameworks */,
 			);
@@ -424,6 +442,7 @@
 			children = (
 				EC90D614298ACED3001D4520 /* StockAnalyzer.app */,
 				ECA9AE0429F541C100DDC19B /* StockAnalyzer_Tests.xctest */,
+				ECDBEAA729F59A3900ABA499 /* StockAnalyzer_UITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -475,8 +494,16 @@
 			isa = PBXGroup;
 			children = (
 				ECA9AE0D29F553CC00DDC19B /* AuthViewModel_Tests.swift */,
+				ECDBEAB229F59AC800ABA499 /* SettingsViewModel_Tests.swift */,
 			);
 			path = StockAnalyzer_Tests;
+			sourceTree = "<group>";
+		};
+		ECDBEAA829F59A3900ABA499 /* StockAnalyzer_UITests */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = StockAnalyzer_UITests;
 			sourceTree = "<group>";
 		};
 		ECEBBFCF2998F37B00104326 /* Core */ = {
@@ -639,6 +666,24 @@
 			productReference = ECA9AE0429F541C100DDC19B /* StockAnalyzer_Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		ECDBEAA629F59A3900ABA499 /* StockAnalyzer_UITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ECDBEAB129F59A3900ABA499 /* Build configuration list for PBXNativeTarget "StockAnalyzer_UITests" */;
+			buildPhases = (
+				ECDBEAA329F59A3900ABA499 /* Sources */,
+				ECDBEAA429F59A3900ABA499 /* Frameworks */,
+				ECDBEAA529F59A3900ABA499 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				ECDBEAAE29F59A3900ABA499 /* PBXTargetDependency */,
+			);
+			name = StockAnalyzer_UITests;
+			productName = StockAnalyzer_UITests;
+			productReference = ECDBEAA729F59A3900ABA499 /* StockAnalyzer_UITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -653,6 +698,10 @@
 						CreatedOnToolsVersion = 14.0.1;
 					};
 					ECA9AE0329F541C100DDC19B = {
+						CreatedOnToolsVersion = 14.0.1;
+						TestTargetID = EC90D613298ACED3001D4520;
+					};
+					ECDBEAA629F59A3900ABA499 = {
 						CreatedOnToolsVersion = 14.0.1;
 						TestTargetID = EC90D613298ACED3001D4520;
 					};
@@ -678,6 +727,7 @@
 			targets = (
 				EC90D613298ACED3001D4520 /* StockAnalyzer */,
 				ECA9AE0329F541C100DDC19B /* StockAnalyzer_Tests */,
+				ECDBEAA629F59A3900ABA499 /* StockAnalyzer_UITests */,
 			);
 		};
 /* End PBXProject section */
@@ -694,6 +744,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		ECA9AE0229F541C100DDC19B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ECDBEAA529F59A3900ABA499 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -800,6 +857,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				ECA9AE0E29F553CC00DDC19B /* AuthViewModel_Tests.swift in Sources */,
+				ECDBEAB329F59AC800ABA499 /* SettingsViewModel_Tests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ECDBEAA329F59A3900ABA499 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -810,6 +875,11 @@
 			isa = PBXTargetDependency;
 			target = EC90D613298ACED3001D4520 /* StockAnalyzer */;
 			targetProxy = ECA9AE0829F541C100DDC19B /* PBXContainerItemProxy */;
+		};
+		ECDBEAAE29F59A3900ABA499 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EC90D613298ACED3001D4520 /* StockAnalyzer */;
+			targetProxy = ECDBEAAD29F59A3900ABA499 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1024,6 +1094,40 @@
 			};
 			name = Release;
 		};
+		ECDBEAAF29F59A3900ABA499 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = BA8C9C22XU;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.david.StockAnalyzer-UITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = StockAnalyzer;
+			};
+			name = Debug;
+		};
+		ECDBEAB029F59A3900ABA499 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = BA8C9C22XU;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.david.StockAnalyzer-UITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = StockAnalyzer;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1050,6 +1154,15 @@
 			buildConfigurations = (
 				ECA9AE0A29F541C200DDC19B /* Debug */,
 				ECA9AE0B29F541C200DDC19B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		ECDBEAB129F59A3900ABA499 /* Build configuration list for PBXNativeTarget "StockAnalyzer_UITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ECDBEAAF29F59A3900ABA499 /* Debug */,
+				ECDBEAB029F59A3900ABA499 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

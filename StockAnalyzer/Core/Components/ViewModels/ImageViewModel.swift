@@ -17,7 +17,7 @@ class ImageViewModel: ObservableObject {
     }
     
     func fetchData() async {
-        let data = await self.imageService.fetchData(url: self.url)
+        let data = await self.imageService.fetchImageData(url: self.url)
         if let data = data {
             self.image = self.imageService.convertDataToImage(imageData: data)
         } else if self.defaultImage != "" {

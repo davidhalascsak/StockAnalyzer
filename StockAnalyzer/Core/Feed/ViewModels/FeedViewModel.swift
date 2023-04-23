@@ -33,7 +33,7 @@ class FeedViewModel: ObservableObject {
             
             if let user = user {
                 self.posts[i].user = user
-                self.posts[i].user?.image = await imageService.fetchData(url: user.imageUrl)
+                self.posts[i].user?.image = await imageService.fetchImageData(url: user.imageUrl)
                 
                 let post = self.posts[i]
                 self.posts[i].isLiked = await self.postService.checkIfPostIsLiked(post: post)

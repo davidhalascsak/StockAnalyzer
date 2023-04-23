@@ -39,6 +39,17 @@
                ReferencedContainer = "container:StockAnalyzer.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "ECDBEAA629F59A3900ABA499"
+               BuildableName = "StockAnalyzer_UITests.xctest"
+               BlueprintName = "StockAnalyzer_UITests"
+               ReferencedContainer = "container:StockAnalyzer.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

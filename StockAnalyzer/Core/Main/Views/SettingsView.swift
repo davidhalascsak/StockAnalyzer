@@ -71,6 +71,14 @@ struct SettingsView: View {
                     }
                 }
             }
+            .alert(vm.alertTitle, isPresented: $vm.showAlert, actions: {
+                Button("Ok", role: .cancel) {
+                    vm.alertTitle = ""
+                    vm.alertText = ""
+                }
+            }, message: {
+                Text(vm.alertText)
+            })
         }
         .task({
             await vm.fetchUser()

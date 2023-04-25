@@ -38,11 +38,7 @@ class SettingsViewModel: ObservableObject {
             let result = await imageService.updateImage(url: user.imageUrl, data: data)
             self.isUpdatingProfile = false
             
-            if result == true {
-                self.alertTitle = "Success"
-                self.alertText = "The change of the profile picture was successful."
-                self.showAlert.toggle()
-            } else {
+            if result == false {
                 self.alertTitle = "Error"
                 self.alertText = "The change of the profile picture was unsuccessful."
                 self.showAlert.toggle()

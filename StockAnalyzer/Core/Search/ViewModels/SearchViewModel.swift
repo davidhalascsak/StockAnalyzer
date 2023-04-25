@@ -13,6 +13,13 @@ class SearchViewModel: ObservableObject {
     }
     
     func fetchData() async {
-        self.searchResult = await self.searchService.fetchData(text: self.searchText)
+        if self.searchText.count > 0 {
+            self.searchResult = await self.searchService.fetchData(text: self.searchText)
+        }
+    }
+    
+    func resetSearch() {
+        self.searchText = ""
+        self.searchResult = []
     }
 }

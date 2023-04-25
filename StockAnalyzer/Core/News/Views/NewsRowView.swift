@@ -19,7 +19,7 @@ struct NewsRowView: View {
                         Text(vm.news.source_name)
                             .multilineTextAlignment(.leading)
                         Text("•")
-                        Text(vm.createDate(timestamp: vm.news.date))
+                        Text(vm.formatDate())
                     }
                 }
             }
@@ -36,7 +36,7 @@ struct NewsRowView: View {
 }
 
 struct NewsRowView_Previews: PreviewProvider {
-    static let news: News = News(title: "Amazon: Long-Term Value Unaffected By Short-Term Headwinds", news_url: "https://seekingalpha.com/article/4585751-amazon-long-term-value-unaffected-by-short-term-headwinds", image_url: "https://cdn.snapi.dev/images/v1/7/z/image-1359131145-1788551.jpg", date: "Wed, 08 Mar 2023 17:44:12 -0500", source_name: "Seeking Alpha", sentiment: "Positive")
+    static let news: News = News(title: "Amazon: Long-Term Value Unaffected By Short-Term Headwinds", news_url: "https://seekingalpha.com/article/4585751-amazon-long-term-value-unaffected-by-short-term-headwinds", image_url: "https://cdn.snapi.dev/images/v1/7/z/image-1359131145-1788551.jpg", date: "Wed, 08 Mar 2023 17:44:12 -0500", source_name: "Seeking Alpha", sentiment: "Positive", tickers: ["Amazon"])
     static var previews: some View {
         NewsRowView(news: news)
     }

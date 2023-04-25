@@ -8,7 +8,7 @@ class FinanceService: FinanceServiceProtocol {
     }
     
     func fetchIncomeStatement() async -> [IncomeStatement] {
-        guard let url = URL(string: "https://financialmodelingprep.com/api/v3/income-statement/\(self.symbol)?limit=10&apikey=\(ApiKeys.financeApi)") else {return []}
+        guard let url = URL(string: "https://financialmodelingprep.com/api/v3/income-statement/\(self.symbol)?limit=11&apikey=\(ApiKeys.financeApi)") else {return []}
         
         do {
             let (data, _) = try await URLSession.shared.data(from: url, delegate: nil)
@@ -25,7 +25,7 @@ class FinanceService: FinanceServiceProtocol {
     }
     
     func fetchBalanceSheet() async -> [BalanceSheet] {
-        guard let url = URL(string: "https://financialmodelingprep.com/api/v3/balance-sheet-statement/\(self.symbol)?limit=10&apikey=\(ApiKeys.financeApi)") else {return []}
+        guard let url = URL(string: "https://financialmodelingprep.com/api/v3/balance-sheet-statement/\(self.symbol)?limit=11&apikey=\(ApiKeys.financeApi)") else {return []}
         
         do {
             let (data, _) = try await URLSession.shared.data(from: url, delegate: nil)
@@ -42,7 +42,7 @@ class FinanceService: FinanceServiceProtocol {
     }
     
     func fetchCashFlowStatement() async -> [CashFlowStatement] {
-        guard let url = URL(string: "https://financialmodelingprep.com/api/v3/cash-flow-statement/\(self.symbol)?limit=10&apikey=\(ApiKeys.financeApi)") else {return []}
+        guard let url = URL(string: "https://financialmodelingprep.com/api/v3/cash-flow-statement/\(self.symbol)?limit=11&apikey=\(ApiKeys.financeApi)") else {return []}
         
         do {
             let (data, _) = try await URLSession.shared.data(from: url, delegate: nil)

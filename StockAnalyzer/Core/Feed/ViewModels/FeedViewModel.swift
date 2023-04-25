@@ -9,7 +9,6 @@ class FeedViewModel: ObservableObject {
     @Published var isSettingsPresented: Bool = false
     @Published var shouldScroll: Bool = false
     @Published var isLoading: Bool = false
-    @Published var reloadCounter: Int = 0
     
     let userService: UserServiceProtocol
     let postService: PostServiceProtocol

@@ -123,6 +123,6 @@ struct PortfolioView: View {
 
 struct PortfolioView_Previews: PreviewProvider {
     static var previews: some View {
-        PortfolioView(portfolioService: TestPortfolioService(), sessionService: SessionService())
+        PortfolioView(portfolioService: MockPortfolioService(), sessionService: SessionService())
     }
 }

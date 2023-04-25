@@ -4,7 +4,7 @@ struct FeedBodyView: View {
     @StateObject var vm: FeedBodyViewModel
     @Binding var isNewViewPresented: Bool
     
-    init(symbol: String, isNewViewPresented: Binding<Bool>, userService: UserService, postService: PostService, imageService: ImageServiceProtocol) {
+    init(symbol: String, isNewViewPresented: Binding<Bool>, userService: UserServiceProtocol, postService: PostServiceProtocol, imageService: ImageServiceProtocol) {
         _vm = StateObject(wrappedValue: FeedBodyViewModel(symbol: symbol, userService: userService, postService: postService, imageService: imageService))
         _isNewViewPresented = isNewViewPresented
     }

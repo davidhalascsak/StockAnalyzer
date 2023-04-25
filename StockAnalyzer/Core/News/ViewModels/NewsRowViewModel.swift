@@ -7,20 +7,20 @@ class NewsRowViewModel: ObservableObject {
         self.news = news
     }
 
-    func createDate(timestamp: String) -> String {
+    func formatDate() -> String {
         
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "US_POSIX")
         formatter.dateFormat = "E, d MMM y HH:mm:ss z"
         
 
-        let date = formatter.date(from: timestamp)
+        let newDate = formatter.date(from: self.news.date)
         
         formatter.dateFormat = "yyyy-MM-dd"
         
         
-        if let date = date {
-            return formatter.string(from: date)
+        if let newDate = newDate {
+            return formatter.string(from: newDate)
         }
         
         return "unknown date"

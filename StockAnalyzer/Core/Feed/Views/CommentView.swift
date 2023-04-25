@@ -31,8 +31,7 @@ struct CommentView: View {
                     Image(systemName: vm.comment.isLiked ?? false ? "hand.thumbsup.fill" : "hand.thumbsup")
                         .foregroundColor(vm.comment.isLiked ?? false ? Color.blue : Color.black)
                         .onTapGesture {
-                            if vm.sessionService.getUserId() != nil && vm.commentService.isUpdated {
-                                vm.commentService.isUpdated = false
+                            if vm.sessionService.getUserId() != nil && vm.isUpdated {
                                 if vm.post.isLiked ?? false {
                                     Task {
                                         await vm.likeComment()

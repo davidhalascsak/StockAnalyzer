@@ -89,8 +89,10 @@ final class SettingsViewModel_Tests: XCTestCase {
 
         //Then
         XCTAssertFalse(vm.isUpdatingProfile)
-        XCTAssertTrue(vm.showAlert)
-        XCTAssertEqual("Success", vm.alertTitle)
-        XCTAssertEqual("The change of the profile picture was successful.", vm.alertText)
+        XCTAssertFalse(vm.showAlert)
+        XCTAssertEqual("", vm.alertTitle)
+        XCTAssertEqual("", vm.alertText)
     }
+    
+    
 }

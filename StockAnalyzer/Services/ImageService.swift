@@ -11,9 +11,8 @@ class ImageService: ImageServiceProtocol {
             return data
         } catch let error {
             print(error.localizedDescription)
+            return nil
         }
-        
-        return nil
     }
     
     func convertDataToImage(imageData: Data) -> UIImage? {
@@ -33,9 +32,8 @@ class ImageService: ImageServiceProtocol {
             return url.absoluteString
         } catch let error {
             print(error.localizedDescription)
+            return nil
         }
-        
-        return nil
     }
     
     func updateImage(url: String, data: Data) async -> Bool {
@@ -50,9 +48,8 @@ class ImageService: ImageServiceProtocol {
             return true
         } catch let error {
             print(error.localizedDescription)
+            return false
         }
-        
-        return false
     }
 }
 
@@ -68,16 +65,10 @@ class MockImageService: ImageServiceProtocol {
     
     func fetchImageData(url: String) async -> Data? {
         guard URL(string: url) != nil else {return nil}
+        guard let image = UIImage(named: "default_avatar") else {return nil}
+        guard let data = image.jpegData(compressionQuality: 0.5) else {return nil}
         
-        if Bool.random() {
-            guard let image = UIImage(named: "default_avatar") else {return nil}
-            
-            guard let data = image.jpegData(compressionQuality: 0.5) else {return nil}
-            
-            return data
-        } else {
-            return nil
-        }
+        return data
     }
     
     func convertDataToImage(imageData: Data) -> UIImage? {

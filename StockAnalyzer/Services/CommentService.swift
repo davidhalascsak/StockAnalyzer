@@ -3,8 +3,6 @@ import FirebaseFirestore
 import FirebaseAuth
 
 class CommentService: CommentServiceProtocol {
-    @Published var isUpdated: Bool = true
-    
     private var db = Firestore.firestore()
     
     func fetchComments(post: Post) async -> [Comment] {
@@ -29,42 +27,44 @@ class CommentService: CommentServiceProtocol {
         return snapshot.exists
     }
     
-    func likeComment(post: Post, comment: Comment) async {
-        guard let userId = Auth.auth().currentUser?.uid else {return}
-        guard let postId = post.id else {return}
-        guard let commentId = comment.id else {return}
+    func likeComment(post: Post, comment: Comment) async -> Bool {
+        guard let userId = Auth.auth().currentUser?.uid else {return false}
+        guard let postId = post.id else {return false}
+        guard let commentId = comment.id else {return false}
         
         let likedComments = db.collection("users").document(userId).collection("likedComments")
         let fetchedComment = try? await db.collection("posts").document(postId).collection("comments").document(commentId).getDocument(as: Comment.self)
         
-        guard let fetchedComment = fetchedComment else {return}
+        guard let fetchedComment = fetchedComment else {return false}
         
         do {
             try await self.db.collection("posts").document(postId).collection("comments").document(commentId).updateData(["likes": fetchedComment.likes + 1])
             try await likedComments.document(commentId).setData([:])
-        } catch let error {
-            print(error.localizedDescription)
+            
+            return true
+        } catch {
+            return false
         }
-        self.isUpdated = true
     }
     
-    func unlikeComment(post: Post, comment: Comment) async {
-        guard let userId = Auth.auth().currentUser?.uid else {return}
-        guard let postId = post.id else {return}
-        guard let commentId = comment.id else {return}
+    func unlikeComment(post: Post, comment: Comment) async -> Bool {
+        guard let userId = Auth.auth().currentUser?.uid else {return false}
+        guard let postId = post.id else {return false}
+        guard let commentId = comment.id else {return false}
         
         let likedComments = db.collection("users").document(userId).collection("likedComments")
         let fetchedComment = try? await db.collection("posts").document(postId).collection("comments").document(commentId).getDocument(as: Comment.self)
         
-        guard let fetchedComment = fetchedComment else {return}
+        guard let fetchedComment = fetchedComment else {return false}
         
         do {
             try await self.db.collection("posts").document(postId).collection("comments").document(commentId).updateData(["likes": fetchedComment.likes - 1])
             try await likedComments.document(commentId).delete()
-        } catch let error {
-            print(error.localizedDescription)
+            
+            return true
+        } catch {
+            return false
         }
-        self.isUpdated = true
     }
     
     func createComment(post: Post, body: String) async {
@@ -85,12 +85,55 @@ class CommentService: CommentServiceProtocol {
     }
 }
 
-protocol CommentServiceProtocol {
-    var isUpdated: Bool { get set }
+class MockCommentService: CommentServiceProtocol {
+    var posts: [Post] = []
+    var users: [User] = []
+    var comments: [Comment] = []
+    var likedComments: [String: [String]] = [:]
     
+    init() {
+        let post = Post(id: "19", userRef: "asd321", body: "Good Moring, Vietnam", timestamp: Timestamp(), likes: 2, comments: 2, symbol: "")
+        posts.append(post)
+        
+        let user = User(id: "asd123", username: "david", email: "david@gmail.com", location: "Hungary", imageUrl: "https://test_image.com")
+        users.append(user)
+        
+        let comment1 = Comment(id: "2", userRef: "asd123", body: "Vietnaaam?", timestamp: Timestamp(), likes: 5)
+        let comment2 = Comment(id: "1", userRef: "asd123", body: "Guten Morgen", timestamp: Timestamp(), likes: 1)
+        comments.append(contentsOf: [comment1, comment2])
+        likedComments[user.id ?? ""] = ["1", "2"]
+    }
+    
+    func fetchComments(post: Post) async -> [Comment] {
+        return self.comments
+    }
+    
+    func checkIfCommentIsLiked(comment: Comment) async -> Bool {
+        let userId = "asd123"
+        return ((likedComments[userId]?.contains(where: {$0 == comment.id})) != nil)
+    }
+    
+    func likeComment(post: Post, comment: Comment) async -> Bool {
+        
+    }
+    
+    func unlikeComment(post: Post, comment: Comment) async -> Bool {
+        
+    }
+    
+    func createComment(post: Post, body: String) async {
+        guard let index = self.posts.firstIndex(where: {$0.id == post.id}) else {return}
+        
+        let newComment = Comment(id: UUID().uuidString, userRef: post.userRef, body: body, timestamp: Timestamp(), likes: 0)
+        self.comments.append(newComment)
+        self.posts[index].likes += 1
+    }
+}
+
+protocol CommentServiceProtocol {
     func fetchComments(post: Post) async -> [Comment]
     func checkIfCommentIsLiked(comment: Comment) async -> Bool
-    func likeComment(post: Post, comment: Comment) async
-    func unlikeComment(post: Post, comment: Comment) async
+    func likeComment(post: Post, comment: Comment) async -> Bool
+    func unlikeComment(post: Post, comment: Comment) async -> Bool
     func createComment(post: Post, body: String) async
 }

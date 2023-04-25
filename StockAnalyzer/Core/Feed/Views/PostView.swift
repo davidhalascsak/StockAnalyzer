@@ -46,8 +46,7 @@ struct PostView: View {
                 Image(systemName: vm.post.isLiked ?? false ? "hand.thumbsup.fill" : "hand.thumbsup")
                     .foregroundColor(vm.post.isLiked ?? false ? Color.blue : Color.black)
                     .onTapGesture {
-                        if vm.sessionService.getUserId() != nil && vm.postService.isUpdated {
-                            vm.postService.isUpdated = false
+                        if vm.sessionService.getUserId() != nil && vm.isUpdated {
                             if vm.post.isLiked ?? false {
                                 
                                 Task {

@@ -22,7 +22,6 @@ struct NewsView: View {
             }
         }
         .task {
-            vm.isLoading = true
             await vm.fetchNews()
         }
     }

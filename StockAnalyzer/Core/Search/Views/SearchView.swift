@@ -17,9 +17,7 @@ struct SearchView: View {
                 headerView
                 searchBar
                 Divider()
-                if vm.searchText.count > 0 {
-                    resultView
-                }
+                resultView
                 Spacer()
             }
             .fullScreenCover(isPresented: $isSettingsPresented, content: {
@@ -71,7 +69,6 @@ struct SearchView: View {
                 .padding(.trailing, 2)
             TextField("search", text: $vm.searchText)
                 .autocorrectionDisabled()
-            
         }
         .padding(.horizontal, 5)
         .padding(3)
@@ -85,7 +82,7 @@ struct SearchView: View {
                     .padding(.horizontal, 20)
                     .onTapGesture {
                         withAnimation(.spring()) {
-                            vm.searchText = ""
+                            vm.resetSearch()
                         }
                     }
             }

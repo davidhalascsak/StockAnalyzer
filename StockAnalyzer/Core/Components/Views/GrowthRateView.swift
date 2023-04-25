@@ -11,7 +11,7 @@ struct GrowthRateView: View {
                 .fontWeight(.semibold)
             if isInverted {
                 Text(growthRate)
-                    .foregroundColor(growthRate == "-" ? Color.black : growthRate[0] == "-" ? Color.green : Color.red)
+                    .foregroundColor((growthRate == "-" || growthRate == "0.0%") ? Color.black : growthRate[0] == "-" ? Color.green : Color.red)
             } else {
                 Text(growthRate)
                     .foregroundColor(growthRate == "-" ? Color.black : growthRate[0] == "-" ? Color.red : Color.green)

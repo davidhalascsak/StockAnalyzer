@@ -106,7 +106,7 @@ class PortfolioService: ObservableObject, PortfolioServiceProtocol {
     }
 }
 
-class TestPortfolioService: PortfolioServiceProtocol {
+class MockPortfolioService: PortfolioServiceProtocol {
     var assets: [Asset] = []
     
     init() {

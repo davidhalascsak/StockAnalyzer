@@ -12,8 +12,8 @@ class ImageViewModel: ObservableObject {
     
     init(url: String, defaultImage: String, imageService: ImageServiceProtocol) {
         self.url = url
-        self.imageService = imageService
         self.defaultImage = defaultImage
+        self.imageService = imageService
     }
     
     func fetchData() async {
@@ -23,7 +23,6 @@ class ImageViewModel: ObservableObject {
         } else if self.defaultImage != "" {
             self.image = UIImage(named: self.defaultImage)
         }
-        
         self.isLoading = false
     }
 }

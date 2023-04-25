@@ -4,16 +4,23 @@ import Charts
 struct BarChartView: View {
     @StateObject var vm: BarChartViewModel
     
-    init(title: String, xData: [String], yData: [Int], isInverted: Bool) {
-        _vm = StateObject(wrappedValue: BarChartViewModel(title: title, xData: xData, yData: yData, isInverted: isInverted))
+    init(title: String, xData: [String], yData: [Int], intervals: [Int], isInverted: Bool) {
+        _vm = StateObject(wrappedValue: BarChartViewModel(title: title, xData: xData, yData: yData, intervals: intervals, isInverted: isInverted))
     }
     
     var body: some View {
         VStack(alignment: .leading) {
-            headerView
-            chartView
-            growthRateView
+            if vm.isLoading == false {
+                headerView
+                chartView
+                growthRateView
+            } else {
+                Spacer()
+                ProgressView()
+                Spacer()
+            }
         }
+        .onAppear(perform: vm.calculateGrowthRates)
         .frame(height: 300)
         .frame(maxWidth: .infinity)
         .padding(5)
@@ -84,12 +91,12 @@ struct BarChartView: View {
                 .fontWeight(.bold)
             VStack(alignment: .leading) {
                 HStack {
-                    GrowthRateView(year: 1, growthRate: vm.growthRates[0], isInverted: vm.isInverted)
-                    GrowthRateView(year: 3, growthRate: vm.growthRates[1], isInverted: vm.isInverted)
+                    GrowthRateView(year: vm.intervals[0], growthRate: vm.growthRates[0], isInverted: vm.isInverted)
+                    GrowthRateView(year: vm.intervals[1], growthRate: vm.growthRates[1], isInverted: vm.isInverted)
                 }
                 HStack {
-                    GrowthRateView(year: 5, growthRate: vm.growthRates[2], isInverted: vm.isInverted)
-                    GrowthRateView(year: 10, growthRate: vm.growthRates[3], isInverted: vm.isInverted)
+                    //GrowthRateView(year: vm.intervals[2], growthRate: vm.growthRates[2], isInverted: vm.isInverted)
+                    //GrowthRateView(year: vm.intervals[3], growthRate: vm.growthRates[3], isInverted: vm.isInverted)
                 }
             }
         }
@@ -99,6 +106,6 @@ struct BarChartView: View {
 
 struct BarChartView_Previews: PreviewProvider {
     static var previews: some View {
-        BarChartView(title: "Revenue", xData: ["2021", "2022", "2023","2024","2025","2026","2027","2028","2029","2030"], yData: [1,2,3,4,5,6,7,8,-9,-9], isInverted: false)
+        BarChartView(title: "Revenue", xData: ["2020", "2021", "2022", "2023","2024","2025","2026","2027","2028","2029","2030"], yData: [0, 1,2,3,4,5,6,7,8,-9,-9], intervals: [1,3,5,10], isInverted: false)
     }
 }

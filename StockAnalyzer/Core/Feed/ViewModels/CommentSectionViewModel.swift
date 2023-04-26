@@ -25,15 +25,15 @@ class CommentSectionViewModel: ObservableObject {
     func fetchComments() async {
         self.comments = await commentService.fetchComments(post: post)
 
-        for i in 0..<self.comments.count {
-            let userRef = self.comments[i].userRef
-            let user = await self.userService.fetchUser(id: userRef)
+        for i in 0..<comments.count {
+            let userRef = comments[i].userRef
+            let user = await userService.fetchUser(id: userRef)
             
             if let user = user {
-                self.comments[i].user = user
+                comments[i].user = user
                 
-                let comment = self.comments[i]
-                self.comments[i].isLiked = await self.commentService.checkIfCommentIsLiked(comment: comment)
+                let comment = comments[i]
+                comments[i].isLiked = await commentService.checkIfCommentIsLiked(comment: comment)
             }
         }
         
@@ -41,14 +41,14 @@ class CommentSectionViewModel: ObservableObject {
     }
     
     func createComment() async {
-        let result = await commentService.createComment(post: self.post, body: self.commentBody)
+        let result = await commentService.createComment(post: post, body: commentBody)
         if result {
-            await self.fetchComments()
+            await fetchComments()
         } else {
-            self.showAlert.toggle()
-            self.alertTitle = "Error"
-            self.alertText = "Error while adding the comment."
+            showAlert.toggle()
+            alertTitle = "Error"
+            alertText = "Error while adding the comment."
         }
-        self.commentBody = ""
+        commentBody = ""
     }
 }

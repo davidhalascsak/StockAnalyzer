@@ -83,10 +83,10 @@ class MockSessionService: ObservableObject, SessionServiceProtocol {
     func login(email: String, password: String) async throws {
         let user: AuthUser?
         user = authUsers.first(where: {$0.email == email}) ?? nil
+        
         if user == nil {
             throw SessionError.loginError(message: "There is no user record corresponding to this identifier. The user may have been deleted.")
         } else if user != nil && user?.password != password {
-            
             throw SessionError.loginError(message: "The password does not match")
         }
         
@@ -94,12 +94,12 @@ class MockSessionService: ObservableObject, SessionServiceProtocol {
     }
     
     func isUserVerified() async -> Bool {
-        let user = self.authUsers.first(where: {$0.email == self.currentUser?.email})
+        let user = authUsers.first(where: {$0.email == currentUser?.email})
         return user?.isVerified ?? false
     }
     
     func logout() -> Bool {
-        if self.currentUser != nil {
+        if currentUser != nil {
             return true
         } else {
             return false
@@ -113,8 +113,8 @@ class MockSessionService: ObservableObject, SessionServiceProtocol {
         }
         let newAuthUser = AuthUser(id: UUID().uuidString, email: email, password: password, isVerified: false)
         
-        self.authUsers.append(newAuthUser)
-        self.currentUser = newAuthUser
+        authUsers.append(newAuthUser)
+        currentUser = newAuthUser
     }
     
     func sendVerificationEmail() async throws {}

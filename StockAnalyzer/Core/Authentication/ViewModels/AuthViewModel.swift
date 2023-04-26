@@ -61,14 +61,14 @@ class AuthViewModel: ObservableObject {
         }
         
         do {
-            try await self.sessionService.login(email: userData.email, password: userData.password)
+            try await sessionService.login(email: userData.email, password: userData.password)
             
             let isVerified = await sessionService.isUserVerified()
             
             if !isVerified {
-                self.alertTitle = "Verification Error"
-                self.alertText = "You must verify your account!"
-                self.showAlert.toggle()
+                alertTitle = "Verification Error"
+                alertText = "You must verify your account!"
+                showAlert.toggle()
                 
                 return
             }
@@ -79,16 +79,16 @@ class AuthViewModel: ObservableObject {
                 self.alertText = "The user is not found!"
                 self.showAlert.toggle()
             } else {
-                self.alertTitle = "Login Error"
-                self.alertText = "The password is not correct!"
-                self.showAlert.toggle()
+                alertTitle = "Login Error"
+                alertText = "The password is not correct!"
+                showAlert.toggle()
             }
             
             return
         }
 
-        self.userData.email = ""
-        self.userData.password = ""
+        userData.email = ""
+        userData.password = ""
     }
     
     public func checkRegistration() async {
@@ -134,85 +134,85 @@ class AuthViewModel: ObservableObject {
         }
         var isUsernameInUse: Bool = false
         
-        let users = await self.userService.fetchAllUser()
+        let users = await userService.fetchAllUser()
         users.forEach { user in
-            if user.username == self.userData.username {
+            if user.username == userData.username {
                 isUsernameInUse = true
             }
         }
         
         if isUsernameInUse {
-            self.alertTitle = "Registration Error"
-            self.alertText = "The username is already in use!"
-            self.showAlert.toggle()
+            alertTitle = "Registration Error"
+            alertText = "The username is already in use!"
+            showAlert.toggle()
             
             return
         }
         
         guard let image = UIImage(named: "default_avatar") else {
-            self.alertTitle = "Registration Error"
-            self.alertText = "Error while creating the user!0"
-            self.showAlert.toggle()
-            self.isCorrect.toggle()
+            alertTitle = "Registration Error"
+            alertText = "Error while creating the user!0"
+            showAlert.toggle()
+            isCorrect.toggle()
             
             return
         }
         
-        guard let imageUrl = await self.imageService.uploadImage(image: image) else {
-            self.alertTitle = "Registration Error"
-            self.alertText = "Error while creating the user!1"
-            self.showAlert.toggle()
-            self.isCorrect.toggle()
+        guard let imageUrl = await imageService.uploadImage(image: image) else {
+            alertTitle = "Registration Error"
+            alertText = "Error while creating the user!1"
+            showAlert.toggle()
+            isCorrect.toggle()
             
             return
         }
         
         do {
-            try await self.sessionService.register(email: self.userData.email, password: self.userData.password)
+            try await sessionService.register(email: userData.email, password: userData.password)
         } catch {
-            self.alertTitle = "Registration Error"
-            self.alertText = "The email is already in use!"
-            self.showAlert.toggle()
-            _ = self.logout()
+            alertTitle = "Registration Error"
+            alertText = "The email is already in use!"
+            showAlert.toggle()
+            _ = logout()
             
             return
         }
         
         if let userId = self.sessionService.getUserId() {
             
-            let newUser = User(id: userId, username: self.userData.username, email: self.userData.email, location: self.userData.location, imageUrl: imageUrl)
+            let newUser = User(id: userId, username: userData.username, email: userData.email, location: userData.location, imageUrl: imageUrl)
             
             do {
-                try await self.userService.createUser(user: newUser)
+                try await userService.createUser(user: newUser)
             } catch {
-                self.alertTitle = "Registration Error"
-                self.alertText = "Error while saving the user!"
-                self.showAlert.toggle()
-                _ = self.logout()
+                alertTitle = "Registration Error"
+                alertText = "Error while saving the user!"
+                showAlert.toggle()
+                _ = logout()
                 
                 return
             }
             
-            try? await self.sessionService.sendVerificationEmail()
-            _ = self.logout()
+            try? await sessionService.sendVerificationEmail()
+            _ = logout()
         } else {
-            self.alertTitle = "Registration Error"
-            self.alertText = "Error while creating the user object!2"
-            self.showAlert.toggle()
+            alertTitle = "Registration Error"
+            alertText = "Error while creating the user object!2"
+            showAlert.toggle()
             
             return
         }
-        self.alertTitle = "Success"
-        self.alertText = "Please verify your account, before login!"
-        self.showAlert.toggle()
+        alertTitle = "Success"
+        alertText = "Please verify your account, before login!"
+        showAlert.toggle()
     }
     
     func sendVerificationEmail() async {
-        try? await self.sessionService.sendVerificationEmail()
+        try? await sessionService.sendVerificationEmail()
     }
     
     func logout() {
-        _ = self.sessionService.logout()
+        _ = sessionService.logout()
     }
     
     private func isValidEmail(_ email: String) -> Bool {

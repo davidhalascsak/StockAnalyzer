@@ -16,21 +16,17 @@ class PortfolioRowViewModel: ObservableObject {
     }
     
     func calculateCurrentValue() async {
-        self.stockPrice = await stockService.fetchPriceInRealTime()
+        stockPrice = await stockService.fetchPriceInRealTime()
         
-        var currentValue: Double = 0.0
-        
-        if let assets = self.asset.positions {
+        if let assets = asset.positions {
             for position in assets {
-                let multiplier = (self.stockPrice?.price ?? 0.0) / position.price
+                let multiplier = (stockPrice?.price ?? 0.0) / position.price
                 currentValue += multiplier * position.investedAmount
             }
         }
+        difference = currentValue - asset.investedAmount
         
-        self.currentValue = currentValue
-        self.difference = currentValue - self.asset.investedAmount
-        
-        self.isLoading = false
+        isLoading = false
     }
     
     func formatValue(value: Double) -> String {

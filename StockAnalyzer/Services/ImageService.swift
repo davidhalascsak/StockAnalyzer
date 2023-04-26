@@ -9,8 +9,7 @@ class ImageService: ImageServiceProtocol {
         do {
             let (data, _) = try await URLSession.shared.data(from: url, delegate: nil)
             return data
-        } catch let error {
-            print(error.localizedDescription)
+        } catch {
             return nil
         }
     }
@@ -30,8 +29,7 @@ class ImageService: ImageServiceProtocol {
             let url = try await reference.downloadURL()
             
             return url.absoluteString
-        } catch let error {
-            print(error.localizedDescription)
+        } catch {
             return nil
         }
     }
@@ -46,8 +44,7 @@ class ImageService: ImageServiceProtocol {
             _ = try await reference.putDataAsync(compressedImage)
             
             return true
-        } catch let error {
-            print(error.localizedDescription)
+        } catch {
             return false
         }
     }
@@ -86,8 +83,8 @@ class MockImageService: ImageServiceProtocol {
     }
     
     func updateImage(url: String, data: Data) async -> Bool {
-        if self.imageUrls.contains(where: {$0.key == url}) && !data.isEmpty {
-            self.imageUrls[url] = data
+        if imageUrls.contains(where: {$0.key == url}) && !data.isEmpty {
+            imageUrls[url] = data
             return true
         } else {
             return false

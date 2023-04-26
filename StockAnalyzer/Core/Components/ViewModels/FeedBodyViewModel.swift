@@ -18,21 +18,21 @@ class FeedBodyViewModel: ObservableObject {
     }
     
     func fetchPosts() async {
-        self.posts = await postService.fetchPosts(symbol: symbol)
+        posts = await postService.fetchPosts(symbol: symbol)
 
-        for i in 0..<(self.posts.count) {
-            let userRef = self.posts[i].userRef
+        for i in 0..<(posts.count) {
+            let userRef = posts[i].userRef
             
-            let user = await self.userService.fetchUser(id: userRef)
+            let user = await userService.fetchUser(id: userRef)
             
             if let user = user {
-                self.posts[i].user = user
-                self.posts[i].user?.image = await imageService.fetchImageData(url: user.imageUrl)
+                posts[i].user = user
+                posts[i].user?.image = await imageService.fetchImageData(url: user.imageUrl)
                 
-                let post = self.posts[i]
-                self.posts[i].isLiked = await self.postService.checkIfPostIsLiked(post: post)
+                let post = posts[i]
+                posts[i].isLiked = await postService.checkIfPostIsLiked(post: post)
             }
         }
-        self.isLoading = false
+        isLoading = false
     }
 }

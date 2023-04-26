@@ -17,12 +17,12 @@ class ImageViewModel: ObservableObject {
     }
     
     func fetchData() async {
-        let data = await self.imageService.fetchImageData(url: self.url)
+        let data = await imageService.fetchImageData(url: url)
         if let data = data {
-            self.image = self.imageService.convertDataToImage(imageData: data)
-        } else if self.defaultImage != "" {
-            self.image = UIImage(named: self.defaultImage)
+            image = imageService.convertDataToImage(imageData: data)
+        } else if defaultImage != "" {
+            image = UIImage(named: defaultImage)
         }
-        self.isLoading = false
+        isLoading = false
     }
 }

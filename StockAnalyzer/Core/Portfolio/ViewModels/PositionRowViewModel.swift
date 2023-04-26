@@ -16,13 +16,13 @@ class PositionRowViewModel: ObservableObject {
     }
     
     func calculateCurrentValue() async {
-        self.stockPrice = await stockService.fetchPriceInRealTime()
+        stockPrice = await stockService.fetchPriceInRealTime()
         
-        let multiplier = (self.stockPrice?.price ?? 0.0) / position.price
-        self.currentValue = multiplier * position.investedAmount
-        self.difference = currentValue - self.position.investedAmount
+        let multiplier = (stockPrice?.price ?? 0.0) / position.price
+        currentValue = multiplier * position.investedAmount
+        difference = currentValue - position.investedAmount
         
-        self.isLoading = false
+        isLoading = false
     }
     
     func formatValue(value: Double) -> String {

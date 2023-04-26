@@ -6,7 +6,6 @@ extension Date {
         
         var dc = DateComponents(timeZone: timezone, year: current.year, month: current.month)
         
-        
         if selectedType == .oneMonth || selectedType == .oneWeek || selectedType == .oneDay {
             dc.day = current.day
         }

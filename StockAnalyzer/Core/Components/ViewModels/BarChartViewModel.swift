@@ -20,24 +20,23 @@ class BarChartViewModel: ObservableObject {
     }
 
     func calculateGrowthRates() {
-        
-        for interval in self.intervals {
-            if (self.yData.count - interval - 1) >= 0 {
-                var growthRate = String(format: "%.1f", (pow(Double(self.yData[self.yData.count - 1]) / Double(self.yData[self.yData.count - interval - 1]), 1.0/1.0) - 1.0) * 100)
+        for interval in intervals {
+            if (yData.count - interval - 1) >= 0 {
+                var growthRate = String(format: "%.1f", (pow(Double(yData[yData.count - 1]) / Double(yData[yData.count - interval - 1]), 1.0/1.0) - 1.0) * 100)
                 
                 
-                if growthRate == "nan" || self.isPrefixDifferent(lfs: self.yData[self.yData.count - 1], rfs: self.yData[self.yData.count - interval - 1]) {
+                if growthRate == "nan" || isPrefixDifferent(lfs: yData[yData.count - 1], rfs: yData[yData.count - interval - 1]) {
                     growthRate = "-"
                 } else {
                     growthRate = growthRate[0] == "-" ? "\(growthRate)%" : growthRate == "0.0" ?  "\(growthRate)%" : "+\(growthRate)%"
                 }
                 
-                self.growthRates.append(growthRate)
+                growthRates.append(growthRate)
             } else {
-                self.growthRates.append("")
+                growthRates.append("")
             }
         }
-        self.isLoading = false
+        isLoading = false
     }
     
     func isPrefixDifferent(lfs: Int, rfs: Int) -> Bool {

@@ -22,8 +22,8 @@ class PositionViewModel: ObservableObject {
     }
     
     func fetchData() async {
-        self.companyProfile = await self.stockService.fetchProfile()
-        self.price = await self.stockService.fetchPriceInRealTime()
+        companyProfile = await stockService.fetchProfile()
+        price = await stockService.fetchPriceInRealTime()
         
         for position in asset.positions ?? [] {
             let vm = PositionRowViewModel(position: position, stockService: StockService(symbol: position.symbol))
@@ -31,7 +31,7 @@ class PositionViewModel: ObservableObject {
             await vm.calculateCurrentValue()
         }
         
-        self.isLoading = false
+        isLoading = false
     }
     
     func changeInPrice() -> String {
@@ -46,8 +46,8 @@ class PositionViewModel: ObservableObject {
     }
     
     func reloadAsset() async {
-        self.price = await self.stockService.fetchPriceInRealTime()
-        for position in self.asset.positions ?? [] {
+        price = await stockService.fetchPriceInRealTime()
+        for position in asset.positions ?? [] {
             if let vm = positionViewModels[position.symbol] {
                 await vm.calculateCurrentValue()
             }
@@ -55,14 +55,14 @@ class PositionViewModel: ObservableObject {
     }
     
     func deletePosition(at index: Int) async {
-        let position = self.asset.positions?[index]
+        let position = asset.positions?[index]
         
         if let position = position {
             let result = await self.portfolioService.deletePosition(asset: asset, position: position)
             if result {
-                self.asset.positions?.remove(at: index)
-                self.positionViewModels.removeValue(forKey: position.id ?? "")
-                self.asset.positionCount -= 1
+                asset.positions?.remove(at: index)
+                positionViewModels.removeValue(forKey: position.id ?? "")
+                asset.positionCount -= 1
             }
         }
     }

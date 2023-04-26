@@ -6,22 +6,17 @@ import Firebase
 class PostService: PostServiceProtocol {
     private var db = Firestore.firestore()
     
-    func fetchPosts(symbol: String?) async -> [Post] {
-        var posts = [Post]()
-        
-                
+    func fetchPosts(symbol: String?) async -> [Post] {       
         if let symbol = symbol {
             let snapshot = try? await db.collection("posts").whereField("symbol", isEqualTo: symbol).order(by: "timestamp", descending: true).getDocuments()
             guard let snapshot = snapshot else {return []}
             
-            posts = snapshot.documents.compactMap({try? $0.data(as: Post.self)})
-            return posts
+            return snapshot.documents.compactMap({try? $0.data(as: Post.self)})
         } else {
             let snapshot = try? await db.collection("posts").order(by: "timestamp", descending: true).getDocuments()
             guard let snapshot = snapshot else {return []}
                     
-            posts = snapshot.documents.compactMap({try? $0.data(as: Post.self)})
-            return posts
+            return snapshot.documents.compactMap({try? $0.data(as: Post.self)})
         }
     }
     
@@ -121,7 +116,6 @@ class MockPostService: PostServiceProtocol {
         } else {
             return self.posts
         }
-        
     }
     
     func checkIfPostIsLiked(post: Post) async -> Bool {

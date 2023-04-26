@@ -14,7 +14,7 @@ class NewsRowViewModel: ObservableObject {
         formatter.dateFormat = "E, d MMM y HH:mm:ss z"
         
 
-        let newDate = formatter.date(from: self.news.date)
+        let newDate = formatter.date(from: news.date)
         
         formatter.dateFormat = "yyyy-MM-dd"
         

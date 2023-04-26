@@ -25,30 +25,30 @@ class SettingsViewModel: ObservableObject {
     
     func fetchUser() async {
         guard let id = sessionService.getUserId() else {
-            self.isLoading = false
+            isLoading = false
             return
         }
-        self.user = await userService.fetchUser(id: id)
-        self.user?.image = await imageService.fetchImageData(url: user?.imageUrl ?? "")
-        self.isLoading = false
+        user = await userService.fetchUser(id: id)
+        user?.image = await imageService.fetchImageData(url: user?.imageUrl ?? "")
+        isLoading = false
     }
     
     func updatePicture(data: Data) async {
-        if let user = self.user {
+        if let user = user {
             let result = await imageService.updateImage(url: user.imageUrl, data: data)
             self.isUpdatingProfile = false
             
             if result == false {
-                self.alertTitle = "Error"
-                self.alertText = "The change of the profile picture was unsuccessful."
-                self.showAlert.toggle()
+                alertTitle = "Error"
+                alertText = "The change of the profile picture was unsuccessful."
+                showAlert.toggle()
             }
         }
     }
     
     func logout() {
-        _ = self.sessionService.logout()
-        self.user = nil
+        _ = sessionService.logout()
+        user = nil
     }
 
 }

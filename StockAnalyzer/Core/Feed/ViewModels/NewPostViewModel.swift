@@ -16,12 +16,12 @@ class NewPostViewModel: ObservableObject {
     }
     
     func createPost() async {
-        let result = await self.postService.createPost(body: postBody, symbol: symbol)
+        let result = await postService.createPost(body: postBody, symbol: symbol)
         if result == false {
-            self.showAlert.toggle()
-            self.alertTitle = "Error"
-            self.alertText = "Error while creating the post."
+            showAlert.toggle()
+            alertTitle = "Error"
+            alertText = "Error while creating the post."
         }
-        self.postBody = ""
+        postBody = ""
     }
 }

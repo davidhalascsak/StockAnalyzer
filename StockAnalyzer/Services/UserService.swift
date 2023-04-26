@@ -7,13 +7,10 @@ class UserService: UserServiceProtocol {
     private let locale = Locale(identifier: "en-US")
 
     func fetchAllUser() async -> [User] {
-        var users = [User]()
-        
         let snapshot = try? await db.collection("users").getDocuments()
         guard let snapshot = snapshot else {return []}
             
-        users = snapshot.documents.compactMap({try? $0.data(as: User.self)})
-        return users
+        return snapshot.documents.compactMap({try? $0.data(as: User.self)})
     }
     
     func fetchUser(id: String) async -> User? {
@@ -24,13 +21,15 @@ class UserService: UserServiceProtocol {
         return user
     }
     
-    func createUser(user: User) async throws {
+    func createUser(user: User) async throws -> Bool {
         let data = ["username": user.username, "email": user.email, "location": user.location, "imageUrl": user.imageUrl]
         
         do {
             try await db.collection("users").document(user.id ?? "").setData(data)
-        } catch let error {
-            print(error)
+            
+            return true
+        } catch {
+            return false
         }
     }
 }
@@ -47,20 +46,22 @@ class MockUserService: UserServiceProtocol {
         users.append(user2)
     }
     func fetchAllUser() async -> [User] {
-        return self.users
+        return users
     }
     
     func fetchUser(id: String) async -> User? {
-        return self.users.first(where: {$0.id == id})
+        return users.first(where: {$0.id == id})
     }
     
-    func createUser(user: User) async throws {
+    func createUser(user: User) async throws -> Bool {
         users.append(user)
+        
+        return true
     }
 }
 
 protocol UserServiceProtocol {
     func fetchAllUser() async -> [User]
     func fetchUser(id: String) async -> User?
-    func createUser(user: User) async throws
+    func createUser(user: User) async throws -> Bool
 }

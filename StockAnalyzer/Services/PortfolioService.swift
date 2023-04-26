@@ -23,20 +23,17 @@ class PortfolioService: ObservableObject, PortfolioServiceProtocol {
     }
     
     func fetchPositions(symbol: String) async -> [Position] {
-        var positions: [Position] = []
-        
         if let userId = Auth.auth().currentUser?.uid {
             let snapshot = try? await db.collection("users").document(userId).collection("portfolio").document(symbol)
                 .collection("positions").getDocuments()
             if let snapshot = snapshot {
-                positions = snapshot.documents.compactMap({try? $0.data(as: Position.self)})
+                return snapshot.documents.compactMap({try? $0.data(as: Position.self)})
             }
         }
-        
-        return positions
+        return []
     }
     
-    func addPosition(position: Position) async {
+    func addPosition(position: Position) async -> Bool {
         let newPosition = ["symbol": position.symbol, "date": position.date, "units": position.units, "price": position.price,
                         "investedAmount": position.investedAmount] as [String : Any]
         
@@ -52,11 +49,13 @@ class PortfolioService: ObservableObject, PortfolioServiceProtocol {
             
             do {
                 try await self.db.collection("users").document(userId).collection("portfolio").document(position.symbol).setData(newPortfolio)
-                let _ = try await self.db.collection("users").document(userId).collection("portfolio").document(position.symbol).collection("positions").addDocument(data: newPosition)
-            } catch let error {
-                print(error.localizedDescription)
+                let _ = try await db.collection("users").document(userId).collection("portfolio").document(position.symbol).collection("positions").addDocument(data: newPosition)
+                return true
+            } catch {
+                return false
             }
         }
+        return false
     }
     
     func deleteAsset(symbol: String) async -> Bool {
@@ -74,7 +73,6 @@ class PortfolioService: ObservableObject, PortfolioServiceProtocol {
                 return false
             }
         }
-        
         return false
     }
     
@@ -135,8 +133,8 @@ class MockPortfolioService: PortfolioServiceProtocol {
         return self.assets
     }
     
-    func addPosition(position: Position) async {
-        
+    func addPosition(position: Position) async -> Bool {
+        return true
     }
     
     func fetchPositions(symbol: String) async -> [Position] {
@@ -166,7 +164,6 @@ class MockPortfolioService: PortfolioServiceProtocol {
             
             self.assets.append(newAsset)
         }
-        
         return true
     }
 }
@@ -174,7 +171,7 @@ class MockPortfolioService: PortfolioServiceProtocol {
 protocol PortfolioServiceProtocol {
     func fetchAssets() async -> [Asset]
     func fetchPositions(symbol: String) async -> [Position]
-    func addPosition(position: Position) async
+    func addPosition(position: Position) async -> Bool
     func deleteAsset(symbol: String) async -> Bool
     func deletePosition(asset: Asset, position: Position) async -> Bool
 }

@@ -13,15 +13,14 @@ class NewsViewModel: ObservableObject  {
     }
     
     func fetchNews() async {
-        self.news = await newsService.fetchData()
+        news = await newsService.fetchData()
+        sortNews()
         
-        self.sortNews()
-        
-        self.isLoading = false
+        isLoading = false
     }
 
     func sortNews() {
-        self.news = self.news.sorted {
+        news = news.sorted {
             $0.date > $1.date
         }
     }

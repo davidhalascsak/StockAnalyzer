@@ -32,11 +32,11 @@ class NewAssetViewModel: ObservableObject {
         formatter.dateFormat = "yyyy-MM-dd"
         let dateAsString = formatter.string(from: buyDate)
         
-        self.price = await stockService.fetchPriceAtDate(date: dateAsString)
+        price = await stockService.fetchPriceAtDate(date: dateAsString)
     }
     
     func calculateValue() {
-        let value = self.price * self.units
+        let value = price * units
         if value == 0 {
             self.value = "$0.00"
             
@@ -49,8 +49,8 @@ class NewAssetViewModel: ObservableObject {
         let value = price * units
         
         if value != 0 {
-            let position = Position(symbol: symbol, date: formatter.string(from: self.buyDate), units: self.units, price: self.price, investedAmount: value)
-            await self.portfolioService.addPosition(position: position)
+            let position = Position(symbol: symbol, date: formatter.string(from: buyDate), units: units, price: price, investedAmount: value)
+            await portfolioService.addPosition(position: position)
         }
     }
 }

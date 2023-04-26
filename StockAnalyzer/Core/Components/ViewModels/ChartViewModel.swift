@@ -31,7 +31,7 @@ class ChartViewModel: ObservableObject {
     let exchange: String
     var openDate: String {
         var calendar = Calendar(identifier: .gregorian)
-        let timezone = TimeZone(abbreviation: Exchange.exchanges[self.exchange]!["timezone"] ?? "GMT")
+        let timezone = TimeZone(abbreviation: Exchange.exchanges[exchange]!["timezone"] ?? "GMT")
         calendar.timeZone = timezone ?? .gmt
 
         let current = calendar.dateComponents(in: timezone ?? .gmt, from: Date())
@@ -39,13 +39,13 @@ class ChartViewModel: ObservableObject {
         let month: String = current.month! < 10 ? "0\(current.month!)" : String(current.month!)
         let day: String = current.day! < 10 ? "0\(current.day!)" : String(current.day!)
         
-        let date: String = "\(current.year!)-\(month)-\(day) " + Exchange.exchanges[self.exchange]!["open"]!
+        let date: String = "\(current.year!)-\(month)-\(day) " + Exchange.exchanges[exchange]!["open"]!
     
         return date
     }
     var closeDate: String {
         var calendar = Calendar(identifier: .gregorian)
-        let timezone = TimeZone(abbreviation: Exchange.exchanges[self.exchange]!["timezone"] ?? "GMT")
+        let timezone = TimeZone(abbreviation: Exchange.exchanges[exchange]!["timezone"] ?? "GMT")
         calendar.timeZone = timezone ?? .gmt
 
         let current = calendar.dateComponents(in: timezone ?? .gmt, from: Date())
@@ -53,12 +53,12 @@ class ChartViewModel: ObservableObject {
         let month: String = current.month! < 10 ? "0\(current.month!)" : String(current.month!)
         let day: String = current.day! < 10 ? "0\(current.day!)" : String(current.day!)
         
-        let date: String = "\(current.year!)-\(month)-\(day) " + Exchange.exchanges[self.exchange]!["close"]!
+        let date: String = "\(current.year!)-\(month)-\(day) " + Exchange.exchanges[exchange]!["close"]!
     
         return date
     }
     var timezone: String {
-        return Exchange.exchanges[self.exchange]!["timezone"] ?? "GMT"
+        return Exchange.exchanges[exchange]!["timezone"] ?? "GMT"
     }
     let chartOptions = ["1D", "1W", "1M", "1Y"]
     let dateFormatter = DateFormatter()
@@ -72,72 +72,72 @@ class ChartViewModel: ObservableObject {
     func fetchData() async {
         switch self.selectedType {
         case .oneDay, .oneWeek:
-            await get5Min(symbol: self.symbol)
+            await get5Min(symbol: symbol)
         case .oneMonth:
-            await getHourly(symbol: self.symbol)
+            await getHourly(symbol: symbol)
         default:
-            await getDaily(symbol: self.symbol)
+            await getDaily(symbol: symbol)
         }
     }
     
     func get5Min(symbol: String) async {
-        if self.fiveMinutesData.isEmpty {
-            self.fiveMinutesData = await self.chartService.get5Min()
+        if fiveMinutesData.isEmpty {
+            fiveMinutesData = await chartService.get5Min()
                     
-            if self.selectedType == .oneDay {
-                self.chartData = self.createDailyData(data: self.fiveMinutesData)
+            if selectedType == .oneDay {
+                chartData = createDailyData(data: fiveMinutesData)
             } else {
-                self.chartData = self.createWeeklyData(data: self.fiveMinutesData)
+                chartData = createWeeklyData(data: fiveMinutesData)
             }
             
-            self.xAxisData = self.xAxisChartData()
-            self.yAxisData = self.yAxisChartData()
+            xAxisData = xAxisChartData()
+            yAxisData = yAxisChartData()
         } else {
-            if self.selectedType == .oneDay {
-                self.chartData = self.createDailyData(data: self.fiveMinutesData)
+            if selectedType == .oneDay {
+                chartData = createDailyData(data: fiveMinutesData)
             } else {
-                self.chartData = self.createWeeklyData(data: self.fiveMinutesData)
+                chartData = createWeeklyData(data: fiveMinutesData)
             }
             
-            self.xAxisData = self.xAxisChartData()
-            self.yAxisData = self.yAxisChartData()
+            xAxisData = xAxisChartData()
+            yAxisData = yAxisChartData()
         }
         
-        self.isLoading = false
+        isLoading = false
     }
     
     func getHourly(symbol: String) async {
-        if self.hourlyData.isEmpty {
-            self.hourlyData = await self.chartService.getHourly()
+        if hourlyData.isEmpty {
+            hourlyData = await chartService.getHourly()
             
-            self.chartData = self.createMonthlyData(data: self.hourlyData)
-            self.xAxisData = self.xAxisChartData()
-            self.yAxisData = self.yAxisChartData()
+            chartData = createMonthlyData(data: hourlyData)
+            xAxisData = xAxisChartData()
+            yAxisData = yAxisChartData()
         } else {
-            self.chartData = self.createMonthlyData(data: self.hourlyData)
-            self.xAxisData = self.xAxisChartData()
-            self.yAxisData = self.yAxisChartData()
+            chartData = createMonthlyData(data: hourlyData)
+            xAxisData = xAxisChartData()
+            yAxisData = yAxisChartData()
         }
         
-        self.isLoading = false
+        isLoading = false
     }
     
     func getDaily(symbol: String) async {
-        if self.dailyData.isEmpty {
-            self.dailyData = await self.chartService.getDaily()
-            self.chartData = self.dailyData
-            self.xAxisData = self.xAxisChartData()
+        if dailyData.isEmpty {
+            dailyData = await chartService.getDaily().reversed()
+            chartData = dailyData
+            xAxisData = xAxisChartData()
             
-            self.minValues["1Y"] = self.dailyData.map {$0.open}.min()
-            self.maxValues["1Y"] = self.dailyData.map {$0.open}.max()
+            minValues["1Y"] = dailyData.map {$0.open}.min()
+            maxValues["1Y"] = dailyData.map {$0.open}.max()
             
-            self.yAxisData = self.yAxisChartData()
+            yAxisData = yAxisChartData()
         } else {
-            self.chartData = self.dailyData
-            self.xAxisData = self.xAxisChartData()
-            self.yAxisData = self.yAxisChartData()
+            chartData = dailyData
+            xAxisData = xAxisChartData()
+            yAxisData = yAxisChartData()
         }
-        self.isLoading = false
+        isLoading = false
     }
     
     func createDailyData(data: [ChartData]) -> [ChartData] {
@@ -150,8 +150,8 @@ class ChartViewModel: ObservableObject {
             }
         }
         
-        self.minValues["1D"] = daily.map {$0.open}.min()
-        self.maxValues["1D"] = daily.map {$0.open}.max()
+        minValues["1D"] = daily.map {$0.open}.min()
+        maxValues["1D"] = daily.map {$0.open}.max()
         
         return daily.reversed()
     }
@@ -172,8 +172,8 @@ class ChartViewModel: ObservableObject {
             }
         }
 
-        self.minValues["1W"] = weekly.map {$0.open}.min()
-        self.maxValues["1W"] = weekly.map {$0.open}.max()
+        minValues["1W"] = weekly.map {$0.open}.min()
+        maxValues["1W"] = weekly.map {$0.open}.max()
         
         return weekly.reversed()
     }
@@ -194,8 +194,8 @@ class ChartViewModel: ObservableObject {
             index += 1
         }
         
-        self.minValues["1M"] = monthly.map {$0.open}.min()
-        self.maxValues["1M"] = monthly.map {$0.open}.max()
+        minValues["1M"] = monthly.map {$0.open}.min()
+        maxValues["1M"] = monthly.map {$0.open}.max()
         
         return monthly.reversed()
     }
@@ -204,37 +204,37 @@ class ChartViewModel: ObservableObject {
         let timezone = TimeZone(abbreviation: "CET")
         dateFormatter.locale = Locale(identifier: "en_us")
         dateFormatter.timeZone = timezone
-        dateFormatter.dateFormat = self.dateFormat
+        dateFormatter.dateFormat = dateFormat
         
         var xAxisDateComponents = Set<DateComponents>()
         
         if let startDateString = chartData.first?.date {
-            let startDate = self.createDate(dateString: startDateString)
-            if self.selectedType == .oneDay {
-                let endDate = self.createDate(dateString: closeDate)
+            let startDate = createDate(dateString: startDateString)
+            if selectedType == .oneDay {
+                let endDate = createDate(dateString: closeDate)
                 xAxisDateComponents = getDateComponents(startDate: startDate, endDate: endDate, timezone: TimeZone(abbreviation: "CET")!)
             } else if let endDateString = chartData.last?.date {
-                let endDate = self.createDate(dateString: endDateString)
+                let endDate = createDate(dateString: endDateString)
                 xAxisDateComponents = getDateComponents(startDate: startDate, endDate: endDate, timezone: TimeZone(abbreviation: "CET")!)
             }
         }
         var map = [String: String]()
         var axisEnd: Int = chartData.count - 1
         
-        for (index, value) in self.chartData.enumerated() {
-            let dc = self.createDate(dateString: value.date).dateComponents(timezone: .gmt, selectedType: self.selectedType)
+        for (index, value) in chartData.enumerated() {
+            let dc = createDate(dateString: value.date).dateComponents(timezone: .gmt, selectedType: selectedType)
             
             if xAxisDateComponents.contains(dc) {
-                map[String(index)] = dateFormatter.string(from: self.createDate(dateString: value.date))
+                map[String(index)] = dateFormatter.string(from: createDate(dateString: value.date))
                 
                 xAxisDateComponents.remove(dc)
             }
         }
         
         if selectedType == .oneDay {
-            var date: Date = self.createDate(dateString: self.chartData.last!.date)
-            if date >= self.createDate(dateString: openDate) && date < self.createDate(dateString: closeDate) {
-                while date < self.createDate(dateString: closeDate) {
+            var date: Date = createDate(dateString: chartData.last!.date)
+            if date >= createDate(dateString: openDate) && date < createDate(dateString: closeDate) {
+                while date < createDate(dateString: closeDate) {
                     axisEnd += 1
                     date = Calendar.current.date(byAdding: .minute, value: 5, to: date)!
                     let dc = date.dateComponents(timezone: .gmt, selectedType: .oneDay)
@@ -250,8 +250,8 @@ class ChartViewModel: ObservableObject {
     }
     
     func yAxisChartData() -> ChartAxisData {
-        var lowest = self.minValues[self.selectedType.rawValue] ?? 0
-        var highest = self.maxValues[self.selectedType.rawValue] ?? 0
+        var lowest = minValues[selectedType.rawValue] ?? 0
+        var highest = maxValues[selectedType.rawValue] ?? 0
         
         let difference = highest - lowest
         let numberOfLines: Double = 4
@@ -312,28 +312,27 @@ class ChartViewModel: ObservableObject {
         var date = startDate
         
         if self.selectedType != .oneDay {
-            set.insert(startDate.dateComponents(timezone: .gmt, selectedType: self.selectedType))
+            set.insert(startDate.dateComponents(timezone: .gmt, selectedType: selectedType))
         }
         
         while date <= endDate {
             date = Calendar.current.date(byAdding: component, value: value, to: date)!
-            set.insert(date.dateComponents(timezone: .gmt, selectedType: self.selectedType))
+            set.insert(date.dateComponents(timezone: .gmt, selectedType: selectedType))
         }
-        
         return set
     }
     
     func createDate(dateString: String) -> Date {
         let formatter = DateFormatter()
-        formatter.timeZone = TimeZone(abbreviation: self.timezone)
+        formatter.timeZone = TimeZone(abbreviation: timezone)
         
         
         
-        if self.selectedType == .oneYear {
+        if selectedType == .oneYear {
             formatter.dateFormat = "yyyy-MM-dd"
         } else {
             formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         }
-        return formatter.date(from: dateString)!
+        return formatter.date(from: dateString) ?? Date()
     }
 }

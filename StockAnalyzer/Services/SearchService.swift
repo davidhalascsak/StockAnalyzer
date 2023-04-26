@@ -8,14 +8,11 @@ class SearchService: SearchServiceProtocol {
             let (data, _) = try await URLSession.shared.data(from: url, delegate: nil)
             let decoder = JSONDecoder()
             let searchResult = try? decoder.decode([Search].self, from: data)
-            if let searchResult = searchResult {
-                return searchResult
-            }
-        } catch let error {
-            print(error.localizedDescription)
+            
+            return searchResult ?? []
+        } catch {
+            return []
         }
-        
-        return []
     }
 }
 
@@ -36,7 +33,7 @@ class MockSearchService: SearchServiceProtocol {
             return []
         }
         else {
-            return self.searchResults.filter({$0.name.hasPrefix(text)})
+            return searchResults.filter({$0.name.hasPrefix(text)})
         }
     }
 }

@@ -19,10 +19,10 @@ class PostViewModel: ObservableObject {
         isUpdated = false
         let result = await postService.likePost(post: post)
         if result {
-            self.post.likes += 1
+            post.likes += 1
             
             withAnimation(.easeIn(duration: 0.3)) {
-                self.post.isLiked = true
+                post.isLiked = true
             }
         }
         
@@ -33,10 +33,10 @@ class PostViewModel: ObservableObject {
         isUpdated = false
         let result = await postService.unlikePost(post: post)
         if result {
-            self.post.likes -= 1
+            post.likes -= 1
             
             withAnimation(.easeIn(duration: 0.3)) {
-                self.post.isLiked = false
+                post.isLiked = false
             }
         }
        

@@ -101,6 +101,7 @@
 		ECB80DF929F9817300910473 /* PortfolioRowViewModel_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB80DF829F9817300910473 /* PortfolioRowViewModel_Tests.swift */; };
 		ECB80DFB29F9922100910473 /* PositionViewModel_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB80DFA29F9922100910473 /* PositionViewModel_Tests.swift */; };
 		ECB80DFD29F99E1A00910473 /* PositionRowViewModel_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB80DFC29F99E1A00910473 /* PositionRowViewModel_Tests.swift */; };
+		ECB80DFF29F9C5DF00910473 /* NewCommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB80DFE29F9C5DF00910473 /* NewCommentView.swift */; };
 		ECC2615729C1DBFD00CE1B7C /* ApiKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECC2615629C1DBFD00CE1B7C /* ApiKeys.swift */; };
 		ECC2615929C1E1C500CE1B7C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = ECC2615829C1E1C400CE1B7C /* GoogleService-Info.plist */; };
 		ECCDEFA829A3C2C500034C76 /* CommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCDEFA729A3C2C500034C76 /* CommentView.swift */; };
@@ -230,6 +231,7 @@
 		ECB80DF829F9817300910473 /* PortfolioRowViewModel_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioRowViewModel_Tests.swift; sourceTree = "<group>"; };
 		ECB80DFA29F9922100910473 /* PositionViewModel_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionViewModel_Tests.swift; sourceTree = "<group>"; };
 		ECB80DFC29F99E1A00910473 /* PositionRowViewModel_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionRowViewModel_Tests.swift; sourceTree = "<group>"; };
+		ECB80DFE29F9C5DF00910473 /* NewCommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCommentView.swift; sourceTree = "<group>"; };
 		ECC2615629C1DBFD00CE1B7C /* ApiKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiKeys.swift; sourceTree = "<group>"; };
 		ECC2615829C1E1C400CE1B7C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		ECCDEFA729A3C2C500034C76 /* CommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentView.swift; sourceTree = "<group>"; };
@@ -686,6 +688,7 @@
 				EC49E90B29A39399003AE346 /* CommentSectionView.swift */,
 				ECCDEFA729A3C2C500034C76 /* CommentView.swift */,
 				EC13277B299E3F760049F993 /* NewPostView.swift */,
+				ECB80DFE29F9C5DF00910473 /* NewCommentView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -880,6 +883,7 @@
 				EC8FA49E29C0FD12009CE80E /* PriceViewModel.swift in Sources */,
 				ECF669D22997A2E800855894 /* FeedViewModel.swift in Sources */,
 				ECC2615729C1DBFD00CE1B7C /* ApiKeys.swift in Sources */,
+				ECB80DFF29F9C5DF00910473 /* NewCommentView.swift in Sources */,
 				EC02CC6D29DB5C640015690E /* PortfolioService.swift in Sources */,
 				EC82004D29CB79140014E95C /* BarChartView.swift in Sources */,
 				EC49E91229A398FF003AE346 /* CommentService.swift in Sources */,

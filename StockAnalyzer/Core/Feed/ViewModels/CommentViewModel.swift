@@ -19,13 +19,13 @@ class CommentViewModel: ObservableObject {
     
     func likeComment() async {
         isUpdated = false
-        let result = await commentService.likeComment(post: self.post, comment: self.comment)
+        let result = await commentService.likeComment(post: post, comment: comment)
         
         if result {
-            self.comment.likes += 1
+            comment.likes += 1
             
             withAnimation(.easeIn(duration: 0.3)) {
-                self.comment.isLiked = true
+                comment.isLiked = true
             }
         }
         
@@ -34,13 +34,13 @@ class CommentViewModel: ObservableObject {
     
     func unlikeComment() async {
         isUpdated = false
-        let result = await commentService.unlikeComment(post: self.post, comment: self.comment)
+        let result = await commentService.unlikeComment(post: post, comment: comment)
         
         if result {
-            self.comment.likes -= 1
+            comment.likes -= 1
             
             withAnimation(.easeIn(duration: 0.3)) {
-                self.comment.isLiked = false
+                comment.isLiked = false
             }
             isUpdated = true
         }

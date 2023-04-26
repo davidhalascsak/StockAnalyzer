@@ -24,8 +24,8 @@ class NewsService: NewsServiceProtocol {
             if let newsData = newsData {
                 return newsData.data
             }
-        } catch let error {
-            print(error.localizedDescription)
+        } catch {
+            return []
         }
         
         return []
@@ -65,7 +65,7 @@ class MockNewsService: NewsServiceProtocol {
     
     func fetchData() async -> [News] {
         if let symbol = symbol {
-            return self.news.filter({$0.tickers.contains(symbol)})
+            return self.news.filter({$0.tickers?.contains(symbol) ?? false})
         }
         return self.news
     }

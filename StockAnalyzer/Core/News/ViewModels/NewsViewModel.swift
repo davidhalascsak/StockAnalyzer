@@ -14,6 +14,7 @@ class NewsViewModel: ObservableObject  {
     
     func fetchNews() async {
         self.news = await newsService.fetchData()
+        
         self.sortNews()
         
         self.isLoading = false

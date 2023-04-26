@@ -34,14 +34,12 @@ struct PortfolioView: View {
         .onChange(of: isSettingsPresented, perform: { newValue in
             if newValue == false {
                 Task {
-                    vm.isLoading = true
                     await vm.fetchAssets()
                 }
             }
         })
         .task {
             if vm.sessionService.getUserId() != nil {
-                vm.isLoading = true
                 await vm.fetchAssets()
             }
         }

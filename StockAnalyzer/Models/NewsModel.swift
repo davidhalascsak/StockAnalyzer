@@ -7,7 +7,7 @@ struct News: Codable, Hashable {
     let date: String
     let source_name: String
     let sentiment: String
-    let tickers: [String]
+    let tickers: [String]?
 }
 
 struct NewsData: Codable, Hashable {

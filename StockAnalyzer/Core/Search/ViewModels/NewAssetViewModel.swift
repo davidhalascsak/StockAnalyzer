@@ -50,7 +50,7 @@ class NewAssetViewModel: ObservableObject {
         
         if value != 0 {
             let position = Position(symbol: symbol, date: formatter.string(from: self.buyDate), units: self.units, price: self.price, investedAmount: value)
-            await self.portfolioService.addAsset(position: position)
+            await self.portfolioService.addPosition(position: position)
         }
     }
 }

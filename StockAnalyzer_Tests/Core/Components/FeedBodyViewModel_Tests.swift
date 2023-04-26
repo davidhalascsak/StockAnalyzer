@@ -40,7 +40,7 @@ final class FeedBodyViewModel_Tests: XCTestCase {
     
     func test_FeedBodyViewModel_fetchPosts_SymbolIsEmpty() async throws {
         //Given
-        let symbol: String = ""
+        let symbol: String? = nil
         let vm = FeedBodyViewModel(symbol: symbol, userService: MockUserService(), postService: MockPostService(), imageService: MockImageService())
         
         //When

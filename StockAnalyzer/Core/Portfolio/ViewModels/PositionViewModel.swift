@@ -5,7 +5,7 @@ import UIKit
 class PositionViewModel: ObservableObject {
     @Published var companyProfile: Company?
     @Published var price: Price?
-    @Published var isLoading: Bool = false
+    @Published var isLoading: Bool = true
     @Published var positionViewModels: [String: PositionRowViewModel] = [:]
     @Published var shouldDismiss: Bool = false
     
@@ -28,12 +28,15 @@ class PositionViewModel: ObservableObject {
         for position in asset.positions ?? [] {
             let vm = PositionRowViewModel(position: position, stockService: StockService(symbol: position.symbol))
             positionViewModels[position.id ?? ""] = vm
+            await vm.calculateCurrentValue()
         }
+        
+        self.isLoading = false
     }
     
     func changeInPrice() -> String {
         if let price = self.price?.price, let change = self.price?.change {
-            let changeInPercentage = String(format: "%.2f", (change / (price + change)) * 100)
+            let changeInPercentage = String(format: "%.2f", (change / (price - change)) * 100)
             
             return "\(String(format: "%.2f", change))(\(changeInPercentage)%)"
         }
@@ -46,7 +49,7 @@ class PositionViewModel: ObservableObject {
         self.price = await self.stockService.fetchPriceInRealTime()
         for position in self.asset.positions ?? [] {
             if let vm = positionViewModels[position.symbol] {
-                await vm.updatePrice()
+                await vm.calculateCurrentValue()
             }
         }
     }
@@ -58,6 +61,8 @@ class PositionViewModel: ObservableObject {
             let result = await self.portfolioService.deletePosition(asset: asset, position: position)
             if result {
                 self.asset.positions?.remove(at: index)
+                self.positionViewModels.removeValue(forKey: position.id ?? "")
+                self.asset.positionCount -= 1
             }
         }
     }

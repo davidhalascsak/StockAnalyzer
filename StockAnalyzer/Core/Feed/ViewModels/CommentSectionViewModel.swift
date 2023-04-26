@@ -3,7 +3,12 @@ import Firebase
 
 @MainActor
 class CommentSectionViewModel: ObservableObject {
+    @Published var isLoading: Bool = true
     @Published var comments: [Comment] = []
+    @Published var commentBody: String = ""
+    @Published var showAlert: Bool = false
+    @Published var alertTitle: String = ""
+    @Published var alertText: String = ""
     
     let post: Post
     var commentService: CommentServiceProtocol
@@ -31,10 +36,19 @@ class CommentSectionViewModel: ObservableObject {
                 self.comments[i].isLiked = await self.commentService.checkIfCommentIsLiked(comment: comment)
             }
         }
+        
+        self.isLoading = false
     }
     
-    func createComment(body: String) async {
-        await commentService.createComment(post: self.post, body: body)
-        await self.fetchComments()
+    func createComment() async {
+        let result = await commentService.createComment(post: self.post, body: self.commentBody)
+        if result {
+            await self.fetchComments()
+        } else {
+            self.showAlert.toggle()
+            self.alertTitle = "Error"
+            self.alertText = "Error while adding the comment."
+        }
+        self.commentBody = ""
     }
 }

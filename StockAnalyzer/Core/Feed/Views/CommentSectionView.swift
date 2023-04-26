@@ -12,17 +12,23 @@ struct CommentSectionView: View {
     var body: some View {
         NavigationStack {
             VStack(alignment: .leading) {
-                ScrollView(showsIndicators: false) {
-                    ForEach(vm.comments) { comment in
-                        CommentView(post: vm.post, comment: comment, commentService: CommentService(), sessionService: SessionService())
+                if vm.isLoading == false {
+                    ScrollView(showsIndicators: false) {
+                        ForEach(vm.comments) { comment in
+                            CommentView(post: vm.post, comment: comment, commentService: CommentService(), sessionService: SessionService())
+                        }
                     }
-                }
-                if vm.sessionService.getUserId() != nil {
-                    CommentBoxView(vm: vm)
+                    if vm.sessionService.getUserId() != nil {
+                        CommentBoxView(vm: vm)
+                    } else {
+                        Color.white
+                            .frame(height: 25)
+                            .frame(maxWidth: .infinity)
+                    }
                 } else {
-                    Color.white
-                        .frame(height: 25)
-                        .frame(maxWidth: .infinity)
+                    Spacer()
+                    ProgressView()
+                    Spacer()
                 }
             }
             .task {
@@ -40,14 +46,14 @@ struct CommentSectionView: View {
                     }
             }
         }
-    }
-    
-    func formatDate(stamp: Timestamp) -> String {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .short
-        formatter.timeStyle = .none
-        
-        return formatter.string(from: stamp.dateValue())
+        .alert(vm.alertTitle, isPresented: $vm.showAlert) {
+            Button("Ok", role: .cancel) {
+                vm.alertTitle = ""
+                vm.alertText = ""
+            }
+        } message: {
+            Text(vm.alertText)
+        }
     }
 }
 
@@ -61,7 +67,7 @@ struct PostDetailView_Previews: PreviewProvider {
 
 struct CommentBoxView: View {
     @ObservedObject var vm: CommentSectionViewModel
-    @State var textContent: String = ""
+    
     
     var body: some View {
         HStack {
@@ -69,16 +75,15 @@ struct CommentBoxView: View {
                 .frame(width: 40, height: 40)
                 .cornerRadius(10)
             HStack {
-                TextField("Add a comment..", text: $textContent)
+                TextField("Add a comment..", text: $vm.commentBody)
                     .autocorrectionDisabled()
                 Image(systemName: "paperplane.circle.fill")
                     .font(.title2)
-                    .foregroundColor(Color.blue.opacity(textContent.count > 0 ? 1.0 : 0.5))
+                    .foregroundColor(Color.blue.opacity(vm.commentBody.count > 0 ? 1.0 : 0.5))
                     .onTapGesture {
-                        if textContent.count > 0 {
+                        if vm.commentBody.count > 0 {
                             Task {
-                                await vm.createComment(body: textContent)
-                                textContent = ""
+                                await vm.createComment()
                             }
                         }
                     }

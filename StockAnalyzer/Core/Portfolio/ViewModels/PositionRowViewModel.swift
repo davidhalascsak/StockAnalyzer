@@ -5,7 +5,7 @@ class PositionRowViewModel: ObservableObject {
     @Published var stockPrice: Price?
     @Published var difference: Double = 0.0
     @Published var currentValue: Double = 0.0
-    @Published var isLoading: Bool = false
+    @Published var isLoading: Bool = true
     
     let position: Position
     let stockService: StockServiceProtocol
@@ -15,22 +15,17 @@ class PositionRowViewModel: ObservableObject {
         self.stockService = stockService
     }
     
-    func fetchPrice() async {
+    func calculateCurrentValue() async {
         self.stockPrice = await stockService.fetchPriceInRealTime()
-    }
-    
-    func calculateCurrentValue() {
+        
         let multiplier = (self.stockPrice?.price ?? 0.0) / position.price
-        self.currentValue = multiplier * position.units * position.price
+        self.currentValue = multiplier * position.investedAmount
         self.difference = currentValue - self.position.investedAmount
+        
+        self.isLoading = false
     }
     
-    func updatePrice() async {
-        await self.fetchPrice()
-        self.calculateCurrentValue()
-    }
-    
-    func toString(value: Double) -> String {
+    func formatValue(value: Double) -> String {
         if value < 0 {
             let text = String(format: "%.2f", value)
             return "-$\(text[1..<text.count])"

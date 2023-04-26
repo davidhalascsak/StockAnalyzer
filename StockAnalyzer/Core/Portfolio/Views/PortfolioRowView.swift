@@ -16,7 +16,7 @@ struct PortfolioRowView: View {
                     Spacer()
                     Text("$\(String(format: "%.2f", vm.asset.investedAmount))")
                     Spacer()
-                    Text(vm.toString(value: vm.difference))
+                    Text(vm.formatValue(value: vm.difference))
                         .foregroundColor(vm.difference >= 0 ? Color.green : Color.red)
                     Spacer()
                     Text("$\(String(format: "%.2f", vm.currentValue))")
@@ -27,12 +27,6 @@ struct PortfolioRowView: View {
             else {
                 ProgressView()
             }
-        }
-        .task {
-            vm.isLoading = true
-            await vm.fetchPrice()
-            vm.calculateCurrentValue()
-            vm.isLoading = false
         }
     }
 }

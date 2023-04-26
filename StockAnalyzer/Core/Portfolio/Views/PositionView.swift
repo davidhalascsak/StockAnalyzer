@@ -38,9 +38,7 @@ struct PositionView: View {
             }
         }
         .task {
-            vm.isLoading = true
             await vm.fetchData()
-            vm.isLoading = false
         }
         .navigationBarBackButtonHidden()
         .toolbar {
@@ -98,7 +96,7 @@ struct PositionView: View {
         if let index = index {
             Task {
                 await vm.deletePosition(at: index)
-                if vm.asset.positions?.count == 0 {
+                if vm.asset.positionCount == 0 {
                     dismiss()
                 }
             }

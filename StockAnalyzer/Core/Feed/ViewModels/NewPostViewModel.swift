@@ -1,9 +1,13 @@
 import Foundation
 
+@MainActor
 class NewPostViewModel: ObservableObject {
-    @Published var textContent: String = ""
-    let symbol: String?
+    @Published var postBody: String = ""
+    @Published var alertTitle: String = ""
+    @Published var alertText: String = ""
+    @Published var showAlert: Bool = false
     
+    let symbol: String?
     let postService: PostServiceProtocol
     
     init(symbol: String?, postService: PostServiceProtocol) {
@@ -12,7 +16,12 @@ class NewPostViewModel: ObservableObject {
     }
     
     func createPost() async {
-        await postService.createPost(body: textContent, symbol: symbol)
+        let result = await self.postService.createPost(body: postBody, symbol: symbol)
+        if result == false {
+            self.showAlert.toggle()
+            self.alertTitle = "Error"
+            self.alertText = "Error while creating the post."
+        }
+        self.postBody = ""
     }
-    
 }

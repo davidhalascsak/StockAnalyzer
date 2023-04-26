@@ -16,7 +16,7 @@ struct NewPostView: View {
     var body: some View {
         NavigationStack {
             VStack {
-                TextField("Type here...", text: $vm.textContent, axis: .vertical)
+                TextField("Type here...", text: $vm.postBody, axis: .vertical)
                     .autocorrectionDisabled()
                     .focused($focusedField, equals: .field)
                     .padding()
@@ -28,12 +28,14 @@ struct NewPostView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing){
                     Text("Post")
-                        .foregroundColor(Color.black.opacity(vm.textContent.count > 0 ? 1.0 : 0.5))
+                        .foregroundColor(Color.black.opacity(vm.postBody.count > 0 ? 1.0 : 0.5))
                         .onTapGesture {
-                            if vm.textContent.count > 0 {
+                            if vm.postBody.count > 0 {
                                 Task {
                                     await vm.createPost()
-                                    dismiss()
+                                    if !vm.showAlert {
+                                        dismiss()
+                                    }
                                 }
                             }
                         }
@@ -47,6 +49,15 @@ struct NewPostView: View {
             }
             .onAppear {
                 self.focusedField = .field
+            }
+            .alert(vm.alertTitle, isPresented: $vm.showAlert) {
+                Button("Ok", role: .cancel) {
+                    vm.alertTitle = ""
+                    vm.alertText = ""
+                    dismiss()
+                }
+            } message: {
+                Text(vm.alertText)
             }
         }
     }

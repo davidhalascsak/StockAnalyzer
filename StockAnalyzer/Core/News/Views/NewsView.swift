@@ -7,7 +7,7 @@ struct NewsView: View {
     @State var isSettingsPresented: Bool = false
     
     init(newsService: NewsServiceProtocol) {
-        _vm = StateObject(wrappedValue: NewsViewModel(newsService: NewsService(symbol: nil)))
+        _vm = StateObject(wrappedValue: NewsViewModel(newsService: newsService))
     }
     
     var body: some View {

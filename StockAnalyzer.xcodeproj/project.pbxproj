@@ -94,6 +94,13 @@
 		ECB59B9229F8155E00CBE51D /* SearchViewModel_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB59B9129F8155E00CBE51D /* SearchViewModel_Tests.swift */; };
 		ECB59B9429F8505F00CBE51D /* FeedViewModel_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB59B9329F8505F00CBE51D /* FeedViewModel_Tests.swift */; };
 		ECB59B9629F8524500CBE51D /* PostViewModel_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB59B9529F8524500CBE51D /* PostViewModel_Tests.swift */; };
+		ECB80DE929F9558600910473 /* CommentSectionViewModel_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB80DE829F9558600910473 /* CommentSectionViewModel_Tests.swift */; };
+		ECB80DEB29F95BBF00910473 /* CommentViewModel_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB80DEA29F95BBF00910473 /* CommentViewModel_Tests.swift */; };
+		ECB80DED29F95E8C00910473 /* NewPostViewModel_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB80DEC29F95E8C00910473 /* NewPostViewModel_Tests.swift */; };
+		ECB80DF729F97D3700910473 /* PortfolioViewModel_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB80DF629F97D3700910473 /* PortfolioViewModel_Tests.swift */; };
+		ECB80DF929F9817300910473 /* PortfolioRowViewModel_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB80DF829F9817300910473 /* PortfolioRowViewModel_Tests.swift */; };
+		ECB80DFB29F9922100910473 /* PositionViewModel_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB80DFA29F9922100910473 /* PositionViewModel_Tests.swift */; };
+		ECB80DFD29F99E1A00910473 /* PositionRowViewModel_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB80DFC29F99E1A00910473 /* PositionRowViewModel_Tests.swift */; };
 		ECC2615729C1DBFD00CE1B7C /* ApiKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECC2615629C1DBFD00CE1B7C /* ApiKeys.swift */; };
 		ECC2615929C1E1C500CE1B7C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = ECC2615829C1E1C400CE1B7C /* GoogleService-Info.plist */; };
 		ECCDEFA829A3C2C500034C76 /* CommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCDEFA729A3C2C500034C76 /* CommentView.swift */; };
@@ -216,6 +223,13 @@
 		ECB59B9129F8155E00CBE51D /* SearchViewModel_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel_Tests.swift; sourceTree = "<group>"; };
 		ECB59B9329F8505F00CBE51D /* FeedViewModel_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewModel_Tests.swift; sourceTree = "<group>"; };
 		ECB59B9529F8524500CBE51D /* PostViewModel_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewModel_Tests.swift; sourceTree = "<group>"; };
+		ECB80DE829F9558600910473 /* CommentSectionViewModel_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentSectionViewModel_Tests.swift; sourceTree = "<group>"; };
+		ECB80DEA29F95BBF00910473 /* CommentViewModel_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewModel_Tests.swift; sourceTree = "<group>"; };
+		ECB80DEC29F95E8C00910473 /* NewPostViewModel_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPostViewModel_Tests.swift; sourceTree = "<group>"; };
+		ECB80DF629F97D3700910473 /* PortfolioViewModel_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioViewModel_Tests.swift; sourceTree = "<group>"; };
+		ECB80DF829F9817300910473 /* PortfolioRowViewModel_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioRowViewModel_Tests.swift; sourceTree = "<group>"; };
+		ECB80DFA29F9922100910473 /* PositionViewModel_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionViewModel_Tests.swift; sourceTree = "<group>"; };
+		ECB80DFC29F99E1A00910473 /* PositionRowViewModel_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionRowViewModel_Tests.swift; sourceTree = "<group>"; };
 		ECC2615629C1DBFD00CE1B7C /* ApiKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiKeys.swift; sourceTree = "<group>"; };
 		ECC2615829C1E1C400CE1B7C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		ECCDEFA729A3C2C500034C76 /* CommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentView.swift; sourceTree = "<group>"; };
@@ -501,18 +515,89 @@
 		ECA9AE0529F541C100DDC19B /* StockAnalyzer_Tests */ = {
 			isa = PBXGroup;
 			children = (
-				ECA9AE0D29F553CC00DDC19B /* AuthViewModel_Tests.swift */,
-				ECDBEAB229F59AC800ABA499 /* SettingsViewModel_Tests.swift */,
-				ECB59B8129F6EB0500CBE51D /* ImageViewModel_Tests.swift */,
-				ECB59B8929F6FA8400CBE51D /* FeedBodyViewModel_Tests.swift */,
-				ECB59B8B29F7077800CBE51D /* BarChartViewModel_Tests.swift */,
-				ECB59B8D29F8045200CBE51D /* NewsRowViewModel_Tests.swift */,
-				ECB59B8F29F80B9600CBE51D /* NewsViewModel_Tests.swift */,
-				ECB59B9129F8155E00CBE51D /* SearchViewModel_Tests.swift */,
-				ECB59B9329F8505F00CBE51D /* FeedViewModel_Tests.swift */,
-				ECB59B9529F8524500CBE51D /* PostViewModel_Tests.swift */,
+				ECB80DEE29F9749100910473 /* Core */,
 			);
 			path = StockAnalyzer_Tests;
+			sourceTree = "<group>";
+		};
+		ECB80DEE29F9749100910473 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				ECB80DF529F97D0B00910473 /* Portfolio */,
+				ECB80DF429F97CAD00910473 /* Search */,
+				ECB80DF329F97C7900910473 /* Feed */,
+				ECB80DF229F97C6000910473 /* News */,
+				ECB80DF129F974AD00910473 /* Main */,
+				ECB80DEF29F9749700910473 /* Components */,
+				ECB80DF029F974A000910473 /* Authentication */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		ECB80DEF29F9749700910473 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				ECB59B8929F6FA8400CBE51D /* FeedBodyViewModel_Tests.swift */,
+				ECB59B8B29F7077800CBE51D /* BarChartViewModel_Tests.swift */,
+				ECB59B8129F6EB0500CBE51D /* ImageViewModel_Tests.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		ECB80DF029F974A000910473 /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				ECA9AE0D29F553CC00DDC19B /* AuthViewModel_Tests.swift */,
+			);
+			path = Authentication;
+			sourceTree = "<group>";
+		};
+		ECB80DF129F974AD00910473 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				ECDBEAB229F59AC800ABA499 /* SettingsViewModel_Tests.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		ECB80DF229F97C6000910473 /* News */ = {
+			isa = PBXGroup;
+			children = (
+				ECB59B8F29F80B9600CBE51D /* NewsViewModel_Tests.swift */,
+				ECB59B8D29F8045200CBE51D /* NewsRowViewModel_Tests.swift */,
+			);
+			path = News;
+			sourceTree = "<group>";
+		};
+		ECB80DF329F97C7900910473 /* Feed */ = {
+			isa = PBXGroup;
+			children = (
+				ECB59B9529F8524500CBE51D /* PostViewModel_Tests.swift */,
+				ECB59B9329F8505F00CBE51D /* FeedViewModel_Tests.swift */,
+				ECB80DE829F9558600910473 /* CommentSectionViewModel_Tests.swift */,
+				ECB80DEA29F95BBF00910473 /* CommentViewModel_Tests.swift */,
+				ECB80DEC29F95E8C00910473 /* NewPostViewModel_Tests.swift */,
+			);
+			path = Feed;
+			sourceTree = "<group>";
+		};
+		ECB80DF429F97CAD00910473 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				ECB59B9129F8155E00CBE51D /* SearchViewModel_Tests.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		ECB80DF529F97D0B00910473 /* Portfolio */ = {
+			isa = PBXGroup;
+			children = (
+				ECB80DF629F97D3700910473 /* PortfolioViewModel_Tests.swift */,
+				ECB80DF829F9817300910473 /* PortfolioRowViewModel_Tests.swift */,
+				ECB80DFA29F9922100910473 /* PositionViewModel_Tests.swift */,
+				ECB80DFC29F99E1A00910473 /* PositionRowViewModel_Tests.swift */,
+			);
+			path = Portfolio;
 			sourceTree = "<group>";
 		};
 		ECDBEAA829F59A3900ABA499 /* StockAnalyzer_UITests */ = {
@@ -868,15 +953,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ECB80DEB29F95BBF00910473 /* CommentViewModel_Tests.swift in Sources */,
 				ECB59B8A29F6FA8400CBE51D /* FeedBodyViewModel_Tests.swift in Sources */,
 				ECA9AE0E29F553CC00DDC19B /* AuthViewModel_Tests.swift in Sources */,
+				ECB80DE929F9558600910473 /* CommentSectionViewModel_Tests.swift in Sources */,
 				ECB59B9229F8155E00CBE51D /* SearchViewModel_Tests.swift in Sources */,
 				ECB59B9429F8505F00CBE51D /* FeedViewModel_Tests.swift in Sources */,
+				ECB80DF929F9817300910473 /* PortfolioRowViewModel_Tests.swift in Sources */,
 				ECDBEAB329F59AC800ABA499 /* SettingsViewModel_Tests.swift in Sources */,
+				ECB80DF729F97D3700910473 /* PortfolioViewModel_Tests.swift in Sources */,
 				ECB59B8C29F7077800CBE51D /* BarChartViewModel_Tests.swift in Sources */,
+				ECB80DED29F95E8C00910473 /* NewPostViewModel_Tests.swift in Sources */,
+				ECB80DFB29F9922100910473 /* PositionViewModel_Tests.swift in Sources */,
 				ECB59B8E29F8045200CBE51D /* NewsRowViewModel_Tests.swift in Sources */,
 				ECB59B8229F6EB0500CBE51D /* ImageViewModel_Tests.swift in Sources */,
 				ECB59B9629F8524500CBE51D /* PostViewModel_Tests.swift in Sources */,
+				ECB80DFD29F99E1A00910473 /* PositionRowViewModel_Tests.swift in Sources */,
 				ECB59B9029F80B9600CBE51D /* NewsViewModel_Tests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

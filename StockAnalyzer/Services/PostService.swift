@@ -75,8 +75,8 @@ class PostService: PostServiceProtocol {
         }
     }
     
-    func createPost(body: String, symbol: String?) async {
-        guard let userId = Auth.auth().currentUser?.uid else {return}
+    func createPost(body: String, symbol: String?) async -> Bool {
+        guard let userId = Auth.auth().currentUser?.uid else {return false}
         
         var data: [String : Any]
         
@@ -85,7 +85,14 @@ class PostService: PostServiceProtocol {
         } else {
             data = ["body": body, "likes": 0, "comments": 0, "userRef": userId, "timestamp": Timestamp(date: Date()), "symbol": ""]
         }
-        _ = try? await db.collection("posts").addDocument(data: data)
+        
+        do {
+            _ = try await db.collection("posts").addDocument(data: data)
+            return true
+        } catch {
+            return false
+        }
+        
     }
 }
 
@@ -150,7 +157,7 @@ class MockPostService: PostServiceProtocol {
         return false
     }
     
-    func createPost(body: String, symbol: String?) async {
+    func createPost(body: String, symbol: String?) async -> Bool{
         if let symbol = symbol {
             let newPost = Post(userRef: "asd123", body: body, timestamp: Timestamp(), likes: 0, comments: 0, symbol: symbol)
             posts.append(newPost)
@@ -159,6 +166,8 @@ class MockPostService: PostServiceProtocol {
             let newPost = Post(userRef: "asd123", body: body, timestamp: Timestamp(), likes: 0, comments: 0, symbol: "")
             posts.append(newPost)
         }
+        
+        return true
     }
 }
 
@@ -167,5 +176,5 @@ protocol PostServiceProtocol {
     func checkIfPostIsLiked(post: Post) async -> Bool
     func likePost(post: Post) async -> Bool
     func unlikePost(post: Post) async -> Bool
-    func createPost(body: String, symbol: String?) async
+    func createPost(body: String, symbol: String?) async -> Bool
 }

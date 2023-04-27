@@ -48,8 +48,10 @@ struct NewAssetView: View {
                 Spacer()
                 Button {
                     Task {
-                        await vm.addAssetToPortfolio()
-                        dismiss()
+                        await vm.addPositionToPortfolio()
+                        if !vm.showAlert {
+                            dismiss()
+                        }
                     }
                 } label: {
                     Text("Add")
@@ -82,6 +84,14 @@ struct NewAssetView: View {
                 await vm.fetchPrice()
                 vm.calculateValue()
             }
+        }
+        .alert(vm.alertTitle, isPresented: $vm.showAlert) {
+            Button("Ok", role: .cancel) {
+                vm.alertTitle = ""
+                vm.alertText = ""
+            }
+        } message: {
+            Text(vm.alertText)
         }
     }
 }

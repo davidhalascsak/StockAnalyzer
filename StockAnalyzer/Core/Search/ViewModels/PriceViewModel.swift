@@ -19,4 +19,3 @@ class PriceViewModel: ObservableObject {
         self.stockPrice = await self.stockService.fetchPriceInRealTime()
     }
 }
-

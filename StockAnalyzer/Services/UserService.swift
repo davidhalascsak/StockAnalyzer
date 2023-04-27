@@ -21,16 +21,10 @@ class UserService: UserServiceProtocol {
         return user
     }
     
-    func createUser(user: User) async throws -> Bool {
+    func createUser(user: User) async throws {
         let data = ["username": user.username, "email": user.email, "location": user.location, "imageUrl": user.imageUrl]
         
-        do {
-            try await db.collection("users").document(user.id ?? "").setData(data)
-            
-            return true
-        } catch {
-            return false
-        }
+        try await db.collection("users").document(user.id ?? "").setData(data)
     }
 }
 
@@ -53,15 +47,13 @@ class MockUserService: UserServiceProtocol {
         return users.first(where: {$0.id == id})
     }
     
-    func createUser(user: User) async throws -> Bool {
+    func createUser(user: User) async throws {
         users.append(user)
-        
-        return true
     }
 }
 
 protocol UserServiceProtocol {
     func fetchAllUser() async -> [User]
     func fetchUser(id: String) async -> User?
-    func createUser(user: User) async throws -> Bool
+    func createUser(user: User) async throws
 }

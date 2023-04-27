@@ -20,28 +20,6 @@ class StockViewModel: ObservableObject {
     func fetchData() async {
         self.companyProfile = await self.stockService.fetchProfile()
     }
-    
-    func decreaseInPercentage(price: Double, change: Double) -> String {
-        let result = (change / price) * 100
-        let addition = change >= 0 ? "+" : ""
-        
-        return "\(addition)\(String(format: "%.2f", result))"
-    }
-    
-    func createDate(timestamp: String) -> String {
-        let formatter = DateFormatter()
-        formatter.locale = Locale(identifier: "US_POSIX")
-        formatter.dateFormat = "E, d MMM y HH:mm:ss z"
-        
-        let date = formatter.date(from: timestamp)
-        
-        formatter.dateFormat = "yyyy-MM-dd"
-        
-        if let date = date {
-            return formatter.string(from: date)
-        }
-        return "unknown date"
-    }
 }
 
 enum ViewOption {

@@ -27,7 +27,6 @@ struct HomeView: View {
             }
         }
         .task {
-            vm.isDownloadingNews = true
             await vm.fetchNews()
         }
     }

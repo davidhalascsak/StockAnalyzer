@@ -151,7 +151,7 @@ class AuthViewModel: ObservableObject {
         
         guard let image = UIImage(named: "default_avatar") else {
             alertTitle = "Registration Error"
-            alertText = "Error while creating the user!0"
+            alertText = "Error while creating the user!"
             showAlert.toggle()
             isCorrect.toggle()
             
@@ -160,7 +160,7 @@ class AuthViewModel: ObservableObject {
         
         guard let imageUrl = await imageService.uploadImage(image: image) else {
             alertTitle = "Registration Error"
-            alertText = "Error while creating the user!1"
+            alertText = "Error while creating the user!"
             showAlert.toggle()
             isCorrect.toggle()
             
@@ -173,7 +173,7 @@ class AuthViewModel: ObservableObject {
             alertTitle = "Registration Error"
             alertText = "The email is already in use!"
             showAlert.toggle()
-            _ = logout()
+            logout()
             
             return
         }
@@ -188,7 +188,7 @@ class AuthViewModel: ObservableObject {
                 alertTitle = "Registration Error"
                 alertText = "Error while saving the user!"
                 showAlert.toggle()
-                _ = logout()
+                logout()
                 
                 return
             }
@@ -197,7 +197,7 @@ class AuthViewModel: ObservableObject {
             _ = logout()
         } else {
             alertTitle = "Registration Error"
-            alertText = "Error while creating the user object!2"
+            alertText = "Error while creating the user object!"
             showAlert.toggle()
             
             return

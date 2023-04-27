@@ -12,7 +12,7 @@ struct AboutView: View {
             Text(company.description)
                 .multilineTextAlignment(.leading)
                 .padding(.bottom, 5)
-            HStack {
+            HStack(alignment: .top) {
                 VStack(alignment: .leading) {
                     Text("Sector")
                         .fontWeight(.semibold)

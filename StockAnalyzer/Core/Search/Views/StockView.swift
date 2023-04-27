@@ -74,7 +74,7 @@ struct StockView: View {
                         }
                     }
                 }
-                .overlay(alignment: .bottomTrailing, content: {
+                .overlay(alignment: .bottomTrailing) {
                     if vm.option == .home && vm.showPencil && vm.sessionService.getUserId() != nil {
                         Image(systemName: "pencil")
                             .font(.title)
@@ -88,14 +88,14 @@ struct StockView: View {
                             }
                             .offset(x: vm.showPencil ? 0 : 100)
                     }
-                })
-                .fullScreenCover(isPresented: $isNewPostPresented, content: {
+                }
+                .fullScreenCover(isPresented: $isNewPostPresented) {
                     NewPostView(symbol: vm.symbol, postService: PostService())
-                })
-                .sheet(isPresented: $isAddAssetPresented, content: {
+                }
+                .sheet(isPresented: $isAddAssetPresented) {
                     NewAssetView(symbol: vm.symbol, portfolioService: PortfolioService(), stockService: StockService(symbol: vm.symbol))
                         .presentationDetents([.fraction(0.5)])
-                })
+                }
                 .sync($vm.isNewPostPresented, with:  $isNewPostPresented)
             } else {
                 ProgressView()

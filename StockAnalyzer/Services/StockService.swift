@@ -124,7 +124,7 @@ class MockStockService: StockServiceProtocol {
     }
     
     func fetchPriceAtDate(date: String) async -> Double {
-        return Double.random(in: 0..<10)
+        return 100
     }
     
     func fetchMarketCap() async -> MarketCap? {

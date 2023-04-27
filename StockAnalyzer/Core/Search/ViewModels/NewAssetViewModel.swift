@@ -8,6 +8,9 @@ class NewAssetViewModel: ObservableObject {
     @Published var buyDate: Date = Date()
     @Published var price: Double = 0.0
     @Published var value: String = ""
+    @Published var showAlert: Bool = false
+    @Published var alertTitle: String = ""
+    @Published var alertText: String = ""
     
     let symbol: String
     var portfolioService: PortfolioServiceProtocol
@@ -45,12 +48,21 @@ class NewAssetViewModel: ObservableObject {
         }
     }
     
-    func addAssetToPortfolio() async {
+    func addPositionToPortfolio() async {
         let value = price * units
         
-        if value != 0 {
+        if value > 0 {
             let position = Position(symbol: symbol, date: formatter.string(from: buyDate), units: units, price: price, investedAmount: value)
-            await portfolioService.addPosition(position: position)
+            let result = await portfolioService.addPosition(position: position)
+            if result == false {
+                showAlert.toggle()
+                alertTitle = "Error"
+                alertText = "The position cannot be added to your portfolio."
+            }
+        } else {
+            showAlert.toggle()
+            alertTitle = "Error"
+            alertText = "The price cannot be 0."
         }
     }
 }

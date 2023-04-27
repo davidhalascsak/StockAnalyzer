@@ -3,7 +3,7 @@ import Foundation
 @MainActor
 class HomeViewModel: ObservableObject {
     @Published var news: [News] = []
-    @Published var isDownloadingNews: Bool = false
+    @Published var isDownloadingNews: Bool = true
     
     let companyProfile: Company
     var newsService: NewsServiceProtocol

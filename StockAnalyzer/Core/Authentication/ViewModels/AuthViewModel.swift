@@ -89,6 +89,7 @@ class AuthViewModel: ObservableObject {
 
         userData.email = ""
         userData.password = ""
+        isCorrect.toggle()
     }
     
     public func checkRegistration() async {

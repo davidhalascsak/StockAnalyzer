@@ -30,6 +30,7 @@
 		EC318E9E29F040B600CEA56B /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = EC318E9D29F040B600CEA56B /* FirebaseStorage */; };
 		EC330AAD29C76B5B009A0D30 /* ValuationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC330AAC29C76B5B009A0D30 /* ValuationViewModel.swift */; };
 		EC34DEC929D065BC007DE20E /* PieSliceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC34DEC829D065BC007DE20E /* PieSliceView.swift */; };
+		EC3763D129FABB1000504D4A /* MockDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC3763D029FABB1000504D4A /* MockDatabase.swift */; };
 		EC3CEAA929BB8F340048FADE /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC3CEAA829BB8F340048FADE /* HomeView.swift */; };
 		EC3CEAAB29BB8F490048FADE /* FinancialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC3CEAAA29BB8F490048FADE /* FinancialView.swift */; };
 		EC3CEAAD29BB8F550048FADE /* ValuationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC3CEAAC29BB8F550048FADE /* ValuationView.swift */; };
@@ -106,6 +107,9 @@
 		ECB80E0329FA4FB100910473 /* StockViewModel_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB80E0229FA4FB100910473 /* StockViewModel_Tests.swift */; };
 		ECB80E0529FA5C4600910473 /* PriceViewModel_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB80E0429FA5C4600910473 /* PriceViewModel_Tests.swift */; };
 		ECB80E0729FA5DF700910473 /* HomeViewModel_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB80E0629FA5DF700910473 /* HomeViewModel_Tests.swift */; };
+		ECB80E0929FA948700910473 /* FinancialViewModel_Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB80E0829FA948700910473 /* FinancialViewModel_Test.swift */; };
+		ECB80E0B29FA984000910473 /* ValuationViewModel_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB80E0A29FA984000910473 /* ValuationViewModel_Tests.swift */; };
+		ECB80E0D29FAA64F00910473 /* ChartViewModel_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB80E0C29FAA64F00910473 /* ChartViewModel_Tests.swift */; };
 		ECC2615729C1DBFD00CE1B7C /* ApiKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECC2615629C1DBFD00CE1B7C /* ApiKeys.swift */; };
 		ECC2615929C1E1C500CE1B7C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = ECC2615829C1E1C400CE1B7C /* GoogleService-Info.plist */; };
 		ECCDEFA829A3C2C500034C76 /* CommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCDEFA729A3C2C500034C76 /* CommentView.swift */; };
@@ -165,6 +169,7 @@
 		EC2880B829CCB3D700E4A085 /* FinanceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinanceModel.swift; sourceTree = "<group>"; };
 		EC330AAC29C76B5B009A0D30 /* ValuationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValuationViewModel.swift; sourceTree = "<group>"; };
 		EC34DEC829D065BC007DE20E /* PieSliceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieSliceView.swift; sourceTree = "<group>"; };
+		EC3763D029FABB1000504D4A /* MockDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDatabase.swift; sourceTree = "<group>"; };
 		EC3CEAA829BB8F340048FADE /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		EC3CEAAA29BB8F490048FADE /* FinancialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinancialView.swift; sourceTree = "<group>"; };
 		EC3CEAAC29BB8F550048FADE /* ValuationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValuationView.swift; sourceTree = "<group>"; };
@@ -240,6 +245,9 @@
 		ECB80E0229FA4FB100910473 /* StockViewModel_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockViewModel_Tests.swift; sourceTree = "<group>"; };
 		ECB80E0429FA5C4600910473 /* PriceViewModel_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceViewModel_Tests.swift; sourceTree = "<group>"; };
 		ECB80E0629FA5DF700910473 /* HomeViewModel_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel_Tests.swift; sourceTree = "<group>"; };
+		ECB80E0829FA948700910473 /* FinancialViewModel_Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinancialViewModel_Test.swift; sourceTree = "<group>"; };
+		ECB80E0A29FA984000910473 /* ValuationViewModel_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValuationViewModel_Tests.swift; sourceTree = "<group>"; };
+		ECB80E0C29FAA64F00910473 /* ChartViewModel_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartViewModel_Tests.swift; sourceTree = "<group>"; };
 		ECC2615629C1DBFD00CE1B7C /* ApiKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiKeys.swift; sourceTree = "<group>"; };
 		ECC2615829C1E1C400CE1B7C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		ECCDEFA729A3C2C500034C76 /* CommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentView.swift; sourceTree = "<group>"; };
@@ -427,6 +435,7 @@
 			isa = PBXGroup;
 			children = (
 				ECC2615629C1DBFD00CE1B7C /* ApiKeys.swift */,
+				EC3763D029FABB1000504D4A /* MockDatabase.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -550,6 +559,7 @@
 				ECB59B8929F6FA8400CBE51D /* FeedBodyViewModel_Tests.swift */,
 				ECB59B8B29F7077800CBE51D /* BarChartViewModel_Tests.swift */,
 				ECB59B8129F6EB0500CBE51D /* ImageViewModel_Tests.swift */,
+				ECB80E0C29FAA64F00910473 /* ChartViewModel_Tests.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -599,6 +609,8 @@
 				ECB80E0229FA4FB100910473 /* StockViewModel_Tests.swift */,
 				ECB80E0429FA5C4600910473 /* PriceViewModel_Tests.swift */,
 				ECB80E0629FA5DF700910473 /* HomeViewModel_Tests.swift */,
+				ECB80E0829FA948700910473 /* FinancialViewModel_Test.swift */,
+				ECB80E0A29FA984000910473 /* ValuationViewModel_Tests.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -883,6 +895,7 @@
 				EC015094298BCEDB00BAF650 /* SignupView.swift in Sources */,
 				EC3CEAA929BB8F340048FADE /* HomeView.swift in Sources */,
 				EC91726A299547EA00EA924D /* PortfolioView.swift in Sources */,
+				EC3763D129FABB1000504D4A /* MockDatabase.swift in Sources */,
 				ECF669D82997D8FD00855894 /* UserService.swift in Sources */,
 				EC13277C299E3F760049F993 /* NewPostView.swift in Sources */,
 				EC72691929AD2347002FAB32 /* ChartViewModel.swift in Sources */,
@@ -974,9 +987,12 @@
 				ECB80E0729FA5DF700910473 /* HomeViewModel_Tests.swift in Sources */,
 				ECB80E0129FA4B5500910473 /* NewAssetViewModel_Tests.swift in Sources */,
 				ECA9AE0E29F553CC00DDC19B /* AuthViewModel_Tests.swift in Sources */,
+				ECB80E0D29FAA64F00910473 /* ChartViewModel_Tests.swift in Sources */,
 				ECB80DE929F9558600910473 /* CommentSectionViewModel_Tests.swift in Sources */,
+				ECB80E0B29FA984000910473 /* ValuationViewModel_Tests.swift in Sources */,
 				ECB59B9229F8155E00CBE51D /* SearchViewModel_Tests.swift in Sources */,
 				ECB59B9429F8505F00CBE51D /* FeedViewModel_Tests.swift in Sources */,
+				ECB80E0929FA948700910473 /* FinancialViewModel_Test.swift in Sources */,
 				ECB80DF929F9817300910473 /* PortfolioRowViewModel_Tests.swift in Sources */,
 				ECDBEAB329F59AC800ABA499 /* SettingsViewModel_Tests.swift in Sources */,
 				ECB80DF729F97D3700910473 /* PortfolioViewModel_Tests.swift in Sources */,

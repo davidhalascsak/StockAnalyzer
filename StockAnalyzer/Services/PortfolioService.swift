@@ -60,13 +60,17 @@ class PortfolioService: ObservableObject, PortfolioServiceProtocol {
     
     func deleteAsset(symbol: String) async -> Bool {
         if let userId = Auth.auth().currentUser?.uid {
+            let assetPath = db.collection("users").document(userId).collection("portfolio").document(symbol)
+            
             do {
-                let snapshot = try? await db.collection("users").document(userId).collection("portfolio").document(symbol).collection("positions").getDocuments()
+                let snapshot = try? await assetPath.collection("positions").getDocuments()
                 
                 if let snapshot = snapshot {
-                    let _ = snapshot.documents.compactMap({ $0.reference.delete })
+                    let _ = snapshot.documents.compactMap({
+                        print($0.reference) })
                 }
-                try await db.collection("users").document(userId).collection("portfolio").document(symbol).delete()
+                
+                try await assetPath.delete()
                 
                 return true
             } catch{
@@ -109,34 +113,20 @@ class PortfolioService: ObservableObject, PortfolioServiceProtocol {
 }
 
 class MockPortfolioService: PortfolioServiceProtocol {
-    var assets: [Asset] = []
-    var positions: [Position] = []
-    
-    init() {
-        let asset1 = Asset(symbol: "AAPL", units: 2.0, averagePrice: 132.5, investedAmount: 265.0, positionCount: 1)
-        let asset2 = Asset(symbol: "MSFT", units: 3.0, averagePrice: 230.0, investedAmount: 690.0, positionCount: 1)
-        
-        self.assets.append(contentsOf: [asset1, asset2])
-        
-        let position1 = Position(symbol: "AAPL", date: "2023-02-02", units: 1, price: 132.5, investedAmount: 132.5)
-        let position2 = Position(symbol: "AAPL", date: "2023-01-02", units: 1, price: 132.5, investedAmount: 132.5)
-        let position3 = Position(symbol: "MSFT", date: "2020-02-02", units: 3.0, price: 230.0, investedAmount: 690.0)
-        
-        self.positions.append(contentsOf: [position1, position2, position3])
-    }
+    var db: MockDatabase = MockDatabase()
     
     func fetchAssets() async -> [Asset]  {
-        for index in 0..<self.assets.count {
-            self.assets[index].positions = await fetchPositions(symbol: self.assets[index].symbol)
+        for index in 0..<db.assets.count {
+            db.assets[index].positions = await fetchPositions(symbol: db.assets[index].symbol)
         }
         
-        return self.assets
+        return db.assets
     }
     
     func addPosition(position: Position) async -> Bool {
         let newPosition = Position(symbol:  position.symbol, date: position.date, units: position.units, price: position.price, investedAmount: position.investedAmount)
         
-        let asset = self.assets.first(where: {$0.symbol == position.symbol})
+        let asset = db.assets.first(where: {$0.symbol == position.symbol})
         
         let newUnits = (asset?.units ?? 0.0) + position.units
         let newAmount = (asset?.investedAmount ?? 0.0) + (position.units * position.price)
@@ -145,9 +135,9 @@ class MockPortfolioService: PortfolioServiceProtocol {
         
         let newAsset = Asset(symbol: position.symbol, units: newUnits, averagePrice: newAveragePrice, investedAmount: newAmount, positionCount: newPositionCount)
         
-        self.assets.removeAll(where: {$0.symbol == position.symbol})
-        self.assets.append(newAsset)
-        self.positions.append(newPosition)
+        db.assets.removeAll(where: {$0.symbol == position.symbol})
+        db.assets.append(newAsset)
+        db.positions.append(newPosition)
         
         return true
     }
@@ -156,28 +146,28 @@ class MockPortfolioService: PortfolioServiceProtocol {
         if symbol == "" {
             return []
         } else {
-            return self.positions.filter({$0.symbol == symbol})
+            return db.positions.filter({$0.symbol == symbol})
         }
     }
     
     func deleteAsset(symbol: String) async -> Bool {
-        assets.removeAll(where: {$0.symbol == symbol})
+        db.assets.removeAll(where: {$0.symbol == symbol})
         
         return true
     }
     
     func deletePosition(asset: Asset, position: Position) async -> Bool {
-        self.assets.removeAll(where: {$0.symbol == asset.symbol})
+        db.assets.removeAll(where: {$0.symbol == asset.symbol})
         
         if asset.positionCount > 1 {
             let investedAmount = asset.investedAmount - position.investedAmount
             let units = asset.units - position.units
             let averagePrice = investedAmount / units
             
-            let newAsset = Asset(symbol: asset.symbol, units: units, averagePrice: averagePrice, investedAmount: investedAmount, positionCount: 1)
+            let newAsset = Asset(symbol: asset.symbol, units: units, averagePrice: averagePrice, investedAmount: investedAmount, positionCount: asset.positionCount - 1)
             
             
-            self.assets.append(newAsset)
+            db.assets.append(newAsset)
         }
         return true
     }

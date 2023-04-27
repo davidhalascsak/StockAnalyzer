@@ -4,26 +4,6 @@ import XCTest
 
 @MainActor
 final class NewAssetViewModel_Tests: XCTestCase {
-
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
-    func test_NewAssetViewModel_init() throws {
-        //Given
-        let symbol: String = "AAPL"
-        
-        //When
-        let vm = NewAssetViewModel(symbol: symbol, portfolioService: MockPortfolioService(), stockService: MockStockService())
-        
-        //Then
-        XCTAssertEqual(vm.symbol, symbol)
-    }
-    
     func test_NewAssetViewModel_FetchPriceAtDate() async throws {
         //Given
         let symbol: String = "AAPL"
@@ -33,7 +13,7 @@ final class NewAssetViewModel_Tests: XCTestCase {
         await vm.fetchPrice()
         
         //Then
-        XCTAssertEqual(vm.price, 100)
+        XCTAssertEqual(vm.price, 110)
     }
     
     func test_NewAssetViewModel_CalculateValue_PriceIsZero() async throws {
@@ -58,7 +38,7 @@ final class NewAssetViewModel_Tests: XCTestCase {
         vm.calculateValue()
         
         //Then
-        XCTAssertEqual(vm.value, "$100.00")
+        XCTAssertEqual(vm.value, "$110.00")
     }
     
     func test_NewAssetViewModel_CalculateValue_UnitIsMoreThanOne() async throws {
@@ -72,7 +52,7 @@ final class NewAssetViewModel_Tests: XCTestCase {
         vm.calculateValue()
         
         //Then
-        XCTAssertEqual(vm.value, "$250.00")
+        XCTAssertEqual(vm.value, "$275.00")
     }
     
     func test_NewAssetViewModel_AddPosition_ValueIsZero() async throws {

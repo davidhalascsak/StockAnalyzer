@@ -17,23 +17,14 @@ class SearchService: SearchServiceProtocol {
 }
 
 class MockSearchService: SearchServiceProtocol {
-    var searchResults: [Search]
-    
-    init() {
-        let search1 = Search(symbol: "AAPL", name: "Apple", currency: "USD", stockExchange: "NASDAQ", exchangeShortName: "NASDAQ")
-        let search2 = Search(symbol: "MSFT", name: "Microsoft", currency: "USD", stockExchange: "NASDAQ", exchangeShortName: "NASDAQ")
-        let search3 = Search(symbol: "DIS", name: "Disney", currency: "USD", stockExchange: "NYSE", exchangeShortName: "NYSE")
-        let search4 = Search(symbol: "MA", name: "Mastercard", currency: "USD", stockExchange: "NYSE", exchangeShortName: "NYSE")
-        
-        self.searchResults = [search1, search2,search3, search4]
-    }
+    var db: MockDatabase = MockDatabase()
     
     func fetchData(text: String) async -> [Search] {
         if text == "" {
             return []
         }
         else {
-            return searchResults.filter({$0.name.hasPrefix(text)})
+            return db.searchResult.filter({$0.name.hasPrefix(text)})
         }
     }
 }

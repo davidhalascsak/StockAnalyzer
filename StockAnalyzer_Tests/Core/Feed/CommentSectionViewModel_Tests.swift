@@ -5,33 +5,11 @@ import Firebase
 
 @MainActor
 final class CommentSectionViewModel_Tests: XCTestCase {
-
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-    
-    func test_CommentSectionViewModel_init() {
-        //Given
-        let post = Post(id: "19", userRef: "asd321", body: "Good Moring, Vietnam", timestamp: Timestamp(), likes: 2, comments: 2, symbol: "")
-        
-        //When
-        let vm = CommentSectionViewModel(post: post, commentService: MockCommentService(), userService: MockUserService(), sessionService: MockSessionService())
-        
-        //Then
-        XCTAssertEqual(post.id, vm.post.id)
-    }
-    
-    
-    
-
     func test_CommentSectionViewModel_fetchComments() async throws {
         // Given
         let post = Post(id: "19", userRef: "asd321", body: "Good Moring, Vietnam", timestamp: Timestamp(), likes: 2, comments: 2, symbol: "")
-        let vm = CommentSectionViewModel(post: post, commentService: MockCommentService(), userService: MockUserService(), sessionService: MockSessionService())
+        let authUser: AuthUser? = AuthUser(id: "asd123", email: "david@domain.com", password: "asd123", isVerified: true)
+        let vm = CommentSectionViewModel(post: post, commentService: MockCommentService(currentUser: authUser), userService: MockUserService(), sessionService: MockSessionService(currentUser: authUser))
         
         //When
         await vm.fetchComments()
@@ -43,7 +21,8 @@ final class CommentSectionViewModel_Tests: XCTestCase {
     
     func test_CommentSectionViewModel_createComment_PostExist() async throws {
         let post = Post(id: "19", userRef: "asd321", body: "Good Moring, Vietnam", timestamp: Timestamp(), likes: 2, comments: 2, symbol: "")
-        let vm = CommentSectionViewModel(post: post, commentService: MockCommentService(), userService: MockUserService(), sessionService: MockSessionService())
+        let authUser: AuthUser? = AuthUser(id: "asd123", email: "david@domain.com", password: "asd123", isVerified: true)
+        let vm = CommentSectionViewModel(post: post, commentService: MockCommentService(currentUser: authUser), userService: MockUserService(), sessionService: MockSessionService(currentUser: authUser))
         
         //When
         vm.commentBody = "I totally agree with you upon this."
@@ -58,7 +37,8 @@ final class CommentSectionViewModel_Tests: XCTestCase {
     
     func test_CommentSectionViewModel_createComment_PostNotExist() async throws {
         let post = Post(id: "40", userRef: "asd321", body: "Good Moring, Vietnam", timestamp: Timestamp(), likes: 2, comments: 2, symbol: "")
-        let vm = CommentSectionViewModel(post: post, commentService: MockCommentService(), userService: MockUserService(), sessionService: MockSessionService())
+        let authUser: AuthUser? = AuthUser(id: "asd123", email: "david@domain.com", password: "asd123", isVerified: true)
+        let vm = CommentSectionViewModel(post: post, commentService: MockCommentService(currentUser: authUser), userService: MockUserService(), sessionService: MockSessionService(currentUser: authUser))
         
         //When
         vm.commentBody = "I totally agree with you upon this."

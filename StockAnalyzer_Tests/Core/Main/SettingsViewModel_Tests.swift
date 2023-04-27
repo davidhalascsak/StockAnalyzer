@@ -4,18 +4,10 @@ import XCTest
 
 @MainActor
 final class SettingsViewModel_Tests: XCTestCase {
-
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
     func test_SettingsViewModel_fetchUser_shouldReturnNil() async throws {
         //Given
-        let vm = SettingsViewModel(userService: MockUserService(), sessionService: MockSessionService(), imageService: MockImageService())
+        let authUser: AuthUser? = nil
+        let vm = SettingsViewModel(userService: MockUserService(), sessionService: MockSessionService(currentUser: authUser), imageService: MockImageService())
         
         //When
         await vm.fetchUser()
@@ -27,11 +19,10 @@ final class SettingsViewModel_Tests: XCTestCase {
     
      func test_SettingsViewModel_fetchUser_shouldReturnNotNil() async throws {
         //Given
-        let vm = SettingsViewModel(userService: MockUserService(), sessionService: MockSessionService(), imageService: MockImageService())
+         let authUser: AuthUser? = AuthUser(id: "asd123", email: "david@domain.com", password: "asd123", isVerified: true)
+         let vm = SettingsViewModel(userService: MockUserService(), sessionService: MockSessionService(currentUser: authUser), imageService: MockImageService())
         
-        //When
-        
-        try? await vm.sessionService.login(email: "david@domain.com", password: "asd123")
+         //When
         await vm.fetchUser()
         
         
@@ -43,8 +34,8 @@ final class SettingsViewModel_Tests: XCTestCase {
     
     func test_SettingsViewModel_logout() async throws {
         //Given
-        let vm = SettingsViewModel(userService: MockUserService(), sessionService: MockSessionService(), imageService: MockImageService())
-
+        let authUser: AuthUser? = AuthUser(id: "asd123", email: "david@domain.com", password: "asd123", isVerified: true)
+        let vm = SettingsViewModel(userService: MockUserService(), sessionService: MockSessionService(currentUser: authUser), imageService: MockImageService())
         //When
 
         try? await vm.sessionService.login(email: "david@domain.com", password: "asd123")
@@ -58,7 +49,8 @@ final class SettingsViewModel_Tests: XCTestCase {
     
     func test_SettingsViewModel_updatePicture_ShouldBeUnsuccessful() async throws {
         //Given
-        let vm = SettingsViewModel(userService: MockUserService(), sessionService: MockSessionService(), imageService: MockImageService())
+        let authUser: AuthUser? = AuthUser(id: "asd123", email: "david@domain.com", password: "asd123", isVerified: true)
+        let vm = SettingsViewModel(userService: MockUserService(), sessionService: MockSessionService(currentUser: authUser), imageService: MockImageService())
         let data = Data()
         //When
 
@@ -76,7 +68,8 @@ final class SettingsViewModel_Tests: XCTestCase {
     
     func test_SettingsViewModel_updatePicture_ShouldBeSuccessful() async throws {
         //Given
-        let vm = SettingsViewModel(userService: MockUserService(), sessionService: MockSessionService(), imageService: MockImageService())
+        let authUser: AuthUser? = AuthUser(id: "asd123", email: "david@domain.com", password: "asd123", isVerified: true)
+        let vm = SettingsViewModel(userService: MockUserService(), sessionService: MockSessionService(currentUser: authUser), imageService: MockImageService())
         let image = UIImage(named: "default_avatar")
         let data = image?.jpegData(compressionQuality: 0.5) ?? Data()
         

@@ -80,7 +80,7 @@ struct ValuationView: View {
             HStack {
                 Text("Method:")
                 Spacer()
-                Picker("Method", selection: $vm.type) {
+                Picker("Method", selection: $vm.valuationType) {
                     ForEach(vm.options, id: \.self) {
                         Text($0)
                     }
@@ -92,9 +92,9 @@ struct ValuationView: View {
             .padding(.top, 8)
             .padding(.horizontal, 20)
             HStack {
-                Text(vm.type == "Net Income" ? "Net Income:" : "Free Cash Flow:")
+                Text(vm.valuationType == "Net Income" ? "Net Income:" : "Free Cash Flow:")
                 Spacer()
-                TextField("", text: $vm.baseValue)
+                TextField("", value: $vm.baseValue, format: .number)
                     .keyboardType(.decimalPad)
                     .multilineTextAlignment(.trailing)
                     .padding(.horizontal, 5)
@@ -156,7 +156,7 @@ struct ValuationView: View {
         }
         .background(Color.gray.opacity(0.15))
         .cornerRadius(10)
-        .onChange(of: vm.type) { _ in
+        .onChange(of: vm.valuationType) { _ in
             vm.resetValuation()
             vm.calculateIntrinsicValue()
         }

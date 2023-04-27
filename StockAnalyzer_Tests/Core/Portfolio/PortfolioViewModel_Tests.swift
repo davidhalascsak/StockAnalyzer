@@ -4,18 +4,10 @@ import XCTest
 
 @MainActor
 final class PortfolioViewModel_Tests: XCTestCase {
-
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
     func test_PortfolioViewModel_FetchAssets() async throws {
         //Given
-        let vm = PortfolioViewModel(portfolioService: MockPortfolioService(), sessionService: MockSessionService())
+        let authUser: AuthUser? = AuthUser(id: "asd123", email: "david@domain.com", password: "asd123", isVerified: true)
+        let vm = PortfolioViewModel(portfolioService: MockPortfolioService(), sessionService: MockSessionService(currentUser: authUser))
         
         //When
         await vm.fetchAssets()
@@ -27,7 +19,8 @@ final class PortfolioViewModel_Tests: XCTestCase {
     
     func test_PortfolioViewModel_deleteAsset() async throws {
         //Given
-        let vm = PortfolioViewModel(portfolioService: MockPortfolioService(), sessionService: MockSessionService())
+        let authUser: AuthUser? = AuthUser(id: "asd123", email: "david@domain.com", password: "asd123", isVerified: true)
+        let vm = PortfolioViewModel(portfolioService: MockPortfolioService(), sessionService: MockSessionService(currentUser: authUser))
         
         //When
         await vm.fetchAssets()

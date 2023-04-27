@@ -21,7 +21,7 @@ struct BarChartView: View {
             }
         }
         .onAppear(perform: vm.calculateGrowthRates)
-        .frame(height: 300)
+        .frame(height: 280)
         .frame(maxWidth: .infinity)
         .padding(5)
         .padding(.top, 5)
@@ -93,10 +93,6 @@ struct BarChartView: View {
                 HStack {
                     GrowthRateView(year: vm.intervals[0], growthRate: vm.growthRates[0], isInverted: vm.isInverted)
                     GrowthRateView(year: vm.intervals[1], growthRate: vm.growthRates[1], isInverted: vm.isInverted)
-                }
-                HStack {
-                    //GrowthRateView(year: vm.intervals[2], growthRate: vm.growthRates[2], isInverted: vm.isInverted)
-                    //GrowthRateView(year: vm.intervals[3], growthRate: vm.growthRates[3], isInverted: vm.isInverted)
                 }
             }
         }

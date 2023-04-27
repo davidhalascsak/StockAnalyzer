@@ -124,7 +124,7 @@ class MockStockService: StockServiceProtocol {
     }
     
     func fetchPriceAtDate(date: String) async -> Double {
-        return 100
+        return 110
     }
     
     func fetchMarketCap() async -> MarketCap? {
@@ -132,15 +132,15 @@ class MockStockService: StockServiceProtocol {
     }
     
     func fetchRatios() async -> Ratios? {
-        return nil
+        return Ratios(peRatioTTM: 20, pegRatioTTM: 1, priceToSalesRatioTTM: 5, priceToBookRatioTTM: 10, dividendPerShareTTM: 1, dividendYielPercentageTTM: 2)
     }
     
     func fetchGrowthRates() async -> GrowthRates? {
-        return nil
+        return GrowthRates(netIncomeGrowth: 10, freeCashFlowGrowth: 15, weightedAverageSharesGrowth: 1)
     }
     
     func fetchMetrics() async -> Metrics? {
-        return nil
+        return Metrics(netIncomePerShareTTM: 3.0, freeCashFlowPerShareTTM: 3.0)
     }
     
     

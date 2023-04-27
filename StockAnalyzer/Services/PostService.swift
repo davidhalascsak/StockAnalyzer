@@ -92,45 +92,34 @@ class PostService: PostServiceProtocol {
 }
 
 class MockPostService: PostServiceProtocol {
-    var posts: [Post] = []
-    var users: [User] = []
-    var likedPosts: [String: [String]] = [:]
+    var db: MockDatabase = MockDatabase()
+    var currentUser: AuthUser?
     
-    init() {
-        let post1 = Post(id: "22", userRef: "asd123", body: "I like Ike", timestamp: Timestamp(), likes: 0, comments: 0, symbol: "AAPL")
-        let post2 = Post(id: "19", userRef: "asd321", body: "Good Moring, Vietnam", timestamp: Timestamp(), likes: 2, comments: 2, symbol: "")
-        
-        let user1 = User(id: "asd123", username: "david", email: "david@gmail.com", location: "Hungary", imageUrl: "https://test_image.com")
-        let user2 = User(id: "asd321", username: "bob", email: "bob@gmail.com", location: "Hungary", imageUrl: "test_image.com")
-        
-        posts.append(contentsOf: [post1, post2])
-        users.append(contentsOf: [user1, user2])
-        
-        likedPosts[user1.id ?? ""] = ["19"]
-        likedPosts[user2.id ?? ""] = ["19"]
+    init(currentUser: AuthUser?) {
+        self.currentUser = currentUser
     }
     
     func fetchPosts(symbol: String?) async -> [Post] {
         if let symbol = symbol {
-            return self.posts.filter({$0.symbol == symbol})
+            return db.posts.filter({$0.symbol == symbol})
         } else {
-            return self.posts
+            return db.posts
         }
     }
     
     func checkIfPostIsLiked(post: Post) async -> Bool {
-        let userId = "asd123"
-        return ((likedPosts[userId]?.contains(where: {$0 == post.id})) != nil)
+        guard let userId = currentUser?.id else {return false}
+        return db.likedPosts[userId]?.contains(where: {$0 == post.id}) ?? false
     }
     
     func likePost(post: Post) async -> Bool {
-        let userId = "asd123"
-        guard let index = self.posts.firstIndex(where: {$0.id == post.id}) else { return false}
+        guard let userId = currentUser?.id else {return false}
+        guard let index = db.posts.firstIndex(where: {$0.id == post.id}) else { return false}
         
-        let result = self.likedPosts[userId]?.contains(where: {$0 == post.id})
+        let result = db.likedPosts[userId]?.contains(where: {$0 == post.id})
         if result == false {
-            self.likedPosts[userId]?.append(post.id ?? "")
-            self.posts[index].likes += 1
+            db.likedPosts[userId]?.append(post.id ?? "")
+            db.posts[index].likes += 1
             
             return true
         }
@@ -138,13 +127,13 @@ class MockPostService: PostServiceProtocol {
     }
     
     func unlikePost(post: Post) async -> Bool {
-        let userId = "asd123"
-        guard let index = self.posts.firstIndex(where: {$0.id == post.id}) else { return false}
+        guard let userId = currentUser?.id else {return false}
+        guard let index = db.posts.firstIndex(where: {$0.id == post.id}) else { return false}
         
-        let result = self.likedPosts[userId]?.contains(where: {$0 == post.id})
+        let result = db.likedPosts[userId]?.contains(where: {$0 == post.id})
         if result == true {
-            self.likedPosts[userId]?.removeAll(where: {$0 == post.id})
-            self.posts[index].likes -= 1
+            db.likedPosts[userId]?.removeAll(where: {$0 == post.id})
+            db.posts[index].likes -= 1
             
             return true
         }
@@ -152,13 +141,14 @@ class MockPostService: PostServiceProtocol {
     }
     
     func createPost(body: String, symbol: String?) async -> Bool{
+        guard let userId = currentUser?.id else {return false}
         if let symbol = symbol {
-            let newPost = Post(userRef: "asd123", body: body, timestamp: Timestamp(), likes: 0, comments: 0, symbol: symbol)
-            posts.append(newPost)
+            let newPost = Post(userRef: userId, body: body, timestamp: Timestamp(), likes: 0, comments: 0, symbol: symbol)
+            db.posts.append(newPost)
             
         } else {
-            let newPost = Post(userRef: "asd123", body: body, timestamp: Timestamp(), likes: 0, comments: 0, symbol: "")
-            posts.append(newPost)
+            let newPost = Post(userRef: userId, body: body, timestamp: Timestamp(), likes: 0, comments: 0, symbol: "")
+            db.posts.append(newPost)
         }
         
         return true

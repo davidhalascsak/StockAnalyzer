@@ -4,18 +4,10 @@ import XCTest
 
 @MainActor
 final class FeedViewModel_Tests: XCTestCase {
-
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
     func test_FeedViewModel_fetchPosts() async throws {
         //Given
-        let vm = FeedViewModel(userService: MockUserService(), postService: MockPostService(), sessionService: MockSessionService(), imageService: MockImageService())
+        let authUser: AuthUser? = AuthUser(id: "asd123", email: "david@domain.com", password: "asd123", isVerified: true)
+        let vm = FeedViewModel(userService: MockUserService(), postService: MockPostService(currentUser: authUser), sessionService: MockSessionService(currentUser: authUser), imageService: MockImageService())
         
         //When
         await vm.fetchPosts()

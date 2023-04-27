@@ -12,7 +12,6 @@ struct LoginView: View {
         NavigationStack {
             VStack {
                 Spacer()
-                
                 TextField("email", text: $vm.userData.email)
                     .autocorrectionDisabled()
                     .textInputAutocapitalization(.never)
@@ -53,32 +52,33 @@ struct LoginView: View {
                         Text("Sign up")
                             .foregroundColor(Color.blue)
                     }
-                    Spacer()
+                    
                 }
-                .padding()
-                .onChange(of: vm.isCorrect, perform: { newValue in
-                    dismiss()
-                })
-                .alert(vm.alertTitle, isPresented: $vm.showAlert) {
-                    if(vm.alertTitle == "Verification Error") {
-                        Button("Send again", role: .none) {
-                            Task {
-                                await vm.sendVerificationEmail()
-                            }
+                Spacer()
+            }
+            .padding()
+            .onChange(of: vm.isCorrect, perform: { newValue in
+                dismiss()
+            })
+            .alert(vm.alertTitle, isPresented: $vm.showAlert) {
+                if(vm.alertTitle == "Verification Error") {
+                    Button("Send again", role: .none) {
+                        Task {
+                            await vm.sendVerificationEmail()
                         }
                     }
-                    Button("Ok", role: .cancel, action: { vm.logout() })
-                } message: {
-                    Text(vm.alertText)
                 }
-                .navigationBarBackButtonHidden()
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarLeading) {
-                        Image(systemName: "arrowshape.backward")
-                            .onTapGesture {
-                                dismiss()
-                            }
-                    }
+                Button("Ok", role: .cancel, action: { vm.logout() })
+            } message: {
+                Text(vm.alertText)
+            }
+            .navigationBarBackButtonHidden()
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Image(systemName: "arrowshape.backward")
+                        .onTapGesture {
+                            dismiss()
+                        }
                 }
             }
         }

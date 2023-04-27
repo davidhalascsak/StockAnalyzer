@@ -52,13 +52,7 @@ class ImageService: ImageServiceProtocol {
 
 
 class MockImageService: ImageServiceProtocol {
-    var imageUrls: [String: Data] = [:]
-    
-    init() {
-        let image = UIImage(named: "default_avatar")
-        let data = image?.jpegData(compressionQuality: 0.5)
-        imageUrls["https://test_image.com"] = data ?? Data()
-    }
+    var db: MockDatabase = MockDatabase()
     
     func fetchImageData(url: String) async -> Data? {
         guard URL(string: url) != nil else {return nil}
@@ -77,14 +71,14 @@ class MockImageService: ImageServiceProtocol {
         guard let data = image.jpegData(compressionQuality: 0.5) else {return nil}
         
         let imageUrl = UUID().uuidString
-        imageUrls[imageUrl] = data
+        db.imageUrls[imageUrl] = data
         
         return imageUrl
     }
     
     func updateImage(url: String, data: Data) async -> Bool {
-        if imageUrls.contains(where: {$0.key == url}) && !data.isEmpty {
-            imageUrls[url] = data
+        if db.imageUrls.contains(where: {$0.key == url}) && !data.isEmpty {
+            db.imageUrls[url] = data
             return true
         } else {
             return false

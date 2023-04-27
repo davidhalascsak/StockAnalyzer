@@ -79,16 +79,6 @@ class FinancialViewModel: ObservableObject {
         return Int(Double(self.cashFlowStatement[0].freeCashFlow) / Double(self.incomeStatement[0].revenue) * 100)
     }
     
-    func calculateGrowthRates(data: [Int]) -> [Double] {
-        
-        let oneYear: Double = Double(data[data.count - 1] - data[data.count - 2] / data[data.count - 1])
-        let threeYear: Double = Double(data[data.count - 1] - data[data.count - 4] / data[data.count - 1])
-        let fiveYear: Double = Double(data[data.count - 1] - data[data.count - 6] / data[data.count - 1])
-        let tenYear: Double = Double(data[data.count - 1] - data[data.count - 10] / data[data.count - 1])
-        
-        return [oneYear, threeYear, fiveYear, tenYear]
-    }
-    
     func formatPrice(price: Int) -> String {
         var priceAsString: String = String(price)
         var prefix = ""
@@ -100,18 +90,30 @@ class FinancialViewModel: ObservableObject {
         }
         
         if priceAsString.count % 3 == 0 {
-            result = "\(priceAsString[0...2]).\(priceAsString[3...4])"
+            if priceAsString.count >= 6 {
+                result = "\(priceAsString[0...2]).\(priceAsString[3...4])"
+            } else {
+                result = priceAsString
+            }
         } else if priceAsString.count % 3 == 1 {
-            result = "\(priceAsString[0]).\(priceAsString[1...2])"
+            if priceAsString.count >= 7 {
+                result = "\(priceAsString[0]).\(priceAsString[1...2])"
+            } else {
+                result = priceAsString
+            }
         } else {
-            result = "\(priceAsString[0...1]).\(priceAsString[2...3])"
+            if priceAsString.count >= 8 {
+                result = "\(priceAsString[0...1]).\(priceAsString[2...3])"
+            } else {
+                result = priceAsString
+            }
         }
         
-        if priceAsString.count < 10 {
+        if priceAsString.count >= 7 && priceAsString.count < 10 {
             result.append("M")
         } else if 10 <= priceAsString.count && priceAsString.count < 13 {
             result.append("B")
-        } else {
+        } else if priceAsString.count >= 13 {
             result.append("T")
         }
         

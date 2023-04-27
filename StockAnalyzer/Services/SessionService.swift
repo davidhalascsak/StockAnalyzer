@@ -57,24 +57,12 @@ class SessionService: ObservableObject, SessionServiceProtocol {
 }
 
 class MockSessionService: ObservableObject, SessionServiceProtocol {
-    var users: [User] = []
-    var authUsers: [AuthUser] = []
+    var db: MockDatabase = MockDatabase()
     var currentUser: AuthUser?
-
-    init() {
-        let user1 = User(id: "asd123", username: "david", email: "david@domain.com", location: "Hungary", imageUrl: "")
-        let authUser1 = AuthUser(id: "asd123", email: "david@domain.com", password: "asd123", isVerified: true)
-        
-        let user2 = User(id: "asd321", username: "bob", email: "bob@domain.com", location: "Hungary", imageUrl: "")
-        let authUser2 = AuthUser(id: "asd321", email: "bob@domain.com", password: "asd123", isVerified: false)
-        
-        users.append(user1)
-        users.append(user2)
-        
-        authUsers.append(authUser1)
-        authUsers.append(authUser2)
-    }
     
+    init(currentUser: AuthUser?) {
+        self.currentUser = currentUser
+    }
     
     func getUserId() -> String? {
         return self.currentUser?.id ?? nil
@@ -82,7 +70,7 @@ class MockSessionService: ObservableObject, SessionServiceProtocol {
     
     func login(email: String, password: String) async throws {
         let user: AuthUser?
-        user = authUsers.first(where: {$0.email == email}) ?? nil
+        user = db.authUsers.first(where: {$0.email == email}) ?? nil
         
         if user == nil {
             throw SessionError.loginError(message: "There is no user record corresponding to this identifier. The user may have been deleted.")
@@ -94,12 +82,13 @@ class MockSessionService: ObservableObject, SessionServiceProtocol {
     }
     
     func isUserVerified() async -> Bool {
-        let user = authUsers.first(where: {$0.email == currentUser?.email})
+        let user = db.authUsers.first(where: {$0.email == currentUser?.email})
         return user?.isVerified ?? false
     }
     
     func logout() -> Bool {
         if currentUser != nil {
+            currentUser = nil
             return true
         } else {
             return false
@@ -107,13 +96,13 @@ class MockSessionService: ObservableObject, SessionServiceProtocol {
     }
     
     func register(email: String, password: String) async throws {
-        let data = authUsers.first(where: {$0.email == email})
+        let data = db.authUsers.first(where: {$0.email == email})
         if data != nil {
             throw SessionError.registrationError(message: "The email is already in use!")
         }
         let newAuthUser = AuthUser(id: UUID().uuidString, email: email, password: password, isVerified: false)
         
-        authUsers.append(newAuthUser)
+        db.authUsers.append(newAuthUser)
         currentUser = newAuthUser
     }
     

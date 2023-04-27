@@ -4,15 +4,6 @@ import XCTest
 
 @MainActor
 final class NewsViewModel_Tests: XCTestCase {
-
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-    
     func test_newsViewModel_fetchNews_SymbolIsEmpty() async throws {
         //Given
         let symbol: String? = nil

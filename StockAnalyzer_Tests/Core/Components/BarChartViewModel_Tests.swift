@@ -7,7 +7,7 @@ final class BarChartViewModel_Tests: XCTestCase {
         //Given
         let isInverted: Bool = Bool.random()
         let title: String = "Income"
-        let vm = BarChartViewModel(title: title, xData: [], yData: [], intervals: [], isInverted: isInverted)
+        let vm = BarChartViewModel(title: title, xData: [], yData: [], intervals: [], isInverted: isInverted, reversePrefix: false)
         
         //When
         vm.calculateGrowthRates()
@@ -20,7 +20,7 @@ final class BarChartViewModel_Tests: XCTestCase {
         //Given
         let isInverted: Bool = Bool.random()
         let title: String = "Income"
-        let vm = BarChartViewModel(title: title, xData: ["2020", "2021", "2022", "2023","2024","2025","2026","2027","2028","2029","2030"], yData: [0, 1,2,3,4,5,6,7,8,-9,-9], intervals: [1,3,5,10], isInverted: isInverted)
+        let vm = BarChartViewModel(title: title, xData: ["2020", "2021", "2022", "2023","2024","2025","2026","2027","2028","2029","2030"], yData: [0, 1,2,3,4,5,6,7,8,-9,-9], intervals: [1,3,5,10], isInverted: isInverted, reversePrefix: false)
         
         //When
         vm.calculateGrowthRates()
@@ -33,7 +33,7 @@ final class BarChartViewModel_Tests: XCTestCase {
         // Given
         let isInverted: Bool = Bool.random()
         let title: String = "Income"
-        let vm = BarChartViewModel(title: title, xData: ["2020", "2021", "2022", "2023","2024","2025","2026","2027","2028","2029","2030"], yData: [0, 1,2,3,4,5,6,7,8,-9,-9], intervals: [1,3,5,10], isInverted: isInverted)
+        let vm = BarChartViewModel(title: title, xData: ["2020", "2021", "2022", "2023","2024","2025","2026","2027","2028","2029","2030"], yData: [0, 1,2,3,4,5,6,7,8,-9,-9], intervals: [1,3,5,10], isInverted: isInverted, reversePrefix: false)
         
         //When
         let num1 = -1
@@ -50,7 +50,7 @@ final class BarChartViewModel_Tests: XCTestCase {
         // Given
         let isInverted: Bool = Bool.random()
         let title: String = "Income"
-        let vm = BarChartViewModel(title: title, xData: ["2020", "2021", "2022", "2023","2024","2025","2026","2027","2028","2029","2030"], yData: [0, 1,2,3,4,5,6,7,8,-9,-9], intervals: [1,3,5,10], isInverted: isInverted)
+        let vm = BarChartViewModel(title: title, xData: ["2020", "2021", "2022", "2023","2024","2025","2026","2027","2028","2029","2030"], yData: [0, 1,2,3,4,5,6,7,8,-9,-9], intervals: [1,3,5,10], isInverted: isInverted, reversePrefix: false)
         
         //When
         let num1 = 1
@@ -68,7 +68,7 @@ final class BarChartViewModel_Tests: XCTestCase {
         // Given
         let isInverted: Bool = Bool.random()
         let title: String = "Income"
-        let vm = BarChartViewModel(title: title, xData: ["2020", "2021", "2022", "2023","2024","2025","2026","2027","2028","2029","2030"], yData: [0, 1,2,3,4,5,6,7,8,-9,-9], intervals: [1,3,5,10], isInverted: isInverted)
+        let vm = BarChartViewModel(title: title, xData: ["2020", "2021", "2022", "2023","2024","2025","2026","2027","2028","2029","2030"], yData: [0, 1,2,3,4,5,6,7,8,-9,-9], intervals: [1,3,5,10], isInverted: isInverted, reversePrefix: false)
         
         //When
         let num1 = 0

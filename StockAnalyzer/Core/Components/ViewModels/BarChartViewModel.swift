@@ -9,29 +9,39 @@ class BarChartViewModel: ObservableObject {
     
     let title: String
     let isInverted: Bool
+    let reversePrefix: Bool
     let intervals: [Int]
     
-    init(title: String, xData: [String], yData: [Int], intervals: [Int], isInverted: Bool) {
+    init(title: String, xData: [String], yData: [Int], intervals: [Int], isInverted: Bool, reversePrefix: Bool) {
         self.title = title
         self.xData = xData
         self.yData = yData
         self.intervals = intervals
         self.isInverted = isInverted
+        self.reversePrefix = reversePrefix
     }
 
     func calculateGrowthRates() {
         for interval in intervals {
             if (yData.count - interval - 1) >= 0 {
-                var growthRate = String(format: "%.1f", (pow(Double(yData[yData.count - 1]) / Double(yData[yData.count - interval - 1]), 1.0/1.0) - 1.0) * 100)
-                
-                
-                if growthRate == "nan" || isPrefixDifferent(lfs: yData[yData.count - 1], rfs: yData[yData.count - interval - 1]) {
-                    growthRate = "-"
-                } else {
-                    growthRate = growthRate[0] == "-" ? "\(growthRate)%" : growthRate == "0.0" ?  "\(growthRate)%" : "+\(growthRate)%"
+                var growthRateAsString = "-"
+                if !isPrefixDifferent(lfs: yData[yData.count - 1], rfs: yData[yData.count - interval - 1]) {
+                    let difference = pow(Double(yData[yData.count - 1]) / Double(yData[yData.count - interval - 1]), 1.0/Double(interval))
+                    
+                    let growthRate: Double
+                    
+                    if !reversePrefix && yData[yData.count - 1] < 0 {
+                        growthRate = (1 - difference) * 100.0
+                    } else {
+                        growthRate = (difference - 1) * 100.0
+                    }
+                    print(growthRate)
+                    
+                    growthRateAsString = String(format: "%2.f", growthRate)
+                    growthRateAsString = growthRateAsString[0] == "-" ? "\(growthRateAsString)%" : growthRateAsString == "0.0" ?  "\(growthRateAsString)%" : "+\(growthRateAsString)%"
                 }
                 
-                growthRates.append(growthRate)
+                growthRates.append(growthRateAsString)
             } else {
                 growthRates.append("")
             }

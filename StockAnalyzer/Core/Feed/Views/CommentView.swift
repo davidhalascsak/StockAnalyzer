@@ -32,9 +32,9 @@ struct CommentView: View {
                         .foregroundColor(vm.comment.isLiked ?? false ? Color.blue : Color.black)
                         .onTapGesture {
                             if vm.sessionService.getUserId() != nil && vm.isUpdated {
-                                if vm.post.isLiked ?? false {
+                                if vm.comment.isLiked ?? false {
                                     Task {
-                                        await vm.likeComment()
+                                        await vm.unlikeComment()
                                     }
                                 } else {
                                     Task {

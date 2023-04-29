@@ -67,7 +67,8 @@ class PortfolioService: ObservableObject, PortfolioServiceProtocol {
                 
                 if let snapshot = snapshot {
                     let _ = snapshot.documents.compactMap({
-                        print($0.reference) })
+                        assetPath.collection("positions").document($0.reference.documentID).delete()
+                    })
                 }
                 
                 try await assetPath.delete()

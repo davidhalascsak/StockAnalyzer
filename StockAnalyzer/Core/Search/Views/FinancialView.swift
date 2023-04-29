@@ -35,9 +35,9 @@ struct FinancialView: View {
             Text("Income Statement")
                 .font(.title2)
                 .fontWeight(.bold)
-            BarChartView(title: "Revenue", xData: vm.incomeStatement.map({ $0.date }).reversed(), yData: vm.incomeStatement.map({ $0.revenue }).reversed(), intervals: [1,3,5,10], isInverted: false)
-            BarChartView(title: "Operating Income", xData: vm.incomeStatement.map({ $0.date }).reversed(), yData: vm.incomeStatement.map({ $0.operatingIncome }).reversed(), intervals: [1,3,5,10], isInverted: false)
-            BarChartView(title: "Net Income", xData: vm.incomeStatement.map({ $0.date }).reversed(), yData: vm.incomeStatement.map({ $0.netIncome }).reversed(), intervals: [1,3,5,10], isInverted: false)
+            BarChartView(title: "Revenue", xData: vm.incomeStatement.map({ $0.date }).reversed(), yData: vm.incomeStatement.map({ $0.revenue }).reversed(), intervals: [1,3,5,10], isInverted: false, reversePrefix: false)
+            BarChartView(title: "Operating Income", xData: vm.incomeStatement.map({ $0.date }).reversed(), yData: vm.incomeStatement.map({ $0.operatingIncome }).reversed(), intervals: [1,3,5,10], isInverted: false, reversePrefix: false)
+            BarChartView(title: "Net Income", xData: vm.incomeStatement.map({ $0.date }).reversed(), yData: vm.incomeStatement.map({ $0.netIncome }).reversed(), intervals: [1,3,5,10], isInverted: false, reversePrefix: false)
         }
     }
     
@@ -68,7 +68,7 @@ struct FinancialView: View {
             .padding(.horizontal)
             .background(Color.gray.opacity(0.15))
             .cornerRadius(10)
-            BarChartView(title: "Share Outstanding", xData: vm.incomeStatement.map({$0.date}).reversed(), yData: vm.incomeStatement.map({$0.weightedAverageShsOut}).reversed(), intervals: [1,3,5,10], isInverted: true)
+            BarChartView(title: "Share Outstanding", xData: vm.incomeStatement.map({$0.date}).reversed(), yData: vm.incomeStatement.map({$0.weightedAverageShsOut}).reversed(), intervals: [1,3,5,10], isInverted: true, reversePrefix: false)
         }
     }
     
@@ -77,9 +77,9 @@ struct FinancialView: View {
             Text("Cash Flow")
                 .font(.title2)
                 .fontWeight(.bold)
-            BarChartView(title: "Operating Cash Flow", xData: vm.cashFlowStatement.map({ $0.date }).reversed(), yData: vm.cashFlowStatement.map({ $0.operatingCashFlow }).reversed(), intervals: [1,3,5,10], isInverted: false)
-            BarChartView(title: "Capital Expenditure", xData: vm.cashFlowStatement.map({ $0.date }).reversed(), yData: vm.cashFlowStatement.map({ $0.capitalExpenditure }).reversed(), intervals: [1,3,5,10], isInverted: true)
-            BarChartView(title: "Free Cash Flow", xData: vm.cashFlowStatement.map({ $0.date }).reversed(), yData: vm.cashFlowStatement.map({ $0.freeCashFlow }).reversed(), intervals: [1,3,5,10], isInverted: false)
+            BarChartView(title: "Operating Cash Flow", xData: vm.cashFlowStatement.map({ $0.date }).reversed(), yData: vm.cashFlowStatement.map({ $0.operatingCashFlow }).reversed(), intervals: [1,3,5,10], isInverted: false, reversePrefix: false)
+            BarChartView(title: "Capital Expenditure", xData: vm.cashFlowStatement.map({ $0.date }).reversed(), yData: vm.cashFlowStatement.map({ $0.capitalExpenditure }).reversed(), intervals: [1,3,5,10], isInverted: true, reversePrefix: true)
+            BarChartView(title: "Free Cash Flow", xData: vm.cashFlowStatement.map({ $0.date }).reversed(), yData: vm.cashFlowStatement.map({ $0.freeCashFlow }).reversed(), intervals: [1,3,5,10], isInverted: false, reversePrefix: false)
         }
     }
     

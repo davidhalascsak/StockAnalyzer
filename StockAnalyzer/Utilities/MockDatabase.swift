@@ -70,4 +70,62 @@ class MockDatabase {
     var imageUrls: [String: Data] = [
         "https://test_image.com": UIImage(named: "default_avatar")?.jpegData(compressionQuality: 0.5) ?? Data(),
     ]
+    
+    var FiveMinData: [String : [ChartData]] = [
+        "AAPL": [
+            ChartData(date: "2020-03-02 10:35:00", open: 280, close: 280),
+            ChartData(date: "2020-03-02 10:30:00", open: 280, close: 280),
+            ChartData(date: "2020-03-02 10:25:00", open: 280, close: 280),
+            ChartData(date: "2020-03-02 10:20:00", open: 280, close: 280),
+            ChartData(date: "2020-03-02 10:15:00", open: 278, close: 278),
+            ChartData(date: "2020-03-02 10:10:00", open: 280, close: 280),
+            ChartData(date: "2020-03-02 10:05:00", open: 280, close: 280),
+            ChartData(date: "2020-03-02 10:00:00", open: 280, close: 280),
+            ChartData(date: "2020-03-02 09:55:00", open: 280, close: 280),
+            ChartData(date: "2020-03-02 09:50:00", open: 280, close: 280),
+            ChartData(date: "2020-03-02 09:45:00", open: 280, close: 280),
+            ChartData(date: "2020-03-02 09:40:00", open: 281, close: 281),
+            ChartData(date: "2020-03-02 09:35:00", open: 280, close: 280),
+            ChartData(date: "2020-03-02 09:30:00", open: 280, close: 280),
+        ]
+    ]
+    
+    var OneHourData: [String : [ChartData]] = [
+        "AAPL": [
+            ChartData(date: "2023-04-27 16:00:00", open: 280, close: 280),
+            ChartData(date: "2023-04-27 15:00:00", open: 280, close: 280),
+            ChartData(date: "2023-04-27 14:00:00", open: 280, close: 280),
+            ChartData(date: "2023-04-27 13:00:00", open: 280, close: 280),
+            ChartData(date: "2023-04-27 12:00:00", open: 275, close: 275),
+            ChartData(date: "2023-04-27 11:00:00", open: 280, close: 280),
+            ChartData(date: "2023-04-27 10:00:00", open: 280, close: 280),
+            ChartData(date: "2023-04-26 16:00:00", open: 300, close: 300),
+            ChartData(date: "2023-04-26 15:00:00", open: 280, close: 280),
+            ChartData(date: "2023-04-26 14:00:00", open: 280, close: 280),
+            ChartData(date: "2023-04-26 13:00:00", open: 280, close: 280),
+            ChartData(date: "2023-04-26 12:00:00", open: 290, close: 290),
+            ChartData(date: "2023-04-26 11:00:00", open: 285, close: 285),
+            ChartData(date: "2023-04-26 10:00:00", open: 280, close: 280),
+        ]
+    ]
+    
+    var DailyData: [String : [ChartData]] = [
+        "AAPL": [
+            ChartData(date: "2020-03-20", open: 285, close: 285),
+            ChartData(date: "2020-03-19", open: 280, close: 280),
+            ChartData(date: "2020-03-18", open: 280, close: 280),
+            ChartData(date: "2020-03-17", open: 280, close: 280),
+            ChartData(date: "2020-03-16", open: 280, close: 280),
+            ChartData(date: "2020-03-13", open: 275, close: 275),
+            ChartData(date: "2020-03-12", open: 280, close: 280),
+            ChartData(date: "2020-03-11", open: 280, close: 280),
+            ChartData(date: "2020-03-10", open: 300, close: 300),
+            ChartData(date: "2020-03-09", open: 280, close: 280),
+            ChartData(date: "2020-03-06", open: 280, close: 280),
+            ChartData(date: "2020-03-05", open: 280, close: 280),
+            ChartData(date: "2020-03-04", open: 290, close: 290),
+            ChartData(date: "2020-03-03", open: 285, close: 285),
+            ChartData(date: "2020-03-02", open: 280, close: 280),
+        ]
+    ]
 }

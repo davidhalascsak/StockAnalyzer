@@ -26,7 +26,9 @@ class FinancialViewModel: ObservableObject {
         self.balanceSheet = balanceSheet
         self.cashFlowStatement = cashFlowStatement
         
-        self.isLoading = false
+        if !incomeStatement.isEmpty && !balanceSheet.isEmpty && !cashFlowStatement.isEmpty {
+            self.isLoading = false
+        }
     }
     
     func calculateROE() -> String {

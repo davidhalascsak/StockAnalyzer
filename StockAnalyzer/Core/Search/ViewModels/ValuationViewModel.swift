@@ -34,7 +34,6 @@ class ValuationViewModel: ObservableObject {
             .CombineLatest4($baseValue, $growthRate, $discountRate, $terminalMultiple)
             .debounce(for: .seconds(1.0), scheduler: DispatchQueue.main)
             .sink { [weak self] _ in
-                print("hello")
                 self?.calculateIntrinsicValue()
             }
             .store(in: &cancellables)

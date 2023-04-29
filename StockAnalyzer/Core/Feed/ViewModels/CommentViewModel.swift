@@ -42,7 +42,8 @@ class CommentViewModel: ObservableObject {
             withAnimation(.easeIn(duration: 0.3)) {
                 comment.isLiked = false
             }
-            isUpdated = true
+            
         }
+        isUpdated = true
     }
 }

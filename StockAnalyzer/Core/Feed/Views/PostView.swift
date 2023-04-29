@@ -48,7 +48,6 @@ struct PostView: View {
                     .onTapGesture {
                         if vm.sessionService.getUserId() != nil && vm.isUpdated {
                             if vm.post.isLiked ?? false {
-                                
                                 Task {
                                     await vm.unlikePost()
                                 }

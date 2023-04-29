@@ -4,8 +4,8 @@ import Charts
 struct BarChartView: View {
     @StateObject var vm: BarChartViewModel
     
-    init(title: String, xData: [String], yData: [Int], intervals: [Int], isInverted: Bool) {
-        _vm = StateObject(wrappedValue: BarChartViewModel(title: title, xData: xData, yData: yData, intervals: intervals, isInverted: isInverted))
+    init(title: String, xData: [String], yData: [Int], intervals: [Int], isInverted: Bool, reversePrefix: Bool) {
+        _vm = StateObject(wrappedValue: BarChartViewModel(title: title, xData: xData, yData: yData, intervals: intervals, isInverted: isInverted, reversePrefix: reversePrefix))
     }
     
     var body: some View {
@@ -102,6 +102,6 @@ struct BarChartView: View {
 
 struct BarChartView_Previews: PreviewProvider {
     static var previews: some View {
-        BarChartView(title: "Revenue", xData: ["2020", "2021", "2022", "2023","2024","2025","2026","2027","2028","2029","2030"], yData: [0, 1,2,3,4,5,6,7,8,-9,-9], intervals: [1,3,5,10], isInverted: false)
+        BarChartView(title: "Revenue", xData: ["2020", "2021", "2022", "2023","2024","2025","2026","2027","2028","2029","2030"], yData: [0,1,2,3,4,5,-6,-7,-8,-9,-6], intervals: [1,3,5,10], isInverted: false, reversePrefix: false)
     }
 }

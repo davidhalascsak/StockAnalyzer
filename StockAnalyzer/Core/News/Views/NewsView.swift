@@ -39,6 +39,7 @@ struct NewsView: View {
                         vm.shouldScroll.toggle()
                     }
                 }
+                .disabled(vm.isLoading)
                 .rotationEffect(Angle(degrees: vm.isLoading ? 360 : 0), anchor: .center)
             Spacer()
             Text("News")

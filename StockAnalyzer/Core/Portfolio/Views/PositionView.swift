@@ -52,10 +52,13 @@ struct PositionView: View {
                 Image(systemName: "arrow.triangle.2.circlepath")
                     .font(.title2)
                     .onTapGesture {
+                        vm.isLoading = true
                         Task {
                             await vm.reloadAsset()
                         }
                     }
+                    .disabled(vm.isLoading)
+                    .rotationEffect(Angle(degrees: vm.isLoading ? 360 : 0), anchor: .center)
             }
         }
     }

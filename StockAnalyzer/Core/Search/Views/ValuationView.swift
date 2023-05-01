@@ -92,7 +92,8 @@ struct ValuationView: View {
             .padding(.top, 8)
             .padding(.horizontal, 20)
             HStack {
-                Text(vm.valuationType == "Net Income" ? "Net Income:" : "Free Cash Flow:")
+                //Text(vm.valuationType == "Net Income" ? "Net Income:" : "Free Cash Flow:")
+                Text("Base: ")
                 Spacer()
                 TextField("", value: $vm.baseValue, format: .number)
                     .keyboardType(.decimalPad)

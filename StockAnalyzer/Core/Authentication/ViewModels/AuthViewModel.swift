@@ -36,20 +36,12 @@ class AuthViewModel: ObservableObject {
     }
     
     public func checkLogin() async {
-        if userData.email.count < 5 {
+        if !isValidEmail(userData.email) {
             alertTitle = "Error"
-            alertText = "The email must be at least 5 characters long!"
+            alertText = "The email format is not valid!"
             showAlert.toggle()
             
             return
-        } else {
-            if !isValidEmail(userData.email) {
-                alertTitle = "Error"
-                alertText = "The email format is not valid!"
-                showAlert.toggle()
-                
-                return
-            }
         }
         
         if userData.password.count < 6 {
@@ -96,26 +88,18 @@ class AuthViewModel: ObservableObject {
         
         if userData.username.count < 5 {
             alertTitle = "Error"
-            alertText = "The username must be at least 5 characters long!"
+            alertText = "The username must be at least 6 characters long!"
             showAlert.toggle()
             
             return
         }
         
-        if userData.email.count < 5 {
+        if !isValidEmail(userData.email) {
             alertTitle = "Error"
-            alertText = "The email must be at least 5 characters long!"
+            alertText = "The email format is not valid!"
             showAlert.toggle()
             
             return
-        } else {
-            if !isValidEmail(userData.email) {
-                alertTitle = "Error"
-                alertText = "The email format is not valid!"
-                showAlert.toggle()
-                
-                return
-            }
         }
         
         if userData.password.count < 6 {
@@ -174,7 +158,8 @@ class AuthViewModel: ObservableObject {
             alertTitle = "Registration Error"
             alertText = "The email is already in use!"
             showAlert.toggle()
-            logout()
+            
+            _ = await imageService.removeImage(url: imageUrl)
             
             return
         }
@@ -189,8 +174,9 @@ class AuthViewModel: ObservableObject {
                 alertTitle = "Registration Error"
                 alertText = "Error while saving the user!"
                 showAlert.toggle()
-                logout()
                 
+                _ = await imageService.removeImage(url: imageUrl)
+                _ = await sessionService.deleteUser()
                 return
             }
             
@@ -201,11 +187,22 @@ class AuthViewModel: ObservableObject {
             alertText = "Error while creating the user object!"
             showAlert.toggle()
             
+            _ = await imageService.removeImage(url: imageUrl)
+            _ = await sessionService.deleteUser()
+            
             return
         }
         alertTitle = "Success"
         alertText = "Please verify your account, before login!"
+        userData.username = ""
+        alertTitle = ""
+        alertText = ""
+        userData.email = ""
+        userData.password = ""
+        userData.passwordAgain = ""
+        
         showAlert.toggle()
+        isCorrect.toggle()
     }
     
     func sendVerificationEmail() async {
@@ -217,7 +214,7 @@ class AuthViewModel: ObservableObject {
     }
     
     private func isValidEmail(_ email: String) -> Bool {
-        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{1,64}"
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
         let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
         return emailPred.evaluate(with: email)
     }

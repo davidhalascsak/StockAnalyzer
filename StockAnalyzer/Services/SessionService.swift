@@ -51,6 +51,15 @@ class SessionService: ObservableObject, SessionServiceProtocol {
         try await Auth.auth().createUser(withEmail: email, password: password)
     }
     
+    func deleteUser() async -> Bool {
+        do {
+            try await Auth.auth().currentUser?.delete()
+            return true
+        } catch {
+            return false
+        }
+    }
+    
     func sendVerificationEmail() async throws {
         try await Auth.auth().currentUser?.sendEmailVerification()
     }
@@ -106,6 +115,12 @@ class MockSessionService: ObservableObject, SessionServiceProtocol {
         currentUser = newAuthUser
     }
     
+    func deleteUser() async -> Bool {
+        db.authUsers.removeAll(where: {$0.id == currentUser?.id})
+        
+        return true
+    }
+    
     func sendVerificationEmail() async throws {}
 }
 
@@ -115,5 +130,6 @@ protocol SessionServiceProtocol {
     func isUserVerified() async -> Bool
     func logout() -> Bool
     func register(email: String, password: String) async throws
+    func deleteUser() async -> Bool
     func sendVerificationEmail() async throws
 }

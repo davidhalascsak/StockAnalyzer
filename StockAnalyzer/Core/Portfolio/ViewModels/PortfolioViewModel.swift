@@ -15,7 +15,6 @@ class PortfolioViewModel: ObservableObject {
     }
     
     func fetchAssets() async {
-        isLoading = true
         assets = await portfolioService.fetchAssets()
         for asset in assets {
             let vm = PortfolioRowViewModel(asset: asset, stockService: StockService(symbol: asset.symbol))
@@ -32,6 +31,7 @@ class PortfolioViewModel: ObservableObject {
                 await vm.calculateCurrentValue()
             }
         }
+        isLoading = false
     }
     
     func deleteAsset(at index: Int) async {

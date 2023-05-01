@@ -54,6 +54,10 @@ struct BalanceSheet: Decodable {
     var totalLiabilities: Int {
         return self.totalCurrentLiabilities + self.totalNonCurrentLiabilities
     }
+    
+    var totalEquity: Int {
+        return self.totalAssets - self.totalLiabilities
+    }
 }
 
 struct CashFlowStatement: Decodable {

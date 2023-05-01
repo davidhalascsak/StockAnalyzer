@@ -467,6 +467,13 @@
 			path = Search;
 			sourceTree = "<group>";
 		};
+		EC88B64929FD1F0C00618EAF /* Services */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		EC90D60B298ACED3001D4520 = {
 			isa = PBXGroup;
 			children = (
@@ -534,6 +541,7 @@
 		ECA9AE0529F541C100DDC19B /* StockAnalyzer_Tests */ = {
 			isa = PBXGroup;
 			children = (
+				EC88B64929FD1F0C00618EAF /* Services */,
 				ECB80DEE29F9749100910473 /* Core */,
 			);
 			path = StockAnalyzer_Tests;

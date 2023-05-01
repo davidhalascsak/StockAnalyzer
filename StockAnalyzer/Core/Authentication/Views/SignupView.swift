@@ -79,13 +79,7 @@ struct SignupView: View {
             .alert(vm.alertTitle, isPresented: $vm.showAlert, actions: {
                 Button("Ok", role: .cancel, action: {
                     if vm.isCorrect {
-                        vm.userData.username = ""
-                        vm.alertTitle = ""
-                        vm.alertText = ""
-                        vm.userData.email = ""
-                        vm.userData.password = ""
-                        vm.userData.passwordAgain = ""
-                        
+                        vm.isCorrect.toggle()
                         dismiss()
                     }
                 })

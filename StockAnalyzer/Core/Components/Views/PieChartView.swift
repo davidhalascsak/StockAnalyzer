@@ -3,6 +3,7 @@ import SwiftUI
 public struct PieChartView: View {
     @State var activeIndex: Int = -1
     let values: [Int]
+    let default_name: String
     let names: [String]
     let formatter: (Int) -> String
     var colors: [Color]
@@ -24,8 +25,9 @@ public struct PieChartView: View {
         return tempSlices
     }
     
-    public init(values:[Int], names: [String], formatter: @escaping (Int) -> String, colors: [Color] = [Color.blue, Color.green, Color.orange], widthFraction: CGFloat = 1.0, innerRadiusFraction: CGFloat = 0.70){
+    public init(values:[Int], default_name: String, names: [String], formatter: @escaping (Int) -> String, colors: [Color], widthFraction: CGFloat = 1.0, innerRadiusFraction: CGFloat = 0.70) {
         self.values = values
+        self.default_name = default_name
         self.names = names
         self.formatter = formatter
         
@@ -74,7 +76,7 @@ public struct PieChartView: View {
                         .frame(width: widthFraction * geometry.size.width * innerRadiusFraction, height: widthFraction * geometry.size.width * innerRadiusFraction)
                     
                     VStack {
-                        Text(self.activeIndex == -1 ? "Total Equity" : names[self.activeIndex])
+                        Text(self.activeIndex == -1 ? default_name : names[self.activeIndex])
                             .font(.title2)
                         Text(self.formatter(self.activeIndex == -1 ? (values[0] - values[1]) : values[self.activeIndex]))
                             .font(.title2)
@@ -88,7 +90,7 @@ public struct PieChartView: View {
 
 struct PieChartView_Previews: PreviewProvider {
     static var previews: some View {
-        PieChartView(values: [1300, 500, 300], names: ["Rent", "Transport", "Education"], formatter: {value in String(format: "$%.0f", value)})
+        PieChartView(values: [1300, 500, 300], default_name: "All", names: ["Rent", "Transport", "Education"], formatter: {value in String(format: "$%.0f", value)}, colors: [Color.green, Color.blue, Color.orange])
     }
 }
 

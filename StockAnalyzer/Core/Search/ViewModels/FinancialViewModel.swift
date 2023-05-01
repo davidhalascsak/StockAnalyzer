@@ -16,9 +16,9 @@ class FinancialViewModel: ObservableObject {
     }
     
     func fetchData() async {
-        async let fetchIncomeStatement = self.financeService.fetchIncomeStatement()
-        async let fetchBalanceSheet = self.financeService.fetchBalanceSheet()
-        async let fetchCashFlowStatement = self.financeService.fetchCashFlowStatement()
+        async let fetchIncomeStatement = financeService.fetchIncomeStatement()
+        async let fetchBalanceSheet = financeService.fetchBalanceSheet()
+        async let fetchCashFlowStatement = financeService.fetchCashFlowStatement()
         
         let (incomeStatement, balanceSheet, cashFlowStatement) = await (fetchIncomeStatement, fetchBalanceSheet, fetchCashFlowStatement)
         
@@ -27,58 +27,62 @@ class FinancialViewModel: ObservableObject {
         self.cashFlowStatement = cashFlowStatement
         
         if !incomeStatement.isEmpty && !balanceSheet.isEmpty && !cashFlowStatement.isEmpty {
-            self.isLoading = false
+            isLoading = false
         }
     }
     
     func calculateROE() -> String {
-        let taxRate =  Double(self.incomeStatement[0].incomeTaxExpense) / Double(self.incomeStatement[0].incomeBeforeTax)
-        let nopat = Double(self.incomeStatement[0].operatingIncome) * (1.0 - taxRate)
+        let taxRate =  Double(incomeStatement[0].incomeTaxExpense) / Double(incomeStatement[0].incomeBeforeTax)
+        let nopat = Double(incomeStatement[0].operatingIncome) * (1.0 - taxRate)
         
-        let roe = nopat / Double(self.balanceSheet[0].totalAssets - self.balanceSheet[0].totalLiabilities)
+        let roe = nopat / Double(balanceSheet[0].totalAssets - balanceSheet[0].totalLiabilities)
         return String(format: "%.0f", 100 * roe)
     }
     
     func calculateROA() -> String {
-        let taxRate =  Double(self.incomeStatement[0].incomeTaxExpense) / Double(self.incomeStatement[0].incomeBeforeTax)
-        let nopat = Double(self.incomeStatement[0].operatingIncome) * (1.0 - taxRate)
+        let taxRate =  Double(incomeStatement[0].incomeTaxExpense) / Double(incomeStatement[0].incomeBeforeTax)
+        let nopat = Double(incomeStatement[0].operatingIncome) * (1.0 - taxRate)
         
-        let roa = nopat / Double(self.balanceSheet[0].totalAssets)
+        let roa = nopat / Double(balanceSheet[0].totalAssets)
         return String(format: "%.0f", 100 * roa)
     }
     
     func calculateROIC() -> String {
-        let taxRate =  Double(self.incomeStatement[0].incomeTaxExpense) / Double(self.incomeStatement[0].incomeBeforeTax)
-        let nopat = Double(self.incomeStatement[0].operatingIncome) * (1.0 - taxRate)
+        let taxRate =  Double(incomeStatement[0].incomeTaxExpense) / Double(incomeStatement[0].incomeBeforeTax)
+        let nopat = Double(incomeStatement[0].operatingIncome) * (1.0 - taxRate)
         
+        /*
         let helper = self.balanceSheet[0].totalCurrentLiabilities - self.balanceSheet[0].totalCurrentAssets + self.balanceSheet[0].cashAndCashEquivalents
         let investedCapital = self.balanceSheet[0].totalAssets - self.balanceSheet[0].accountPayables - (self.balanceSheet[0].cashAndCashEquivalents - max(0, helper))
         
+        let roic = nopat / Double(investedCapital)
+        */
+        let investedCapital = balanceSheet[0].shortTermDebt + balanceSheet[0].longTermDebt + balanceSheet[0].totalEquity
         let roic = nopat / Double(investedCapital)
         
         return String(format: "%.0f", 100 * roic)
     }
     
     func calculateROCE() -> String {
-        let roce = Double(self.incomeStatement[0].incomeBeforeTax) / Double(self.balanceSheet[0].totalAssets - self.balanceSheet[0].totalCurrentLiabilities)
+        let roce = Double(incomeStatement[0].incomeBeforeTax) / Double(balanceSheet[0].totalAssets - balanceSheet[0].totalCurrentLiabilities)
         return String(format: "%.0f", 100 * roce)
     }
     
     func calculateNetDebt() -> String {
-        let ratio = self.balanceSheet[0].shortTermDebt + self.balanceSheet[0].longTermDebt - self.balanceSheet[0].cashAndCashEquivalents
+        let ratio = balanceSheet[0].shortTermDebt + balanceSheet[0].longTermDebt - balanceSheet[0].cashAndCashEquivalents
         
-        return self.formatPrice(price: ratio)
+        return formatPrice(price: ratio)
     }
     
     func calculateDebtToEquity() -> String {
-        let equity = self.balanceSheet[0].totalAssets - self.balanceSheet[0].totalLiabilities
-        let ratio = Double(self.balanceSheet[0].shortTermDebt + self.balanceSheet[0].longTermDebt) / Double(equity)
+        let equity = balanceSheet[0].totalAssets - balanceSheet[0].totalLiabilities
+        let ratio = Double(balanceSheet[0].shortTermDebt + balanceSheet[0].longTermDebt) / Double(equity)
         
         return String(format: "%.2f", ratio)
     }
     
     func calculateFcfMargin() -> Int {
-        return Int(Double(self.cashFlowStatement[0].freeCashFlow) / Double(self.incomeStatement[0].revenue) * 100)
+        return Int(Double(cashFlowStatement[0].freeCashFlow) / Double(incomeStatement[0].revenue) * 100)
     }
     
     func formatPrice(price: Int) -> String {

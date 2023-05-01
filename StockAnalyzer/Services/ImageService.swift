@@ -34,6 +34,16 @@ class ImageService: ImageServiceProtocol {
         }
     }
     
+    func removeImage(url: String) async -> Bool {
+        let reference = Storage.storage().reference(forURL: url)
+        do {
+            try await reference.delete()
+            return true
+        } catch {
+            return false
+        }
+    }
+    
     func updateImage(url: String, data: Data) async -> Bool {
         guard let image = UIImage(data: data) else {return false}
         guard let compressedImage = image.jpegData(compressionQuality: 0.5) else {return false}
@@ -76,6 +86,11 @@ class MockImageService: ImageServiceProtocol {
         return imageUrl
     }
     
+    func removeImage(url: String) async -> Bool {
+        let result = db.imageUrls.removeValue(forKey: url)
+        return (result == nil) ? false : true
+    }
+    
     func updateImage(url: String, data: Data) async -> Bool {
         if db.imageUrls.contains(where: {$0.key == url}) && !data.isEmpty {
             db.imageUrls[url] = data
@@ -92,5 +107,6 @@ protocol ImageServiceProtocol {
     func fetchImageData(url: String) async -> Data?
     func convertDataToImage(imageData: Data) -> UIImage?
     func uploadImage(image: UIImage) async -> String?
+    func removeImage(url: String) async -> Bool
     func updateImage(url: String, data: Data) async -> Bool
 }

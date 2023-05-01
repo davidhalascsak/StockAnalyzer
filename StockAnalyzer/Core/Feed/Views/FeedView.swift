@@ -44,13 +44,14 @@ struct FeedView: View {
                 .font(.title2)
                 .onTapGesture {
                     withAnimation {
+                        vm.isLoading = true
                         Task {
-                            vm.isLoading = true
                             await vm.fetchPosts()
                         }
                         vm.shouldScroll.toggle()
                     }
                 }
+                .disabled(vm.isLoading)
                 .rotationEffect(Angle(degrees: vm.isLoading ? 360 : 0), anchor: .center)
             Spacer()
             Text("Feed")

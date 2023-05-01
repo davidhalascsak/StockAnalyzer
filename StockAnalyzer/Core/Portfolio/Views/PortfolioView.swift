@@ -14,7 +14,7 @@ struct PortfolioView: View {
         NavigationStack {
             headerView
             Divider()
-            if(vm.isLoading == false) {
+            if vm.isLoading == false {
                 if vm.assets.count == 0 {
                     Spacer()
                     Text(vm.sessionService.getUserId() == nil ? "Login to see your portfolio." : "Your portfolio is empty.")
@@ -50,10 +50,13 @@ struct PortfolioView: View {
             Image(systemName: "arrow.triangle.2.circlepath")
                 .font(.title2)
                 .onTapGesture {
+                    vm.isLoading = true
                     Task {
                         await vm.reloadPortfolio()
                     }
                 }
+                .disabled(vm.isLoading)
+                .rotationEffect(Angle(degrees: vm.isLoading ? 360 : 0), anchor: .center)
                 .opacity(vm.sessionService.getUserId() != nil ? 1.0 : 0.0)
             Spacer()
             Text("Portfolio")

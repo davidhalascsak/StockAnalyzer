@@ -40,8 +40,8 @@ class NewAssetViewModel: ObservableObject {
     
     func calculateValue() {
         let value = price * units
-        if value == 0 {
-            self.value = "$0.00"
+        if value <= 0 {
+            self.value = "Invalid Value"
             
         } else {
             self.value = "$\(String(format: "%.2f", value))"
@@ -62,7 +62,7 @@ class NewAssetViewModel: ObservableObject {
         } else {
             showAlert.toggle()
             alertTitle = "Error"
-            alertText = "The price cannot be 0."
+            alertText = "The price is invalid."
         }
     }
 }

@@ -30,7 +30,7 @@ struct NewAssetView: View {
             HStack {
                 Text("Price:")
                 Spacer()
-                TextField("Units", value: $vm.price, format: .number)
+                TextField("Price: ", value: $vm.price, format: .number)
                     .keyboardType(.decimalPad)
                     .padding(5)
                     .frame(width: 80)

@@ -52,13 +52,14 @@ class PositionViewModel: ObservableObject {
                 await vm.calculateCurrentValue()
             }
         }
+        isLoading = false
     }
     
     func deletePosition(at index: Int) async {
         let position = asset.positions?[index]
         
         if let position = position {
-            let result = await self.portfolioService.deletePosition(asset: asset, position: position)
+            let result = await portfolioService.deletePosition(asset: asset, position: position)
             if result {
                 asset.positions?.remove(at: index)
                 positionViewModels.removeValue(forKey: position.id ?? "")

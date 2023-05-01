@@ -40,10 +40,10 @@ class ValuationViewModel: ObservableObject {
     }
     
     func fetchData() async {
-        async let fetchRatios = self.stockService.fetchRatios()
-        async let fetchMarketCap = self.stockService.fetchMarketCap()
-        async let fetchGrowthRates = self.stockService.fetchGrowthRates()
-        async let fetchMetrics = self.stockService.fetchMetrics()
+        async let fetchRatios = stockService.fetchRatios()
+        async let fetchMarketCap = stockService.fetchMarketCap()
+        async let fetchGrowthRates = stockService.fetchGrowthRates()
+        async let fetchMetrics = stockService.fetchMetrics()
         
         let (ratios, marketCap, growthRates, metrics) = await (fetchRatios, fetchMarketCap, fetchGrowthRates, fetchMetrics)
         
@@ -52,19 +52,21 @@ class ValuationViewModel: ObservableObject {
         self.growthRates = growthRates
         self.metrics = metrics
         
-        self.baseValue = Double(String(format: "%.2f", metrics?.netIncomePerShareTTM ?? 0.0)) ?? 0.0
-        self.growthRate = min(max(Int((growthRates?.netIncomeGrowth ?? 0.0) * 100), 3), 20)
-        
-        self.isLoading = false
+        if ratios != nil && marketCap != nil && growthRates != nil && metrics != nil {
+            baseValue = Double(String(format: "%.2f", metrics?.netIncomePerShareTTM ?? 0.0)) ?? 0.0
+            growthRate = min(max(Int((growthRates?.netIncomeGrowth ?? 0.0) * 100), 3), 20)
+            
+            isLoading = false
+        }
     }
     
     func resetValuation() {
-        if self.valuationType == "Net Income" {
-            self.baseValue = Double(String(format: "%.2f", metrics?.netIncomePerShareTTM ?? 0.0)) ?? 0.0
-            self.growthRate = min(max(Int((growthRates?.netIncomeGrowth ?? 0.0) * 100), 3), 20)
-        } else if self.valuationType == "Free Cash Flow" {
-            self.baseValue = Double(String(format: "%.2f", metrics?.freeCashFlowPerShareTTM ?? 0.0)) ?? 0.0
-            self.growthRate = min(max(Int((growthRates?.freeCashFlowGrowth ?? 0.0) * 100),3), 20)
+        if valuationType == "Net Income" {
+            baseValue = Double(String(format: "%.2f", metrics?.netIncomePerShareTTM ?? 0.0)) ?? 0.0
+            growthRate = min(max(Int((growthRates?.netIncomeGrowth ?? 0.0) * 100), 3), 20)
+        } else if valuationType == "Free Cash Flow" {
+            baseValue = Double(String(format: "%.2f", metrics?.freeCashFlowPerShareTTM ?? 0.0)) ?? 0.0
+            growthRate = min(max(Int((growthRates?.freeCashFlowGrowth ?? 0.0) * 100),3), 20)
         }
     }
     
@@ -76,9 +78,9 @@ class ValuationViewModel: ObservableObject {
         let value = futureValue * pow((1.0 + discountRateAsDecimal), -5)
         
         if value < 0 {
-            self.intrinsicValue = "Invalid Price"
+            intrinsicValue = "Invalid Price"
         } else {
-            self.intrinsicValue = String(format: "$%.1f", value)
+            intrinsicValue = String(format: "$%.1f", value)
         }
     }
     

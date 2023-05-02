@@ -1,6 +1,5 @@
 import SwiftUI
 
-
 struct SignupView: View {
     @ObservedObject var vm: AuthViewModel
     @Environment(\.dismiss) private var dismiss
@@ -101,6 +100,6 @@ struct SignupView: View {
 
 struct SignupView_Previews: PreviewProvider {
     static var previews: some View {
-        SignupView(vm: AuthViewModel(isLogin: false, userService: UserService(), sessionService: SessionService(), imageService: ImageService()))
+        SignupView(vm: AuthViewModel(isLogin: false, userService: MockUserService(), sessionService: MockSessionService(currentUser: nil), imageService: MockImageService()))
     }
 }

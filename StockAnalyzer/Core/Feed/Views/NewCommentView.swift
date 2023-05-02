@@ -1,8 +1,8 @@
 import SwiftUI
+import Firebase
 
 struct NewCommentView: View {
     @ObservedObject var vm: CommentSectionViewModel
-    
     
     var body: some View {
         HStack {
@@ -14,7 +14,7 @@ struct NewCommentView: View {
                     .autocorrectionDisabled()
                 Image(systemName: "paperplane.circle.fill")
                     .font(.title2)
-                    .foregroundColor(Color.blue.opacity(vm.commentBody.count > 0 ? 1.0 : 0.5))
+                    .foregroundColor(Color.blue.opacity(vm.commentBody.count > 0 ? 1.0 : 0.6))
                     .onTapGesture {
                         if vm.commentBody.count > 0 {
                             Task {
@@ -32,10 +32,14 @@ struct NewCommentView: View {
         .padding()
     }
 }
-/*
+
 struct NewCommentView_Previews: PreviewProvider {
+    static let user = User(username: "istengyermeke", email: "david.halascsak@gmail.com", location: "Hungary", imageUrl: "")
+    static let post = Post(userRef: "asd", body: "Buy Tesla", timestamp: Timestamp(date: Date()), likes: 5, comments: 5, user: user)
+    static let vm = CommentSectionViewModel(post: post, commentService: MockCommentService(currentUser: nil), userService: MockUserService(), sessionService: MockSessionService(currentUser: nil))
+    
     static var previews: some View {
-        NewCommentView(vm: )
+        NewCommentView(vm: vm)
     }
 }
-*/
+

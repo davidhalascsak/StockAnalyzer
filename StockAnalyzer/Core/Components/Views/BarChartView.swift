@@ -54,7 +54,7 @@ struct BarChartView: View {
                         y: .value("Revenue", data),
                         width: 18,
                         stacking: .standard)
-                    .foregroundStyle(year == vm.xData[vm.xData.count - 1] ? Color.blue : data > 0 ? Color.gray : Color.red)
+                    .foregroundStyle(year == vm.xData[vm.xData.count - 1] ? Color.blue : data > 0 ? Color("barColor") : Color.red)
                     .opacity(vm.xData[vm.selectedDate ?? (vm.yData.count - 1)] == year ? 0.7 : 1.0)
                     .cornerRadius(40)
                 }

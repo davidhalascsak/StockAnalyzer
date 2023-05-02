@@ -47,7 +47,7 @@ struct HomeView: View {
                                         NewsRowView(news: news)
                                     }
                                     .padding(.trailing, 3)
-                                    .background(Color.gray.opacity(0.15))
+                                    .background(Color("newsColor"))
                                     .cornerRadius(20)
                                     .padding(.horizontal, 5)
                                     .padding(.bottom, 50)
@@ -74,7 +74,7 @@ struct HomeView_Previews: PreviewProvider {
     @State static var isNewViewPresented: Bool = false
     
     static var previews: some View {
-        HomeView(company: company, newsService: NewsService(symbol: company.symbol), isNewViewPresented: $isNewViewPresented)
+        HomeView(company: company, newsService: MockNewsService(symbol: nil), isNewViewPresented: $isNewViewPresented)
     }
 }
 

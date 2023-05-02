@@ -52,7 +52,6 @@ final class AuthViewModel_Tests: XCTestCase {
         vm.userData.email = "n@d.c"
         await vm.checkLogin()
         
-        print( vm.alertText)
         //Then
         XCTAssertTrue(vm.showAlert)
         XCTAssertEqual("Error", vm.alertTitle)

@@ -1,6 +1,4 @@
 import SwiftUI
-import FirebaseCore
-import FirebaseAuth
 
 struct FeedView: View {
     @EnvironmentObject var sessionService: SessionService
@@ -122,7 +120,7 @@ struct FeedView: View {
 
 struct FeedView_Previews: PreviewProvider {
     static var previews: some View {
-        FeedView(userService: UserService(), postService: PostService(), sessionService: SessionService(), imageService: ImageService())
+        FeedView(userService: MockUserService(), postService: MockPostService(currentUser: nil), sessionService: MockSessionService(currentUser: nil), imageService: MockImageService())
     }
 }
 

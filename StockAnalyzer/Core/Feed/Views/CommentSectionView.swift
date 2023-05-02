@@ -61,7 +61,7 @@ struct PostDetailView_Previews: PreviewProvider {
     static var previews: some View {
         let user = User(username: "istengyermeke", email: "david.halascsak@gmail.com", location: "Hungary", imageUrl: "")
         let post = Post(userRef: "asd", body: "Buy Tesla", timestamp: Timestamp(date: Date()), likes: 5, comments: 5, user: user)
-        CommentSectionView(post: post, commentService: CommentService(), userService: UserService(), sessionService: SessionService())
+        CommentSectionView(post: post, commentService: MockCommentService(currentUser: nil), userService: MockUserService(), sessionService: MockSessionService(currentUser: nil))
     }
 }
 

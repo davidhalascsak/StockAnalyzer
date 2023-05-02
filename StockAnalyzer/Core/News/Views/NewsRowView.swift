@@ -23,7 +23,7 @@ struct NewsRowView: View {
                     }
                 }
             }
-            .foregroundColor(Color.black)
+            .foregroundColor(Color.primary)
             .frame(height: 100)
         }
     }

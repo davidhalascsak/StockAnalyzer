@@ -9,7 +9,7 @@ struct PositionView: View {
     }
     
     var body: some View {
-        VStack(alignment: .leading) {
+        VStack {
             if vm.isLoading == false {
                 HStack(alignment: .top) {
                     ImageView(url: vm.companyProfile?.image ?? "", defaultImage: "", imageService: ImageService())
@@ -17,11 +17,15 @@ struct PositionView: View {
                         .cornerRadius(10)
                         .frame(height: 50)
                         .frame(maxWidth: 50)
-                    VStack(alignment: .leading) {
-                        Text(vm.asset.symbol)
-                            .fontWeight(.semibold)
-                        Text(vm.companyProfile?.companyName ?? "")
-                    }
+                    NavigationLink {
+                        StockView(symbol: vm.asset.symbol, stockService: StockService(symbol: vm.asset.symbol), sessionService: SessionService())
+                    } label: {
+                        VStack(alignment: .leading) {
+                            Text(vm.asset.symbol)
+                                .fontWeight(.semibold)
+                            Text(vm.companyProfile?.companyName ?? "")
+                        }
+                    }.id(UUID())
                     Spacer()
                     VStack(alignment: .trailing) {
                         Text(String(format: "%.2f", vm.price?.price ?? 0.0))
@@ -30,6 +34,7 @@ struct PositionView: View {
                             .foregroundColor(vm.price?.change ?? 0 > 0 ? Color.green : vm.companyProfile?.changes ?? 0 == 0 ? Color.black : Color.red)
                     }
                 }
+                .foregroundColor(Color.primary)
                 .padding()
                 Divider()
                 positions

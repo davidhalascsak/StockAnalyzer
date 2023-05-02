@@ -1,13 +1,19 @@
 import SwiftUI
 
+enum FocusedField {
+    case newPostField
+    case baseField
+    case growthRateField
+    case discountRateField
+    case terminalMultipleField
+    case unitField
+    case priceField
+}
+
 struct NewPostView: View {
     @StateObject var vm: NewPostViewModel
     @Environment(\.dismiss) private var dismiss
     @FocusState var focusedField: FocusedField?
-    
-    enum FocusedField {
-        case field
-    }
     
     init(symbol: String?, postService: PostServiceProtocol) {
         _vm = StateObject(wrappedValue: NewPostViewModel(symbol: symbol, postService: postService))
@@ -18,7 +24,7 @@ struct NewPostView: View {
             VStack {
                 TextField("Type here...", text: $vm.postBody, axis: .vertical)
                     .autocorrectionDisabled()
-                    .focused($focusedField, equals: .field)
+                    .focused($focusedField, equals: .newPostField)
                     .padding()
                 Spacer()
             }
@@ -48,7 +54,7 @@ struct NewPostView: View {
                 }
             }
             .onAppear {
-                self.focusedField = .field
+                self.focusedField = .newPostField
             }
             .alert(vm.alertTitle, isPresented: $vm.showAlert) {
                 Button("Ok", role: .cancel) {
@@ -65,6 +71,6 @@ struct NewPostView: View {
 
 struct NewPostView_Previews: PreviewProvider {
     static var previews: some View {
-        NewPostView(symbol: "APPL", postService: PostService())
+        NewPostView(symbol: "APPL", postService: MockPostService(currentUser: nil))
     }
 }

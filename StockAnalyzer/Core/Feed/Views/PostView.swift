@@ -1,7 +1,4 @@
 import SwiftUI
-import FirebaseAuth
-import FirebaseFirestore
-import FirebaseFirestoreSwift
 import Firebase
 
 struct PostView: View {
@@ -16,7 +13,6 @@ struct PostView: View {
             postRowView
             .padding()
             .frame(maxWidth: .infinity, alignment: .leading)
-            .background(Color.white)
         }
     }
     
@@ -44,7 +40,7 @@ struct PostView: View {
                 .padding(.vertical, 5)
             HStack {
                 Image(systemName: vm.post.isLiked ?? false ? "hand.thumbsup.fill" : "hand.thumbsup")
-                    .foregroundColor(vm.post.isLiked ?? false ? Color.blue : Color.black)
+                    .foregroundColor(vm.post.isLiked ?? false ? Color.blue : Color.primary)
                     .onTapGesture {
                         if vm.sessionService.getUserId() != nil && vm.isUpdated {
                             if vm.post.isLiked ?? false {
@@ -63,7 +59,7 @@ struct PostView: View {
                     CommentSectionView(post: vm.post, commentService: CommentService(), userService: UserService(), sessionService: SessionService())
                 } label: {
                     Image(systemName: "message")
-                        .foregroundColor(Color.black)
+                        .foregroundColor(Color.primary)
                 }
                 Text("\(vm.post.comments)")
             }
@@ -76,6 +72,6 @@ struct PostView: View {
     static var previews: some View {
         let user = User(username: "istengyermeke", email: "david.halascsak@gmail.com", location: "Hungary", imageUrl: "")
         let post = Post(userRef: "asd", body: "Buy Tesla", timestamp: Timestamp(date: Date()), likes: 5, comments: 5, user: user)
-        PostView(post: post, postService: PostService(), sessionService: SessionService())
+        PostView(post: post, postService: MockPostService(currentUser: nil), sessionService: MockSessionService(currentUser: nil))
     }
  }

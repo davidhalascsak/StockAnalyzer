@@ -1,6 +1,4 @@
 import SwiftUI
-import FirebaseCore
-import FirebaseAuth
 
 struct MainView: View {
     @State var isSettingsPresented: Bool = false

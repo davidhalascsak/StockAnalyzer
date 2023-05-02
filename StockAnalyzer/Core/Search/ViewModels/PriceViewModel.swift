@@ -16,6 +16,9 @@ class PriceViewModel: ObservableObject {
     }
     
     func fetchData() async {
-        self.stockPrice = await self.stockService.fetchPriceInRealTime()
+        let newStockPrice = await stockService.fetchPriceInRealTime()
+        if newStockPrice != nil {
+            stockPrice = newStockPrice
+        }
     }
 }

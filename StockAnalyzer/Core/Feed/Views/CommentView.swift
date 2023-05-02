@@ -29,7 +29,7 @@ struct CommentView: View {
                     .padding(.vertical, 5)
                 HStack {
                     Image(systemName: vm.comment.isLiked ?? false ? "hand.thumbsup.fill" : "hand.thumbsup")
-                        .foregroundColor(vm.comment.isLiked ?? false ? Color.blue : Color.black)
+                        .foregroundColor(vm.comment.isLiked ?? false ? Color.blue : Color.primary)
                         .onTapGesture {
                             if vm.sessionService.getUserId() != nil && vm.isUpdated {
                                 if vm.comment.isLiked ?? false {
@@ -60,7 +60,7 @@ struct CommentView: View {
      static let comment = Comment(userRef: "asd", body: "Buy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy Tesla", timestamp: Timestamp(date: Date()), likes: 5, user: user)
      
      static var previews: some View {
-         CommentView(post: post, comment: comment, commentService: CommentService(), sessionService: SessionService())
+         CommentView(post: post, comment: comment, commentService: MockCommentService(currentUser: nil), sessionService: MockSessionService(currentUser: nil))
      }
  }
  

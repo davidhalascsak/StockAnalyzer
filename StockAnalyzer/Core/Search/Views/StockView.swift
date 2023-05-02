@@ -144,7 +144,7 @@ struct StockView: View {
                         vm.option = .home
                     }
                 Rectangle()
-                    .fill(vm.option == .home ? Color.black : Color.gray)
+                    .fill(vm.option == .home ? Color.primary : Color.gray)
                     .frame(height: vm.option ==
                         .home ? 2 : 1)
             }
@@ -156,8 +156,7 @@ struct StockView: View {
                         vm.option = .financials
                     }
                 Rectangle()
-                    .fill(vm.option == .financials
-                          ? Color.black : Color.gray)
+                    .fill(vm.option == .financials ? Color.primary : Color.gray)
                     .frame(height: vm.option == .financials ? 2 : 1)
             }
             VStack {
@@ -168,7 +167,7 @@ struct StockView: View {
                         vm.option = .valuation
                     }
                 Rectangle()
-                    .fill(vm.option == .valuation ? Color.black : Color.gray)
+                    .fill(vm.option == .valuation ? Color.primary : Color.gray)
                     .frame(height: vm.option == .valuation ? 2 : 1)
             }
             VStack {
@@ -179,7 +178,7 @@ struct StockView: View {
                         vm.option = .about
                     }
                 Rectangle()
-                    .fill(vm.option == .about ? Color.black : Color.gray)
+                    .fill(vm.option == .about ? Color.primary : Color.gray)
                     .frame(height: vm.option == .about ? 2 : 1)
             }
         }
@@ -188,6 +187,6 @@ struct StockView: View {
 
 struct StockView_Previews: PreviewProvider {
     static var previews: some View {
-        StockView(symbol: "APPL", stockService: StockService(symbol: "AAPL"), sessionService: SessionService())
+        StockView(symbol: "APPL", stockService: MockStockService(), sessionService: MockSessionService(currentUser: nil))
     }
 }

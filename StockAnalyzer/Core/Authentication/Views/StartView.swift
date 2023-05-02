@@ -1,8 +1,4 @@
 import SwiftUI
-import FirebaseCore
-import FirebaseAuth
-import Firebase
-
 
 struct StartView: View {
     @StateObject private var vm: AuthViewModel

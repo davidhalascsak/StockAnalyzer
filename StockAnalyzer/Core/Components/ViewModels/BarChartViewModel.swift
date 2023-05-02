@@ -35,7 +35,6 @@ class BarChartViewModel: ObservableObject {
                     } else {
                         growthRate = (difference - 1) * 100.0
                     }
-                    print(growthRate)
                     
                     growthRateAsString = String(format: "%2.f", growthRate)
                     growthRateAsString = growthRateAsString[0] == "-" ? "\(growthRateAsString)%" : growthRateAsString == "0.0" ?  "\(growthRateAsString)%" : "+\(growthRateAsString)%"

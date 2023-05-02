@@ -124,6 +124,6 @@ struct SearchView: View {
 
 struct SearchView_Previews: PreviewProvider {
     static var previews: some View {
-        SearchView(searchService: SearchService())
+        SearchView(searchService: MockSearchService())
     }
 }

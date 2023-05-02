@@ -3,10 +3,6 @@ import SwiftUI
 struct PieSlice: View {
     var pieSliceData: PieSliceData
     
-    var midRadians: Double {
-        return Double.pi / 2.0 - (pieSliceData.startAngle + pieSliceData.endAngle).radians / 2.0
-    }
-    
     var body: some View {
         GeometryReader { geometry in
             ZStack {
@@ -19,7 +15,6 @@ struct PieSlice: View {
                             y: height * 0.5
                         )
                     )
-                    
                     path.addArc(center: CGPoint(x: width * 0.5, y: height * 0.5), radius: width * 0.5, startAngle: Angle(degrees: -90.0) + pieSliceData.startAngle, endAngle: Angle(degrees: -90.0) + pieSliceData.endAngle, clockwise: false)
                 }
                 .fill(pieSliceData.color)
@@ -31,6 +26,6 @@ struct PieSlice: View {
 
 struct PieSlice_Previews: PreviewProvider {
     static var previews: some View {
-        PieSlice(pieSliceData: PieSliceData(startAngle: Angle(degrees: 0.0), endAngle: Angle(degrees: 120.0), color: Color.black))
+        PieSlice(pieSliceData: PieSliceData(startAngle: Angle(degrees: 0.0), endAngle: Angle(degrees: 120.0), color: Color.primary))
     }
 }

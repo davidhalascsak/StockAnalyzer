@@ -2,6 +2,7 @@ import SwiftUI
 
 struct ValuationView: View {
     @StateObject var vm: ValuationViewModel
+    @FocusState private var focusedField: FocusedField?
     
     
     init(company: Company, stockService: StockServiceProtocol) {
@@ -85,6 +86,9 @@ struct ValuationView: View {
                         Text($0)
                     }
                 }
+                .onTapGesture {
+                    focusedField = nil
+                }
                 .padding(-6)
                 .background(Color.white)
                 .cornerRadius(10)
@@ -92,12 +96,12 @@ struct ValuationView: View {
             .padding(.top, 8)
             .padding(.horizontal, 20)
             HStack {
-                //Text(vm.valuationType == "Net Income" ? "Net Income:" : "Free Cash Flow:")
                 Text("Base: ")
                 Spacer()
                 TextField("", value: $vm.baseValue, format: .number)
                     .keyboardType(.decimalPad)
                     .multilineTextAlignment(.trailing)
+                    .focused($focusedField, equals: .baseField)
                     .padding(.horizontal, 5)
                     .frame(width: 100)
                     .background(Color.white)
@@ -111,6 +115,7 @@ struct ValuationView: View {
                     TextField("", value: $vm.growthRate, format: .number)
                         .keyboardType(.numberPad)
                         .multilineTextAlignment(.trailing)
+                        .focused($focusedField, equals: .growthRateField)
                         .frame(width: 75)
                     Text("%")
                 }
@@ -126,6 +131,7 @@ struct ValuationView: View {
                     TextField("", value: $vm.discountRate, format: .number)
                         .keyboardType(.numberPad)
                         .multilineTextAlignment(.trailing)
+                        .focused($focusedField, equals: .discountRateField)
                         .frame(width: 75)
                     Text("%")
                 }
@@ -140,6 +146,7 @@ struct ValuationView: View {
                 TextField("", value: $vm.terminalMultiple, format: .number)
                     .keyboardType(.numberPad)
                     .multilineTextAlignment(.trailing)
+                    .focused($focusedField, equals: .terminalMultipleField)
                     .padding(.horizontal, 5)
                     .frame(width: 100)
                     .background(Color.white)
@@ -155,7 +162,7 @@ struct ValuationView: View {
             .font(Font.title3)
             .padding(.vertical, 10)
         }
-        .background(Color.gray.opacity(0.15))
+        .background(Color.gray.opacity(0.2))
         .cornerRadius(10)
         .onChange(of: vm.valuationType) { _ in
             vm.resetValuation()

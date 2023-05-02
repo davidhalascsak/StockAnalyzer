@@ -1,6 +1,5 @@
 import SwiftUI
 import PhotosUI
-import FirebaseAuth
 
 struct SettingsView: View {
     @Environment(\.dismiss) private var dismiss
@@ -9,7 +8,7 @@ struct SettingsView: View {
     @State var isLoginPresented: Bool = false
     @State var isSignupPresented: Bool = false
     
-    init(userService: UserService, sessionService: SessionServiceProtocol, imageService: ImageServiceProtocol) {
+    init(userService: UserServiceProtocol, sessionService: SessionServiceProtocol, imageService: ImageServiceProtocol) {
         _vm = ObservedObject(wrappedValue: SettingsViewModel(userService: userService, sessionService: sessionService, imageService: imageService))
     }
     
@@ -133,6 +132,6 @@ struct SettingsView: View {
 struct SettingsView_Previews: PreviewProvider {
     
     static var previews: some View {
-        SettingsView(userService: UserService(), sessionService: SessionService(), imageService: ImageService())
+        SettingsView(userService: MockUserService(), sessionService: MockSessionService(currentUser: nil), imageService: MockImageService())
     }
 }

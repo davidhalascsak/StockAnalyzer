@@ -3,6 +3,7 @@ import SwiftUI
 struct NewAssetView: View {
     @StateObject var vm: NewAssetViewModel
     @Environment(\.dismiss) var dismiss
+    @FocusState var focusedField: FocusedField?
     
     init(symbol: String, portfolioService: PortfolioServiceProtocol, stockService: StockServiceProtocol) {
         _vm = StateObject(wrappedValue: NewAssetViewModel(symbol: symbol, portfolioService: portfolioService, stockService: stockService))
@@ -15,6 +16,7 @@ struct NewAssetView: View {
                 Spacer()
                 TextField("Units", value: $vm.units, format: .number)
                     .keyboardType(.decimalPad)
+                    .focused($focusedField, equals: .unitField)
                     .padding(5)
                     .frame(width: 80)
                     .background(Color.gray.opacity(0.1))
@@ -26,12 +28,16 @@ struct NewAssetView: View {
                 DatePicker("", selection: $vm.buyDate,in: ...Date.now, displayedComponents: .date)
                     .datePickerStyle(.compact)
                     .fixedSize()
+                    .onTapGesture {
+                        focusedField = nil
+                    }
             }
             HStack {
                 Text("Price:")
                 Spacer()
                 TextField("Price: ", value: $vm.price, format: .number)
                     .keyboardType(.decimalPad)
+                    .focused($focusedField, equals: .priceField)
                     .padding(5)
                     .frame(width: 80)
                     .background(Color.gray.opacity(0.1))

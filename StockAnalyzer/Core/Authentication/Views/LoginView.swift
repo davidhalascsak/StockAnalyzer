@@ -1,8 +1,4 @@
 import SwiftUI
-import FirebaseCore
-import FirebaseFirestore
-import FirebaseAuth
-
 
 struct LoginView: View {
     @Environment(\.dismiss) private var dismiss
@@ -87,6 +83,6 @@ struct LoginView: View {
 
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginView(vm: AuthViewModel(isLogin: true, userService: UserService(), sessionService: SessionService(), imageService: ImageService()))
+        LoginView(vm: AuthViewModel(isLogin: true, userService: MockUserService(), sessionService: MockSessionService(currentUser: nil), imageService: MockImageService()))
     }
 }

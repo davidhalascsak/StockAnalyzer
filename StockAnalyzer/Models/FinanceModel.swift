@@ -49,14 +49,14 @@ struct BalanceSheet: Decodable {
     let netDebt: Int
     
     var totalAssets: Int {
-        return self.totalCurrentAssets + self.totalNonCurrentAssets
+        return totalCurrentAssets + totalNonCurrentAssets
     }
     var totalLiabilities: Int {
-        return self.totalCurrentLiabilities + self.totalNonCurrentLiabilities
+        return totalCurrentLiabilities + totalNonCurrentLiabilities
     }
     
     var totalEquity: Int {
-        return self.totalAssets - self.totalLiabilities
+        return totalAssets - totalLiabilities
     }
 }
 

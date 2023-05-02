@@ -23,6 +23,10 @@ struct PieSliceData {
     var startAngle: Angle
     var endAngle: Angle
     var color: Color
+    
+    var midRadians: Double {
+        return Double.pi / 2.0 - (startAngle + endAngle).radians / 2.0
+    }
 }
 
 enum ChartOption: String {

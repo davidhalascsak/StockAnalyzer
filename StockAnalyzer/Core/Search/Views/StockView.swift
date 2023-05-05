@@ -128,6 +128,7 @@ struct StockView: View {
                 ImageView(url: profile.image, defaultImage: "", imageService: ImageService())
                     .scaledToFit()
                     .cornerRadius(10)
+                    .shadow(radius: 10)
                     .frame(height: 50)
                     .frame(maxWidth: 100)
             }

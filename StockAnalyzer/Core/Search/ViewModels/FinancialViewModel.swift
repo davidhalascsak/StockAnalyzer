@@ -36,7 +36,7 @@ class FinancialViewModel: ObservableObject {
         let nopat = Double(incomeStatement[0].operatingIncome) * (1.0 - taxRate)
         
         let roe = nopat / Double(balanceSheet[0].totalAssets - balanceSheet[0].totalLiabilities)
-        return String(format: "%.0f", abs(roe) < 1 ? 0 : 100 * roe)
+        return String(format: "%.0f", abs(roe) < 0.01 ? 0 : 100 * roe)
     }
     
     func calculateROA() -> String {
@@ -44,7 +44,7 @@ class FinancialViewModel: ObservableObject {
         let nopat = Double(incomeStatement[0].operatingIncome) * (1.0 - taxRate)
         
         let roa = nopat / Double(balanceSheet[0].totalAssets)
-        return String(format: "%.0f", abs(roa) < 1 ? 0 : 100 * roa)
+        return String(format: "%.0f", abs(roa) < 0.01 ? 0 : 100 * roa)
     }
     
     func calculateROIC() -> String {
@@ -54,12 +54,12 @@ class FinancialViewModel: ObservableObject {
         let investedCapital = balanceSheet[0].shortTermDebt + balanceSheet[0].longTermDebt + balanceSheet[0].totalEquity
         let roic = nopat / Double(investedCapital)
         
-        return String(format: "%.0f", abs(roic) < 1 ? 0 : 100 * roic)
+        return String(format: "%.0f", abs(roic) < 0.01 ? 0 : 100 * roic)
     }
     
     func calculateROCE() -> String {
         let roce = Double(incomeStatement[0].incomeBeforeTax) / Double(balanceSheet[0].totalAssets - balanceSheet[0].totalCurrentLiabilities)
-        return String(format: "%.0f", abs(roce) < 1 ? 0 : 100 * roce)
+        return String(format: "%.0f", abs(roce) < 0.01 ? 0 : 100 * roce)
     }
     
     func calculateNetDebt() -> String {

@@ -1,7 +1,6 @@
 import SwiftUI
 
 struct FeedView: View {
-    @EnvironmentObject var sessionService: SessionService
     @StateObject var vm: FeedViewModel
     
     @State var isNewPostPresented: Bool = false

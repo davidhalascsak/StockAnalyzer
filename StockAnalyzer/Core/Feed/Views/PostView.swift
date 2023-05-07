@@ -71,7 +71,7 @@ struct PostView: View {
  
     static var previews: some View {
         let user = User(username: "istengyermeke", email: "david.halascsak@gmail.com", location: "Hungary", imageUrl: "")
-        let post = Post(userRef: "asd", body: "Buy Tesla", timestamp: Timestamp(date: Date()), likes: 5, comments: 5, user: user)
+        let post = Post(userRef: "asd", body: "Buy Tesla", timestamp: Timestamp(date: Date()), likes: 5, comments: 5, symbol: "", user: user)
         PostView(post: post, postService: MockPostService(currentUser: nil), sessionService: MockSessionService(currentUser: nil))
     }
  }

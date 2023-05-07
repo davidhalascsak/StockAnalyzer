@@ -31,8 +31,8 @@ struct PositionRowView: View {
 }
 
 struct PositionRowView_Previews: PreviewProvider {
-    static let position = Position(symbol: "AAPL", date: "2020-02-02", units: 2.0, price: 132.5, investedAmount: 265.0)
+    static let position = Position(date: "2020-02-02", units: 2.0, price: 132.5)
     static var previews: some View {
-        PositionRowView(viewModel: PositionRowViewModel(position: position, stockService: StockService(symbol: position.symbol)))
+        PositionRowView(viewModel: PositionRowViewModel(position: position, stockService: StockService(symbol: "AAPL")))
     }
 }

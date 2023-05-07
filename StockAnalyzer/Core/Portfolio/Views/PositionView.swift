@@ -113,9 +113,9 @@ struct PositionView: View {
 }
 
  struct PositionView_Previews: PreviewProvider {
-     static let position1 = Position(symbol: "AAPL", date: "2020-02-02", units: 2.0, price: 132.5, investedAmount: 265.0)
-     static let position2 = Position(symbol: "MSFT", date: "2020-02-02", units: 3.0, price: 230.0, investedAmount: 690.0)
-     static let asset = Asset(symbol: "AAPL", units: 2.0, averagePrice: 132.5, investedAmount: 265.0, positionCount: 2, positions: [position1, position2])
+     static let position1 = Position( date: "2020-02-02", units: 2.0, price: 132.5)
+     static let position2 = Position( date: "2020-02-02", units: 3.0, price: 230.0)
+     static let asset = Asset(symbol: "AAPL", units: 2.0, averagePrice: 132.5,  positionCount: 2, positions: [position1, position2])
      
      static var previews: some View {
          PositionView(asset: asset, stockService: StockService(symbol: "AAPL"), portfolioService: PortfolioService(), imageService: ImageService())

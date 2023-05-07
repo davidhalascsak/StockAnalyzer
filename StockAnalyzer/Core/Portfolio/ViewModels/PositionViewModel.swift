@@ -26,7 +26,7 @@ class PositionViewModel: ObservableObject {
         price = await stockService.fetchPriceInRealTime()
         
         for position in asset.positions ?? [] {
-            let vm = PositionRowViewModel(position: position, stockService: StockService(symbol: position.symbol))
+            let vm = PositionRowViewModel(position: position, stockService: StockService(symbol: asset.symbol))
             positionViewModels[position.id ?? ""] = vm
             await vm.calculateCurrentValue()
         }
@@ -47,8 +47,8 @@ class PositionViewModel: ObservableObject {
     
     func reloadAsset() async {
         price = await stockService.fetchPriceInRealTime()
-        for position in asset.positions ?? [] {
-            if let vm = positionViewModels[position.symbol] {
+        for _ in asset.positions ?? [] {
+            if let vm = positionViewModels[asset.symbol] {
                 await vm.calculateCurrentValue()
             }
         }

@@ -52,8 +52,8 @@ class NewAssetViewModel: ObservableObject {
         let value = price * units
         
         if value > 0 {
-            let position = Position(symbol: symbol, date: formatter.string(from: buyDate), units: units, price: price, investedAmount: value)
-            let result = await portfolioService.addPosition(position: position)
+            let position = Position(date: formatter.string(from: buyDate), units: units, price: price)
+            let result = await portfolioService.addPosition(symbol: symbol, position: position)
             if result == false {
                 showAlert.toggle()
                 alertTitle = "Error"

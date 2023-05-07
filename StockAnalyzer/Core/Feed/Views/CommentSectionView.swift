@@ -16,6 +16,7 @@ struct CommentSectionView: View {
                     ScrollView(showsIndicators: false) {
                         ForEach(vm.comments) { comment in
                             CommentView(post: vm.post, comment: comment, commentService: CommentService(), sessionService: SessionService())
+                            Divider()
                         }
                     }
                     if vm.sessionService.getUserId() != nil {
@@ -60,7 +61,7 @@ struct CommentSectionView: View {
 struct PostDetailView_Previews: PreviewProvider {
     static var previews: some View {
         let user = User(username: "istengyermeke", email: "david.halascsak@gmail.com", location: "Hungary", imageUrl: "")
-        let post = Post(userRef: "asd", body: "Buy Tesla", timestamp: Timestamp(date: Date()), likes: 5, comments: 5, user: user)
+        let post = Post(userRef: "asd", body: "Buy Tesla", timestamp: Timestamp(date: Date()), likes: 5, comments: 5, symbol: "", user: user)
         CommentSectionView(post: post, commentService: MockCommentService(currentUser: nil), userService: MockUserService(), sessionService: MockSessionService(currentUser: nil))
     }
 }

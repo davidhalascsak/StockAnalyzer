@@ -10,7 +10,7 @@ class PortfolioService: ObservableObject, PortfolioServiceProtocol {
         var assets: [Asset] = []
         
         if let userId = Auth.auth().currentUser?.uid {
-            let snapshot = try? await db.collection("users").document(userId).collection("portfolio").order(by: "investedAmount", descending: true).getDocuments()
+            let snapshot = try? await db.collection("users").document(userId).collection("assets").getDocuments()
             if let snapshot = snapshot {
                 assets = snapshot.documents.compactMap({try? $0.data(as: Asset.self)})
                 for index in 0..<assets.count {
@@ -19,12 +19,12 @@ class PortfolioService: ObservableObject, PortfolioServiceProtocol {
             }
         }
         
-        return assets
+        return assets.sorted(by: {$0.investedAmount < $1.investedAmount})
     }
     
     func fetchPositions(symbol: String) async -> [Position] {
         if let userId = Auth.auth().currentUser?.uid {
-            let snapshot = try? await db.collection("users").document(userId).collection("portfolio").document(symbol)
+            let snapshot = try? await db.collection("users").document(userId).collection("assets").document(symbol)
                 .collection("positions").getDocuments()
             if let snapshot = snapshot {
                 return snapshot.documents.compactMap({try? $0.data(as: Position.self)})
@@ -33,23 +33,22 @@ class PortfolioService: ObservableObject, PortfolioServiceProtocol {
         return []
     }
     
-    func addPosition(position: Position) async -> Bool {
-        let newPosition = ["symbol": position.symbol, "date": position.date, "units": position.units, "price": position.price,
-                        "investedAmount": position.investedAmount] as [String : Any]
+    func addPosition(symbol: String, position: Position) async -> Bool {
+        let newPosition = ["date": position.date, "units": position.units, "price": position.price] as [String : Any]
         
         if let userId = Auth.auth().currentUser?.uid {
-            let asset = try? await db.collection("users").document(userId).collection("portfolio").document(position.symbol).getDocument(as: Asset.self)
+            let asset = try? await db.collection("users").document(userId).collection("assets").document(symbol).getDocument(as: Asset.self)
             
             let newUnits = (asset?.units ?? 0.0) + position.units
             let newAmount = (asset?.investedAmount ?? 0.0) + (position.units * position.price)
             let newAveragePrice = newAmount / newUnits
             let newPositionCount = (asset?.positionCount ?? 0) + 1
             
-            let newAsset = ["symbol": position.symbol, "units": newUnits, "averagePrice": newAveragePrice, "investedAmount": newAmount, "positionCount": newPositionCount] as [String : Any]
+            let newAsset = ["symbol": symbol,  "units": newUnits, "averagePrice": newAveragePrice, "positionCount": newPositionCount] as [String : Any]
             
             do {
-                try await self.db.collection("users").document(userId).collection("portfolio").document(position.symbol).setData(newAsset)
-                let _ = try await db.collection("users").document(userId).collection("portfolio").document(position.symbol).collection("positions").addDocument(data: newPosition)
+                try await self.db.collection("users").document(userId).collection("assets").document(symbol).setData(newAsset)
+                let _ = try await db.collection("users").document(userId).collection("assets").document(symbol).collection("positions").addDocument(data: newPosition)
                 return true
             } catch {
                 return false
@@ -60,7 +59,7 @@ class PortfolioService: ObservableObject, PortfolioServiceProtocol {
     
     func deleteAsset(symbol: String) async -> Bool {
         if let userId = Auth.auth().currentUser?.uid {
-            let assetPath = db.collection("users").document(userId).collection("portfolio").document(symbol)
+            let assetPath = db.collection("users").document(userId).collection("assets").document(symbol)
             
             do {
                 let snapshot = try? await assetPath.collection("positions").getDocuments()
@@ -83,7 +82,7 @@ class PortfolioService: ObservableObject, PortfolioServiceProtocol {
     
     func deletePosition(asset: Asset, position: Position) async -> Bool {
         if let userId = Auth.auth().currentUser?.uid {
-            let assetPath = db.collection("users").document(userId).collection("portfolio").document(asset.symbol)
+            let assetPath = db.collection("users").document(userId).collection("assets").document(asset.symbol)
             
             if let id = position.id {
                 do {
@@ -99,9 +98,9 @@ class PortfolioService: ObservableObject, PortfolioServiceProtocol {
                     let newPositionCount = asset.positionCount - 1
                     
                     if newPositionCount == 0 {
-                        try await db.collection("users").document(userId).collection("portfolio").document(asset.symbol).delete()
+                        try await db.collection("users").document(userId).collection("assets").document(asset.symbol).delete()
                     } else {
-                        try await db.collection("users").document(userId).collection("portfolio").document(asset.symbol).updateData(["positionCount": newPositionCount])
+                        try await db.collection("users").document(userId).collection("assets").document(asset.symbol).updateData(["positionCount": newPositionCount])
                     }
                     return true
                 } catch {
@@ -124,21 +123,21 @@ class MockPortfolioService: PortfolioServiceProtocol {
         return db.assets
     }
     
-    func addPosition(position: Position) async -> Bool {
-        let newPosition = Position(symbol:  position.symbol, date: position.date, units: position.units, price: position.price, investedAmount: position.investedAmount)
+    func addPosition(symbol: String, position: Position) async -> Bool {
+        let newPosition = Position(date: position.date, units: position.units, price: position.price)
         
-        let asset = db.assets.first(where: {$0.symbol == position.symbol})
+        let asset = db.assets.first(where: {$0.symbol == symbol})
         
         let newUnits = (asset?.units ?? 0.0) + position.units
         let newAmount = (asset?.investedAmount ?? 0.0) + (position.units * position.price)
         let newAveragePrice = newAmount / newUnits
         let newPositionCount = (asset?.positionCount ?? 0) + 1
         
-        let newAsset = Asset(symbol: position.symbol, units: newUnits, averagePrice: newAveragePrice, investedAmount: newAmount, positionCount: newPositionCount)
+        let newAsset = Asset(symbol: symbol, units: newUnits, averagePrice: newAveragePrice, positionCount: newPositionCount)
         
-        db.assets.removeAll(where: {$0.symbol == position.symbol})
+        db.assets.removeAll(where: {$0.symbol == symbol})
         db.assets.append(newAsset)
-        db.positions.append(newPosition)
+        db.positions[symbol]?.append(newPosition)
         
         return true
     }
@@ -147,7 +146,7 @@ class MockPortfolioService: PortfolioServiceProtocol {
         if symbol == "" {
             return []
         } else {
-            return db.positions.filter({$0.symbol == symbol})
+            return db.positions[symbol] ?? []
         }
     }
     
@@ -165,7 +164,7 @@ class MockPortfolioService: PortfolioServiceProtocol {
             let units = asset.units - position.units
             let averagePrice = investedAmount / units
             
-            let newAsset = Asset(symbol: asset.symbol, units: units, averagePrice: averagePrice, investedAmount: investedAmount, positionCount: asset.positionCount - 1)
+            let newAsset = Asset(symbol: asset.symbol, units: units, averagePrice: averagePrice, positionCount: asset.positionCount - 1)
             
             
             db.assets.append(newAsset)
@@ -177,7 +176,7 @@ class MockPortfolioService: PortfolioServiceProtocol {
 protocol PortfolioServiceProtocol {
     func fetchAssets() async -> [Asset]
     func fetchPositions(symbol: String) async -> [Position]
-    func addPosition(position: Position) async -> Bool
+    func addPosition(symbol: String, position: Position) async -> Bool
     func deleteAsset(symbol: String) async -> Bool
     func deletePosition(asset: Asset, position: Position) async -> Bool
 }

@@ -1,9 +1,7 @@
 import SwiftUI
 
 struct MainView: View {
-    @State var isSettingsPresented: Bool = false
     @State var selectedTab: String = "Home"
-    @State var goFeedTop: Bool = false
     
     init() {
         UITabBar.appearance().isTranslucent = false

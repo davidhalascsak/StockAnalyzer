@@ -57,14 +57,14 @@ class MockDatabase {
     ]
     
     var assets: [Asset] = [
-        Asset(symbol: "AAPL", units: 2.0, averagePrice: 132.5, investedAmount: 265.0, positionCount: 1),
-        Asset(symbol: "MSFT", units: 3.0, averagePrice: 230.0, investedAmount: 690.0, positionCount: 1)
+        Asset(symbol: "AAPL", units: 2.0, averagePrice: 132.5, positionCount: 1),
+        Asset(symbol: "MSFT", units: 3.0, averagePrice: 230.0, positionCount: 1)
     ]
     
-    var positions: [Position] = [
-        Position(symbol: "AAPL", date: "2023-02-02", units: 1, price: 132.5, investedAmount: 132.5),
-        Position(symbol: "AAPL", date: "2023-01-02", units: 1, price: 132.5, investedAmount: 132.5),
-        Position(symbol: "MSFT", date: "2020-02-02", units: 3.0, price: 230.0, investedAmount: 690.0)
+    var positions: [String: [Position]] = [
+        "AAPL": [Position(date: "2023-02-02", units: 1, price: 132.5),
+        Position(date: "2023-01-02", units: 1, price: 132.5)],
+        "MSFT": [Position(date: "2020-02-02", units: 3.0, price: 230.0)]
     ]
     
     var imageUrls: [String: Data] = [

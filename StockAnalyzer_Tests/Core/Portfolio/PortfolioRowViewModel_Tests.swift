@@ -6,9 +6,9 @@ import XCTest
 final class PortfolioRowViewModel_Tests: XCTestCase {
     func testPortfolioRowViewModel_calculateCurrentValue() async throws {
         //Given
-        var asset = Asset(symbol: "AAPL", units: 2.0, averagePrice: 132.5, investedAmount: 265.0, positionCount: 2)
-        let position1 = Position(symbol: "AAPL", date: "2023-02-02", units: 1, price: 132.5, investedAmount: 132.5)
-        let position2 = Position(symbol: "AAPL", date: "2023-01-02", units: 1, price: 132.5, investedAmount: 132.5)
+        var asset = Asset(symbol: "AAPL", units: 2.0, averagePrice: 132.5, positionCount: 2)
+        let position1 = Position(date: "2023-02-02", units: 1, price: 132.5)
+        let position2 = Position(date: "2023-01-02", units: 1, price: 132.5)
         asset.positions = [position1, position2]
         
         let vm = PortfolioRowViewModel(asset: asset, stockService: MockStockService())
@@ -24,7 +24,7 @@ final class PortfolioRowViewModel_Tests: XCTestCase {
     
     func test_PortfolioRowViewModel_FormatValue_ValueIsNegative() throws {
         //Given
-        let asset = Asset(symbol: "AAPL", units: 2.0, averagePrice: 132.5, investedAmount: 265.0, positionCount: 2)
+        let asset = Asset(symbol: "AAPL", units: 2.0, averagePrice: 132.5, positionCount: 2)
         let vm = PortfolioRowViewModel(asset: asset, stockService: MockStockService())
         
         //When
@@ -37,7 +37,7 @@ final class PortfolioRowViewModel_Tests: XCTestCase {
     
     func test_PortfolioRowViewModel_FormatValue_ValueIsPositive() throws {
         //Given
-        let asset = Asset(symbol: "AAPL", units: 2.0, averagePrice: 132.5, investedAmount: 265.0, positionCount: 2)
+        let asset = Asset(symbol: "AAPL", units: 2.0, averagePrice: 132.5, positionCount: 2)
         let vm = PortfolioRowViewModel(asset: asset, stockService: MockStockService())
         
         //When

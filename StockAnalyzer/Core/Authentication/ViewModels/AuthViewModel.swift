@@ -35,7 +35,7 @@ class AuthViewModel: ObservableObject {
         self.userData = AuthenticationUser()
     }
     
-    public func checkLogin() async {
+    func checkLogin() async {
         if !isValidEmail(userData.email) {
             alertTitle = "Error"
             alertText = "The email format is not valid!"
@@ -84,7 +84,7 @@ class AuthViewModel: ObservableObject {
         isCorrect.toggle()
     }
     
-    public func checkRegistration() async {
+    func checkRegistration() async {
         
         if userData.username.count < 5 {
             alertTitle = "Error"

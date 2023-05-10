@@ -21,6 +21,27 @@ struct PortfolioView: View {
                     Spacer()
                 } else {
                     portfolio
+                    Divider()
+                    HStack {
+                        Spacer()
+                        VStack {
+                            Text(vm.formatValue(value: vm.investedAmount))
+                            Text("Invested")
+                                .fontWeight(.semibold)
+                                .padding(.top, 1)
+                                
+                        }
+                        Spacer()
+                        VStack {
+                            Text(vm.formatValue(value: vm.difference))
+                                .foregroundColor(vm.difference == 0 ? Color.black : vm.difference > 0 ? Color.green : Color.red)
+                            Text("P / L")
+                                .fontWeight(.semibold)
+                                .padding(.top, 1)
+                                
+                        }
+                        Spacer()
+                    }
                 }
             } else {
                 Spacer()
@@ -40,6 +61,7 @@ struct PortfolioView: View {
         })
         .task {
             if vm.sessionService.getUserId() != nil {
+                vm.isLoading = true
                 await vm.fetchAssets()
             }
         }
@@ -123,7 +145,8 @@ struct PortfolioView: View {
 }
 
 struct PortfolioView_Previews: PreviewProvider {
+    static let user = AuthUser(id: "asd123", email: "david@domain.com", password: "asd123", isVerified: true)
     static var previews: some View {
-        PortfolioView(portfolioService: MockPortfolioService(), sessionService: SessionService())
+        PortfolioView(portfolioService: MockPortfolioService(), sessionService: MockSessionService(currentUser: user))
     }
 }

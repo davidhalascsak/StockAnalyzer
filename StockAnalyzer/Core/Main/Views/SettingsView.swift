@@ -3,104 +3,105 @@ import PhotosUI
 
 struct SettingsView: View {
     @Environment(\.dismiss) private var dismiss
-    @ObservedObject var vm: SettingsViewModel
     
-    @State var isLoginPresented: Bool = false
-    @State var isSignupPresented: Bool = false
+    @State private var isSignInPresented: Bool = false
+    @State private var isSignUpPresented: Bool = false
+    
+    @ObservedObject private var viewModel: SettingsViewModel
     
     init(userService: UserServiceProtocol, sessionService: SessionServiceProtocol, imageService: ImageServiceProtocol) {
-        _vm = ObservedObject(wrappedValue: SettingsViewModel(userService: userService, sessionService: sessionService, imageService: imageService))
+        _viewModel = ObservedObject(wrappedValue: SettingsViewModel(userService: userService, sessionService: sessionService, imageService: imageService))
     }
     
     var body: some View {
         NavigationStack {
             VStack(alignment: .leading) {
-                header
-                if vm.sessionService.getUserId() != nil {
+                profileView
+                if viewModel.user != nil {
                     Text("Sign out")
                         .font(.title)
                         .padding(.vertical)
                         .onTapGesture {
-                            vm.logout()
+                            viewModel.logout()
                         }
                 } else {
                     Text("Sign in")
                         .font(.title)
                         .padding(.vertical)
                         .onTapGesture {
-                            isLoginPresented.toggle()
+                            isSignInPresented.toggle()
                         }
                     Text("Sign up")
                         .font(.title)
                         .onTapGesture {
-                            isSignupPresented.toggle()
+                            isSignUpPresented.toggle()
                         }
                 }
                 Spacer()
             }
-            .navigationDestination(isPresented: $isLoginPresented, destination: {
-                StartView(isLogin: true)
+            .navigationDestination(isPresented: $isSignInPresented, destination: {
+                AuthView(isLogin: true, userService: UserService(), sessionService: SessionService(), imageService: ImageService())
             })
-            .navigationDestination(isPresented: $isSignupPresented, destination: {
-                StartView(isLogin: false)
+            .navigationDestination(isPresented: $isSignUpPresented, destination: {
+                AuthView(isLogin: false, userService: UserService(), sessionService: SessionService(), imageService: ImageService())
             })
             .padding()
             .navigationBarBackButtonHidden()
-            .navigationTitle("User")
             .navigationBarTitleDisplayMode(.inline)
+            .navigationTitle("User")
             .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing){
+                ToolbarItem(placement: .navigationBarTrailing) {
                     Image(systemName: "xmark")
                         .onTapGesture {
                             dismiss()
                         }
                 }
             }
-            .onChange(of: isLoginPresented) { newValue in
+            .onChange(of: isSignInPresented) { newValue in
                 if newValue == false {
                     Task {
-                        await vm.fetchUser()
+                        await viewModel.fetchUser()
                     }
                 }
             }
-            .onChange(of: isSignupPresented) { newValue in
+            .onChange(of: isSignUpPresented) { newValue in
                 if newValue == false {
                     Task {
-                        await vm.fetchUser()
+                        await viewModel.fetchUser()
                     }
                 }
             }
-            .alert(vm.alertTitle, isPresented: $vm.showAlert) {
+            .alert(viewModel.alertTitle, isPresented: $viewModel.showAlert) {
                 Button("Ok", role: .cancel) {
-                    vm.alertTitle = ""
-                    vm.alertText = ""
+                    viewModel.alertTitle = ""
+                    viewModel.alertText = ""
                 }
             } message: {
-                Text(vm.alertText)
+                Text(viewModel.alertText)
             }
         }
-        .task({
-            await vm.fetchUser()
-        })
+        .task {
+            await viewModel.fetchUser()
+        }
     }
     
-    var header: some View {
+    var profileView: some View {
         HStack {
-            if vm.isLoading == false {
-                if let user = vm.user {
-                    if !vm.isUpdatingProfile {
-                        PhotosPicker(selection: $vm.selectedPhoto,  matching: .images) {
+            if viewModel.isLoading == false {
+                if let user = viewModel.user {
+                    if !viewModel.isUpdatingProfile {
+                        PhotosPicker(selection: $viewModel.selectedPhoto,  matching: .images) {
                             ImageView(url: user.imageUrl, defaultImage: "default_avatar", imageService: ImageService())
                                 .frame(width: 60)
                                 .aspectRatio(1.0, contentMode: .fit)
                                 .cornerRadius(10)
                         }
-                        .onChange(of: vm.selectedPhoto) { newItem in
+                        .onChange(of: viewModel.selectedPhoto) { newItem in
                             Task {
                                 if let data = try? await newItem?.loadTransferable(type: Data.self) {
-                                    vm.isUpdatingProfile = true
+                                    viewModel.isUpdatingProfile = true
                                     Task {
-                                        await vm.updatePicture(data: data)
+                                        await viewModel.updatePicture(data: data)
                                     }
                                 }
                             }
@@ -118,7 +119,9 @@ struct SettingsView: View {
                     Spacer()
                 }
             } else {
+                Spacer()
                 ProgressView()
+                Spacer()
             }
         }
         .padding()

@@ -15,6 +15,7 @@ struct PositionView: View {
                     ImageView(url: vm.companyProfile?.image ?? "", defaultImage: "", imageService: ImageService())
                         .scaledToFit()
                         .cornerRadius(10)
+                        .shadow(radius: 5)
                         .frame(height: 50)
                         .frame(maxWidth: 50)
                     NavigationLink {
@@ -24,6 +25,7 @@ struct PositionView: View {
                             Text(vm.asset.symbol)
                                 .fontWeight(.semibold)
                             Text(vm.companyProfile?.companyName ?? "")
+                                .multilineTextAlignment(.leading)
                         }
                     }.id(UUID())
                     Spacer()

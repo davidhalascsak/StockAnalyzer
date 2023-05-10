@@ -6,7 +6,7 @@ import XCTest
 final class PositionViewModel_Tests: XCTestCase {
     func test_PositionViewModel_fetchData() async throws {
         //Given
-        let asset = Asset(symbol: "AAPL", units: 2.0, averagePrice: 132.5, investedAmount: 265.0, positionCount: 2)
+        let asset = Asset(symbol: "AAPL", units: 2.0, averagePrice: 132.5, positionCount: 2)
         let vm = PositionViewModel(asset: asset, stockService: MockStockService(), portfolioService: MockPortfolioService(), imageService: MockImageService())
         
         //When
@@ -21,7 +21,7 @@ final class PositionViewModel_Tests: XCTestCase {
     
     func test_PositionViewModel_changeInPrice() async throws {
         //Given
-        let asset = Asset(symbol: "AAPL", units: 2.0, averagePrice: 132.5, investedAmount: 265.0, positionCount: 2)
+        let asset = Asset(symbol: "AAPL", units: 2.0, averagePrice: 132.5, positionCount: 2)
         let vm = PositionViewModel(asset: asset, stockService: MockStockService(), portfolioService: MockPortfolioService(), imageService: MockImageService())
         
         //When
@@ -34,9 +34,9 @@ final class PositionViewModel_Tests: XCTestCase {
     
     func test_PositionViewModel_deletePosition() async throws {
         //Given
-        var asset = Asset(symbol: "AAPL", units: 2.0, averagePrice: 132.5, investedAmount: 265.0, positionCount: 2)
-        let position1 = Position(id: UUID().uuidString, symbol: "AAPL", date: "2023-02-02", units: 1, price: 132.5, investedAmount: 132.5)
-        let position2 = Position(id: UUID().uuidString, symbol: "AAPL", date: "2023-01-02", units: 1, price: 132.5, investedAmount: 132.5)
+        var asset = Asset(symbol: "AAPL", units: 2.0, averagePrice: 132.5, positionCount: 2)
+        let position1 = Position(id: UUID().uuidString, date: "2023-02-02", units: 1, price: 132.5)
+        let position2 = Position(id: UUID().uuidString, date: "2023-01-02", units: 1, price: 132.5)
         asset.positions = [position1, position2]
         
         let vm = PositionViewModel(asset: asset, stockService: MockStockService(), portfolioService: MockPortfolioService(), imageService: MockImageService())

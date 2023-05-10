@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		EC015092298BCEB500BAF650 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC015091298BCEB500BAF650 /* LoginView.swift */; };
-		EC015094298BCEDB00BAF650 /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC015093298BCEDB00BAF650 /* SignupView.swift */; };
+		EC015092298BCEB500BAF650 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC015091298BCEB500BAF650 /* SignInView.swift */; };
+		EC015094298BCEDB00BAF650 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC015093298BCEDB00BAF650 /* SignUpView.swift */; };
 		EC02CC6729DB48E70015690E /* PortfolioRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC02CC6629DB48E70015690E /* PortfolioRowView.swift */; };
 		EC02CC6B29DB5C0B0015690E /* PortfolioViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC02CC6A29DB5C0B0015690E /* PortfolioViewModel.swift */; };
 		EC02CC6D29DB5C640015690E /* PortfolioService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC02CC6C29DB5C640015690E /* PortfolioService.swift */; };
@@ -79,6 +79,7 @@
 		EC91726C299547F600EA924D /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC91726B299547F600EA924D /* SearchView.swift */; };
 		EC91727029955E9500EA924D /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC91726F29955E9500EA924D /* SettingsView.swift */; };
 		EC9216BD29E4252F004D06C9 /* AssetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC9216BC29E4252F004D06C9 /* AssetModel.swift */; };
+		EC9533262A0ACA6D00B16F16 /* MainView_UITest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC9533252A0ACA6D00B16F16 /* MainView_UITest.swift */; };
 		ECA41EEC29B9EFB800DA03DA /* NewsRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECA41EEB29B9EFB800DA03DA /* NewsRowView.swift */; };
 		ECA41EF029B9EFE600DA03DA /* NewsRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECA41EEF29B9EFE600DA03DA /* NewsRowViewModel.swift */; };
 		ECA41EF229B9F00600DA03DA /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECA41EF129B9F00600DA03DA /* ImageService.swift */; };
@@ -126,7 +127,7 @@
 		ECF669D52997C0C100855894 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = ECF669D42997C0C100855894 /* FirebaseFirestoreSwift */; settings = {ATTRIBUTES = (Required, ); }; };
 		ECF669D82997D8FD00855894 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF669D72997D8FD00855894 /* UserService.swift */; };
 		ECF669DA2997E08E00855894 /* PostService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECF669D92997E08E00855894 /* PostService.swift */; };
-		ECFD63F5298E63AA00B576DA /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECFD63F4298E63AA00B576DA /* StartView.swift */; };
+		ECFD63F5298E63AA00B576DA /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECFD63F4298E63AA00B576DA /* AuthView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -147,8 +148,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		EC015091298BCEB500BAF650 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
-		EC015093298BCEDB00BAF650 /* SignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
+		EC015091298BCEB500BAF650 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
+		EC015093298BCEDB00BAF650 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		EC02CC6629DB48E70015690E /* PortfolioRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioRowView.swift; sourceTree = "<group>"; };
 		EC02CC6A29DB5C0B0015690E /* PortfolioViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioViewModel.swift; sourceTree = "<group>"; };
 		EC02CC6C29DB5C640015690E /* PortfolioService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioService.swift; sourceTree = "<group>"; };
@@ -215,6 +216,7 @@
 		EC91726B299547F600EA924D /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		EC91726F29955E9500EA924D /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		EC9216BC29E4252F004D06C9 /* AssetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetModel.swift; sourceTree = "<group>"; };
+		EC9533252A0ACA6D00B16F16 /* MainView_UITest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView_UITest.swift; sourceTree = "<group>"; };
 		ECA1BE60298D3077005AA585 /* StockAnalyzer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = StockAnalyzer.entitlements; sourceTree = "<group>"; };
 		ECA41EEB29B9EFB800DA03DA /* NewsRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsRowView.swift; sourceTree = "<group>"; };
 		ECA41EEF29B9EFE600DA03DA /* NewsRowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsRowViewModel.swift; sourceTree = "<group>"; };
@@ -264,7 +266,7 @@
 		ECF669D12997A2E800855894 /* FeedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewModel.swift; sourceTree = "<group>"; };
 		ECF669D72997D8FD00855894 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		ECF669D92997E08E00855894 /* PostService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostService.swift; sourceTree = "<group>"; };
-		ECFD63F4298E63AA00B576DA /* StartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
+		ECFD63F4298E63AA00B576DA /* AuthView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -637,6 +639,7 @@
 		ECDBEAA829F59A3900ABA499 /* StockAnalyzer_UITests */ = {
 			isa = PBXGroup;
 			children = (
+				EC9533252A0ACA6D00B16F16 /* MainView_UITest.swift */,
 			);
 			path = StockAnalyzer_UITests;
 			sourceTree = "<group>";
@@ -667,9 +670,9 @@
 		ECEBBFD12998F40700104326 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				ECFD63F4298E63AA00B576DA /* StartView.swift */,
-				EC015091298BCEB500BAF650 /* LoginView.swift */,
-				EC015093298BCEDB00BAF650 /* SignupView.swift */,
+				ECFD63F4298E63AA00B576DA /* AuthView.swift */,
+				EC015091298BCEB500BAF650 /* SignInView.swift */,
+				EC015093298BCEDB00BAF650 /* SignUpView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -835,6 +838,7 @@
 					};
 					ECDBEAA629F59A3900ABA499 = {
 						CreatedOnToolsVersion = 14.0.1;
+						LastSwiftMigration = 1400;
 						TestTargetID = EC90D613298ACED3001D4520;
 					};
 				};
@@ -900,7 +904,7 @@
 				ECD264B629E532FF009F1C46 /* PortfolioRowViewModel.swift in Sources */,
 				ECA41EEC29B9EFB800DA03DA /* NewsRowView.swift in Sources */,
 				EC6802B929AB8EDF0019EE18 /* StockView.swift in Sources */,
-				EC015094298BCEDB00BAF650 /* SignupView.swift in Sources */,
+				EC015094298BCEDB00BAF650 /* SignUpView.swift in Sources */,
 				EC3CEAA929BB8F340048FADE /* HomeView.swift in Sources */,
 				EC91726A299547EA00EA924D /* PortfolioView.swift in Sources */,
 				EC3763D129FABB1000504D4A /* MockDatabase.swift in Sources */,
@@ -909,7 +913,7 @@
 				EC72691929AD2347002FAB32 /* ChartViewModel.swift in Sources */,
 				EC6802BB29AB8FDF0019EE18 /* StockViewModel.swift in Sources */,
 				EC67E32B299543B9002EBC2C /* FeedView.swift in Sources */,
-				EC015092298BCEB500BAF650 /* LoginView.swift in Sources */,
+				EC015092298BCEB500BAF650 /* SignInView.swift in Sources */,
 				ECF669CE2996F3C400855894 /* UserModel.swift in Sources */,
 				EC2880B929CCB3D700E4A085 /* FinanceModel.swift in Sources */,
 				ECDAC4CF29E87662001B46A9 /* PositionRowViewModel.swift in Sources */,
@@ -956,7 +960,7 @@
 				EC40027929A9047A00CD1036 /* SessionService.swift in Sources */,
 				ECA41EF429BA142000DA03DA /* CompanyModel.swift in Sources */,
 				EC6802C729ABD8110019EE18 /* NewsService.swift in Sources */,
-				ECFD63F5298E63AA00B576DA /* StartView.swift in Sources */,
+				ECFD63F5298E63AA00B576DA /* AuthView.swift in Sources */,
 				EC3CEAAD29BB8F550048FADE /* ValuationView.swift in Sources */,
 				ECCDEFAA29A3C30300034C76 /* CommentViewModel.swift in Sources */,
 				EC6E628029AA3A820064110A /* NewsViewModel.swift in Sources */,
@@ -1021,6 +1025,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EC9533262A0ACA6D00B16F16 /* MainView_UITest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1253,14 +1258,21 @@
 		ECDBEAAF29F59A3900ABA499 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = BA8C9C22XU;
 				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.david.StockAnalyzer-UITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = StockAnalyzer;
@@ -1270,10 +1282,16 @@
 		ECDBEAB029F59A3900ABA499 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = BA8C9C22XU;
 				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.david.StockAnalyzer-UITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";

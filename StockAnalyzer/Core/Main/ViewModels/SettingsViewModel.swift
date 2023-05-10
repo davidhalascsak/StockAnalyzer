@@ -6,10 +6,10 @@ import FirebaseAuth
 @MainActor
 class SettingsViewModel: ObservableObject {
     @Published var user: User?
-    @Published var showAlert: Bool = false
     @Published var alertTitle: String = ""
     @Published var alertText: String = ""
     @Published var selectedPhoto: PhotosPickerItem?
+    @Published var showAlert: Bool = false
     @Published var isLoading: Bool = true
     @Published var isUpdatingProfile: Bool = false
     
@@ -28,6 +28,7 @@ class SettingsViewModel: ObservableObject {
             isLoading = false
             return
         }
+        
         user = await userService.fetchUser(id: id)
         user?.image = await imageService.fetchImageData(url: user?.imageUrl ?? "")
         isLoading = false

@@ -113,6 +113,7 @@ struct StockView: View {
                     Text(profile.companyName)
                         .font(.title2)
                         .fontWeight(.bold)
+                        .multilineTextAlignment(.leading)
                     Text(profile.sector)
                         .font(.subheadline)
                         .fontWeight(.semibold)
@@ -128,6 +129,7 @@ struct StockView: View {
                 ImageView(url: profile.image, defaultImage: "", imageService: ImageService())
                     .scaledToFit()
                     .cornerRadius(10)
+                    .shadow(radius: 5)
                     .frame(height: 50)
                     .frame(maxWidth: 100)
             }

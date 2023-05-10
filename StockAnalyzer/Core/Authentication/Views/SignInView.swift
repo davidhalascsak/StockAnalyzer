@@ -1,26 +1,27 @@
 import SwiftUI
 
-struct LoginView: View {
+struct SignInView: View {
     @Environment(\.dismiss) private var dismiss
-    @ObservedObject var vm: AuthViewModel
+    
+    @ObservedObject var viewModel: AuthViewModel
     
     var body: some View {
         NavigationStack {
             VStack {
                 Spacer()
-                TextField("email", text: $vm.userData.email)
+                TextField("email", text: $viewModel.userData.email)
                     .autocorrectionDisabled()
                     .textInputAutocapitalization(.never)
                     .padding(10)
                     .background(Color.gray.opacity(0.2))
                     .cornerRadius(15)
-                SecureField("password", text: $vm.userData.password)
+                SecureField("password", text: $viewModel.userData.password)
                     .padding(10)
                     .background(Color.gray.opacity(0.2))
                     .cornerRadius(15)
                 Button {
                     Task {
-                        await vm.checkLogin()
+                        await viewModel.checkLogin()
                     }
                 } label: {
                     Text("Sign in")
@@ -38,11 +39,11 @@ struct LoginView: View {
                     Text("Don't have an account?")
                     Button {
                         withAnimation(.easeIn(duration: 0.2)) {
-                            vm.isLogin.toggle()
-                            vm.alertText = ""
-                            vm.alertTitle = ""
-                            vm.userData.email = ""
-                            vm.userData.password = ""
+                            viewModel.isLogin.toggle()
+                            viewModel.alertText = ""
+                            viewModel.alertTitle = ""
+                            viewModel.userData.email = ""
+                            viewModel.userData.password = ""
                         }
                     } label: {
                         Text("Sign up")
@@ -53,20 +54,20 @@ struct LoginView: View {
                 Spacer()
             }
             .padding()
-            .onChange(of: vm.isCorrect, perform: { newValue in
+            .onChange(of: viewModel.isCorrect, perform: { newValue in
                 dismiss()
             })
-            .alert(vm.alertTitle, isPresented: $vm.showAlert) {
-                if(vm.alertTitle == "Verification Error") {
+            .alert(viewModel.alertTitle, isPresented: $viewModel.showAlert) {
+                if(viewModel.alertTitle == "Verification Error") {
                     Button("Send again", role: .none) {
                         Task {
-                            await vm.sendVerificationEmail()
+                            await viewModel.sendVerificationEmail()
                         }
                     }
                 }
-                Button("Ok", role: .cancel, action: { vm.logout() })
+                Button("Ok", role: .cancel, action: { viewModel.logout() })
             } message: {
-                Text(vm.alertText)
+                Text(viewModel.alertText)
             }
             .navigationBarBackButtonHidden()
             .toolbar {
@@ -81,8 +82,8 @@ struct LoginView: View {
     }
 }
 
-struct LoginView_Previews: PreviewProvider {
+struct SignInView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginView(vm: AuthViewModel(isLogin: true, userService: MockUserService(), sessionService: MockSessionService(currentUser: nil), imageService: MockImageService()))
+        SignInView(viewModel: AuthViewModel(isLogin: true, userService: MockUserService(), sessionService: MockSessionService(currentUser: nil), imageService: MockImageService()))
     }
 }

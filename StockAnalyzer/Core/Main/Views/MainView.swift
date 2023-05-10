@@ -1,7 +1,14 @@
 import SwiftUI
 
 struct MainView: View {
-    @State var selectedTab: String = "Home"
+    @State private var selectedTab: MenuOptions = MenuOptions.home
+    
+    private enum MenuOptions: Hashable {
+        case home
+        case news
+        case portfolio
+        case search
+    }
     
     init() {
         UITabBar.appearance().isTranslucent = false
@@ -14,22 +21,22 @@ struct MainView: View {
                     .tabItem {
                         Image(systemName: "house")
                     }
-                    .tag("Home")
+                    .tag(MenuOptions.home)
                 NewsView(newsService: NewsService(symbol: nil))
                     .tabItem {
                         Image(systemName: "newspaper") 
                     }
-                    .tag("News")
+                    .tag(MenuOptions.news)
                 PortfolioView(portfolioService: PortfolioService(), sessionService: SessionService())
                     .tabItem {
                         Image(systemName: "briefcase")
                     }
-                    .tag("Portfolio")
+                    .tag(MenuOptions.portfolio)
                 SearchView(searchService: SearchService())
                     .tabItem {
                         Image(systemName: "magnifyingglass")
                     }
-                    .tag("Search")
+                    .tag(MenuOptions.search)
             }
             .toolbar(.hidden)
         }

@@ -11,18 +11,15 @@ enum FocusedField {
 }
 
 struct NewPostView: View {
-    @StateObject var vm: NewPostViewModel
     @Environment(\.dismiss) private var dismiss
     @FocusState var focusedField: FocusedField?
     
-    init(symbol: String?, postService: PostServiceProtocol) {
-        _vm = StateObject(wrappedValue: NewPostViewModel(symbol: symbol, postService: postService))
-    }
-    
+    @ObservedObject var viewModel: FeedViewModel
+
     var body: some View {
         NavigationStack {
             VStack {
-                TextField("Type here...", text: $vm.postBody, axis: .vertical)
+                TextField("Type here...", text: $viewModel.postBody, axis: .vertical)
                     .autocorrectionDisabled()
                     .focused($focusedField, equals: .newPostField)
                     .padding()
@@ -34,12 +31,12 @@ struct NewPostView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing){
                     Text("Post")
-                        .foregroundColor(Color.black.opacity(vm.postBody.count > 0 ? 1.0 : 0.5))
+                        .foregroundColor(Color.black.opacity(viewModel.postBody.count > 0 ? 1.0 : 0.5))
                         .onTapGesture {
-                            if vm.postBody.count > 0 {
+                            if viewModel.postBody.count > 0 {
                                 Task {
-                                    await vm.createPost()
-                                    if !vm.showAlert {
+                                    await viewModel.createPost()
+                                    if !viewModel.showAlert {
                                         dismiss()
                                     }
                                 }
@@ -56,14 +53,14 @@ struct NewPostView: View {
             .onAppear {
                 self.focusedField = .newPostField
             }
-            .alert(vm.alertTitle, isPresented: $vm.showAlert) {
+            .alert(viewModel.alertTitle, isPresented: $viewModel.showAlert) {
                 Button("Ok", role: .cancel) {
-                    vm.alertTitle = ""
-                    vm.alertText = ""
+                    viewModel.alertTitle = ""
+                    viewModel.alertText = ""
                     dismiss()
                 }
             } message: {
-                Text(vm.alertText)
+                Text(viewModel.alertText)
             }
         }
     }
@@ -71,6 +68,6 @@ struct NewPostView: View {
 
 struct NewPostView_Previews: PreviewProvider {
     static var previews: some View {
-        NewPostView(symbol: "APPL", postService: MockPostService(currentUser: nil))
+        NewPostView(viewModel: FeedViewModel(userService: UserService(), postService: PostService(), sessionService: SessionService(), imageService: ImageService()))
     }
 }

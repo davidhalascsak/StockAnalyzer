@@ -90,7 +90,7 @@ struct StockView: View {
                     }
                 }
                 .fullScreenCover(isPresented: $isNewPostPresented) {
-                    NewPostView(symbol: vm.symbol, postService: PostService())
+                    NewPostView(viewModel: <#FeedViewModel#>)
                 }
                 .sheet(isPresented: $isAddAssetPresented) {
                     NewAssetView(symbol: vm.symbol, portfolioService: PortfolioService(), stockService: StockService(symbol: vm.symbol))

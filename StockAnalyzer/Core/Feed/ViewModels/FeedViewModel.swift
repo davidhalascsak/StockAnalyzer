@@ -12,12 +12,13 @@ class FeedViewModel: ObservableObject {
     @Published var alertTitle: String = ""
     @Published var alertText: String = ""
     
+    let symbol: String?
     let userService: UserServiceProtocol
     let postService: PostServiceProtocol
     let sessionService: SessionServiceProtocol
     let imageService: ImageServiceProtocol
     
-    init(userService: UserServiceProtocol, postService: PostServiceProtocol, sessionService: SessionServiceProtocol, imageService: ImageServiceProtocol) {
+    init(symbol: String?, userService: UserServiceProtocol, postService: PostServiceProtocol, sessionService: SessionServiceProtocol, imageService: ImageServiceProtocol) {
         self.userService = userService
         self.postService = postService
         self.sessionService = sessionService

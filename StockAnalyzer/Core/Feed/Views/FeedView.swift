@@ -6,8 +6,8 @@ struct FeedView: View {
     
     @StateObject private var viewModel: FeedViewModel
     
-    init(userService: UserServiceProtocol, postService: PostServiceProtocol, sessionService: SessionServiceProtocol, imageService: ImageServiceProtocol) {
-        _viewModel = StateObject(wrappedValue: FeedViewModel(userService: userService, postService: postService, sessionService: sessionService, imageService: imageService))
+    init(symbol: String?, userService: UserServiceProtocol, postService: PostServiceProtocol, sessionService: SessionServiceProtocol, imageService: ImageServiceProtocol) {
+        _viewModel = StateObject(wrappedValue: FeedViewModel(symbol: symbol, userService: userService, postService: postService, sessionService: sessionService, imageService: imageService))
     }
 
     var body: some View {
@@ -16,7 +16,7 @@ struct FeedView: View {
             if !viewModel.isLoading {
                 feedView
                     .fullScreenCover(isPresented: $isNewPostPresented, content: {
-                        NewPostView(symbol: nil, postService: PostService())
+                        NewPostView(viewModel: viewModel)
                     })
                     .fullScreenCover(isPresented: $isSettingsPresented, content: {
                         SettingsView(userService: UserService(), sessionService: SessionService(), imageService: ImageService())
@@ -71,10 +71,10 @@ struct FeedView: View {
                         PostView(post: post, postService: PostService(), sessionService: SessionService())
                         Divider()
                     }
-                    .onChange(of: viewModel.shouldScroll) { _ in
-                        withAnimation(.spring()) {
-                            proxy.scrollTo("top")
-                        }
+                }
+                .onChange(of: viewModel.shouldScroll) { _ in
+                    withAnimation(.spring()) {
+                        proxy.scrollTo("top")
                     }
                 }
                 .onChange(of: isNewPostPresented) { newValue in
@@ -113,10 +113,9 @@ struct FeedView: View {
 }
 
 
-
 struct FeedView_Previews: PreviewProvider {
     static var previews: some View {
-        FeedView(userService: MockUserService(), postService: MockPostService(currentUser: nil), sessionService: MockSessionService(currentUser: nil), imageService: MockImageService())
+        FeedView(symbol: nil, userService: MockUserService(), postService: MockPostService(currentUser: nil), sessionService: MockSessionService(currentUser: nil), imageService: MockImageService())
     }
 }
 

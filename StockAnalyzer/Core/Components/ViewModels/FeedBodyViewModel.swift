@@ -2,8 +2,13 @@ import Foundation
 
 @MainActor
 class FeedBodyViewModel: ObservableObject {
-    @Published var posts = [Post]()
-    @Published var isLoading: Bool = false
+    @Published var posts: [Post] = [Post]()
+    @Published var shouldScroll: Bool = false
+    @Published var isLoading: Bool = true
+    @Published var showAlert: Bool = false
+    @Published var postBody: String = ""
+    @Published var alertTitle: String = ""
+    @Published var alertText: String = ""
     
     let symbol: String?
     let userService: UserServiceProtocol
@@ -34,5 +39,15 @@ class FeedBodyViewModel: ObservableObject {
             }
         }
         isLoading = false
+    }
+    
+    func createPost() async {
+        let result = await postService.createPost(body: postBody, symbol: symbol)
+        if result == false {
+            showAlert.toggle()
+            alertTitle = "Error"
+            alertText = "Error while creating the post."
+        }
+        postBody = ""
     }
 }

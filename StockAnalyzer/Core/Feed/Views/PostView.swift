@@ -48,7 +48,7 @@ struct PostView: View {
                         }
                     Text("\(viewModel.post.likes)")
                     NavigationLink {
-                        CommentSectionView(post: viewModel.post, commentService: CommentService(), userService: UserService(), sessionService: SessionService())
+                        CommentSectionView(post: viewModel.post, commentService: CommentService(), userService: UserService(), sessionService: SessionService(), imageService: ImageService())
                     } label: {
                         Image(systemName: "message")
                             .foregroundColor(Color.primary)

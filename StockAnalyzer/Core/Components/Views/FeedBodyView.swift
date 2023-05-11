@@ -2,16 +2,16 @@ import SwiftUI
 
 struct FeedBodyView: View {
     @StateObject var vm: FeedBodyViewModel
-    @Binding var isNewViewPresented: Bool
+    @Binding var isNewPostPresented: Bool
     
-    init(symbol: String, isNewViewPresented: Binding<Bool>, userService: UserServiceProtocol, postService: PostServiceProtocol, imageService: ImageServiceProtocol) {
+    init(symbol: String?, isNewPostPresented: Binding<Bool>, userService: UserServiceProtocol, postService: PostServiceProtocol, imageService: ImageServiceProtocol) {
         _vm = StateObject(wrappedValue: FeedBodyViewModel(symbol: symbol, userService: userService, postService: postService, imageService: imageService))
-        _isNewViewPresented = isNewViewPresented
+        _isNewPostPresented = isNewPostPresented
     }
     
     var body: some View {
         LazyVStack {
-            if vm.isLoading == false {
+            if !vm.isLoading {
                 ForEach(vm.posts) { post in
                     PostView(post: post, postService: PostService(), sessionService: SessionService())
                     Divider()
@@ -26,7 +26,7 @@ struct FeedBodyView: View {
             vm.isLoading = true
             await vm.fetchPosts()
         }
-        .onChange(of: isNewViewPresented) { newValue in
+        .onChange(of: isNewPostPresented) { newValue in
             if newValue == false {
                 Task {
                     vm.isLoading = true
@@ -38,9 +38,9 @@ struct FeedBodyView: View {
 }
 
 struct FeedBodyView_Previews: PreviewProvider {
-    @State static var isNewViewPresented: Bool = false
+    @State static var isNewPostPresented: Bool = false
     
     static var previews: some View {
-        FeedBodyView(symbol: "Apple", isNewViewPresented: $isNewViewPresented, userService: UserService(), postService: PostService(), imageService: ImageService())
+        FeedBodyView(symbol: "Apple", isNewPostPresented: $isNewPostPresented, userService: UserService(), postService: PostService(), imageService: ImageService())
     }
 }

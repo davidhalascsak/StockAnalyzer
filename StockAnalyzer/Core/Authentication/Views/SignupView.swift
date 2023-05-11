@@ -4,25 +4,31 @@ struct SignUpView: View {
     @Environment(\.dismiss) private var dismiss
     
     @ObservedObject var viewModel: AuthViewModel
-    
+    var asd = 5
     var body: some View {
         NavigationStack {
             VStack {
                 Spacer()
-                Group {
-                    TextField("username", text: $viewModel.userData.username)
-                        .autocorrectionDisabled()
-                        .textInputAutocapitalization(.never)
-                    TextField("email", text: $viewModel.userData.email)
-                        .autocorrectionDisabled()
-                        .textInputAutocapitalization(.never)
-                    SecureField("password", text: $viewModel.userData.password)
-                    SecureField("confirm password", text: $viewModel.userData.passwordAgain)
-                    
-                }
-                .padding(10)
-                .background(Color.gray.opacity(0.2))
-                .cornerRadius(15)
+                TextField("username", text: $viewModel.userData.username)
+                    .autocorrectionDisabled()
+                    .textInputAutocapitalization(.never)
+                    .padding(10)
+                    .background(Color.gray.opacity(0.2))
+                    .cornerRadius(15)
+                TextField("email", text: $viewModel.userData.email)
+                    .autocorrectionDisabled()
+                    .textInputAutocapitalization(.never)
+                    .padding(10)
+                    .background(Color.gray.opacity(0.2))
+                    .cornerRadius(15)
+                SecureField("password", text: $viewModel.userData.password)
+                    .padding(10)
+                    .background(Color.gray.opacity(0.2))
+                    .cornerRadius(15)
+                SecureField("confirm password", text: $viewModel.userData.passwordAgain)
+                    .padding(10)
+                    .background(Color.gray.opacity(0.2))
+                    .cornerRadius(15)
                 Picker("Country", selection: $viewModel.userData.location) {
                     ForEach(viewModel.countries, id: \.self) {
                         Text($0).tag($0)

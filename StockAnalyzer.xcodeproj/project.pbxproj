@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		EC015092298BCEB500BAF650 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC015091298BCEB500BAF650 /* SignInView.swift */; };
-		EC015094298BCEDB00BAF650 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC015093298BCEDB00BAF650 /* SignUpView.swift */; };
 		EC02CC6729DB48E70015690E /* PortfolioRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC02CC6629DB48E70015690E /* PortfolioRowView.swift */; };
 		EC02CC6B29DB5C0B0015690E /* PortfolioViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC02CC6A29DB5C0B0015690E /* PortfolioViewModel.swift */; };
 		EC02CC6D29DB5C640015690E /* PortfolioService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC02CC6C29DB5C640015690E /* PortfolioService.swift */; };
@@ -112,6 +111,7 @@
 		ECB80E0D29FAA64F00910473 /* ChartViewModel_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB80E0C29FAA64F00910473 /* ChartViewModel_Tests.swift */; };
 		ECC2615729C1DBFD00CE1B7C /* ApiKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECC2615629C1DBFD00CE1B7C /* ApiKeys.swift */; };
 		ECC2615929C1E1C500CE1B7C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = ECC2615829C1E1C400CE1B7C /* GoogleService-Info.plist */; };
+		ECCA34942A0D388100B0E775 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCA34932A0D388100B0E775 /* SignUpView.swift */; };
 		ECCDEFA829A3C2C500034C76 /* CommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCDEFA729A3C2C500034C76 /* CommentView.swift */; };
 		ECCDEFAA29A3C30300034C76 /* CommentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCDEFA929A3C30300034C76 /* CommentViewModel.swift */; };
 		ECD264B629E532FF009F1C46 /* PortfolioRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECD264B529E532FF009F1C46 /* PortfolioRowViewModel.swift */; };
@@ -148,7 +148,6 @@
 
 /* Begin PBXFileReference section */
 		EC015091298BCEB500BAF650 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
-		EC015093298BCEDB00BAF650 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		EC02CC6629DB48E70015690E /* PortfolioRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioRowView.swift; sourceTree = "<group>"; };
 		EC02CC6A29DB5C0B0015690E /* PortfolioViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioViewModel.swift; sourceTree = "<group>"; };
 		EC02CC6C29DB5C640015690E /* PortfolioService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioService.swift; sourceTree = "<group>"; };
@@ -250,6 +249,7 @@
 		ECB80E0C29FAA64F00910473 /* ChartViewModel_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartViewModel_Tests.swift; sourceTree = "<group>"; };
 		ECC2615629C1DBFD00CE1B7C /* ApiKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiKeys.swift; sourceTree = "<group>"; };
 		ECC2615829C1E1C400CE1B7C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		ECCA34932A0D388100B0E775 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		ECCDEFA729A3C2C500034C76 /* CommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentView.swift; sourceTree = "<group>"; };
 		ECCDEFA929A3C30300034C76 /* CommentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewModel.swift; sourceTree = "<group>"; };
 		ECD264B529E532FF009F1C46 /* PortfolioRowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioRowViewModel.swift; sourceTree = "<group>"; };
@@ -670,7 +670,7 @@
 			children = (
 				ECFD63F4298E63AA00B576DA /* AuthView.swift */,
 				EC015091298BCEB500BAF650 /* SignInView.swift */,
-				EC015093298BCEDB00BAF650 /* SignUpView.swift */,
+				ECCA34932A0D388100B0E775 /* SignUpView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -901,7 +901,6 @@
 				ECD264B629E532FF009F1C46 /* PortfolioRowViewModel.swift in Sources */,
 				ECA41EEC29B9EFB800DA03DA /* NewsRowView.swift in Sources */,
 				EC6802B929AB8EDF0019EE18 /* StockView.swift in Sources */,
-				EC015094298BCEDB00BAF650 /* SignUpView.swift in Sources */,
 				EC3CEAA929BB8F340048FADE /* HomeView.swift in Sources */,
 				EC91726A299547EA00EA924D /* PortfolioView.swift in Sources */,
 				EC3763D129FABB1000504D4A /* MockDatabase.swift in Sources */,
@@ -972,6 +971,7 @@
 				EC49E91029A398A8003AE346 /* CommentModel.swift in Sources */,
 				EC02CC6B29DB5C0B0015690E /* PortfolioViewModel.swift in Sources */,
 				ECEBBFE0299920EE00104326 /* PostViewModel.swift in Sources */,
+				ECCA34942A0D388100B0E775 /* SignUpView.swift in Sources */,
 				EC6802B729AB767E0019EE18 /* StockService.swift in Sources */,
 				EC8FA4A029C10D34009CE80E /* PriceModel.swift in Sources */,
 				ECB0F04F29B33D4A002AF29C /* Date.swift in Sources */,

@@ -16,7 +16,7 @@ struct FeedView: View {
             if !viewModel.isLoading {
                 feedView
                     .fullScreenCover(isPresented: $isNewPostPresented, content: {
-                        NewPostView(viewModel: viewModel)
+                        NewPostView(symbol: nil, postService: PostService())
                     })
                     .fullScreenCover(isPresented: $isSettingsPresented, content: {
                         SettingsView(userService: UserService(), sessionService: SessionService(), imageService: ImageService())

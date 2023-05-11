@@ -1,5 +1,13 @@
 import SwiftUI
 
+enum FocusedField {
+    case baseField
+    case growthRateField
+    case discountRateField
+    case terminalMultipleField
+    case unitField
+    case priceField
+}
 struct ValuationView: View {
     @StateObject var vm: ValuationViewModel
     @FocusState private var focusedField: FocusedField?

@@ -1,21 +1,20 @@
 import SwiftUI
 
-enum FocusedField {
-    case newPostField
-    case baseField
-    case growthRateField
-    case discountRateField
-    case terminalMultipleField
-    case unitField
-    case priceField
-}
-
 struct NewPostView: View {
     @Environment(\.dismiss) private var dismiss
-    @FocusState var focusedField: FocusedField?
+    @FocusState private var focusedField: FocusedField?
     
-    @ObservedObject var viewModel: FeedViewModel
+    @StateObject var viewModel: NewPostViewModel
+    
+    private enum FocusedField: Hashable {
+        case newPostField
+    }
 
+    init(symbol: String?, postService: PostServiceProtocol) {
+        _viewModel = StateObject(wrappedValue: NewPostViewModel(symbol: symbol, postService: postService))
+    }
+    
+    
     var body: some View {
         NavigationStack {
             VStack {
@@ -68,6 +67,6 @@ struct NewPostView: View {
 
 struct NewPostView_Previews: PreviewProvider {
     static var previews: some View {
-        NewPostView(viewModel: FeedViewModel(userService: UserService(), postService: PostService(), sessionService: SessionService(), imageService: ImageService()))
+        NewPostView(symbol: nil, postService: PostService())
     }
 }

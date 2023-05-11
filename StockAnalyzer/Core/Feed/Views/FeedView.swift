@@ -1,28 +1,26 @@
 import SwiftUI
 
 struct FeedView: View {
-    @StateObject var vm: FeedViewModel
+    @State private var isNewPostPresented: Bool = false
+    @State private var isSettingsPresented: Bool = false
     
-    @State var isNewPostPresented: Bool = false
-    @State var isSettingsPresented: Bool = false
+    @StateObject private var viewModel: FeedViewModel
     
     init(userService: UserServiceProtocol, postService: PostServiceProtocol, sessionService: SessionServiceProtocol, imageService: ImageServiceProtocol) {
-        _vm = StateObject(wrappedValue: FeedViewModel(userService: userService, postService: postService, sessionService: sessionService, imageService: imageService))
+        _viewModel = StateObject(wrappedValue: FeedViewModel(userService: userService, postService: postService, sessionService: sessionService, imageService: imageService))
     }
 
     var body: some View {
         VStack {
-            feedHeader
-            if vm.isLoading == false {
-                feedBody
+            headerView
+            if !viewModel.isLoading {
+                feedView
                     .fullScreenCover(isPresented: $isNewPostPresented, content: {
                         NewPostView(symbol: nil, postService: PostService())
                     })
                     .fullScreenCover(isPresented: $isSettingsPresented, content: {
                         SettingsView(userService: UserService(), sessionService: SessionService(), imageService: ImageService())
                     })
-                    .sync($vm.isNewPostPresented, with: $isNewPostPresented)
-                    .sync($vm.isSettingsPresented, with: $isSettingsPresented)
             } else {
                 Spacer()
                 ProgressView()
@@ -30,26 +28,25 @@ struct FeedView: View {
             }
         }
         .task {
-            vm.isLoading = true
-            await vm.fetchPosts()
+            await viewModel.fetchPosts()
         }
     }
     
-    var feedHeader: some View {
+    var headerView: some View {
         HStack() {
             Image(systemName: "arrow.triangle.2.circlepath")
                 .font(.title2)
                 .onTapGesture {
                     withAnimation {
-                        vm.isLoading = true
+                        viewModel.isLoading = true
                         Task {
-                            await vm.fetchPosts()
+                            await viewModel.fetchPosts()
                         }
-                        vm.shouldScroll.toggle()
+                        viewModel.shouldScroll.toggle()
                     }
                 }
-                .disabled(vm.isLoading)
-                .rotationEffect(Angle(degrees: vm.isLoading ? 360 : 0), anchor: .center)
+                .disabled(viewModel.isLoading)
+                .rotationEffect(Angle(degrees: viewModel.isLoading ? 360 : 0), anchor: .center)
             Spacer()
             Text("Feed")
                 .font(.headline)
@@ -59,46 +56,46 @@ struct FeedView: View {
             Image(systemName: "person.crop.circle")
                 .font(.title2)
                 .onTapGesture {
-                    self.isSettingsPresented.toggle()
+                    isSettingsPresented.toggle()
                 }
         }
         .padding(.horizontal)
     }
 
-    var feedBody: some View {
+    var feedView: some View {
         ScrollViewReader { proxy in
             ScrollView(showsIndicators: false) {
                 Divider().id("top")
                 LazyVStack {
-                    ForEach(vm.posts) { post in
+                    ForEach(viewModel.posts) { post in
                         PostView(post: post, postService: PostService(), sessionService: SessionService())
                         Divider()
                     }
-                    .onChange(of: vm.shouldScroll) { _ in
+                    .onChange(of: viewModel.shouldScroll) { _ in
                         withAnimation(.spring()) {
                             proxy.scrollTo("top")
                         }
                     }
                 }
-                .onChange(of: vm.isNewPostPresented) { newValue in
+                .onChange(of: isNewPostPresented) { newValue in
                     if newValue == false {
+                        viewModel.isLoading = true
                         Task {
-                            vm.isLoading = true
-                            await vm.fetchPosts()
+                            await viewModel.fetchPosts()
                         }
                     }
                 }
-                .onChange(of: vm.isSettingsPresented) { newValue in
+                .onChange(of: isSettingsPresented) { newValue in
                     if newValue == false {
+                        viewModel.isLoading = true
                         Task {
-                            vm.isLoading = true
-                            await vm.fetchPosts()
+                            await viewModel.fetchPosts()
                         }
                     }
                 }
             }
             .overlay(alignment: .bottomTrailing) {
-                if vm.sessionService.getUserId() != nil {
+                if viewModel.sessionService.getUserId() != nil {
                     Image(systemName: "pencil")
                         .font(.title)
                         .foregroundColor(Color.white)
@@ -107,7 +104,7 @@ struct FeedView: View {
                         .clipShape(Circle())
                         .padding()
                         .onTapGesture {
-                            vm.isNewPostPresented.toggle()
+                            isNewPostPresented.toggle()
                         }
                 }
             }

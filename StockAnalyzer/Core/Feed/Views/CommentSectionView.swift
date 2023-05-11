@@ -2,39 +2,17 @@ import SwiftUI
 import Firebase
 
 struct CommentSectionView: View {
-    @StateObject var vm: CommentSectionViewModel
     @Environment(\.dismiss) private var dismiss
+    
+    @StateObject private var viewModel: CommentSectionViewModel
 
     init(post: Post, commentService: CommentServiceProtocol, userService: UserServiceProtocol, sessionService: SessionServiceProtocol) {
-        _vm = StateObject(wrappedValue: CommentSectionViewModel(post: post, commentService: commentService, userService: userService, sessionService: sessionService))
+        _viewModel = StateObject(wrappedValue: CommentSectionViewModel(post: post, commentService: commentService, userService: userService, sessionService: sessionService))
     }
     
     var body: some View {
         NavigationStack {
-            VStack(alignment: .leading) {
-                if vm.isLoading == false {
-                    ScrollView(showsIndicators: false) {
-                        ForEach(vm.comments) { comment in
-                            CommentView(post: vm.post, comment: comment, commentService: CommentService(), sessionService: SessionService())
-                            Divider()
-                        }
-                    }
-                    if vm.sessionService.getUserId() != nil {
-                        NewCommentView(vm: vm)
-                    } else {
-                        Color.white
-                            .frame(height: 25)
-                            .frame(maxWidth: .infinity)
-                    }
-                } else {
-                    Spacer()
-                    ProgressView()
-                    Spacer()
-                }
-            }
-            .task {
-                await vm.fetchComments()
-            }
+            commentSectionView
         }
         .navigationBarBackButtonHidden()
         .navigationTitle("Comments")
@@ -47,13 +25,40 @@ struct CommentSectionView: View {
                     }
             }
         }
-        .alert(vm.alertTitle, isPresented: $vm.showAlert) {
+        .alert(viewModel.alertTitle, isPresented: $viewModel.showAlert) {
             Button("Ok", role: .cancel) {
-                vm.alertTitle = ""
-                vm.alertText = ""
+                viewModel.alertTitle = ""
+                viewModel.alertText = ""
             }
         } message: {
-            Text(vm.alertText)
+            Text(viewModel.alertText)
+        }
+    }
+    
+    var commentSectionView: some View {
+        VStack(alignment: .leading) {
+            if !viewModel.isLoading {
+                ScrollView(showsIndicators: false) {
+                    ForEach(viewModel.comments) { comment in
+                        CommentView(post: viewModel.post, comment: comment, commentService: CommentService(), sessionService: SessionService())
+                        Divider()
+                    }
+                }
+                if viewModel.sessionService.getUserId() != nil {
+                    NewCommentView(vm: viewModel)
+                } else {
+                    Color.white
+                        .frame(height: 25)
+                        .frame(maxWidth: .infinity)
+                }
+            } else {
+                Spacer()
+                ProgressView()
+                Spacer()
+            }
+        }
+        .task {
+            await viewModel.fetchComments()
         }
     }
 }

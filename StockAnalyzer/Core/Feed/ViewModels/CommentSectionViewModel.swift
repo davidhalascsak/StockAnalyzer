@@ -3,10 +3,10 @@ import Firebase
 
 @MainActor
 class CommentSectionViewModel: ObservableObject {
+    @Published var comments: [Comment] = [Comment]()
     @Published var isLoading: Bool = true
-    @Published var comments: [Comment] = []
-    @Published var commentBody: String = ""
     @Published var showAlert: Bool = false
+    @Published var commentBody: String = ""
     @Published var alertTitle: String = ""
     @Published var alertText: String = ""
     
@@ -14,12 +14,14 @@ class CommentSectionViewModel: ObservableObject {
     var commentService: CommentServiceProtocol
     let userService: UserServiceProtocol
     let sessionService: SessionServiceProtocol
+    let imageService: ImageServiceProtocol
     
-    init(post: Post, commentService: CommentServiceProtocol, userService: UserServiceProtocol, sessionService: SessionServiceProtocol) {
+    init(post: Post, commentService: CommentServiceProtocol, userService: UserServiceProtocol, sessionService: SessionServiceProtocol, imageService: ImageServiceProtocol) {
         self.post = post
         self.commentService = commentService
         self.userService = userService
         self.sessionService = sessionService
+        self.imageService = imageService
     }
     
     func fetchComments() async {
@@ -31,6 +33,7 @@ class CommentSectionViewModel: ObservableObject {
             
             if let user = user {
                 comments[i].user = user
+                self.comments[i].user?.image = await imageService.fetchImageData(url: user.imageUrl)
                 
                 let comment = comments[i]
                 comments[i].isLiked = await commentService.checkIfCommentIsLiked(comment: comment)

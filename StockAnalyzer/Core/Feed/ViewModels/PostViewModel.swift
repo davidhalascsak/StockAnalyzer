@@ -3,8 +3,8 @@ import SwiftUI
 
 @MainActor
 class PostViewModel: ObservableObject {
-    @Published var isUpdated: Bool = true
     @Published var post: Post
+    @Published var isUpdated: Bool = true
     
     var postService: PostServiceProtocol
     let sessionService: SessionServiceProtocol

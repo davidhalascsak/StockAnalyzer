@@ -4,7 +4,6 @@ import Firebase
 struct CommentView: View {
     @ObservedObject var vm: CommentViewModel
     
-    
     init(post: Post, comment: Comment, commentService: CommentServiceProtocol, sessionService: SessionServiceProtocol) {
         _vm = ObservedObject(wrappedValue: CommentViewModel(post: post, comment: comment, commentService: commentService, sessionService: sessionService))
     }

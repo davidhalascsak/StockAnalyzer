@@ -9,16 +9,15 @@ struct SignInView: View {
         NavigationStack {
             VStack {
                 Spacer()
-                TextField("email", text: $viewModel.userData.email)
-                    .autocorrectionDisabled()
-                    .textInputAutocapitalization(.never)
-                    .padding(10)
-                    .background(Color.gray.opacity(0.2))
-                    .cornerRadius(15)
-                SecureField("password", text: $viewModel.userData.password)
-                    .padding(10)
-                    .background(Color.gray.opacity(0.2))
-                    .cornerRadius(15)
+                Group {
+                    TextField("email", text: $viewModel.userData.email)
+                        .autocorrectionDisabled()
+                        .textInputAutocapitalization(.never)
+                    SecureField("password", text: $viewModel.userData.password)
+                }
+                .padding(10)
+                .background(Color.gray.opacity(0.2))
+                .cornerRadius(15)
                 Button {
                     Task {
                         await viewModel.checkLogin()
@@ -49,7 +48,6 @@ struct SignInView: View {
                         Text("Sign up")
                             .foregroundColor(Color.blue)
                     }
-                    
                 }
                 Spacer()
             }

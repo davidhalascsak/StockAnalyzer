@@ -1,18 +1,18 @@
 import SwiftUI
 
 struct FeedBodyView: View {
-    @StateObject var vm: FeedBodyViewModel
+    @StateObject var viewModel: FeedViewModel
     @Binding var isNewPostPresented: Bool
     
-    init(symbol: String?, isNewPostPresented: Binding<Bool>, userService: UserServiceProtocol, postService: PostServiceProtocol, imageService: ImageServiceProtocol) {
-        _vm = StateObject(wrappedValue: FeedBodyViewModel(symbol: symbol, userService: userService, postService: postService, imageService: imageService))
+    init(symbol: String?, isNewPostPresented: Binding<Bool>, userService: UserServiceProtocol, postService: PostServiceProtocol, sessionService: SessionServiceProtocol, imageService: ImageServiceProtocol) {
+        _viewModel = StateObject(wrappedValue: FeedViewModel(symbol: symbol, userService: userService, postService: postService, sessionService: sessionService, imageService: imageService))
         _isNewPostPresented = isNewPostPresented
     }
     
     var body: some View {
         LazyVStack {
-            if !vm.isLoading {
-                ForEach(vm.posts) { post in
+            if !viewModel.isLoading {
+                ForEach(viewModel.posts) { post in
                     PostView(post: post, postService: PostService(), sessionService: SessionService())
                     Divider()
                 }
@@ -23,14 +23,14 @@ struct FeedBodyView: View {
             }
         }
         .task {
-            vm.isLoading = true
-            await vm.fetchPosts()
+            viewModel.isLoading = true
+            await viewModel.fetchPosts()
         }
         .onChange(of: isNewPostPresented) { newValue in
             if newValue == false {
                 Task {
-                    vm.isLoading = true
-                    await vm.fetchPosts()
+                    viewModel.isLoading = true
+                    await viewModel.fetchPosts()
                 }
             }
         }
@@ -41,6 +41,6 @@ struct FeedBodyView_Previews: PreviewProvider {
     @State static var isNewPostPresented: Bool = false
     
     static var previews: some View {
-        FeedBodyView(symbol: "Apple", isNewPostPresented: $isNewPostPresented, userService: UserService(), postService: PostService(), imageService: ImageService())
+        FeedBodyView(symbol: "Apple", isNewPostPresented: $isNewPostPresented, userService: UserService(), postService: PostService(), sessionService: MockSessionService(currentUser: nil), imageService: ImageService())
     }
 }

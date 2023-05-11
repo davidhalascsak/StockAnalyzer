@@ -7,10 +7,6 @@ class FeedViewModel: ObservableObject {
     @Published var posts: [Post] = [Post]()
     @Published var shouldScroll: Bool = false
     @Published var isLoading: Bool = true
-    @Published var showAlert: Bool = false
-    @Published var postBody: String = ""
-    @Published var alertTitle: String = ""
-    @Published var alertText: String = ""
     
     let symbol: String?
     let userService: UserServiceProtocol
@@ -19,6 +15,7 @@ class FeedViewModel: ObservableObject {
     let imageService: ImageServiceProtocol
     
     init(symbol: String?, userService: UserServiceProtocol, postService: PostServiceProtocol, sessionService: SessionServiceProtocol, imageService: ImageServiceProtocol) {
+        self.symbol = symbol
         self.userService = userService
         self.postService = postService
         self.sessionService = sessionService
@@ -26,7 +23,7 @@ class FeedViewModel: ObservableObject {
     }
     
     func fetchPosts() async {
-        posts = await postService.fetchPosts(symbol: nil)
+        posts = await postService.fetchPosts(symbol: symbol)
 
         for i in 0..<(posts.count) {
             let userRef = posts[i].userRef
@@ -42,15 +39,5 @@ class FeedViewModel: ObservableObject {
             }
         }
         isLoading = false
-    }
-    
-    func createPost() async {
-        let result = await postService.createPost(body: postBody, symbol: symbol)
-        if result == false {
-            showAlert.toggle()
-            alertTitle = "Error"
-            alertText = "Error while creating the post."
-        }
-        postBody = ""
     }
 }

@@ -45,7 +45,7 @@ struct CommentSectionView: View {
                     }
                 }
                 if viewModel.sessionService.getUserId() != nil {
-                    NewCommentView(vm: viewModel)
+                    NewCommentView(viewModel: viewModel)
                 } else {
                     Color.white
                         .frame(height: 25)

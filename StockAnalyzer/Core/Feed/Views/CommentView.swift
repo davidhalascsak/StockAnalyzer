@@ -2,47 +2,47 @@ import SwiftUI
 import Firebase
 
 struct CommentView: View {
-    @ObservedObject var vm: CommentViewModel
+    @ObservedObject var viewModel: CommentViewModel
     
     init(post: Post, comment: Comment, commentService: CommentServiceProtocol, sessionService: SessionServiceProtocol) {
-        _vm = ObservedObject(wrappedValue: CommentViewModel(post: post, comment: comment, commentService: commentService, sessionService: sessionService))
+        _viewModel = ObservedObject(wrappedValue: CommentViewModel(post: post, comment: comment, commentService: commentService, sessionService: sessionService))
     }
     
     var body: some View {
         HStack(alignment: .top) {
-            ImageView(url: vm.post.user?.imageUrl ?? "", defaultImage: "", imageService: ImageService())
+            ImageView(url: viewModel.post.user?.imageUrl ?? "", defaultImage: "", imageService: ImageService())
                 .frame(width: 40, height: 40)
                 .cornerRadius(10)
             VStack(alignment: .leading) {
-                Text(vm.comment.user?.username ?? "")
+                Text(viewModel.comment.user?.username ?? "")
                     .foregroundColor(.blue)
                     .font(.headline)
                 HStack {
-                    Text(vm.comment.user?.location ?? "")
+                    Text(viewModel.comment.user?.location ?? "")
                         .font(.subheadline)
                     Text("•")
-                    Text(toDate(stamp: vm.comment.timestamp))
+                    Text(toDate(stamp: viewModel.comment.timestamp))
                 }
-                Text(vm.comment.body)
+                Text(viewModel.comment.body)
                     .multilineTextAlignment(.leading)
                     .padding(.vertical, 5)
                 HStack {
-                    Image(systemName: vm.comment.isLiked ?? false ? "hand.thumbsup.fill" : "hand.thumbsup")
-                        .foregroundColor(vm.comment.isLiked ?? false ? Color.blue : Color.primary)
+                    Image(systemName: viewModel.comment.isLiked ?? false ? "hand.thumbsup.fill" : "hand.thumbsup")
+                        .foregroundColor(viewModel.comment.isLiked ?? false ? Color.blue : Color.primary)
                         .onTapGesture {
-                            if vm.sessionService.getUserId() != nil && vm.isUpdated {
-                                if vm.comment.isLiked ?? false {
+                            if viewModel.sessionService.getUserId() != nil && viewModel.isUpdated {
+                                if viewModel.comment.isLiked ?? false {
                                     Task {
-                                        await vm.unlikeComment()
+                                        await viewModel.unlikeComment()
                                     }
                                 } else {
                                     Task {
-                                        await vm.likeComment()
+                                        await viewModel.likeComment()
                                     }
                                 }
                             }
                         }
-                    Text("\(vm.comment.likes)")
+                    Text("\(viewModel.comment.likes)")
                 }
             }
         }

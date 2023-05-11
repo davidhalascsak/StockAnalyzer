@@ -28,6 +28,7 @@ struct FeedView: View {
             }
         }
         .task {
+            viewModel.isLoading = true
             await viewModel.fetchPosts()
         }
     }

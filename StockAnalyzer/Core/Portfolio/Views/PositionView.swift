@@ -44,9 +44,6 @@ struct PositionView: View {
                 ProgressView()
             }
         }
-        .task {
-            await vm.fetchData()
-        }
         .navigationBarBackButtonHidden()
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
@@ -67,6 +64,10 @@ struct PositionView: View {
                     .disabled(vm.isLoading)
                     .rotationEffect(Angle(degrees: vm.isLoading ? 360 : 0), anchor: .center)
             }
+        }
+        .task {
+            vm.isLoading = true
+            await vm.fetchData()
         }
     }
     

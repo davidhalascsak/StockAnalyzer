@@ -5,7 +5,7 @@ class PositionRowViewModel: ObservableObject {
     @Published var stockPrice: Price?
     @Published var difference: Double = 0.0
     @Published var currentValue: Double = 0.0
-    @Published var isLoading: Bool = true
+    @Published var isLoading: Bool = false
     
     let position: Position
     let stockService: StockServiceProtocol

@@ -3,18 +3,19 @@ import FirebaseCore
 import FirebaseAuth
 
 struct NewsView: View {
-    @StateObject var vm: NewsViewModel
-    @State var isSettingsPresented: Bool = false
+    @State private var isSettingsPresented: Bool = false
+    
+    @StateObject private var viewModel: NewsViewModel
     
     init(newsService: NewsServiceProtocol) {
-        _vm = StateObject(wrappedValue: NewsViewModel(newsService: newsService))
+        _viewModel = StateObject(wrappedValue: NewsViewModel(newsService: newsService))
     }
     
     var body: some View {
         VStack {
             headerView
-            if vm.isLoading == false {
-                newsBody
+            if viewModel.isLoading == false {
+                feedView
             } else {
                 Spacer()
                 ProgressView()
@@ -22,7 +23,8 @@ struct NewsView: View {
             }
         }
         .task {
-            await vm.fetchNews()
+            viewModel.isLoading = true
+            await viewModel.fetchNews()
         }
     }
     
@@ -32,15 +34,15 @@ struct NewsView: View {
                 .font(.title2)
                 .onTapGesture {
                     withAnimation {
-                        vm.isLoading = true
+                        viewModel.isLoading = true
                         Task {
-                           await vm.fetchNews()
+                           await viewModel.fetchNews()
                         }
-                        vm.shouldScroll.toggle()
+                        viewModel.shouldScroll.toggle()
                     }
                 }
-                .disabled(vm.isLoading)
-                .rotationEffect(Angle(degrees: vm.isLoading ? 360 : 0), anchor: .center)
+                .disabled(viewModel.isLoading)
+                .rotationEffect(Angle(degrees: viewModel.isLoading ? 360 : 0), anchor: .center)
             Spacer()
             Text("News")
                 .font(.headline)
@@ -56,20 +58,22 @@ struct NewsView: View {
         .padding(.horizontal)
     }
     
-    var newsBody: some View {
+    var feedView: some View {
         ScrollViewReader { proxy in
             ScrollView(showsIndicators: false) {
                 Divider().id("top")
                 LazyVStack(alignment: .leading) {
-                    ForEach(vm.news, id: \.self) { news in
-                        if URL(string: news.news_url) != nil {
-                            NewsRowView(news: news)
-                                .padding(.horizontal, 5)
+                    ForEach(viewModel.news, id: \.self) { news in
+                        if let url = URL(string: news.news_url) {
+                            Link(destination: url) {
+                                NewsRowView(news: news)
+                                    .padding(.horizontal, 5)
+                            }
                             Divider()
                         }
                     }
                 }
-                .onChange(of: vm.shouldScroll) { _ in
+                .onChange(of: viewModel.shouldScroll) { _ in
                     withAnimation(.spring()) {
                         proxy.scrollTo("top")
                     }

@@ -14,7 +14,7 @@ class HomeViewModel: ObservableObject {
     }
     
     func fetchNews() async {
-        let fetchedNews = await self.newsService.fetchData()
+        let fetchedNews = await self.newsService.fetchNews()
         
         if fetchedNews.count > 10 {
             self.news = Array(fetchedNews[0..<10])

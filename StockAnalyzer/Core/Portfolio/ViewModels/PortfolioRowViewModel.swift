@@ -5,7 +5,7 @@ class PortfolioRowViewModel: ObservableObject {
     @Published var stockPrice: Price?
     @Published var currentValue: Double = 0.0
     @Published var difference: Double = 0.0
-    @Published var isLoading: Bool = true
+    @Published var isLoading: Bool = false
     
     let asset: Asset
     var stockService: StockServiceProtocol

@@ -18,6 +18,9 @@ class PortfolioViewModel: ObservableObject {
     }
     
     func fetchAssets() async {
+        investedAmount = 0
+        difference = 0
+        
         assets = await portfolioService.fetchAssets()
         for asset in assets {
             let vm = PortfolioRowViewModel(asset: asset, stockService: StockService(symbol: asset.symbol))
@@ -31,8 +34,8 @@ class PortfolioViewModel: ObservableObject {
     }
     
     func reloadPortfolio() async {
-        var newInvestedAmount = 0.0
-        var newDifference = 0.0
+        var newInvestedAmount: Double = 0.0
+        var newDifference: Double = 0.0
         for asset in assets {
             if let vm = assetsViewModels[asset.symbol] {
                 await vm.calculateCurrentValue()

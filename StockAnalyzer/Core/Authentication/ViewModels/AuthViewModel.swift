@@ -36,7 +36,7 @@ class AuthViewModel: ObservableObject {
     }
     
     func checkLogin() async {
-        if !isValidEmail(userData.email) {
+        if !isValidEmail(email: userData.email) {
             alertTitle = "Error"
             alertText = "The email format is not valid!"
             showAlert.toggle()
@@ -94,7 +94,7 @@ class AuthViewModel: ObservableObject {
             return
         }
         
-        if !isValidEmail(userData.email) {
+        if !isValidEmail(email: userData.email) {
             alertTitle = "Error"
             alertText = "The email format is not valid!"
             showAlert.toggle()
@@ -213,9 +213,9 @@ class AuthViewModel: ObservableObject {
         _ = sessionService.logout()
     }
     
-    private func isValidEmail(_ email: String) -> Bool {
+    private func isValidEmail(email: String) -> Bool {
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
-        let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
-        return emailPred.evaluate(with: email)
+        let emailPredicate = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        return emailPredicate.evaluate(with: email)
     }
 }

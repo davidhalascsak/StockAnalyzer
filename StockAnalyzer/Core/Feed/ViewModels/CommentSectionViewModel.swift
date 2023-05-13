@@ -4,7 +4,7 @@ import Firebase
 @MainActor
 class CommentSectionViewModel: ObservableObject {
     @Published var comments: [Comment] = [Comment]()
-    @Published var isLoading: Bool = true
+    @Published var isLoading: Bool = false
     @Published var showAlert: Bool = false
     @Published var commentBody: String = ""
     @Published var alertTitle: String = ""

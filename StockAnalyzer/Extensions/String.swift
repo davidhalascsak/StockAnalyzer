@@ -13,4 +13,22 @@ extension String {
         let end = index(startIndex, offsetBy: bounds.upperBound)
         return String(self[start..<end])
     }
+    
+    func formatDateString(from: String, to: String) -> String {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "US_POSIX")
+        formatter.dateFormat = from
+        
+
+        let newDate = formatter.date(from: self)
+        
+        formatter.dateFormat = to
+        
+        
+        if let newDate = newDate {
+            return formatter.string(from: newDate)
+        }
+        
+        return "unknown date"
+    }
 }

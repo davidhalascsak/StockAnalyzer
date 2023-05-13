@@ -5,7 +5,7 @@ import UIKit
 class PositionViewModel: ObservableObject {
     @Published var companyProfile: Company?
     @Published var price: Price?
-    @Published var isLoading: Bool = true
+    @Published var isLoading: Bool = false
     @Published var positionViewModels: [String: PositionRowViewModel] = [:]
     @Published var shouldDismiss: Bool = false
     

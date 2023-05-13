@@ -4,7 +4,7 @@ struct NewPostView: View {
     @Environment(\.dismiss) private var dismiss
     @FocusState private var focusedField: FocusField?
     
-    @StateObject var viewModel: NewPostViewModel
+    @StateObject private var viewModel: NewPostViewModel
     
     private enum FocusField: Hashable {
         case newPostField
@@ -67,6 +67,6 @@ struct NewPostView: View {
 
 struct NewPostView_Previews: PreviewProvider {
     static var previews: some View {
-        NewPostView(symbol: nil, postService: MockPostService())
+        NewPostView(symbol: nil, postService: MockPostService(currentUser: nil))
     }
 }

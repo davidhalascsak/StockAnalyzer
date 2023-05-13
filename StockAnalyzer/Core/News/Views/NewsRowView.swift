@@ -1,37 +1,27 @@
 import SwiftUI
 
 struct NewsRowView: View {
-    @StateObject var vm: NewsRowViewModel
-    
-    init(news: News) {
-        _vm = StateObject(wrappedValue: NewsRowViewModel(news: news))
-    }
+    let news: News
     
     var body: some View {
-        Link(destination: URL(string: vm.news.news_url)!) {
-            HStack {
-                imageView
-                VStack(alignment: .leading) {
-                    Text(vm.news.title)
+        HStack {
+            ImageView(url: news.image_url, defaultImage: "", imageService: ImageService())
+                .frame(width: 100, height: 100)
+                .cornerRadius(20)
+            VStack(alignment: .leading) {
+                Text(news.title)
+                    .multilineTextAlignment(.leading)
+                    .fontWeight(.semibold)
+                HStack {
+                    Text(news.source_name)
                         .multilineTextAlignment(.leading)
-                        .fontWeight(.semibold)
-                    HStack {
-                        Text(vm.news.source_name)
-                            .multilineTextAlignment(.leading)
-                        Text("•")
-                        Text(vm.formatDate())
-                    }
+                    Text("•")
+                    Text(news.date.formatDateString(from: "E, d MMM y HH:mm:ss z", to: "yyyy-MM-dd"))
                 }
             }
-            .foregroundColor(Color.primary)
-            .frame(height: 100)
         }
-    }
-    
-    var imageView: some View {
-        ImageView(url: vm.news.image_url, defaultImage: "", imageService: ImageService())
-            .frame(width: 100, height: 100)
-            .cornerRadius(20)
+        .foregroundColor(Color.primary)
+        .frame(height: 100)
     }
 }
 

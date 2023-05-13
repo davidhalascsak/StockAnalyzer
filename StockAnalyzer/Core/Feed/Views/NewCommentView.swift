@@ -2,7 +2,7 @@ import SwiftUI
 import Firebase
 
 struct NewCommentView: View {
-    @ObservedObject var viewModel: CommentSectionViewModel
+    @ObservedObject private var viewModel: CommentSectionViewModel
     
     var body: some View {
         HStack {

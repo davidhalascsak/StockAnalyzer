@@ -58,6 +58,7 @@ struct CommentSectionView: View {
             }
         }
         .task {
+            viewModel.isLoading = true
             await viewModel.fetchComments()
         }
     }

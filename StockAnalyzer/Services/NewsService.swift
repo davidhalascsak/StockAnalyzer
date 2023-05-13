@@ -7,7 +7,7 @@ class NewsService: NewsServiceProtocol {
         self.symbol = symbol
     }
     
-    func fetchData() async -> [News]  {
+    func fetchNews() async -> [News]  {
         var url = ""
         if let symbol = symbol {
             url = "https://stocknewsapi.com/api/v1?tickers=\(symbol)&items=10&page=1&token=\(ApiKeys.newsApi)"
@@ -39,7 +39,7 @@ class MockNewsService: NewsServiceProtocol {
         self.symbol = symbol
     }
     
-    func fetchData() async -> [News] {
+    func fetchNews() async -> [News] {
         if let symbol = symbol {
             return db.news.filter({$0.tickers?.contains(symbol) ?? false})
         }
@@ -48,5 +48,5 @@ class MockNewsService: NewsServiceProtocol {
 }
 
 protocol NewsServiceProtocol {
-    func fetchData() async -> [News]
+    func fetchNews() async -> [News]
 }

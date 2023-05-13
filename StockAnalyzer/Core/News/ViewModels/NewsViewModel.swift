@@ -4,7 +4,7 @@ import Foundation
 class NewsViewModel: ObservableObject  {
     @Published var news: [News] = []
     @Published var shouldScroll: Bool = false
-    @Published var isLoading: Bool = true
+    @Published var isLoading: Bool = false
     
     private let newsService: NewsServiceProtocol
     
@@ -13,15 +13,11 @@ class NewsViewModel: ObservableObject  {
     }
     
     func fetchNews() async {
-        news = await newsService.fetchData()
-        sortNews()
-        
-        isLoading = false
-    }
-
-    func sortNews() {
+        news = await newsService.fetchNews()
         news = news.sorted {
             $0.date > $1.date
         }
+        
+        isLoading = false
     }
 }

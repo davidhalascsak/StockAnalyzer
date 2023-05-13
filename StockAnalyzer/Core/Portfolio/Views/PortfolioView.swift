@@ -53,6 +53,7 @@ struct PortfolioView: View {
             SettingsView(userService: UserService(), sessionService: SessionService(), imageService: ImageService())
         })
         .onChange(of: isSettingsPresented, perform: { newValue in
+            vm.isLoading = true
             if newValue == false {
                 Task {
                     await vm.fetchAssets()

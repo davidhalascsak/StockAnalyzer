@@ -6,7 +6,7 @@ import SwiftUI
 class FeedViewModel: ObservableObject {
     @Published var posts: [Post] = [Post]()
     @Published var shouldScroll: Bool = false
-    @Published var isLoading: Bool = true
+    @Published var isLoading: Bool = false
     
     let symbol: String?
     let userService: UserServiceProtocol

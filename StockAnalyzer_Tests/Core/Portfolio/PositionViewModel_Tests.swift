@@ -26,7 +26,7 @@ final class PositionViewModel_Tests: XCTestCase {
         
         //When
         await vm.fetchData()
-        let change: String = vm.changeInPrice()
+        let change: String = vm.calculateChangeInPrice()
         
         //Then
         XCTAssertEqual(change, "10.00(10.00%)")

@@ -4,6 +4,10 @@ import Firebase
 struct NewCommentView: View {
     @ObservedObject private var viewModel: CommentSectionViewModel
     
+    init(viewModel: CommentSectionViewModel) {
+        _viewModel = ObservedObject(wrappedValue: viewModel)
+    }
+    
     var body: some View {
         HStack {
             ImageView(url: viewModel.post.user?.imageUrl ?? "", defaultImage: "", imageService: ImageService())

@@ -361,6 +361,7 @@
 		EC3CEAA629BB8EF90048FADE /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				EC8FA49B29C0FB5C009CE80E /* PriceView.swift */,
 				EC82004C29CB79140014E95C /* BarChartView.swift */,
 				EC72691629AD2149002FAB32 /* ChartView.swift */,
 				EC6802BE29ABA8310019EE18 /* ImageView.swift */,
@@ -375,6 +376,7 @@
 		EC3CEAA729BB8F060048FADE /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				EC8FA49D29C0FD12009CE80E /* PriceViewModel.swift */,
 				EC72691829AD2347002FAB32 /* ChartViewModel.swift */,
 				EC6802C029ABA8420019EE18 /* ImageViewModel.swift */,
 				EC79D40229F2715F00DF900E /* BarChartViewModel.swift */,
@@ -408,7 +410,6 @@
 				EC3CEAAA29BB8F490048FADE /* FinancialView.swift */,
 				EC3CEAAC29BB8F550048FADE /* ValuationView.swift */,
 				EC650B3929BCDAF200D508D8 /* AboutView.swift */,
-				EC8FA49B29C0FB5C009CE80E /* PriceView.swift */,
 				EC7088B529DC80290088941A /* NewAssetView.swift */,
 			);
 			path = Views;
@@ -422,7 +423,6 @@
 				EC3CEAB029BB8F880048FADE /* HomeViewModel.swift */,
 				EC0C8A8029C4AA0300AAB674 /* FinancialViewModel.swift */,
 				EC330AAC29C76B5B009A0D30 /* ValuationViewModel.swift */,
-				EC8FA49D29C0FD12009CE80E /* PriceViewModel.swift */,
 				EC7088B729DC9C890088941A /* NewAssetViewModel.swift */,
 			);
 			path = ViewModels;

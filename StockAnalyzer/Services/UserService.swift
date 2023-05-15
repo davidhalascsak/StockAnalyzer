@@ -4,7 +4,6 @@ import FirebaseFirestore
 
 class UserService: UserServiceProtocol {
     private var db = Firestore.firestore()
-    private let locale = Locale(identifier: "en-US")
 
     func fetchAllUser() async -> [User] {
         let snapshot = try? await db.collection("users").getDocuments()

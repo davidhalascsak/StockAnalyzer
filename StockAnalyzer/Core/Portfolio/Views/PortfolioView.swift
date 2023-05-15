@@ -3,29 +3,30 @@ import FirebaseCore
 import FirebaseAuth
 
 struct PortfolioView: View {
-    @StateObject var vm: PortfolioViewModel
     @State var isSettingsPresented: Bool = false
     
+    @StateObject var viewModel: PortfolioViewModel
+    
     init(portfolioService: PortfolioServiceProtocol, sessionService: SessionServiceProtocol) {
-        _vm = StateObject(wrappedValue: PortfolioViewModel(portfolioService: portfolioService, sessionService: sessionService))
+        _viewModel = StateObject(wrappedValue: PortfolioViewModel(portfolioService: portfolioService, sessionService: sessionService))
     }
     
     var body: some View {
         NavigationStack {
             headerView
             Divider()
-            if vm.isLoading == false {
-                if vm.assets.count == 0 {
+            if viewModel.isLoading == false {
+                if viewModel.assets.count == 0 {
                     Spacer()
-                    Text(vm.sessionService.getUserId() == nil ? "Login to see your portfolio." : "Your portfolio is empty.")
+                    Text(viewModel.sessionService.getUserId() == nil ? "Login to see your portfolio." : "Your portfolio is empty.")
                     Spacer()
                 } else {
-                    portfolio
+                    portfolioView
                     Divider()
                     HStack {
                         Spacer()
                         VStack {
-                            Text(vm.formatValue(value: vm.investedAmount))
+                            Text(viewModel.investedAmount.formatedValue)
                             Text("Invested")
                                 .fontWeight(.semibold)
                                 .padding(.top, 1)
@@ -33,8 +34,8 @@ struct PortfolioView: View {
                         }
                         Spacer()
                         VStack {
-                            Text(vm.formatValue(value: vm.difference))
-                                .foregroundColor(vm.difference == 0 ? Color.black : vm.difference > 0 ? Color.green : Color.red)
+                            Text(viewModel.difference.formatedValue)
+                                .foregroundColor(viewModel.difference == 0 ? Color.black : viewModel.difference > 0 ? Color.green : Color.red)
                             Text("P / L")
                                 .fontWeight(.semibold)
                                 .padding(.top, 1)
@@ -53,17 +54,17 @@ struct PortfolioView: View {
             SettingsView(userService: UserService(), sessionService: SessionService(), imageService: ImageService())
         })
         .onChange(of: isSettingsPresented, perform: { newValue in
-            vm.isLoading = true
+            viewModel.isLoading = true
             if newValue == false {
                 Task {
-                    await vm.fetchAssets()
+                    await viewModel.fetchAssets()
                 }
             }
         })
         .task {
-            if vm.sessionService.getUserId() != nil {
-                vm.isLoading = true
-                await vm.fetchAssets()
+            if viewModel.sessionService.getUserId() != nil {
+                viewModel.isLoading = true
+                await viewModel.fetchAssets()
             }
         }
     }
@@ -73,14 +74,14 @@ struct PortfolioView: View {
             Image(systemName: "arrow.triangle.2.circlepath")
                 .font(.title2)
                 .onTapGesture {
-                    vm.isLoading = true
+                    viewModel.isLoading = true
                     Task {
-                        await vm.reloadPortfolio()
+                        await viewModel.reloadPortfolio()
                     }
                 }
-                .disabled(vm.isLoading)
-                .rotationEffect(Angle(degrees: vm.isLoading ? 360 : 0), anchor: .center)
-                .opacity(vm.sessionService.getUserId() != nil ? 1.0 : 0.0)
+                .disabled(viewModel.isLoading)
+                .rotationEffect(Angle(degrees: viewModel.isLoading ? 360 : 0), anchor: .center)
+                .opacity(viewModel.sessionService.getUserId() != nil ? 1.0 : 0.0)
             Spacer()
             Text("Portfolio")
                 .font(.headline)
@@ -96,7 +97,7 @@ struct PortfolioView: View {
         .padding(.horizontal)
     }
     
-    var portfolio: some View {
+    var portfolioView: some View {
         VStack {
             HStack(spacing: 20) {
                 Text("Assets")
@@ -110,8 +111,8 @@ struct PortfolioView: View {
             .padding(.horizontal)
             Divider()
             List {
-                ForEach(vm.assets, id: \.self) { asset in
-                    if let viewModel = vm.assetsViewModels[asset.symbol] {
+                ForEach(viewModel.assets, id: \.self) { asset in
+                    if let viewModel = viewModel.assetsViewModels[asset.symbol] {
                         ZStack {
                             PortfolioRowView(viewModel: viewModel)
                             NavigationLink {
@@ -127,20 +128,15 @@ struct PortfolioView: View {
                         .listRowInsets(EdgeInsets())
                     }
                 }
-                .onDelete(perform: delete)
+                .onDelete { indexSet in
+                    Task {
+                        await viewModel.deleteAsset(at: indexSet)
+                    }
+                }
             }
             .listStyle(.plain)
             .scrollIndicators(.hidden)
             .padding(.top, -8)
-        }
-    }
-    
-    func delete(at offsets: IndexSet) {
-        let index = offsets.first ?? nil
-        if let index = index {
-            Task {
-                await vm.deleteAsset(at: index)
-            }
         }
     }
 }

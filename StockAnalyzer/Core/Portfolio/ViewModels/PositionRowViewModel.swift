@@ -5,7 +5,7 @@ class PositionRowViewModel: ObservableObject {
     @Published var stockPrice: Price?
     @Published var difference: Double = 0.0
     @Published var currentValue: Double = 0.0
-    @Published var isLoading: Bool = false
+    @Published var isLoading: Bool = true
     
     let position: Position
     let stockService: StockServiceProtocol
@@ -23,14 +23,5 @@ class PositionRowViewModel: ObservableObject {
         difference = currentValue - position.investedAmount
         
         isLoading = false
-    }
-    
-    func formatValue(value: Double) -> String {
-        if value < 0 {
-            let text = String(format: "%.2f", value)
-            return "-$\(text[1..<text.count])"
-        } else {
-            return "$\(String(format: "%.2f", value))"
-        }
     }
 }

@@ -1,24 +1,24 @@
 import SwiftUI
 
 struct PositionRowView: View {
-    @StateObject var vm: PositionRowViewModel
+    @StateObject var viewModel: PositionRowViewModel
     
     init(viewModel: PositionRowViewModel) {
-        _vm = StateObject(wrappedValue: viewModel)
+        _viewModel = StateObject(wrappedValue: viewModel)
     }
     
     var body: some View {
         VStack {
-            if vm.isLoading == false {
+            if !viewModel.isLoading {
                 HStack {
-                    Text(String(format: "%.2f", vm.position.units))
+                    Text(String(format: "%.2f", viewModel.position.units))
                     Spacer()
-                    Text("$\(String(format: "%.2f", vm.position.investedAmount))")
+                    Text("$\(String(format: "%.2f", viewModel.position.investedAmount))")
                     Spacer()
-                    Text(vm.formatValue(value: vm.difference))
-                        .foregroundColor(vm.difference >= 0 ? Color.green : Color.red)
+                    Text(viewModel.difference.formatedValue)
+                        .foregroundColor(viewModel.difference >= 0 ? Color.green : Color.red)
                     Spacer()
-                    Text("$\(String(format: "%.2f", vm.currentValue))")
+                    Text(viewModel.currentValue.formatedValue)
                 }
                 .padding(.horizontal, 12)
                 .padding(.vertical, 5)

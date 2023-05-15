@@ -1,19 +1,19 @@
 import SwiftUI
 
 struct ImageView: View {
-    @StateObject var vm: ImageViewModel
+    @StateObject private var viewModel: ImageViewModel
     
     init(url: String, defaultImage: String, imageService: ImageServiceProtocol) {
-        _vm = StateObject(wrappedValue: ImageViewModel(url: url, defaultImage: defaultImage, imageService: imageService))
+        _viewModel = StateObject(wrappedValue: ImageViewModel(url: url, defaultImage: defaultImage, imageService: imageService))
     }
     
     var body: some View {
         VStack {
-            if let image = vm.image {
+            if let image = viewModel.image {
                 Image(uiImage: image)
                     .resizable()
             } else {
-                if vm.isLoading {
+                if viewModel.isLoading {
                     ProgressView()
                 } else {
                     Rectangle()
@@ -21,8 +21,8 @@ struct ImageView: View {
             }
         }
         .task {
-            vm.isLoading = true
-            await vm.fetchData()
+            viewModel.isLoading = true
+            await viewModel.fetchData()
         }
     }
 }

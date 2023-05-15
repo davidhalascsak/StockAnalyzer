@@ -1,25 +1,25 @@
 import SwiftUI
 
 struct PortfolioRowView: View {
-    @StateObject var vm: PortfolioRowViewModel
+    @StateObject var viewModel: PortfolioRowViewModel
     
     init(viewModel: PortfolioRowViewModel) {
-        _vm = StateObject(wrappedValue: viewModel)
+        _viewModel = StateObject(wrappedValue: viewModel)
     }
     
     var body: some View {
         VStack {
-            if vm.isLoading == false {
+            if viewModel.isLoading == false {
                 HStack {
-                    Text(vm.asset.symbol)
+                    Text(viewModel.asset.symbol)
                         .font(.headline)
                     Spacer()
-                    Text("$\(String(format: "%.2f", vm.asset.investedAmount))")
+                    Text("$\(String(format: "%.2f", viewModel.asset.investedAmount))")
                     Spacer()
-                    Text(vm.formatValue(value: vm.difference))
-                        .foregroundColor(vm.difference >= 0 ? Color.green : Color.red)
+                    Text(viewModel.difference.formatedValue)
+                        .foregroundColor(viewModel.difference >= 0 ? Color.green : Color.red)
                     Spacer()
-                    Text("$\(String(format: "%.2f", vm.currentValue))")
+                    Text(viewModel.currentValue.formatedValue)
                 }
                 .padding(.horizontal, 12)
                 .padding(.vertical, 5)

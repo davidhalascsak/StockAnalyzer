@@ -48,23 +48,16 @@ class PortfolioViewModel: ObservableObject {
         isLoading = false
     }
     
-    func deleteAsset(at index: Int) async {
-        let assetSymbol = assets[index].symbol
-        
-        let result = await portfolioService.deleteAsset(symbol: assetSymbol)
-        if result == true {
-            assets.remove(at: index)
-            assetsViewModels.removeValue(forKey: assetSymbol)
-        }
-        
-    }
-    
-    func formatValue(value: Double) -> String {
-        if value < 0 {
-            let text = String(format: "%.2f", value)
-            return "-$\(text[1..<text.count])"
-        } else {
-            return "$\(String(format: "%.2f", value))"
+    func deleteAsset(at offsets: IndexSet) async {
+        let index = offsets.first ?? nil
+        if let index = index {
+            let assetSymbol = assets[index].symbol
+            
+            let result = await portfolioService.deleteAsset(symbol: assetSymbol)
+            if result == true {
+                assets.remove(at: index)
+                assetsViewModels.removeValue(forKey: assetSymbol)
+            }
         }
     }
 }

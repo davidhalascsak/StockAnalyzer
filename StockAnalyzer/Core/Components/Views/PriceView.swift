@@ -1,20 +1,20 @@
 import SwiftUI
 
 struct PriceView: View {
-    @StateObject var vm: PriceViewModel
+    @StateObject private var viewModel: PriceViewModel
     
     init(symbol: String, currency: String, stockService: StockServiceProtocol) {
-        _vm = StateObject(wrappedValue: PriceViewModel(symbol: symbol, currency: currency, stockService: StockService(symbol: symbol)))
+        _viewModel = StateObject(wrappedValue: PriceViewModel(symbol: symbol, currency: currency, stockService: StockService(symbol: symbol)))
     }
     
     var body: some View {
         VStack(alignment: .leading) {
-            if let stockPrice = vm.stockPrice {
+            if let stockPrice = viewModel.stockPrice {
                 HStack(alignment: .firstTextBaseline) {
                     Text(String(format: "%.2f", stockPrice.price))
                         .font(.title)
                         .fontWeight(.bold)
-                    Text(vm.currency)
+                    Text(viewModel.currency)
                         .font(.title3)
                 }
                 HStack(spacing: 1) {
@@ -28,11 +28,11 @@ struct PriceView: View {
             }
         }
         .task {
-            await vm.fetchData()
+            await viewModel.fetchData()
         }
-        .onReceive(vm.timer) { _ in
+        .onReceive(viewModel.timer) { _ in
             Task {
-                await vm.fetchData()
+                await viewModel.fetchData()
             }
         }
     }

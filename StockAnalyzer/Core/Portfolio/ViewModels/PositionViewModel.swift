@@ -7,7 +7,6 @@ class PositionViewModel: ObservableObject {
     @Published var price: Price?
     @Published var isLoading: Bool = false
     @Published var positionViewModels: [String: PositionRowViewModel] = [:]
-    @Published var shouldDismiss: Bool = false
     
     var asset: Asset
     let stockService: StockServiceProtocol
@@ -34,17 +33,6 @@ class PositionViewModel: ObservableObject {
         isLoading = false
     }
     
-    func changeInPrice() -> String {
-        if let price = self.price?.price, let change = self.price?.change {
-            let changeInPercentage = String(format: "%.2f", (change / (price - change)) * 100)
-            
-            return "\(String(format: "%.2f", change))(\(changeInPercentage)%)"
-        }
-        else {
-            return "0.0(0.0%)"
-        }
-    }
-    
     func reloadAsset() async {
         price = await stockService.fetchPriceInRealTime()
         for _ in asset.positions ?? [] {
@@ -55,15 +43,20 @@ class PositionViewModel: ObservableObject {
         isLoading = false
     }
     
-    func deletePosition(at index: Int) async {
-        let position = asset.positions?[index]
-        
-        if let position = position {
-            let result = await portfolioService.deletePosition(asset: asset, position: position)
-            if result {
-                asset.positions?.remove(at: index)
-                positionViewModels.removeValue(forKey: position.id ?? "")
-                asset.positionCount -= 1
+    func deletePosition(at offsets: IndexSet) async {
+        let index = offsets.first ?? nil
+        if let index = index {
+            Task {
+                let position = asset.positions?[index]
+                
+                if let position = position {
+                    let result = await portfolioService.deletePosition(asset: asset, position: position)
+                    if result {
+                        asset.positions?.remove(at: index)
+                        positionViewModels.removeValue(forKey: position.id ?? "")
+                        asset.positionCount -= 1
+                    }
+                }
             }
         }
     }

@@ -2,7 +2,7 @@ import Foundation
 
 @MainActor
 class StockViewModel: ObservableObject {
-    @Published var companyProfile: Company?
+    @Published var companyProfile: CompanyProfile?
     @Published var option: ViewOption = .home
     @Published var showPencil: Bool = false
     @Published var isNewPostPresented: Bool = false

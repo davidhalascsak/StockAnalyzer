@@ -55,10 +55,10 @@ struct PositionView: View {
                 .frame(height: 50)
                 .frame(maxWidth: 50)
             NavigationLink {
-                StockView(symbol: viewModel.asset.symbol, stockService: StockService(symbol: viewModel.asset.symbol), sessionService: SessionService())
+                StockView(symbol: viewModel.asset.stockSymbol, stockService: StockService(symbol: viewModel.asset.stockSymbol), sessionService: SessionService())
             } label: {
                 VStack(alignment: .leading) {
-                    Text(viewModel.asset.symbol)
+                    Text(viewModel.asset.stockSymbol)
                         .fontWeight(.semibold)
                     Text(viewModel.companyProfile?.companyName ?? "")
                         .multilineTextAlignment(.leading)
@@ -68,7 +68,7 @@ struct PositionView: View {
             VStack(alignment: .trailing) {
                 Text(String(format: "%.2f", viewModel.price?.price ?? 0.0))
                     .fontWeight(.semibold)
-                Text("\(viewModel.price?.change ?? 0.0)(\(viewModel.price?.changesPercentage ?? 0.0))")
+                Text("\(viewModel.price?.change ?? 0.0)(\(viewModel.price?.changeInPercentage ?? 0.0))")
                     .foregroundColor(viewModel.price?.change ?? 0 > 0 ? Color.green : viewModel.companyProfile?.changes ?? 0 == 0 ? Color.black : Color.red)
             }
         }
@@ -118,7 +118,7 @@ struct PositionView: View {
  struct PositionView_Previews: PreviewProvider {
      static let position1 = Position( date: "2020-02-02", units: 2.0, price: 132.5)
      static let position2 = Position( date: "2020-02-02", units: 3.0, price: 230.0)
-     static let asset = Asset(symbol: "AAPL", units: 2.0, averagePrice: 132.5,  positionCount: 2, positions: [position1, position2])
+     static let asset = Asset(stockSymbol: "AAPL", units: 2.0, averagePrice: 132.5,  positionCount: 2, positions: [position1, position2])
      
      static var previews: some View {
          PositionView(asset: asset, stockService: StockService(symbol: "AAPL"), portfolioService: PortfolioService(), imageService: ImageService())

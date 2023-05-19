@@ -42,7 +42,7 @@ class PostService: PostServiceProtocol {
         guard let fetchedPost = fetchedPost else {return false}
         
         do {
-            try await self.db.collection("posts").document(postId).updateData(["likes": fetchedPost.likes + 1])
+            try await self.db.collection("posts").document(postId).updateData(["likeCount": fetchedPost.likeCount + 1])
             try await likedPosts.document(postId).setData([:])
             
             return true
@@ -61,7 +61,7 @@ class PostService: PostServiceProtocol {
         guard let fetchedPost = fetchedPost else {return false}
         
         do {
-            try await self.db.collection("posts").document(postId).updateData(["likes": fetchedPost.likes - 1])
+            try await self.db.collection("posts").document(postId).updateData(["likeCount": fetchedPost.likeCount - 1])
             try await likedPosts.document(postId).delete()
             
             return true
@@ -76,9 +76,9 @@ class PostService: PostServiceProtocol {
         var data: [String : Any]
         
         if let symbol = symbol {
-            data = ["body": body, "likes": 0, "comments": 0, "userRef": userId, "timestamp": Timestamp(date: Date()), "symbol": symbol]
+            data = ["body": body, "likeCount": 0, "commentCount": 0, "userRef": userId, "symbol": symbol, "timestamp": Timestamp(date: Date())]
         } else {
-            data = ["body": body, "likes": 0, "comments": 0, "userRef": userId, "timestamp": Timestamp(date: Date()), "symbol": ""]
+            data = ["body": body, "likeCount": 0, "commentCount": 0, "userRef": userId, "timestamp": Timestamp(date: Date())]
         }
         
         do {
@@ -93,15 +93,15 @@ class PostService: PostServiceProtocol {
 
 class MockPostService: PostServiceProtocol {
     var db: MockDatabase = MockDatabase()
-    var currentUser: AuthUser?
+    var currentUser: TestAuthenticationUser?
     
-    init(currentUser: AuthUser?) {
+    init(currentUser: TestAuthenticationUser?) {
         self.currentUser = currentUser
     }
     
     func fetchPosts(symbol: String?) async -> [Post] {
         if let symbol = symbol {
-            return db.posts.filter({$0.symbol == symbol})
+            return db.posts.filter({$0.stockSymbol == symbol})
         } else {
             return db.posts
         }
@@ -119,7 +119,7 @@ class MockPostService: PostServiceProtocol {
         let result = db.likedPosts[userId]?.contains(where: {$0 == post.id})
         if result == false {
             db.likedPosts[userId]?.append(post.id ?? "")
-            db.posts[index].likes += 1
+            db.posts[index].likeCount += 1
             
             return true
         }
@@ -133,7 +133,7 @@ class MockPostService: PostServiceProtocol {
         let result = db.likedPosts[userId]?.contains(where: {$0 == post.id})
         if result == true {
             db.likedPosts[userId]?.removeAll(where: {$0 == post.id})
-            db.posts[index].likes -= 1
+            db.posts[index].likeCount -= 1
             
             return true
         }
@@ -143,11 +143,11 @@ class MockPostService: PostServiceProtocol {
     func createPost(body: String, symbol: String?) async -> Bool{
         guard let userId = currentUser?.id else {return false}
         if let symbol = symbol {
-            let newPost = Post(userRef: userId, body: body, timestamp: Timestamp(), likes: 0, comments: 0, symbol: symbol)
+            let newPost = Post(userRef: userId, body: body, likeCount: 0, commentCount: 0, stockSymbol: symbol, timestamp: Timestamp())
             db.posts.append(newPost)
             
         } else {
-            let newPost = Post(userRef: userId, body: body, timestamp: Timestamp(), likes: 0, comments: 0, symbol: "")
+            let newPost = Post(userRef: userId, body: body, likeCount: 0, commentCount: 0, stockSymbol: nil,timestamp: Timestamp())
             db.posts.append(newPost)
         }
         

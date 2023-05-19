@@ -7,7 +7,7 @@ final class NewPostViewModel_Tests: XCTestCase {
     func test_NewViewModel_CreatePost() async throws {
         //Given
         let symbol: String? = "Apple"
-        let authUser: AuthUser? = AuthUser(id: "asd123", email: "david@domain.com", password: "asd123", isVerified: true)
+        let authUser: TestAuthenticationUser? = TestAuthenticationUser(id: "asd123", email: "david@domain.com", password: "asd123", isVerified: true)
         let vm = NewPostViewModel(symbol: symbol, postService: MockPostService(currentUser: authUser))
         
         //When

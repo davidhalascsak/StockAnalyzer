@@ -8,14 +8,14 @@ class StockService: StockServiceProtocol {
         self.symbol = symbol
     }
     
-    func fetchProfile() async -> Company? {
+    func fetchProfile() async -> CompanyProfile? {
         guard let url = URL(string: "https://financialmodelingprep.com/api/v3/profile/\(symbol)?apikey=\(ApiKeys.financeApi)")
         else {return nil}
         
         do {
             let (data, _) = try await URLSession.shared.data(from: url, delegate: nil)
             let decoder = JSONDecoder()
-            let company = try? decoder.decode([Company].self, from: data)
+            let company = try? decoder.decode([CompanyProfile].self, from: data)
             
             return company?[0] ?? nil
         } catch {
@@ -23,14 +23,14 @@ class StockService: StockServiceProtocol {
         }
     }
     
-    func fetchPriceInRealTime() async -> Price? {
+    func fetchPriceInRealTime() async -> CurrentPrice? {
         guard let url = URL(string: "https://financialmodelingprep.com/api/v3/quote/\(symbol)?apikey=\(ApiKeys.financeApi)")
         else {return nil}
         
         do {
             let (data, _) = try await URLSession.shared.data(from: url, delegate: nil)
             let decoder = JSONDecoder()
-            let price = try? decoder.decode([Price].self, from: data)
+            let price = try? decoder.decode([CurrentPrice].self, from: data)
            
             return price?[0] ?? nil
         } catch {
@@ -44,7 +44,7 @@ class StockService: StockServiceProtocol {
         do {
             let (data, _) = try await URLSession.shared.data(from: url, delegate: nil)
             let decoder = JSONDecoder()
-            let price = try? decoder.decode(PriceAtDate.self, from: data)
+            let price = try? decoder.decode(PriceInterval.self, from: data)
            
             if let price = price {
                 if price.historical.count == 1 {
@@ -57,17 +57,17 @@ class StockService: StockServiceProtocol {
         }
     }
     
-    func fetchMarketCap() async -> MarketCap? {
-        guard let url = URL(string: "https://financialmodelingprep.com/api/v3/market-capitalization/\(symbol)?apikey=\(ApiKeys.financeApi)") else {return nil}
+    func fetchMarketCap() async -> Int {
+        guard let url = URL(string: "https://financialmodelingprep.com/api/v3/market-capitalization/\(symbol)?apikey=\(ApiKeys.financeApi)") else {return 0}
         
         do {
             let (data, _) = try await URLSession.shared.data(from: url, delegate: nil)
             let decoder = JSONDecoder()
             let marketCap = try? decoder.decode([MarketCap].self, from: data)
            
-            return marketCap?[0] ?? nil
+            return marketCap?[0].marketCap ?? 0
         } catch {
-            return nil
+            return 0
         }
     }
     
@@ -115,20 +115,20 @@ class StockService: StockServiceProtocol {
 }
 
 class MockStockService: StockServiceProtocol {
-    func fetchProfile() async -> Company? {
-        return  Company(symbol: "AAPL", price: 145.85, changes:  2.4200134, exchangeShortName: "NASDAQ", companyName: "Apple Inc.", currency: "USD", industry: "Consumer Electronics", description: "Apple Inc. designs, manufactures, and markets smartphones, personal computers, tablets, wearables, and accessories worldwide. It also sells various related services. The company offers iPhone, a line of smartphones; Mac, a line of personal computers; iPad, a line of multi-purpose tablets; and wearables, home, and accessories comprising AirPods, Apple TV, Apple Watch, Beats products, HomePod, iPod touch, and other Apple-branded and third-party accessories. It also provides AppleCare support services; cloud services store services; and operates various platforms, including the App Store, that allow customers to discover and download applications and digital content, such as books, music, video, games, and podcasts. In addition, the company offers various services, such as Apple Arcade, a game subscription service; Apple Music, which offers users a curated listening experience with on-demand radio stations; Apple News+, a subscription news and magazine service; Apple TV+, which offers exclusive original content; Apple Card, a co-branded credit card; and Apple Pay, a cashless payment service, as well as licenses its intellectual property. The company serves consumers, and small and mid-sized businesses; and the education, enterprise, and government markets. It sells and delivers third-party applications for its products through the App Store. The company also sells its products through its retail and online stores, and direct sales force; and third-party cellular network carriers, wholesalers, retailers, and resellers. Apple Inc. was founded in 1977 and is headquartered in Cupertino, California.", ceo: "Mr. Timothy Cook", sector: "Technology", country: "US", fullTimeEmployees: "147000", city: "Cupertino", state: "CALIFORNIA", image: "https://financialmodelingprep.com/image-stock/AAPL.png")
+    func fetchProfile() async -> CompanyProfile? {
+        return  CompanyProfile(symbol: "AAPL", price: 145.85, changes:  2.4200134,currency: "USD", exchangeShortName: "NASDAQ", companyName: "Apple Inc.", description: "Apple Inc. designs, manufactures, and markets smartphones, personal computers, tablets, wearables, and accessories worldwide. It also sells various related services. The company offers iPhone, a line of smartphones; Mac, a line of personal computers; iPad, a line of multi-purpose tablets; and wearables, home, and accessories comprising AirPods, Apple TV, Apple Watch, Beats products, HomePod, iPod touch, and other Apple-branded and third-party accessories. It also provides AppleCare support services; cloud services store services; and operates various platforms, including the App Store, that allow customers to discover and download applications and digital content, such as books, music, video, games, and podcasts. In addition, the company offers various services, such as Apple Arcade, a game subscription service; Apple Music, which offers users a curated listening experience with on-demand radio stations; Apple News+, a subscription news and magazine service; Apple TV+, which offers exclusive original content; Apple Card, a co-branded credit card; and Apple Pay, a cashless payment service, as well as licenses its intellectual property. The company serves consumers, and small and mid-sized businesses; and the education, enterprise, and government markets. It sells and delivers third-party applications for its products through the App Store. The company also sells its products through its retail and online stores, and direct sales force; and third-party cellular network carriers, wholesalers, retailers, and resellers. Apple Inc. was founded in 1977 and is headquartered in Cupertino, California.",fullTimeEmployees: "147000" ,  industry: "Consumer Electronics", sector: "Technology", ceo: "Mr. Timothy Cook", country: "US",  state: "CALIFORNIA",city: "Cupertino", image: "https://financialmodelingprep.com/image-stock/AAPL.png")
     }
     
-    func fetchPriceInRealTime() async -> Price? {
-        return Price(price: 110, changesPercentage: 10.0, change: 10.0)
+    func fetchPriceInRealTime() async -> CurrentPrice? {
+        return CurrentPrice(price: 110, change: 10.0, changeInPercentage: 10.0)
     }
     
     func fetchPriceAtDate(date: String) async -> Double {
         return 110
     }
     
-    func fetchMarketCap() async -> MarketCap? {
-        return MarketCap(marketCap: 10000000)
+    func fetchMarketCap() async -> Int {
+        return 10000000
     }
     
     func fetchRatios() async -> Ratios? {
@@ -147,10 +147,10 @@ class MockStockService: StockServiceProtocol {
 }
 
 protocol StockServiceProtocol {
-    func fetchProfile() async -> Company?
-    func fetchPriceInRealTime() async -> Price?
+    func fetchProfile() async -> CompanyProfile?
+    func fetchPriceInRealTime() async -> CurrentPrice?
     func fetchPriceAtDate(date: String) async -> Double
-    func fetchMarketCap() async -> MarketCap?
+    func fetchMarketCap() async -> Int
     func fetchRatios() async -> Ratios?
     func fetchGrowthRates() async -> GrowthRates?
     func fetchMetrics() async -> Metrics?

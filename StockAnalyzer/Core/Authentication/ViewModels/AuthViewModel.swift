@@ -166,7 +166,7 @@ class AuthViewModel: ObservableObject {
         
         if let userId = self.sessionService.getUserId() {
             
-            let newUser = User(id: userId, username: userData.username, email: userData.email, location: userData.location, imageUrl: imageUrl)
+            let newUser = CurrentUser(id: userId, username: userData.username, email: userData.email, country: userData.country, imageUrl: imageUrl)
             
             do {
                 try await userService.createUser(user: newUser)

@@ -2,7 +2,7 @@ import Foundation
 
 @MainActor
 class PositionRowViewModel: ObservableObject {
-    @Published var stockPrice: Price?
+    @Published var stockPrice: CurrentPrice?
     @Published var difference: Double = 0.0
     @Published var currentValue: Double = 0.0
     @Published var isLoading: Bool = true

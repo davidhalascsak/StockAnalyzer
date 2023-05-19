@@ -6,7 +6,7 @@ import XCTest
 final class PortfolioViewModel_Tests: XCTestCase {
     func test_PortfolioViewModel_FetchAssets() async throws {
         //Given
-        let authUser: AuthUser? = AuthUser(id: "asd123", email: "david@domain.com", password: "asd123", isVerified: true)
+        let authUser: TestAuthenticationUser? = TestAuthenticationUser(id: "asd123", email: "david@domain.com", password: "asd123", isVerified: true)
         let vm = PortfolioViewModel(portfolioService: MockPortfolioService(), sessionService: MockSessionService(currentUser: authUser))
         
         //When
@@ -19,7 +19,7 @@ final class PortfolioViewModel_Tests: XCTestCase {
     
     func test_PortfolioViewModel_deleteAsset() async throws {
         //Given
-        let authUser: AuthUser? = AuthUser(id: "asd123", email: "david@domain.com", password: "asd123", isVerified: true)
+        let authUser: TestAuthenticationUser? = TestAuthenticationUser(id: "asd123", email: "david@domain.com", password: "asd123", isVerified: true)
         let vm = PortfolioViewModel(portfolioService: MockPortfolioService(), sessionService: MockSessionService(currentUser: authUser))
         
         //When
@@ -30,6 +30,6 @@ final class PortfolioViewModel_Tests: XCTestCase {
         //
         XCTAssertEqual(1, vm.assets.count)
         XCTAssertEqual(1, vm.assetsViewModels.count)
-        XCTAssertFalse(vm.assets.contains(where: {$0.symbol == asset.symbol}))
+        XCTAssertFalse(vm.assets.contains(where: {$0.stockSymbol == asset.stockSymbol}))
     }
 }

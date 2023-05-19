@@ -11,7 +11,7 @@ struct PortfolioRowView: View {
         VStack {
             if viewModel.isLoading == false {
                 HStack {
-                    Text(viewModel.asset.symbol)
+                    Text(viewModel.asset.stockSymbol)
                         .font(.headline)
                     Spacer()
                     Text("$\(String(format: "%.2f", viewModel.asset.investedAmount))")
@@ -32,8 +32,8 @@ struct PortfolioRowView: View {
 }
 
 struct PortfolioRowView_Previews: PreviewProvider {
-    static let asset = Asset(symbol: "Apple", units: 1.00, averagePrice: 132.00, positionCount: 1)
+    static let asset = Asset(stockSymbol: "Apple", units: 1.00, averagePrice: 132.00, positionCount: 1)
     static var previews: some View {
-        PortfolioRowView(viewModel: PortfolioRowViewModel(asset: asset, stockService: StockService(symbol: asset.symbol)))
+        PortfolioRowView(viewModel: PortfolioRowViewModel(asset: asset, stockService: StockService(symbol: asset.stockSymbol)))
     }
 }

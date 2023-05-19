@@ -2,7 +2,7 @@ import Foundation
 
 @MainActor
 class PriceViewModel: ObservableObject {
-    @Published var stockPrice: Price?
+    @Published var stockPrice: CurrentPrice?
     @Published var timer = Timer.publish(every: 3, on: .main, in: .common).autoconnect()
     
     let symbol: String

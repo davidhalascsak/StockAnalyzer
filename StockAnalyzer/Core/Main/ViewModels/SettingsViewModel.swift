@@ -5,7 +5,7 @@ import FirebaseAuth
 
 @MainActor
 class SettingsViewModel: ObservableObject {
-    @Published var user: User?
+    @Published var user: CurrentUser?
     @Published var alertTitle: String = ""
     @Published var alertText: String = ""
     @Published var selectedPhoto: PhotosPickerItem?

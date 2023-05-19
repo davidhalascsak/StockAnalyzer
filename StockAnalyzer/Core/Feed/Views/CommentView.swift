@@ -18,7 +18,7 @@ struct CommentView: View {
                     .foregroundColor(.blue)
                     .font(.headline)
                 HStack {
-                    Text(viewModel.comment.user?.location ?? "")
+                    Text(viewModel.comment.user?.country ?? "")
                         .font(.subheadline)
                     Text("•")
                     Text(toDate(stamp: viewModel.comment.timestamp))
@@ -42,7 +42,7 @@ struct CommentView: View {
                                 }
                             }
                         }
-                    Text("\(viewModel.comment.likes)")
+                    Text("\(viewModel.comment.likeCount)")
                 }
             }
         }
@@ -53,10 +53,10 @@ struct CommentView: View {
 
 
  struct CommentView_Previews: PreviewProvider {
-     static let user = User(username: "istengyermeke", email: "david.halascsak@gmail.com", location: "Hungary", imageUrl: "")
-     static let post = Post(userRef: "asd", body: "Elon is the king", timestamp: Timestamp(date: Date()), likes: 2, comments: 1, symbol: "")
+     static let user = CurrentUser(username: "istengyermeke", email: "david.halascsak@gmail.com", country: "Hungary", imageUrl: "")
+     static let post = Post(userRef: "asd", body: "Elon is the king", likeCount: 2, commentCount: 1, stockSymbol: "",timestamp: Timestamp(date: Date()))
          
-     static let comment = Comment(userRef: "asd", body: "Buy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy Tesla", timestamp: Timestamp(date: Date()), likes: 5, user: user)
+     static let comment = Comment(userRef: "asd", body: "Buy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy Tesla", timestamp: Timestamp(date: Date()), likeCount: 5, user: user)
      
      static var previews: some View {
          CommentView(post: post, comment: comment, commentService: MockCommentService(currentUser: nil), sessionService: MockSessionService(currentUser: nil))

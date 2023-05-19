@@ -35,7 +35,7 @@ class CommentService: CommentServiceProtocol {
         guard let fetchedComment = fetchedComment else {return false}
         
         do {
-            try await db.collection("posts").document(postId).collection("comments").document(commentId).updateData(["likes": fetchedComment.likes + 1])
+            try await db.collection("posts").document(postId).collection("comments").document(commentId).updateData(["likeCount": fetchedComment.likeCount + 1])
             try await likedComments.document(commentId).setData([:])
             
             return true
@@ -55,7 +55,7 @@ class CommentService: CommentServiceProtocol {
         guard let fetchedComment = fetchedComment else {return false}
         
         do {
-            try await self.db.collection("posts").document(postId).collection("comments").document(commentId).updateData(["likes": fetchedComment.likes - 1])
+            try await self.db.collection("posts").document(postId).collection("comments").document(commentId).updateData(["likeCount": fetchedComment.likeCount - 1])
             try await likedComments.document(commentId).delete()
             
             return true
@@ -67,14 +67,14 @@ class CommentService: CommentServiceProtocol {
     func createComment(post: Post, body: String) async -> Bool {
         guard let userId = Auth.auth().currentUser?.uid else {return false}
         guard let postId = post.id else {return false}
-        let newData = ["body": body, "likes": 0, "userRef": userId, "timestamp": Timestamp(date: Date())] as [String : Any]
+        let newData = ["body": body, "likeCount": 0, "userRef": userId, "timestamp": Timestamp(date: Date())] as [String : Any]
         
         let fetchedPost = try? await db.collection("posts").document(postId).getDocument(as: Post.self)
         
         guard let fetchedPost = fetchedPost else {return false}
         
         do {
-            try await self.db.collection("posts").document(postId).updateData(["comments": fetchedPost.comments + 1])
+            try await self.db.collection("posts").document(postId).updateData(["comments": fetchedPost.commentCount + 1])
             let _ = try await self.db.collection("posts").document(postId).collection("comments").addDocument(data: newData)
             
             return true
@@ -86,9 +86,9 @@ class CommentService: CommentServiceProtocol {
 
 class MockCommentService: CommentServiceProtocol {
     var db: MockDatabase = MockDatabase()
-    var currentUser: AuthUser?
+    var currentUser: TestAuthenticationUser?
     
-    init(currentUser: AuthUser?) {
+    init(currentUser: TestAuthenticationUser?) {
         self.currentUser = currentUser
     }
     
@@ -111,7 +111,7 @@ class MockCommentService: CommentServiceProtocol {
         
         let result = db.likedComments[userId]?.contains(where: {$0 == comment.id})
         if result == false {
-            db.comments[post.id ?? ""]?[commentIndex].likes += 1
+            db.comments[post.id ?? ""]?[commentIndex].likeCount += 1
             db.likedComments[userId]?.append(comment.id ?? "")
             
             return true
@@ -129,7 +129,7 @@ class MockCommentService: CommentServiceProtocol {
         
         let result = db.likedComments[userId]?.contains(where: {$0 == comment.id})
         if result == true {
-            db.comments[post.id ?? ""]?[commentIndex].likes -= 1
+            db.comments[post.id ?? ""]?[commentIndex].likeCount -= 1
             db.likedComments[userId]?.removeAll(where: {$0 == comment.id})
             
             return true
@@ -142,9 +142,9 @@ class MockCommentService: CommentServiceProtocol {
         guard let userId = currentUser?.id else {return false}
         guard let index = db.posts.firstIndex(where: {$0.id == post.id}) else {return false}
         
-        let newComment = Comment(id: UUID().uuidString, userRef: userId, body: body, timestamp: Timestamp(), likes: 0)
+        let newComment = Comment(id: UUID().uuidString, userRef: userId, body: body, timestamp: Timestamp(), likeCount: 0)
         db.comments[post.id ?? ""]?.append(newComment)
-        db.posts[index].likes += 1
+        db.posts[index].likeCount += 1
         
         return true
     }

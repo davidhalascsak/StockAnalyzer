@@ -6,11 +6,11 @@ struct Post: Identifiable, Codable {
     @DocumentID var id: String?
     let userRef: String
     let body: String
+    var likeCount: Int
+    var commentCount: Int
+    var stockSymbol: String?
     let timestamp: Timestamp
-    var likes: Int
-    var comments: Int
-    var symbol: String
     
-    var user: User?
+    var user: CurrentUser?
     var isLiked: Bool? = false
 }

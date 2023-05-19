@@ -2,7 +2,7 @@ import Foundation
 
 @MainActor
 class ChartViewModel: ObservableObject {
-    @Published var chartData: [ChartData] = []
+    @Published var chartData: [HistoricalPrice] = []
     @Published var xAxisData: ChartAxisData?
     @Published var yAxisData: ChartAxisData?
     @Published var minValues: [String: Double] = [:]
@@ -10,9 +10,9 @@ class ChartViewModel: ObservableObject {
     @Published var selectedType: ChartOption = .oneDay
     @Published var isLoading: Bool = true
     
-    var fiveMinutesData: [ChartData] = []
-    var hourlyData: [ChartData] = []
-    var dailyData: [ChartData] = []
+    var fiveMinutesData: [HistoricalPrice] = []
+    var hourlyData: [HistoricalPrice] = []
+    var dailyData: [HistoricalPrice] = []
     let chartService: ChartServiceProtocol
     
     var dateFormat: String {
@@ -152,8 +152,8 @@ class ChartViewModel: ObservableObject {
         }
     }
     
-    func createDailyData(data: [ChartData]) -> [ChartData] {
-        var daily = [ChartData]()
+    func createDailyData(data: [HistoricalPrice]) -> [HistoricalPrice] {
+        var daily = [HistoricalPrice]()
         for i in 0..<data.count {
             if data[i].date[0..<10] == data[0].date[0..<10] {
                 daily.append(data[i])
@@ -168,9 +168,9 @@ class ChartViewModel: ObservableObject {
         return daily.reversed()
     }
     
-    func createWeeklyData(data: [ChartData]) -> [ChartData] {
+    func createWeeklyData(data: [HistoricalPrice]) -> [HistoricalPrice] {
         var dayCount = 0
-        var weekly = [ChartData]()
+        var weekly = [HistoricalPrice]()
         
         weekly.append(data[0])
         
@@ -190,8 +190,8 @@ class ChartViewModel: ObservableObject {
         return weekly.reversed()
     }
     
-    func createMonthlyData(data: [ChartData]) -> [ChartData] {
-        var monthly = [ChartData]()
+    func createMonthlyData(data: [HistoricalPrice]) -> [HistoricalPrice] {
+        var monthly = [HistoricalPrice]()
         
         var date = Calendar.current.date(byAdding: .month, value: -1, to: Date()) ?? Date()
         date = Calendar.current.date(byAdding: .day, value: -1, to: date) ?? Date()

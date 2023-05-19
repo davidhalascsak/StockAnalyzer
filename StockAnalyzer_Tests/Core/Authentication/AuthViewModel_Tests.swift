@@ -7,7 +7,7 @@ final class AuthViewModel_Tests: XCTestCase {
     func test_AuthViewModel_isLogin_shouldBeTrue() throws {
         //Given
         let isLogin: Bool = true
-        let authUser: AuthUser? = nil
+        let authUser: TestAuthenticationUser? = nil
         //When
         let vm = AuthViewModel(isLogin: isLogin, userService: MockUserService(), sessionService: MockSessionService(currentUser: authUser), imageService: MockImageService())
         
@@ -18,7 +18,7 @@ final class AuthViewModel_Tests: XCTestCase {
     func test_AuthViewModel_isLogin_shouldBeFalse() throws {
         //Given
         let isLogin: Bool = false
-        let authUser: AuthUser? = nil
+        let authUser: TestAuthenticationUser? = nil
         //When
         let vm = AuthViewModel(isLogin: isLogin, userService: MockUserService(), sessionService: MockSessionService(currentUser: authUser), imageService: MockImageService())
         
@@ -29,7 +29,7 @@ final class AuthViewModel_Tests: XCTestCase {
     func test_AuthViewModel_login_emailShouldBeShorterThanRequired() async throws {
         //Given
         let isLogin: Bool = true
-        let authUser: AuthUser? = nil
+        let authUser: TestAuthenticationUser? = nil
         let vm = AuthViewModel(isLogin: isLogin, userService: MockUserService(), sessionService: MockSessionService(currentUser: authUser), imageService: MockImageService())
         
         //When
@@ -45,7 +45,7 @@ final class AuthViewModel_Tests: XCTestCase {
     func test_AuthViewModel_login_emailShouldBeLongEnough() async throws {
         //Given
         let isLogin: Bool = true
-        let authUser: AuthUser? = nil
+        let authUser: TestAuthenticationUser? = nil
         let vm = AuthViewModel(isLogin: isLogin, userService: MockUserService(), sessionService: MockSessionService(currentUser: authUser), imageService: MockImageService())
         
         //When
@@ -61,7 +61,7 @@ final class AuthViewModel_Tests: XCTestCase {
     func test_AuthViewModel_login_validEmailFormatShouldBeTrue() async throws {
         //Given
         let isLogin: Bool = true
-        let authUser: AuthUser? = nil
+        let authUser: TestAuthenticationUser? = nil
         let vm = AuthViewModel(isLogin: isLogin, userService: MockUserService(), sessionService: MockSessionService(currentUser: authUser), imageService: MockImageService())
         
         //When
@@ -77,7 +77,7 @@ final class AuthViewModel_Tests: XCTestCase {
     func test_AuthViewModel_login_validEmailFormatShouldBeFalse() async throws {
         //Given
         let isLogin: Bool = true
-        let authUser: AuthUser? = nil
+        let authUser: TestAuthenticationUser? = nil
         let vm = AuthViewModel(isLogin: isLogin, userService: MockUserService(), sessionService: MockSessionService(currentUser: authUser), imageService: MockImageService())
         
         //When
@@ -93,7 +93,7 @@ final class AuthViewModel_Tests: XCTestCase {
     func test_AuthViewModel_login_passwordShouldBeShorterThanRequired() async throws {
         //Given
         let isLogin: Bool = true
-        let authUser: AuthUser? = nil
+        let authUser: TestAuthenticationUser? = nil
         let vm = AuthViewModel(isLogin: isLogin, userService: MockUserService(), sessionService: MockSessionService(currentUser: authUser), imageService: MockImageService())
         
         //When
@@ -111,7 +111,7 @@ final class AuthViewModel_Tests: XCTestCase {
     func test_AuthViewModel_login_userIsVerifiedTrue() async throws {
         //Given
         let isLogin: Bool = true
-        let authUser: AuthUser? = nil
+        let authUser: TestAuthenticationUser? = nil
         let vm = AuthViewModel(isLogin: isLogin, userService: MockUserService(), sessionService: MockSessionService(currentUser: authUser), imageService: MockImageService())
         
         //When
@@ -126,7 +126,7 @@ final class AuthViewModel_Tests: XCTestCase {
     func test_AuthViewModel_login_userIsVerifiedFalse() async throws {
         //Given
         let isLogin: Bool = true
-        let authUser: AuthUser? = nil
+        let authUser: TestAuthenticationUser? = nil
         let vm = AuthViewModel(isLogin: isLogin, userService: MockUserService(), sessionService: MockSessionService(currentUser: authUser), imageService: MockImageService())
         
         //When
@@ -143,7 +143,7 @@ final class AuthViewModel_Tests: XCTestCase {
     func test_AuthViewModel_login_passwordDoesNotMatch() async throws {
         //Given
         let isLogin: Bool = true
-        let authUser: AuthUser? = nil
+        let authUser: TestAuthenticationUser? = nil
         let vm = AuthViewModel(isLogin: isLogin, userService: MockUserService(), sessionService: MockSessionService(currentUser: authUser), imageService: MockImageService())
         
         //When
@@ -161,7 +161,7 @@ final class AuthViewModel_Tests: XCTestCase {
     func test_AuthViewModel_login_userIsNotFound() async throws {
         //Given
         let isLogin: Bool = true
-        let authUser: AuthUser? = nil
+        let authUser: TestAuthenticationUser? = nil
         let vm = AuthViewModel(isLogin: isLogin, userService: MockUserService(), sessionService: MockSessionService(currentUser: authUser), imageService: MockImageService())
         
         //When
@@ -178,7 +178,7 @@ final class AuthViewModel_Tests: XCTestCase {
     func test_AuthViewModel_login_shouldBeSuccessful() async throws {
         //Given
         let isLogin: Bool = true
-        let authUser: AuthUser? = nil
+        let authUser: TestAuthenticationUser? = nil
         let vm = AuthViewModel(isLogin: isLogin, userService: MockUserService(), sessionService: MockSessionService(currentUser: authUser), imageService: MockImageService())
         
         //When
@@ -195,7 +195,7 @@ final class AuthViewModel_Tests: XCTestCase {
     func test_AuthViewModel_registration_usernameShouldBeShorterThanRequired() async throws {
         //Given
         let isLogin: Bool = true
-        let authUser: AuthUser? = nil
+        let authUser: TestAuthenticationUser? = nil
         let vm = AuthViewModel(isLogin: isLogin, userService: MockUserService(), sessionService: MockSessionService(currentUser: authUser), imageService: MockImageService())
         
         //When
@@ -212,7 +212,7 @@ final class AuthViewModel_Tests: XCTestCase {
     func test_AuthViewModel_registration_usernameShouldBeLongEnough() async throws {
         //Given
         let isLogin: Bool = true
-        let authUser: AuthUser? = nil
+        let authUser: TestAuthenticationUser? = nil
         let vm = AuthViewModel(isLogin: isLogin, userService: MockUserService(), sessionService: MockSessionService(currentUser: authUser), imageService: MockImageService())
         
         //When
@@ -228,7 +228,7 @@ final class AuthViewModel_Tests: XCTestCase {
     func test_AuthViewModel_registration_emailShouldBeShorterThanRequired() async throws {
         //Given
         let isLogin: Bool = true
-        let authUser: AuthUser? = nil
+        let authUser: TestAuthenticationUser? = nil
         let vm = AuthViewModel(isLogin: isLogin, userService: MockUserService(), sessionService: MockSessionService(currentUser: authUser), imageService: MockImageService())
         
         //When
@@ -245,7 +245,7 @@ final class AuthViewModel_Tests: XCTestCase {
    func test_AuthViewModel_registration_emailShouldBeInvalid() async throws {
         //Given
        let isLogin: Bool = true
-       let authUser: AuthUser? = nil
+       let authUser: TestAuthenticationUser? = nil
        let vm = AuthViewModel(isLogin: isLogin, userService: MockUserService(), sessionService: MockSessionService(currentUser: authUser), imageService: MockImageService())
         
         //When
@@ -262,7 +262,7 @@ final class AuthViewModel_Tests: XCTestCase {
     func test_AuthViewModel_registration_emailShouldBeValid() async throws {
         //Given
         let isLogin: Bool = true
-        let authUser: AuthUser? = nil
+        let authUser: TestAuthenticationUser? = nil
         let vm = AuthViewModel(isLogin: isLogin, userService: MockUserService(), sessionService: MockSessionService(currentUser: authUser), imageService: MockImageService())
         
         //When
@@ -279,7 +279,7 @@ final class AuthViewModel_Tests: XCTestCase {
     func test_AuthViewModel_registration_passwordShorterThanRequired() async throws {
         //Given
         let isLogin: Bool = true
-        let authUser: AuthUser? = nil
+        let authUser: TestAuthenticationUser? = nil
         let vm = AuthViewModel(isLogin: isLogin, userService: MockUserService(), sessionService: MockSessionService(currentUser: authUser), imageService: MockImageService())
         
         //When
@@ -297,7 +297,7 @@ final class AuthViewModel_Tests: XCTestCase {
     func test_AuthViewModel_registration_passwordShouldBeLongEnough() async throws {
         //Given
         let isLogin: Bool = true
-        let authUser: AuthUser? = nil
+        let authUser: TestAuthenticationUser? = nil
         let vm = AuthViewModel(isLogin: isLogin, userService: MockUserService(), sessionService: MockSessionService(currentUser: authUser), imageService: MockImageService())
         
         //When
@@ -315,7 +315,7 @@ final class AuthViewModel_Tests: XCTestCase {
     func test_AuthViewModel_registration_twoPasswordsDoesNotMatch() async throws {
         //Given
         let isLogin: Bool = true
-        let authUser: AuthUser? = nil
+        let authUser: TestAuthenticationUser? = nil
         let vm = AuthViewModel(isLogin: isLogin, userService: MockUserService(), sessionService: MockSessionService(currentUser: authUser), imageService: MockImageService())
         
         //When
@@ -334,7 +334,7 @@ final class AuthViewModel_Tests: XCTestCase {
     func test_AuthViewModel_registration_usernameInUseShouldBeTrue() async throws {
         //Given
         let isLogin: Bool = true
-        let authUser: AuthUser? = nil
+        let authUser: TestAuthenticationUser? = nil
         let vm = AuthViewModel(isLogin: isLogin, userService: MockUserService(), sessionService: MockSessionService(currentUser: authUser), imageService: MockImageService())
         
         //When
@@ -353,7 +353,7 @@ final class AuthViewModel_Tests: XCTestCase {
     func test_AuthViewModel_registration_emailIsAlreadyInUseShouldBeTrue() async throws {
         //Given
         let isLogin: Bool = true
-        let authUser: AuthUser? = nil
+        let authUser: TestAuthenticationUser? = nil
         let vm = AuthViewModel(isLogin: isLogin, userService: MockUserService(), sessionService: MockSessionService(currentUser: authUser), imageService: MockImageService())
         
         //When
@@ -372,7 +372,7 @@ final class AuthViewModel_Tests: XCTestCase {
     func test_AuthViewModel_registration_shouldBeSuccessful() async throws {
         //Given
         let isLogin: Bool = true
-        let authUser: AuthUser? = nil
+        let authUser: TestAuthenticationUser? = nil
         let vm = AuthViewModel(isLogin: isLogin, userService: MockUserService(), sessionService: MockSessionService(currentUser: authUser), imageService: MockImageService())
         
         //When

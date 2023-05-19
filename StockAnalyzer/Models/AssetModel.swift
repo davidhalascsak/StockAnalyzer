@@ -5,7 +5,7 @@ import FirebaseFirestore
 
 struct Asset: Hashable, Codable {
     @DocumentID var id: String?
-    let symbol: String
+    let stockSymbol: String
     let units: Double
     let averagePrice: Double
     var positionCount: Double

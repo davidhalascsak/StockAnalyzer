@@ -6,7 +6,7 @@ import XCTest
 final class FeedViewModel_Tests: XCTestCase {
     func test_FeedViewModel_fetchPosts() async throws {
         //Given
-        let authUser: AuthUser? = AuthUser(id: "asd123", email: "david@domain.com", password: "asd123", isVerified: true)
+        let authUser: TestAuthenticationUser? = TestAuthenticationUser(id: "asd123", email: "david@domain.com", password: "asd123", isVerified: true)
         let vm = FeedViewModel(userService: MockUserService(), postService: MockPostService(currentUser: authUser), sessionService: MockSessionService(currentUser: authUser), imageService: MockImageService())
         
         //When

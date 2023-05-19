@@ -7,8 +7,8 @@ struct Comment: Identifiable, Codable {
     let userRef: String
     let body: String
     let timestamp: Timestamp
-    var likes: Int
+    var likeCount: Int
     
-    var user: User?
+    var user: CurrentUser?
     var isLiked: Bool? = false
 }

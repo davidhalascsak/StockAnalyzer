@@ -3,6 +3,8 @@ import SwiftUI
 import FirebaseStorage
 
 class ImageService: ImageServiceProtocol {
+    private var storage = Storage.storage()
+    
     func fetchImageData(url: String) async -> Data? {
         guard let url = URL(string: url) else {return nil}
         
@@ -22,7 +24,7 @@ class ImageService: ImageServiceProtocol {
         guard let compressedImage = image.jpegData(compressionQuality: 0.5) else {return nil}
         
         let fileName = NSUUID().uuidString
-        let reference = Storage.storage().reference(withPath: "/pictures/\(fileName)")
+        let reference = storage.reference(withPath: "/pictures/\(fileName)")
         
         do {
             _ = try await reference.putDataAsync(compressedImage)
@@ -35,7 +37,7 @@ class ImageService: ImageServiceProtocol {
     }
     
     func removeImage(url: String) async -> Bool {
-        let reference = Storage.storage().reference(forURL: url)
+        let reference = storage.reference(forURL: url)
         do {
             try await reference.delete()
             return true
@@ -48,7 +50,7 @@ class ImageService: ImageServiceProtocol {
         guard let image = UIImage(data: data) else {return false}
         guard let compressedImage = image.jpegData(compressionQuality: 0.5) else {return false}
         
-        let reference = Storage.storage().reference(forURL: url)
+        let reference = storage.reference(forURL: url)
         
         do {
             _ = try await reference.putDataAsync(compressedImage)

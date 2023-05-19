@@ -8,7 +8,7 @@ final class CommentSectionViewModel_Tests: XCTestCase {
     func test_CommentSectionViewModel_fetchComments() async throws {
         // Given
         let post = Post(id: "19", userRef: "asd321", body: "Good Moring, Vietnam", timestamp: Timestamp(), likes: 2, comments: 2, symbol: "")
-        let authUser: AuthUser? = AuthUser(id: "asd123", email: "david@domain.com", password: "asd123", isVerified: true)
+        let authUser: TestAuthenticationUser? = TestAuthenticationUser(id: "asd123", email: "david@domain.com", password: "asd123", isVerified: true)
         let vm = CommentSectionViewModel(post: post, commentService: MockCommentService(currentUser: authUser), userService: MockUserService(), sessionService: MockSessionService(currentUser: authUser))
         
         //When
@@ -21,7 +21,7 @@ final class CommentSectionViewModel_Tests: XCTestCase {
     
     func test_CommentSectionViewModel_createComment_PostExist() async throws {
         let post = Post(id: "19", userRef: "asd321", body: "Good Moring, Vietnam", timestamp: Timestamp(), likes: 2, comments: 2, symbol: "")
-        let authUser: AuthUser? = AuthUser(id: "asd123", email: "david@domain.com", password: "asd123", isVerified: true)
+        let authUser: TestAuthenticationUser? = TestAuthenticationUser(id: "asd123", email: "david@domain.com", password: "asd123", isVerified: true)
         let vm = CommentSectionViewModel(post: post, commentService: MockCommentService(currentUser: authUser), userService: MockUserService(), sessionService: MockSessionService(currentUser: authUser))
         
         //When
@@ -37,7 +37,7 @@ final class CommentSectionViewModel_Tests: XCTestCase {
     
     func test_CommentSectionViewModel_createComment_PostNotExist() async throws {
         let post = Post(id: "40", userRef: "asd321", body: "Good Moring, Vietnam", timestamp: Timestamp(), likes: 2, comments: 2, symbol: "")
-        let authUser: AuthUser? = AuthUser(id: "asd123", email: "david@domain.com", password: "asd123", isVerified: true)
+        let authUser: TestAuthenticationUser? = TestAuthenticationUser(id: "asd123", email: "david@domain.com", password: "asd123", isVerified: true)
         let vm = CommentSectionViewModel(post: post, commentService: MockCommentService(currentUser: authUser), userService: MockUserService(), sessionService: MockSessionService(currentUser: authUser))
         
         //When

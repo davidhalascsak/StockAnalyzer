@@ -2,7 +2,7 @@ import Foundation
 
 @MainActor
 class PortfolioRowViewModel: ObservableObject {
-    @Published var stockPrice: Price?
+    @Published var stockPrice: CurrentPrice?
     @Published var currentValue: Double = 0.0
     @Published var difference: Double = 0.0
     @Published var isLoading: Bool = true

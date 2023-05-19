@@ -29,7 +29,7 @@ struct SignUpView: View {
                     .padding(10)
                     .background(Color.gray.opacity(0.2))
                     .cornerRadius(15)
-                Picker("Country", selection: $viewModel.userData.location) {
+                Picker("Country", selection: $viewModel.userData.country) {
                     ForEach(viewModel.countries, id: \.self) {
                         Text($0).tag($0)
                     }
@@ -66,7 +66,7 @@ struct SignUpView: View {
                             viewModel.userData.email = ""
                             viewModel.userData.password = ""
                             viewModel.userData.passwordAgain = ""
-                            viewModel.userData.location = "Hungary"
+                            viewModel.userData.country = "Hungary"
                         }
                     } label: {
                         Text("Sign in")

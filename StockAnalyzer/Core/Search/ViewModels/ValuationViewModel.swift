@@ -5,7 +5,7 @@ import Combine
 class ValuationViewModel: ObservableObject {
     @Published var isLoading: Bool = true
     @Published var ratios: Ratios?
-    @Published var marketCap: MarketCap?
+    @Published var marketCap: Int?
     @Published var growthRates: GrowthRates?
     @Published var metrics: Metrics?
     
@@ -18,11 +18,11 @@ class ValuationViewModel: ObservableObject {
     
     var cancellables = Set<AnyCancellable>()
     
-    let company: Company
+    let company: CompanyProfile
     let stockService: StockServiceProtocol
     let options = ["Net Income", "Free Cash Flow"]
     
-    init(company: Company, stockService: StockServiceProtocol) {
+    init(company: CompanyProfile, stockService: StockServiceProtocol) {
         self.company = company
         self.stockService = stockService
         
@@ -52,7 +52,7 @@ class ValuationViewModel: ObservableObject {
         self.growthRates = growthRates
         self.metrics = metrics
         
-        if ratios != nil && marketCap != nil && growthRates != nil && metrics != nil {
+        if ratios != nil && marketCap != 0 && growthRates != nil && metrics != nil {
             baseValue = Double(String(format: "%.2f", metrics?.netIncomePerShareTTM ?? 0.0)) ?? 0.0
             growthRate = min(max(Int((growthRates?.netIncomeGrowth ?? 0.0) * 100), 3), 20)
             

@@ -112,11 +112,11 @@ struct PortfolioView: View {
             Divider()
             List {
                 ForEach(viewModel.assets, id: \.self) { asset in
-                    if let viewModel = viewModel.assetsViewModels[asset.symbol] {
+                    if let viewModel = viewModel.assetsViewModels[asset.stockSymbol] {
                         ZStack {
                             PortfolioRowView(viewModel: viewModel)
                             NavigationLink {
-                                PositionView(asset: asset, stockService: StockService(symbol: asset.symbol), portfolioService: PortfolioService(), imageService: ImageService())
+                                PositionView(asset: asset, stockService: StockService(symbol: asset.stockSymbol), portfolioService: PortfolioService(), imageService: ImageService())
                             } label: {
                                 EmptyView()
                             }
@@ -142,7 +142,7 @@ struct PortfolioView: View {
 }
 
 struct PortfolioView_Previews: PreviewProvider {
-    static let user = AuthUser(id: "asd123", email: "david@domain.com", password: "asd123", isVerified: true)
+    static let user = TestAuthenticationUser(id: "asd123", email: "david@domain.com", password: "asd123", isVerified: true)
     static var previews: some View {
         PortfolioView(portfolioService: MockPortfolioService(), sessionService: MockSessionService(currentUser: user))
     }

@@ -3,8 +3,8 @@ import UIKit
 
 @MainActor
 class PositionViewModel: ObservableObject {
-    @Published var companyProfile: Company?
-    @Published var price: Price?
+    @Published var companyProfile: CompanyProfile?
+    @Published var price: CurrentPrice?
     @Published var isLoading: Bool = false
     @Published var positionViewModels: [String: PositionRowViewModel] = [:]
     
@@ -25,7 +25,7 @@ class PositionViewModel: ObservableObject {
         price = await stockService.fetchPriceInRealTime()
         
         for position in asset.positions ?? [] {
-            let vm = PositionRowViewModel(position: position, stockService: StockService(symbol: asset.symbol))
+            let vm = PositionRowViewModel(position: position, stockService: StockService(symbol: asset.stockSymbol))
             positionViewModels[position.id ?? ""] = vm
             await vm.calculateCurrentValue()
         }
@@ -36,7 +36,7 @@ class PositionViewModel: ObservableObject {
     func reloadAsset() async {
         price = await stockService.fetchPriceInRealTime()
         for _ in asset.positions ?? [] {
-            if let vm = positionViewModels[asset.symbol] {
+            if let vm = positionViewModels[asset.stockSymbol] {
                 await vm.calculateCurrentValue()
             }
         }

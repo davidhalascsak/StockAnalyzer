@@ -67,9 +67,9 @@ class SessionService: ObservableObject, SessionServiceProtocol {
 
 class MockSessionService: ObservableObject, SessionServiceProtocol {
     var db: MockDatabase = MockDatabase()
-    var currentUser: AuthUser?
+    var currentUser: TestAuthenticationUser?
     
-    init(currentUser: AuthUser?) {
+    init(currentUser: TestAuthenticationUser?) {
         self.currentUser = currentUser
     }
     
@@ -78,7 +78,7 @@ class MockSessionService: ObservableObject, SessionServiceProtocol {
     }
     
     func login(email: String, password: String) async throws {
-        let user: AuthUser?
+        let user: TestAuthenticationUser?
         user = db.authUsers.first(where: {$0.email == email}) ?? nil
         
         if user == nil {
@@ -109,7 +109,7 @@ class MockSessionService: ObservableObject, SessionServiceProtocol {
         if data != nil {
             throw SessionError.registrationError(message: "The email is already in use!")
         }
-        let newAuthUser = AuthUser(id: UUID().uuidString, email: email, password: password, isVerified: false)
+        let newAuthUser = TestAuthenticationUser(id: UUID().uuidString, email: email, password: password, isVerified: false)
         
         db.authUsers.append(newAuthUser)
         currentUser = newAuthUser

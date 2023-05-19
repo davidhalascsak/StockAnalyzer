@@ -7,10 +7,10 @@ class FinancialViewModel: ObservableObject {
     @Published var cashFlowStatement: [CashFlowStatement] = []
     @Published var isLoading: Bool = true
     
-    let company: Company
+    let company: CompanyProfile
     let financeService: FinanceServiceProtocol
     
-    init(company: Company, financeService: FinanceServiceProtocol) {
+    init(company: CompanyProfile, financeService: FinanceServiceProtocol) {
         self.company = company
         self.financeService = financeService
     }
@@ -60,12 +60,6 @@ class FinancialViewModel: ObservableObject {
     func calculateROCE() -> String {
         let roce = Double(incomeStatement[0].incomeBeforeTax) / Double(balanceSheet[0].totalAssets - balanceSheet[0].totalCurrentLiabilities)
         return String(format: "%.0f", abs(roce) < 0.01 ? 0 : 100 * roce)
-    }
-    
-    func calculateNetDebt() -> String {
-        let ratio = balanceSheet[0].shortTermDebt + balanceSheet[0].longTermDebt - balanceSheet[0].cashAndCashEquivalents
-        
-        return formatPrice(price: ratio)
     }
     
     func calculateDebtToEquity() -> String {

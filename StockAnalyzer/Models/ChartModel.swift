@@ -1,16 +1,5 @@
 import Foundation
 import SwiftUI
-
-struct ChartData: Codable, Hashable {
-    let date: String
-    let open: Double
-    let close: Double
-}
-
-struct HistoricPrice: Codable, Hashable {
-    let symbol: String
-    let historical: [ChartData]
-}
     
 struct ChartAxisData {
     let axisStart: Double

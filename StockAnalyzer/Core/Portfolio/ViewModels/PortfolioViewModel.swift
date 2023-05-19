@@ -23,8 +23,8 @@ class PortfolioViewModel: ObservableObject {
         
         assets = await portfolioService.fetchAssets()
         for asset in assets {
-            let vm = PortfolioRowViewModel(asset: asset, stockService: StockService(symbol: asset.symbol))
-            assetsViewModels[asset.symbol] = vm
+            let vm = PortfolioRowViewModel(asset: asset, stockService: StockService(symbol: asset.stockSymbol))
+            assetsViewModels[asset.stockSymbol] = vm
             await vm.calculateCurrentValue()
             investedAmount += vm.asset.investedAmount
             difference += vm.difference
@@ -37,7 +37,7 @@ class PortfolioViewModel: ObservableObject {
         var newInvestedAmount: Double = 0.0
         var newDifference: Double = 0.0
         for asset in assets {
-            if let vm = assetsViewModels[asset.symbol] {
+            if let vm = assetsViewModels[asset.stockSymbol] {
                 await vm.calculateCurrentValue()
                 newInvestedAmount += vm.asset.investedAmount
                 newDifference += vm.difference
@@ -51,7 +51,7 @@ class PortfolioViewModel: ObservableObject {
     func deleteAsset(at offsets: IndexSet) async {
         let index = offsets.first ?? nil
         if let index = index {
-            let assetSymbol = assets[index].symbol
+            let assetSymbol = assets[index].stockSymbol
             
             let result = await portfolioService.deleteAsset(symbol: assetSymbol)
             if result == true {

@@ -5,10 +5,10 @@ class HomeViewModel: ObservableObject {
     @Published var news: [News] = []
     @Published var isLoading: Bool = true
     
-    let companyProfile: Company
+    let companyProfile: CompanyProfile
     var newsService: NewsServiceProtocol
     
-    init(company companyProfile: Company, newsService: NewsServiceProtocol) {
+    init(company companyProfile: CompanyProfile, newsService: NewsServiceProtocol) {
         self.companyProfile = companyProfile
         self.newsService = newsService
     }

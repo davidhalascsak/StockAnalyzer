@@ -20,7 +20,7 @@ struct PostView: View {
                             .foregroundColor(.blue)
                             .font(.headline)
                         HStack {
-                            Text(viewModel.post.user?.location ?? "")
+                            Text(viewModel.post.user?.country ?? "")
                                 .font(.subheadline)
                             Text("•")
                             Text(toDate(stamp: viewModel.post.timestamp))
@@ -46,14 +46,14 @@ struct PostView: View {
                                 }
                             }
                         }
-                    Text("\(viewModel.post.likes)")
+                    Text("\(viewModel.post.likeCount)")
                     NavigationLink {
                         CommentSectionView(post: viewModel.post, commentService: CommentService(), userService: UserService(), sessionService: SessionService(), imageService: ImageService())
                     } label: {
                         Image(systemName: "message")
                             .foregroundColor(Color.primary)
                     }
-                    Text("\(viewModel.post.comments)")
+                    Text("\(viewModel.post.commentCount)")
                 }
             }
             .padding()
@@ -65,8 +65,8 @@ struct PostView: View {
  struct PostView_Previews: PreviewProvider {
  
     static var previews: some View {
-        let user = User(username: "istengyermeke", email: "david.halascsak@gmail.com", location: "Hungary", imageUrl: "")
-        let post = Post(userRef: "asd", body: "Buy Tesla", timestamp: Timestamp(date: Date()), likes: 5, comments: 5, symbol: "", user: user)
+        let user = CurrentUser(username: "istengyermeke", email: "david.halascsak@gmail.com", country: "Hungary", imageUrl: "")
+        let post = Post(userRef: "asd", body: "Buy Tesla",  likeCount: 5, commentCount: 5, stockSymbol: "",timestamp: Timestamp(date: Date()), user: user)
         PostView(post: post, postService: MockPostService(currentUser: nil), sessionService: MockSessionService(currentUser: nil))
     }
  }

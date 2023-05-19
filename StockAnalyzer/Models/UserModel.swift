@@ -3,17 +3,25 @@ import UIKit
 import FirebaseFirestoreSwift
 import FirebaseFirestore
 
-struct User: Identifiable, Codable {
+struct AuthenticationUser {
+    var username: String = ""
+    var email: String = ""
+    var password: String = ""
+    var passwordAgain: String = ""
+    var country: String = "Hungary"
+}
+
+struct CurrentUser: Identifiable, Codable {
     @DocumentID var id: String?
     let username: String
     let email: String
-    let location: String
+    let country: String
     var imageUrl: String
     
     var image: Data?
 }
 
-struct AuthUser {
+struct TestAuthenticationUser {
     let id: String
     let email: String
     let password: String

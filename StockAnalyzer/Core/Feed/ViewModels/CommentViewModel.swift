@@ -22,7 +22,7 @@ class CommentViewModel: ObservableObject {
         let result = await commentService.likeComment(post: post, comment: comment)
         
         if result {
-            comment.likes += 1
+            comment.likeCount += 1
             
             withAnimation(.easeIn(duration: 0.3)) {
                 comment.isLiked = true
@@ -37,7 +37,7 @@ class CommentViewModel: ObservableObject {
         let result = await commentService.unlikeComment(post: post, comment: comment)
         
         if result {
-            comment.likes -= 1
+            comment.likeCount -= 1
             
             withAnimation(.easeIn(duration: 0.3)) {
                 comment.isLiked = false

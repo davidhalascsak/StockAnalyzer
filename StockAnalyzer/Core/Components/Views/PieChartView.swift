@@ -1,28 +1,28 @@
 import SwiftUI
 
 public struct PieChartView: View {
-    @State var activeIndex: Int = -1
-    let values: [Int]
-    let default_name: String
-    let names: [String]
-    let formatter: (Int) -> String
-    var colors: [Color]
-    var widthFraction: CGFloat
-    var innerRadiusFraction: CGFloat
+    @State private var activeIndex: Int = -1
+    private let values: [Int]
+    private let default_name: String
+    private let names: [String]
+    private let formatter: (Int) -> String
+    private var colors: [Color]
+    private var widthFraction: CGFloat
+    private var innerRadiusFraction: CGFloat
     
     
     
     var slices: [PieSliceData] {
         let sum: Int = values.reduce(0, +)
-        var endDeg: Double = 0
-        var tempSlices: [PieSliceData] = []
+        var endDegree: Double = 0
+        var slices: [PieSliceData] = []
         
         for (i, value) in values.enumerated() {
             let degrees: Double = Double(value) * 360 / Double(sum)
-            tempSlices.append(PieSliceData(startAngle: Angle(degrees: endDeg), endAngle: Angle(degrees: endDeg + degrees), color: self.colors[i]))
-            endDeg += degrees
+            slices.append(PieSliceData(startAngle: Angle(degrees: endDegree), endAngle: Angle(degrees: endDegree + degrees), color: self.colors[i]))
+            endDegree += degrees
         }
-        return tempSlices
+        return slices
     }
     
     public init(values:[Int], default_name: String, names: [String], formatter: @escaping (Int) -> String, colors: [Color], widthFraction: CGFloat = 1.0, innerRadiusFraction: CGFloat = 0.70) {

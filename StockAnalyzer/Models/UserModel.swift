@@ -11,7 +11,7 @@ struct AuthenticationUser {
     var country: String = "Hungary"
 }
 
-struct CurrentUser: Identifiable, Codable {
+struct User: Identifiable, Codable {
     @DocumentID var id: String?
     let username: String
     let email: String

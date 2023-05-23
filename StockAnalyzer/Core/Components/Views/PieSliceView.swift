@@ -1,7 +1,11 @@
 import SwiftUI
 
 struct PieSlice: View {
-    var pieSliceData: PieSliceData
+    private var pieSliceData: PieSliceData
+    
+    init(pieSliceData: PieSliceData) {
+        self.pieSliceData = pieSliceData
+    }
     
     var body: some View {
         GeometryReader { geometry in

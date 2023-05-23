@@ -23,7 +23,7 @@ struct PostView: View {
                             Text(viewModel.post.user?.country ?? "")
                                 .font(.subheadline)
                             Text("•")
-                            Text(toDate(stamp: viewModel.post.timestamp))
+                            Text(viewModel.post.timestamp.toDateString())
                         }
                     }
                 }
@@ -65,7 +65,7 @@ struct PostView: View {
  struct PostView_Previews: PreviewProvider {
  
     static var previews: some View {
-        let user = CurrentUser(username: "istengyermeke", email: "david.halascsak@gmail.com", country: "Hungary", imageUrl: "")
+        let user = User(username: "istengyermeke", email: "david.halascsak@gmail.com", country: "Hungary", imageUrl: "")
         let post = Post(userRef: "asd", body: "Buy Tesla",  likeCount: 5, commentCount: 5, stockSymbol: "",timestamp: Timestamp(date: Date()), user: user)
         PostView(post: post, postService: MockPostService(currentUser: nil), sessionService: MockSessionService(currentUser: nil))
     }

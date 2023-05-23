@@ -16,7 +16,7 @@ class NewPostViewModel: ObservableObject {
     }
     
     func createPost() async {
-        let result = await postService.createPost(body: postBody, symbol: symbol)
+        let result = await postService.createPost(body: postBody, stockSymbol: symbol)
         if result == false {
             showAlert.toggle()
             alertTitle = "Error"

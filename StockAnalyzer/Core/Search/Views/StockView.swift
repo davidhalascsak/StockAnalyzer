@@ -10,12 +10,13 @@ struct ScrollViewOffsetPreferenceKey: PreferenceKey {
 
 struct StockView: View {
     @Environment(\.dismiss) private var dismiss
-    @StateObject var vm: StockViewModel
     @State var isNewPostPresented: Bool = false
     @State var isAddAssetPresented: Bool = false
     
-    init(symbol: String, stockService: StockServiceProtocol, sessionService: SessionServiceProtocol) {
-        _vm = StateObject(wrappedValue: StockViewModel(symbol: symbol, stockService: stockService, sessionService: sessionService))
+    @StateObject var viewModel: StockViewModel
+    
+    init(stockSymbol: String, stockService: StockServiceProtocol, sessionService: SessionServiceProtocol) {
+        _viewModel = StateObject(wrappedValue: StockViewModel(stockSymbol: stockSymbol, stockService: stockService, sessionService: sessionService))
         UIPageControl.appearance().currentPageIndicatorTintColor = .black
         UIPageControl.appearance().pageIndicatorTintColor = UIColor.black.withAlphaComponent(0.2)
         UITabBar.appearance().isTranslucent = false
@@ -23,19 +24,19 @@ struct StockView: View {
     
     var body: some View {
         VStack {
-            if let company = vm.companyProfile {
+            if let company = viewModel.companyProfile {
                 ScrollView(showsIndicators: false) {
                     VStack {
-                        header
+                        headerView
                             .padding()
                         pickerView
-                        switch vm.option {
+                        switch viewModel.option {
                         case .home:
-                            HomeView(company: company, newsService: NewsService(symbol: company.symbol), isNewViewPresented: $isNewPostPresented)
+                            HomeView(company: company, newsService: NewsService(stockSymbol: company.stockSymbol), isNewPostPresented: $isNewPostPresented)
                         case .financials:
-                            FinancialView(company: company, financeService: FinanceService(symbol: company.symbol))
+                            FinancialView(company: company, financeService: FinanceService(stockSymbol: company.stockSymbol))
                         case .valuation:
-                            ValuationView(company: company, stockService: StockService(symbol: company.symbol))
+                            ValuationView(company: company, stockService: StockService(stockSymbol: company.stockSymbol))
                         case .about:
                             AboutView(company: company)
                         }
@@ -53,7 +54,7 @@ struct StockView: View {
                                 .onTapGesture {
                                     isAddAssetPresented.toggle()
                                 }
-                                .opacity(vm.sessionService.getUserId() != nil ? 1.0 : 0.0)
+                                .opacity(viewModel.sessionService.getUserId() != nil ? 1.0 : 0.0)
                         }
                     }
                     .background(
@@ -64,18 +65,18 @@ struct StockView: View {
                 }
                 .coordinateSpace(name: "scroll")
                 .onPreferenceChange(ScrollViewOffsetPreferenceKey.self) { value in
-                    if value < 20 && vm.showPencil == false {
+                    if value < 20 && viewModel.showPencil == false {
                         withAnimation(.easeInOut(duration: 0.3)) {
-                            vm.showPencil = true
+                            viewModel.showPencil = true
                         }
-                    } else if value > -0 && vm.showPencil == true {
+                    } else if value > -0 && viewModel.showPencil == true {
                         withAnimation(.easeInOut(duration: 0.3)) {
-                            vm.showPencil = false
+                            viewModel.showPencil = false
                         }
                     }
                 }
                 .overlay(alignment: .bottomTrailing) {
-                    if vm.option == .home && vm.showPencil && vm.sessionService.getUserId() != nil {
+                    if viewModel.option == .home && viewModel.showPencil && viewModel.sessionService.getUserId() != nil {
                         Image(systemName: "pencil")
                             .font(.title)
                             .foregroundColor(Color.white)
@@ -84,31 +85,30 @@ struct StockView: View {
                             .clipShape(Circle())
                             .padding()
                             .onTapGesture {
-                                vm.isNewPostPresented.toggle()
+                                isNewPostPresented.toggle()
                             }
-                            .offset(x: vm.showPencil ? 0 : 100)
+                            .offset(x: viewModel.showPencil ? 0 : 100)
                     }
                 }
                 .fullScreenCover(isPresented: $isNewPostPresented) {
-                    NewPostView(symbol: vm.symbol, postService: PostService())
+                    NewPostView(symbol: viewModel.stockSymbol, postService: PostService())
                 }
                 .sheet(isPresented: $isAddAssetPresented) {
-                    NewAssetView(symbol: vm.symbol, portfolioService: PortfolioService(), stockService: StockService(symbol: vm.symbol))
+                    NewAssetView(stockSymbol: viewModel.stockSymbol, portfolioService: PortfolioService(), stockService: StockService(stockSymbol: viewModel.stockSymbol))
                         .presentationDetents([.fraction(0.5)])
                 }
-                .sync($vm.isNewPostPresented, with:  $isNewPostPresented)
             } else {
                 ProgressView()
             }
         }
         .task {
-            await vm.fetchData()
+            await viewModel.fetchData()
         }
     }
     
-    var header: some View {
+    var headerView: some View {
         HStack(alignment: .top) {
-            if let profile = vm.companyProfile {
+            if let profile = viewModel.companyProfile {
                 VStack(alignment: .leading) {
                     Text(profile.companyName)
                         .font(.title2)
@@ -123,7 +123,7 @@ struct StockView: View {
                             RoundedRectangle(cornerRadius: 20)
                                 .stroke(Color.gray, lineWidth: 1)
                         )
-                    PriceView(symbol: profile.symbol, currency: profile.currency, stockService: StockService(symbol: profile.symbol))
+                    PriceView(stockSymbol: profile.stockSymbol, currency: profile.currency, stockService: StockService(stockSymbol: profile.stockSymbol))
                 }
                 Spacer()
                 ImageView(url: profile.image, defaultImage: "", imageService: ImageService())
@@ -141,47 +141,47 @@ struct StockView: View {
             VStack {
                 Text("Home")
                     .padding(5)
-                    .fontWeight(vm.option == .home ? .semibold : nil)
+                    .fontWeight(viewModel.option == .home ? .semibold : nil)
                     .onTapGesture {
-                        vm.option = .home
+                        viewModel.option = .home
                     }
                 Rectangle()
-                    .fill(vm.option == .home ? Color.primary : Color.gray)
-                    .frame(height: vm.option ==
+                    .fill(viewModel.option == .home ? Color.primary : Color.gray)
+                    .frame(height: viewModel.option ==
                         .home ? 2 : 1)
             }
             VStack {
                 Text("Financials")
                     .padding(5)
-                    .fontWeight(vm.option == .financials ? .semibold : nil)
+                    .fontWeight(viewModel.option == .financials ? .semibold : nil)
                     .onTapGesture {
-                        vm.option = .financials
+                        viewModel.option = .financials
                     }
                 Rectangle()
-                    .fill(vm.option == .financials ? Color.primary : Color.gray)
-                    .frame(height: vm.option == .financials ? 2 : 1)
+                    .fill(viewModel.option == .financials ? Color.primary : Color.gray)
+                    .frame(height: viewModel.option == .financials ? 2 : 1)
             }
             VStack {
                 Text("Valuation")
                     .padding(5)
-                    .fontWeight(vm.option == .valuation ? .semibold : nil)
+                    .fontWeight(viewModel.option == .valuation ? .semibold : nil)
                     .onTapGesture {
-                        vm.option = .valuation
+                        viewModel.option = .valuation
                     }
                 Rectangle()
-                    .fill(vm.option == .valuation ? Color.primary : Color.gray)
-                    .frame(height: vm.option == .valuation ? 2 : 1)
+                    .fill(viewModel.option == .valuation ? Color.primary : Color.gray)
+                    .frame(height: viewModel.option == .valuation ? 2 : 1)
             }
             VStack {
                 Text("About")
                     .padding(5)
-                    .fontWeight(vm.option == .about ? .semibold : nil)
+                    .fontWeight(viewModel.option == .about ? .semibold : nil)
                     .onTapGesture {
-                        vm.option = .about
+                        viewModel.option = .about
                     }
                 Rectangle()
-                    .fill(vm.option == .about ? Color.primary : Color.gray)
-                    .frame(height: vm.option == .about ? 2 : 1)
+                    .fill(viewModel.option == .about ? Color.primary : Color.gray)
+                    .frame(height: viewModel.option == .about ? 2 : 1)
             }
         }
     }
@@ -189,6 +189,6 @@ struct StockView: View {
 
 struct StockView_Previews: PreviewProvider {
     static var previews: some View {
-        StockView(symbol: "APPL", stockService: MockStockService(), sessionService: MockSessionService(currentUser: nil))
+        StockView(stockSymbol: "APPL", stockService: MockStockService(), sessionService: MockSessionService(currentUser: nil))
     }
 }

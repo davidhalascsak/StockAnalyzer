@@ -9,9 +9,9 @@ class ValuationViewModel: ObservableObject {
     @Published var growthRates: GrowthRates?
     @Published var metrics: Metrics?
     
-    @Published var valuationType: String = "Net Income"
-    @Published var baseValue: Double = 0
-    @Published var growthRate: Int = 0
+    @Published var valuationType: ValuationType = .netIncome
+    @Published var baseValue: Double?
+    @Published var growthRate: Int?
     @Published var discountRate: Int = 8
     @Published var terminalMultiple: Int = 20
     @Published var intrinsicValue: String = ""
@@ -20,7 +20,20 @@ class ValuationViewModel: ObservableObject {
     
     let company: CompanyProfile
     let stockService: StockServiceProtocol
-    let options = ["Net Income", "Free Cash Flow"]
+    
+    enum ValuationType: CaseIterable, CustomStringConvertible  {
+        case netIncome
+        case freeCashFlow
+        
+        var description: String {
+            switch self {
+            case .netIncome:
+                return "Net Income"
+            case .freeCashFlow:
+                return "Free Cash Flow"
+            }
+        }
+    }
     
     init(company: CompanyProfile, stockService: StockServiceProtocol) {
         self.company = company
@@ -53,7 +66,7 @@ class ValuationViewModel: ObservableObject {
         self.metrics = metrics
         
         if ratios != nil && marketCap != 0 && growthRates != nil && metrics != nil {
-            baseValue = Double(String(format: "%.2f", metrics?.netIncomePerShareTTM ?? 0.0)) ?? 0.0
+            baseValue = Double(String(format: "%.2f", metrics?.netIncomePerShare ?? 0.0)) ?? 0.0
             growthRate = min(max(Int((growthRates?.netIncomeGrowth ?? 0.0) * 100), 3), 20)
             
             isLoading = false
@@ -61,18 +74,18 @@ class ValuationViewModel: ObservableObject {
     }
     
     func resetValuation() {
-        if valuationType == "Net Income" {
-            baseValue = Double(String(format: "%.2f", metrics?.netIncomePerShareTTM ?? 0.0)) ?? 0.0
+        if valuationType == .netIncome {
+            baseValue = Double(String(format: "%.2f", metrics?.netIncomePerShare ?? 0.0)) ?? 0.0
             growthRate = min(max(Int((growthRates?.netIncomeGrowth ?? 0.0) * 100), 3), 20)
-        } else if valuationType == "Free Cash Flow" {
-            baseValue = Double(String(format: "%.2f", metrics?.freeCashFlowPerShareTTM ?? 0.0)) ?? 0.0
+        } else if valuationType == .freeCashFlow {
+            baseValue = Double(String(format: "%.2f", metrics?.freeCashFlowPerShare ?? 0.0)) ?? 0.0
             growthRate = min(max(Int((growthRates?.freeCashFlowGrowth ?? 0.0) * 100),3), 20)
         }
     }
     
     func calculateIntrinsicValue() {
-        let growthRateAsDecimal = Double(growthRate) / 100.0
-        let futureValue = Double(terminalMultiple) * baseValue * pow((1.0 + growthRateAsDecimal), 5)
+        let growthRateAsDecimal = Double(growthRate ?? 0) / 100.0
+        let futureValue = Double(terminalMultiple) * (baseValue ?? 0.0) * pow((1.0 + growthRateAsDecimal), 5)
         
         let discountRateAsDecimal = Double(discountRate) / 100.0
         let value = futureValue * pow((1.0 + discountRateAsDecimal), -5)
@@ -82,34 +95,5 @@ class ValuationViewModel: ObservableObject {
         } else {
             intrinsicValue = String(format: "$%.1f", value)
         }
-    }
-    
-    func formatPrice(price: Int) -> String {
-        var priceAsString: String = String(price)
-        var prefix = ""
-        var result: String
-        
-        if price < 0 {
-            prefix = "-"
-            priceAsString = priceAsString.trimmingCharacters(in: CharacterSet(charactersIn: "-"))
-        }
-        
-        if priceAsString.count % 3 == 0 {
-            result = "\(priceAsString[0...2]).\(priceAsString[3...5])"
-        } else if priceAsString.count % 3 == 1 {
-            result = "\(priceAsString[0]).\(priceAsString[1...3])"
-        } else {
-            result = "\(priceAsString[0...1]).\(priceAsString[2...4])"
-        }
-        
-        if priceAsString.count < 10 {
-            result.append("M")
-        } else if 10 <= priceAsString.count && priceAsString.count < 13 {
-            result.append("B")
-        } else {
-            result.append("T")
-        }
-        
-        return "\(prefix)\(result)"
     }
 }

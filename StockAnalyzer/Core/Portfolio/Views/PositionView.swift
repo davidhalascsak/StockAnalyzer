@@ -55,7 +55,7 @@ struct PositionView: View {
                 .frame(height: 50)
                 .frame(maxWidth: 50)
             NavigationLink {
-                StockView(symbol: viewModel.asset.stockSymbol, stockService: StockService(symbol: viewModel.asset.stockSymbol), sessionService: SessionService())
+                StockView(stockSymbol: viewModel.asset.stockSymbol, stockService: StockService(stockSymbol: viewModel.asset.stockSymbol), sessionService: SessionService())
             } label: {
                 VStack(alignment: .leading) {
                     Text(viewModel.asset.stockSymbol)
@@ -121,7 +121,7 @@ struct PositionView: View {
      static let asset = Asset(stockSymbol: "AAPL", units: 2.0, averagePrice: 132.5,  positionCount: 2, positions: [position1, position2])
      
      static var previews: some View {
-         PositionView(asset: asset, stockService: StockService(symbol: "AAPL"), portfolioService: PortfolioService(), imageService: ImageService())
+         PositionView(asset: asset, stockService: StockService(stockSymbol: "AAPL"), portfolioService: PortfolioService(), imageService: ImageService())
      }
  }
  

@@ -26,7 +26,7 @@ struct PortfolioView: View {
                     HStack {
                         Spacer()
                         VStack {
-                            Text(viewModel.investedAmount.formatedValue)
+                            Text(viewModel.investedAmount.formattedPrice)
                             Text("Invested")
                                 .fontWeight(.semibold)
                                 .padding(.top, 1)
@@ -34,7 +34,7 @@ struct PortfolioView: View {
                         }
                         Spacer()
                         VStack {
-                            Text(viewModel.difference.formatedValue)
+                            Text(viewModel.difference.formattedPrice)
                                 .foregroundColor(viewModel.difference == 0 ? Color.black : viewModel.difference > 0 ? Color.green : Color.red)
                             Text("P / L")
                                 .fontWeight(.semibold)
@@ -116,7 +116,7 @@ struct PortfolioView: View {
                         ZStack {
                             PortfolioRowView(viewModel: viewModel)
                             NavigationLink {
-                                PositionView(asset: asset, stockService: StockService(symbol: asset.stockSymbol), portfolioService: PortfolioService(), imageService: ImageService())
+                                PositionView(asset: asset, stockService: StockService(stockSymbol: asset.stockSymbol), portfolioService: PortfolioService(), imageService: ImageService())
                             } label: {
                                 EmptyView()
                             }

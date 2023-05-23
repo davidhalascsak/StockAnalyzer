@@ -12,7 +12,7 @@ final class ImageViewModel_Tests: XCTestCase {
         
         //When
         let vm = ImageViewModel(url: url, defaultImage: defaultImage, imageService: MockImageService())
-        await vm.fetchData()
+        await vm.fetchImage()
         
         //Then
         XCTAssertNotNil(vm.image)
@@ -26,7 +26,7 @@ final class ImageViewModel_Tests: XCTestCase {
         
         //When
         let vm = ImageViewModel(url: url, defaultImage: defaultImage, imageService: MockImageService())
-        await vm.fetchData()
+        await vm.fetchImage()
         
         //Then
         XCTAssertNotNil(vm.image)
@@ -40,7 +40,7 @@ final class ImageViewModel_Tests: XCTestCase {
         
         //When
         let vm = ImageViewModel(url: url, defaultImage: defaultImage, imageService: MockImageService())
-        await vm.fetchData()
+        await vm.fetchImage()
         
         //Then
         XCTAssertNil(vm.image)

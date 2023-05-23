@@ -7,7 +7,7 @@ class ChartViewModel: ObservableObject {
     @Published var yAxisData: ChartAxisData?
     @Published var minValues: [String: Double] = [:]
     @Published var maxValues: [String: Double] = [:]
-    @Published var selectedType: ChartOption = .oneDay
+    @Published var selectedType: ChartOptions = .oneDay
     @Published var isLoading: Bool = true
     
     var fiveMinutesData: [HistoricalPrice] = []
@@ -27,7 +27,7 @@ class ChartViewModel: ObservableObject {
                 return "MMMM"
         }
     }
-    let symbol: String
+    let stockSymbol: String
     let exchange: String
     var openDate: String {
         var calendar = Calendar(identifier: .gregorian)
@@ -60,11 +60,9 @@ class ChartViewModel: ObservableObject {
     var timezone: String {
         return Exchange.exchanges[exchange]!["timezone"] ?? "GMT"
     }
-    let chartOptions = ["1D", "1W", "1M", "1Y"]
-    let dateFormatter = DateFormatter()
     
-    init(symbol: String, exchange: String, chartService: ChartServiceProtocol) {
-        self.symbol = symbol
+    init(stockSymbol: String, exchange: String, chartService: ChartServiceProtocol) {
+        self.stockSymbol = stockSymbol
         self.exchange = exchange
         self.chartService = chartService
     }
@@ -215,10 +213,11 @@ class ChartViewModel: ObservableObject {
     }
     
     func xAxisChartData() -> ChartAxisData {
+        let formatter = DateFormatter()
         let timezone = TimeZone.current
-        dateFormatter.locale = Locale(identifier: "en_us")
-        dateFormatter.timeZone = timezone
-        dateFormatter.dateFormat = dateFormat
+        formatter.locale = Locale(identifier: "en_us")
+        formatter.timeZone = timezone
+        formatter.dateFormat = dateFormat
         
         var xAxisDateComponents = Set<DateComponents>()
         if let startDateString = chartData.first?.date {
@@ -239,7 +238,7 @@ class ChartViewModel: ObservableObject {
             let dc = date.dateComponents(timezone: TimeZone.current, selectedType: selectedType)
             
             if xAxisDateComponents.contains(dc) {
-                map[String(index)] = dateFormatter.string(from: stringToDate(dateString: value.date) ?? Date())
+                map[String(index)] = formatter.string(from: stringToDate(dateString: value.date) ?? Date())
                 
                 xAxisDateComponents.remove(dc)
             }
@@ -253,7 +252,7 @@ class ChartViewModel: ObservableObject {
                     date = Calendar.current.date(byAdding: .minute, value: 5, to: date)!
                     let dc = date.dateComponents(timezone: TimeZone.current, selectedType: .oneDay)
                             if xAxisDateComponents.contains(dc) {
-                                map[String(axisEnd)] = dateFormatter.string(from: date)
+                                map[String(axisEnd)] = formatter.string(from: date)
                                 xAxisDateComponents.remove(dc)
                             }
                         }
@@ -294,7 +293,7 @@ class ChartViewModel: ObservableObject {
         return ChartAxisData(axisStart: lowest - 0.01, axisEnd: highest + 0.01, strideBy: strideBy, map: map)
     }
     
-    func formatYAxisLabel(value: Double, shouldCeilIncrement: Bool) -> String {
+    private func formatYAxisLabel(value: Double, shouldCeilIncrement: Bool) -> String {
         if shouldCeilIncrement {
             return String(Int(ceil(value)))
         } else {
@@ -302,7 +301,7 @@ class ChartViewModel: ObservableObject {
         }
     }
     
-    func getDateComponents(startDate: Date, endDate: Date, timezone: TimeZone) -> Set<DateComponents> {
+    private func getDateComponents(startDate: Date, endDate: Date, timezone: TimeZone) -> Set<DateComponents> {
         var component: Calendar.Component
         var value: Int
         
@@ -338,7 +337,7 @@ class ChartViewModel: ObservableObject {
         return set
     }
     
-    func stringToDate(dateString: String) -> Date?  {
+    private func stringToDate(dateString: String) -> Date?  {
         let formatter = DateFormatter()
         formatter.timeZone = TimeZone(abbreviation: timezone)
         

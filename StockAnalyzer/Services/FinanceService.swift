@@ -1,14 +1,14 @@
 import Foundation
 
 class FinanceService: FinanceServiceProtocol {
-    let symbol: String
+    let stockSymbol: String
     
-    init(symbol: String) {
-        self.symbol = symbol
+    init(stockSymbol: String) {
+        self.stockSymbol = stockSymbol
     }
     
     func fetchIncomeStatement() async -> [IncomeStatement] {
-        guard let url = URL(string: "https://financialmodelingprep.com/api/v3/income-statement/\(symbol)?limit=5&apikey=\(ApiKeys.financeApi)") else {return []}
+        guard let url = URL(string: "https://financialmodelingprep.com/api/v3/income-statement/\(stockSymbol)?limit=5&apikey=\(ApiKeys.financeApi)") else {return []}
         
         do {
             let (data, _) = try await URLSession.shared.data(from: url, delegate: nil)
@@ -22,7 +22,7 @@ class FinanceService: FinanceServiceProtocol {
     }
     
     func fetchBalanceSheet() async -> [BalanceSheet] {
-        guard let url = URL(string: "https://financialmodelingprep.com/api/v3/balance-sheet-statement/\(symbol)?limit=5&apikey=\(ApiKeys.financeApi)") else {return []}
+        guard let url = URL(string: "https://financialmodelingprep.com/api/v3/balance-sheet-statement/\(stockSymbol)?limit=5&apikey=\(ApiKeys.financeApi)") else {return []}
         
         do {
             let (data, _) = try await URLSession.shared.data(from: url, delegate: nil)
@@ -36,7 +36,7 @@ class FinanceService: FinanceServiceProtocol {
     }
     
     func fetchCashFlowStatement() async -> [CashFlowStatement] {
-        guard let url = URL(string: "https://financialmodelingprep.com/api/v3/cash-flow-statement/\(symbol)?limit=5&apikey=\(ApiKeys.financeApi)") else {return []}
+        guard let url = URL(string: "https://financialmodelingprep.com/api/v3/cash-flow-statement/\(stockSymbol)?limit=5&apikey=\(ApiKeys.financeApi)") else {return []}
         
         do {
             let (data, _) = try await URLSession.shared.data(from: url, delegate: nil)
@@ -54,11 +54,11 @@ class FinanceService: FinanceServiceProtocol {
 class MockFinanceService: FinanceServiceProtocol {
     func fetchIncomeStatement() async -> [IncomeStatement] {
         return [
-            IncomeStatement(date: "2022-09-24", reportedCurrency: "USD", revenue: 394328000000, grossProfit: 170782000000, operatingIncome: 119437000000, incomeBeforeTax: 119103000000, incomeTaxExpense: 19300000000, netIncome: 99803000000, weightedAverageShsOut: 16215963000),
-                IncomeStatement(date: "2021-09-25", reportedCurrency: "USD", revenue: 365817000000, grossProfit: 152836000000, operatingIncome: 108949000000, incomeBeforeTax: 109207000000, incomeTaxExpense: 14527000000, netIncome: 94680000000, weightedAverageShsOut: 16701272000),
-                IncomeStatement(date: "2020-09-26", reportedCurrency: "USD", revenue: 274515000000, grossProfit: 104956000000, operatingIncome: 66288000000, incomeBeforeTax: 67091000000, incomeTaxExpense: 9680000000, netIncome: 57411000000, weightedAverageShsOut: 17352119000),
-                IncomeStatement(date: "2019-09-28", reportedCurrency: "USD", revenue: 260174000000, grossProfit: 98392000000, operatingIncome: 63930000000, incomeBeforeTax: 65737000000, incomeTaxExpense: 10481000000, netIncome: 55256000000, weightedAverageShsOut: 18471336000),
-                IncomeStatement(date: "2018-09-29", reportedCurrency: "USD", revenue: 265595000000, grossProfit: 101839000000, operatingIncome: 70898000000, incomeBeforeTax: 72903000000, incomeTaxExpense: 13372000000, netIncome: 59531000000, weightedAverageShsOut: 19821508000)
+            IncomeStatement(date: "2022-09-24", reportedCurrency: "USD", revenue: 394328000000, grossProfit: 170782000000, operatingIncome: 119437000000, incomeBeforeTax: 119103000000, incomeTaxExpense: 19300000000, netIncome: 99803000000, shareOutstanding: 16215963000),
+                IncomeStatement(date: "2021-09-25", reportedCurrency: "USD", revenue: 365817000000, grossProfit: 152836000000, operatingIncome: 108949000000, incomeBeforeTax: 109207000000, incomeTaxExpense: 14527000000, netIncome: 94680000000, shareOutstanding: 16701272000),
+                IncomeStatement(date: "2020-09-26", reportedCurrency: "USD", revenue: 274515000000, grossProfit: 104956000000, operatingIncome: 66288000000, incomeBeforeTax: 67091000000, incomeTaxExpense: 9680000000, netIncome: 57411000000, shareOutstanding: 17352119000),
+                IncomeStatement(date: "2019-09-28", reportedCurrency: "USD", revenue: 260174000000, grossProfit: 98392000000, operatingIncome: 63930000000, incomeBeforeTax: 65737000000, incomeTaxExpense: 10481000000, netIncome: 55256000000, shareOutstanding: 18471336000),
+                IncomeStatement(date: "2018-09-29", reportedCurrency: "USD", revenue: 265595000000, grossProfit: 101839000000, operatingIncome: 70898000000, incomeBeforeTax: 72903000000, incomeTaxExpense: 13372000000, netIncome: 59531000000, shareOutstanding: 19821508000)
         ]
     }
     

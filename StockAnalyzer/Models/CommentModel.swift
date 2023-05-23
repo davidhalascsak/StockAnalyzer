@@ -9,6 +9,6 @@ struct Comment: Identifiable, Codable {
     let timestamp: Timestamp
     var likeCount: Int
     
-    var user: CurrentUser?
+    var user: User?
     var isLiked: Bool? = false
 }

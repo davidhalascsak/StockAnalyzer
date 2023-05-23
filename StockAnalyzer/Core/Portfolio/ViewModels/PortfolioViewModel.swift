@@ -23,7 +23,7 @@ class PortfolioViewModel: ObservableObject {
         
         assets = await portfolioService.fetchAssets()
         for asset in assets {
-            let vm = PortfolioRowViewModel(asset: asset, stockService: StockService(symbol: asset.stockSymbol))
+            let vm = PortfolioRowViewModel(asset: asset, stockService: StockService(stockSymbol: asset.stockSymbol))
             assetsViewModels[asset.stockSymbol] = vm
             await vm.calculateCurrentValue()
             investedAmount += vm.asset.investedAmount
@@ -53,7 +53,7 @@ class PortfolioViewModel: ObservableObject {
         if let index = index {
             let assetSymbol = assets[index].stockSymbol
             
-            let result = await portfolioService.deleteAsset(symbol: assetSymbol)
+            let result = await portfolioService.deleteAsset(stockSymbol: assetSymbol)
             if result == true {
                 assets.remove(at: index)
                 assetsViewModels.removeValue(forKey: assetSymbol)

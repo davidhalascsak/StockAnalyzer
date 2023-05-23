@@ -11,6 +11,6 @@ struct Post: Identifiable, Codable {
     var stockSymbol: String?
     let timestamp: Timestamp
     
-    var user: CurrentUser?
+    var user: User?
     var isLiked: Bool? = false
 }

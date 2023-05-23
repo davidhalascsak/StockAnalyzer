@@ -25,7 +25,7 @@ class PositionViewModel: ObservableObject {
         price = await stockService.fetchPriceInRealTime()
         
         for position in asset.positions ?? [] {
-            let vm = PositionRowViewModel(position: position, stockService: StockService(symbol: asset.stockSymbol))
+            let vm = PositionRowViewModel(position: position, stockService: StockService(stockSymbol: asset.stockSymbol))
             positionViewModels[position.id ?? ""] = vm
             await vm.calculateCurrentValue()
         }

@@ -21,7 +21,7 @@ struct CommentView: View {
                     Text(viewModel.comment.user?.country ?? "")
                         .font(.subheadline)
                     Text("•")
-                    Text(toDate(stamp: viewModel.comment.timestamp))
+                    Text(viewModel.comment.timestamp.toDateString())
                 }
                 Text(viewModel.comment.body)
                     .multilineTextAlignment(.leading)
@@ -53,7 +53,7 @@ struct CommentView: View {
 
 
  struct CommentView_Previews: PreviewProvider {
-     static let user = CurrentUser(username: "istengyermeke", email: "david.halascsak@gmail.com", country: "Hungary", imageUrl: "")
+     static let user = User(username: "istengyermeke", email: "david.halascsak@gmail.com", country: "Hungary", imageUrl: "")
      static let post = Post(userRef: "asd", body: "Elon is the king", likeCount: 2, commentCount: 1, stockSymbol: "",timestamp: Timestamp(date: Date()))
          
      static let comment = Comment(userRef: "asd", body: "Buy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy TeslaBuy Tesla", timestamp: Timestamp(date: Date()), likeCount: 5, user: user)

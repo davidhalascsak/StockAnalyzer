@@ -3,8 +3,8 @@ import SwiftUI
 struct PriceView: View {
     @StateObject private var viewModel: PriceViewModel
     
-    init(symbol: String, currency: String, stockService: StockServiceProtocol) {
-        _viewModel = StateObject(wrappedValue: PriceViewModel(symbol: symbol, currency: currency, stockService: StockService(symbol: symbol)))
+    init(stockSymbol: String, currency: String, stockService: StockServiceProtocol) {
+        _viewModel = StateObject(wrappedValue: PriceViewModel(stockSymbol: stockSymbol, currency: currency, stockService: StockService(stockSymbol: stockSymbol)))
     }
     
     var body: some View {
@@ -28,11 +28,11 @@ struct PriceView: View {
             }
         }
         .task {
-            await viewModel.fetchData()
+            await viewModel.fetchPrice()
         }
         .onReceive(viewModel.timer) { _ in
             Task {
-                await viewModel.fetchData()
+                await viewModel.fetchPrice()
             }
         }
     }
@@ -40,6 +40,6 @@ struct PriceView: View {
 
 struct PriceView_Previews: PreviewProvider {
     static var previews: some View {
-        PriceView(symbol: "AAPL", currency: "USD", stockService: StockService(symbol: "AAPL"))
+        PriceView(stockSymbol: "AAPL", currency: "USD", stockService: StockService(stockSymbol: "AAPL"))
     }
 }

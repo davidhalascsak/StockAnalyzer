@@ -15,7 +15,6 @@
 		EC0C8A8129C4AA0300AAB674 /* FinancialViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC0C8A8029C4AA0300AAB674 /* FinancialViewModel.swift */; };
 		EC0F60CA29BE456F00C982EE /* FeedBodyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC0F60C929BE456F00C982EE /* FeedBodyView.swift */; };
 		EC1016F529B0FBAB00DEE9E2 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1016F429B0FBAB00DEE9E2 /* String.swift */; };
-		EC1016F729B1006800DEE9E2 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1016F629B1006800DEE9E2 /* View.swift */; };
 		EC13277C299E3F760049F993 /* NewPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC13277B299E3F760049F993 /* NewPostView.swift */; };
 		EC180CB6298C387000671AA2 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC180CB5298C387000671AA2 /* AuthViewModel.swift */; };
 		EC180CB8298C3EEE00671AA2 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC180CB7298C3EEE00671AA2 /* MainView.swift */; };
@@ -113,6 +112,8 @@
 		ECCDEFA829A3C2C500034C76 /* CommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCDEFA729A3C2C500034C76 /* CommentView.swift */; };
 		ECCDEFAA29A3C30300034C76 /* CommentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCDEFA929A3C30300034C76 /* CommentViewModel.swift */; };
 		ECD264B629E532FF009F1C46 /* PortfolioRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECD264B529E532FF009F1C46 /* PortfolioRowViewModel.swift */; };
+		ECD854952A1A52ED00994408 /* Timestamp.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECD854942A1A52ED00994408 /* Timestamp.swift */; };
+		ECD854972A1A646A00994408 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECD854962A1A646A00994408 /* Int.swift */; };
 		ECDAC4CD29E8754E001B46A9 /* PositionRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECDAC4CC29E8754E001B46A9 /* PositionRowView.swift */; };
 		ECDAC4CF29E87662001B46A9 /* PositionRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECDAC4CE29E87662001B46A9 /* PositionRowViewModel.swift */; };
 		ECDBEAB329F59AC800ABA499 /* SettingsViewModel_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECDBEAB229F59AC800ABA499 /* SettingsViewModel_Tests.swift */; };
@@ -153,7 +154,6 @@
 		EC0C8A8029C4AA0300AAB674 /* FinancialViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinancialViewModel.swift; sourceTree = "<group>"; };
 		EC0F60C929BE456F00C982EE /* FeedBodyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedBodyView.swift; sourceTree = "<group>"; };
 		EC1016F429B0FBAB00DEE9E2 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
-		EC1016F629B1006800DEE9E2 /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
 		EC13277B299E3F760049F993 /* NewPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPostView.swift; sourceTree = "<group>"; };
 		EC180CB5298C387000671AA2 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		EC180CB7298C3EEE00671AA2 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -249,6 +249,8 @@
 		ECCDEFA729A3C2C500034C76 /* CommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentView.swift; sourceTree = "<group>"; };
 		ECCDEFA929A3C30300034C76 /* CommentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewModel.swift; sourceTree = "<group>"; };
 		ECD264B529E532FF009F1C46 /* PortfolioRowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioRowViewModel.swift; sourceTree = "<group>"; };
+		ECD854942A1A52ED00994408 /* Timestamp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timestamp.swift; sourceTree = "<group>"; };
+		ECD854962A1A646A00994408 /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
 		ECDAC4CC29E8754E001B46A9 /* PositionRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionRowView.swift; sourceTree = "<group>"; };
 		ECDAC4CE29E87662001B46A9 /* PositionRowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionRowViewModel.swift; sourceTree = "<group>"; };
 		ECDBEAA729F59A3900ABA499 /* StockAnalyzer_UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StockAnalyzer_UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -339,9 +341,10 @@
 			isa = PBXGroup;
 			children = (
 				EC1016F429B0FBAB00DEE9E2 /* String.swift */,
-				EC1016F629B1006800DEE9E2 /* View.swift */,
 				ECB0F04E29B33D4A002AF29C /* Date.swift */,
 				ECB0F05029B3561A002AF29C /* Double.swift */,
+				ECD854942A1A52ED00994408 /* Timestamp.swift */,
+				ECD854962A1A646A00994408 /* Int.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -915,7 +918,6 @@
 				EC82004D29CB79140014E95C /* BarChartView.swift in Sources */,
 				EC49E91229A398FF003AE346 /* CommentService.swift in Sources */,
 				EC6E627E29AA15270064110A /* NewsModel.swift in Sources */,
-				EC1016F729B1006800DEE9E2 /* View.swift in Sources */,
 				EC3CEAB129BB8F880048FADE /* HomeViewModel.swift in Sources */,
 				EC180CB6298C387000671AA2 /* AuthViewModel.swift in Sources */,
 				EC72691729AD2149002FAB32 /* ChartView.swift in Sources */,
@@ -949,6 +951,7 @@
 				ECFD63F5298E63AA00B576DA /* AuthView.swift in Sources */,
 				EC3CEAAD29BB8F550048FADE /* ValuationView.swift in Sources */,
 				ECCDEFAA29A3C30300034C76 /* CommentViewModel.swift in Sources */,
+				ECD854972A1A646A00994408 /* Int.swift in Sources */,
 				EC6E628029AA3A820064110A /* NewsViewModel.swift in Sources */,
 				EC734CAE29CF07B700F295CB /* PieChartView.swift in Sources */,
 				EC7088B629DC80290088941A /* NewAssetView.swift in Sources */,
@@ -972,6 +975,7 @@
 				EC0F60CA29BE456F00C982EE /* FeedBodyView.swift in Sources */,
 				EC8FA49C29C0FB5D009CE80E /* PriceView.swift in Sources */,
 				EC84911C2996ACC800DD2413 /* PostView.swift in Sources */,
+				ECD854952A1A52ED00994408 /* Timestamp.swift in Sources */,
 				EC91727029955E9500EA924D /* SettingsView.swift in Sources */,
 				EC40027B29A91ADB00CD1036 /* SettingsViewModel.swift in Sources */,
 				ECF2AF0E29E718FF008306CF /* PositionView.swift in Sources */,

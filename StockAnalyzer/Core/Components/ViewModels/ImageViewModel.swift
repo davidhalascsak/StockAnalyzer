@@ -8,19 +8,19 @@ class ImageViewModel: ObservableObject {
     
     let url: String
     let imageService: ImageServiceProtocol
-    let defaultImage: String
+    let defaultImage: String?
     
-    init(url: String, defaultImage: String, imageService: ImageServiceProtocol) {
+    init(url: String, defaultImage: String?, imageService: ImageServiceProtocol) {
         self.url = url
         self.defaultImage = defaultImage
         self.imageService = imageService
     }
     
-    func fetchData() async {
+    func fetchImage() async {
         let data = await imageService.fetchImageData(url: url)
         if let data = data {
             image = imageService.convertDataToImage(imageData: data)
-        } else if defaultImage != "" {
+        } else if let defaultImage = self.defaultImage {
             image = UIImage(named: defaultImage)
         }
         isLoading = false

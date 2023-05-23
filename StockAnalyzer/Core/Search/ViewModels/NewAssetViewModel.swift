@@ -6,13 +6,13 @@ import FirebaseFirestore
 class NewAssetViewModel: ObservableObject {
     @Published var units: Double = 1.0
     @Published var buyDate: Date = Date()
-    @Published var price: Double = 0.0
+    @Published var price: Double?
     @Published var value: String = ""
     @Published var showAlert: Bool = false
     @Published var alertTitle: String = ""
     @Published var alertText: String = ""
     
-    let symbol: String
+    let stockSymbol: String
     var portfolioService: PortfolioServiceProtocol
     var stockService: StockServiceProtocol
     
@@ -24,8 +24,8 @@ class NewAssetViewModel: ObservableObject {
         return formatter
     }
     
-    init(symbol: String, portfolioService: PortfolioServiceProtocol, stockService: StockServiceProtocol) {
-        self.symbol = symbol
+    init(stockSymbol: String, portfolioService: PortfolioServiceProtocol, stockService: StockServiceProtocol) {
+        self.stockSymbol = stockSymbol
         self.portfolioService = portfolioService
         self.stockService = stockService
     }
@@ -39,7 +39,7 @@ class NewAssetViewModel: ObservableObject {
     }
     
     func calculateValue() {
-        let value = price * units
+        let value = (price ?? 0.0) * units
         if value <= 0 {
             self.value = "Invalid Value"
             
@@ -49,11 +49,11 @@ class NewAssetViewModel: ObservableObject {
     }
     
     func addPositionToPortfolio() async {
-        let value = price * units
+        let value = (price ?? 0.0) * units
         
         if value > 0 {
-            let position = Position(date: formatter.string(from: buyDate), units: units, price: price)
-            let result = await portfolioService.addPosition(symbol: symbol, position: position)
+            let position = Position(date: formatter.string(from: buyDate), units: units, price: price ?? 0.0)
+            let result = await portfolioService.addPosition(stockSymbol: stockSymbol, position: position)
             if result == false {
                 showAlert.toggle()
                 alertTitle = "Error"

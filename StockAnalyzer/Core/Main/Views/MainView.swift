@@ -22,7 +22,7 @@ struct MainView: View {
                         Image(systemName: "house")
                     }
                     .tag(MenuOptions.home)
-                NewsView(newsService: NewsService(symbol: nil))
+                NewsView(newsService: NewsService(stockSymbol: nil))
                     .tabItem {
                         Image(systemName: "newspaper") 
                     }

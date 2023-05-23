@@ -3,16 +3,15 @@ import Foundation
 @MainActor
 class StockViewModel: ObservableObject {
     @Published var companyProfile: CompanyProfile?
-    @Published var option: ViewOption = .home
+    @Published var option: MenuOptions = .home
     @Published var showPencil: Bool = false
-    @Published var isNewPostPresented: Bool = false
     
-    let symbol: String
+    let stockSymbol: String
     var stockService: StockServiceProtocol
     var sessionService: SessionServiceProtocol
     
-    init(symbol: String, stockService: StockServiceProtocol, sessionService: SessionServiceProtocol) {
-        self.symbol = symbol
+    init(stockSymbol: String, stockService: StockServiceProtocol, sessionService: SessionServiceProtocol) {
+        self.stockSymbol = stockSymbol
         self.stockService = stockService
         self.sessionService = sessionService
     }
@@ -20,8 +19,10 @@ class StockViewModel: ObservableObject {
     func fetchData() async {
         self.companyProfile = await self.stockService.fetchProfile()
     }
+    
+    enum MenuOptions {
+        case home, financials, valuation, about
+    }
 }
 
-enum ViewOption {
-    case home, financials, valuation, about
-}
+

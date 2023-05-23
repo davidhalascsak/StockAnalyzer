@@ -1,20 +1,60 @@
 import SwiftUI
 
 struct NewAssetView: View {
-    @StateObject var vm: NewAssetViewModel
-    @Environment(\.dismiss) var dismiss
-    @FocusState var focusedField: FocusedField?
+    @Environment(\.dismiss) private var dismiss
+    @FocusState private var focusedField: FocusField?
     
-    init(symbol: String, portfolioService: PortfolioServiceProtocol, stockService: StockServiceProtocol) {
-        _vm = StateObject(wrappedValue: NewAssetViewModel(symbol: symbol, portfolioService: portfolioService, stockService: stockService))
+    @StateObject private var viewModel: NewAssetViewModel
+    
+    private enum FocusField {
+        case unitField
+        case priceField
+    }
+    
+    init(stockSymbol: String, portfolioService: PortfolioServiceProtocol, stockService: StockServiceProtocol) {
+        _viewModel = StateObject(wrappedValue: NewAssetViewModel(stockSymbol: stockSymbol, portfolioService: portfolioService, stockService: stockService))
     }
     
     var body: some View {
         VStack(alignment: .leading) {
+            newAssetView
+        }
+        .padding(.vertical)
+        .padding(.horizontal, 50)
+        .onAppear {
+            Task {
+                await viewModel.fetchPrice()
+                viewModel.calculateValue()
+            }
+        }
+        .onChange(of: viewModel.units, perform: { _ in
+            viewModel.calculateValue()
+        })
+        .onChange(of: viewModel.price) { _ in
+            viewModel.calculateValue()
+        }
+        .onChange(of: viewModel.buyDate) { _ in
+            Task {
+                await viewModel.fetchPrice()
+                viewModel.calculateValue()
+            }
+        }
+        .alert(viewModel.alertTitle, isPresented: $viewModel.showAlert) {
+            Button("Ok", role: .cancel) {
+                viewModel.alertTitle = ""
+                viewModel.alertText = ""
+            }
+        } message: {
+            Text(viewModel.alertText)
+        }
+    }
+    
+    var newAssetView: some View {
+        VStack {
             HStack {
                 Text("Units:")
                 Spacer()
-                TextField("Units", value: $vm.units, format: .number)
+                TextField("Units", value: $viewModel.units, format: .number)
                     .keyboardType(.decimalPad)
                     .focused($focusedField, equals: .unitField)
                     .padding(5)
@@ -25,7 +65,7 @@ struct NewAssetView: View {
             HStack {
                 Text("Date:")
                 Spacer()
-                DatePicker("", selection: $vm.buyDate,in: ...Date.now, displayedComponents: .date)
+                DatePicker("", selection: $viewModel.buyDate,in: ...Date.now, displayedComponents: .date)
                     .datePickerStyle(.compact)
                     .fixedSize()
                     .onTapGesture {
@@ -35,7 +75,7 @@ struct NewAssetView: View {
             HStack {
                 Text("Price:")
                 Spacer()
-                TextField("Price: ", value: $vm.price, format: .number)
+                TextField("Price: ", value: $viewModel.price, format: .number)
                     .keyboardType(.decimalPad)
                     .focused($focusedField, equals: .priceField)
                     .padding(5)
@@ -47,15 +87,15 @@ struct NewAssetView: View {
             HStack {
                 Text("Total Value:")
                 Spacer()
-                Text(vm.value)
+                Text(viewModel.value)
             }
             .padding(.vertical, 5)
             HStack {
                 Spacer()
                 Button {
                     Task {
-                        await vm.addPositionToPortfolio()
-                        if !vm.showAlert {
+                        await viewModel.addPositionToPortfolio()
+                        if !viewModel.showAlert {
                             dismiss()
                         }
                     }
@@ -69,41 +109,14 @@ struct NewAssetView: View {
                         .cornerRadius(10)
                 }
                 Spacer()
+                
             }
-        }
-        .padding(.vertical)
-        .padding(.horizontal, 50)
-        .onAppear {
-            Task {
-                await vm.fetchPrice()
-                vm.calculateValue()
-            }
-        }
-        .onChange(of: vm.units, perform: { _ in
-            vm.calculateValue()
-        })
-        .onChange(of: vm.price) { _ in
-            vm.calculateValue()
-        }
-        .onChange(of: vm.buyDate) { _ in
-            Task {
-                await vm.fetchPrice()
-                vm.calculateValue()
-            }
-        }
-        .alert(vm.alertTitle, isPresented: $vm.showAlert) {
-            Button("Ok", role: .cancel) {
-                vm.alertTitle = ""
-                vm.alertText = ""
-            }
-        } message: {
-            Text(vm.alertText)
         }
     }
 }
 
 struct NewAssetView_Previews: PreviewProvider {
     static var previews: some View {
-        NewAssetView(symbol: "AAPL", portfolioService: PortfolioService(), stockService: StockService(symbol: "AAPL"))
+        NewAssetView(stockSymbol: "AAPL", portfolioService: PortfolioService(), stockService: StockService(stockSymbol: "AAPL"))
     }
 }

@@ -3,7 +3,7 @@ import SwiftUI
 struct ImageView: View {
     @StateObject private var viewModel: ImageViewModel
     
-    init(url: String, defaultImage: String, imageService: ImageServiceProtocol) {
+    init(url: String, defaultImage: String?, imageService: ImageServiceProtocol) {
         _viewModel = StateObject(wrappedValue: ImageViewModel(url: url, defaultImage: defaultImage, imageService: imageService))
     }
     
@@ -22,7 +22,7 @@ struct ImageView: View {
         }
         .task {
             viewModel.isLoading = true
-            await viewModel.fetchData()
+            await viewModel.fetchImage()
         }
     }
 }

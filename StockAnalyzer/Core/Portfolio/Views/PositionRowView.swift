@@ -15,10 +15,10 @@ struct PositionRowView: View {
                     Spacer()
                     Text("$\(String(format: "%.2f", viewModel.position.investedAmount))")
                     Spacer()
-                    Text(viewModel.difference.formatedValue)
+                    Text(viewModel.difference.formattedPrice)
                         .foregroundColor(viewModel.difference >= 0 ? Color.green : Color.red)
                     Spacer()
-                    Text(viewModel.currentValue.formatedValue)
+                    Text(viewModel.currentValue.formattedPrice)
                 }
                 .padding(.horizontal, 12)
                 .padding(.vertical, 5)
@@ -33,6 +33,6 @@ struct PositionRowView: View {
 struct PositionRowView_Previews: PreviewProvider {
     static let position = Position(date: "2020-02-02", units: 2.0, price: 132.5)
     static var previews: some View {
-        PositionRowView(viewModel: PositionRowViewModel(position: position, stockService: StockService(symbol: "AAPL")))
+        PositionRowView(viewModel: PositionRowViewModel(position: position, stockService: StockService(stockSymbol: "AAPL")))
     }
 }

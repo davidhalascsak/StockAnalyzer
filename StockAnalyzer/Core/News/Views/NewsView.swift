@@ -88,6 +88,6 @@ struct NewsView: View {
 
 struct WatchlistView_Previews: PreviewProvider {
     static var previews: some View {
-        NewsView(newsService: MockNewsService(symbol: nil))
+        NewsView(newsService: MockNewsService(stockSymbol: nil))
     }
 }

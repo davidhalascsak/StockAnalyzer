@@ -2,9 +2,9 @@ import Foundation
 import Firebase
 
 class MockDatabase {
-    var users: [CurrentUser] = [
-        CurrentUser(id: "asd123", username: "david", email: "david@gmail.com", country: "Hungary", imageUrl: "https://test_image.com"),
-        CurrentUser(id: "asd321", username: "bob", email: "bob@gmail.com", country: "Hungary", imageUrl: "test_image.com")
+    var users: [User] = [
+        User(id: "asd123", username: "david", email: "david@gmail.com", country: "Hungary", imageUrl: "https://test_image.com"),
+        User(id: "asd321", username: "bob", email: "bob@gmail.com", country: "Hungary", imageUrl: "test_image.com")
     ]
     var authUsers: [TestAuthenticationUser] = [
         TestAuthenticationUser(id: "asd123", email: "david@domain.com", password: "asd123", isVerified: true),
@@ -49,11 +49,11 @@ class MockDatabase {
                          sentiment: "Positive", tickers: ["Amazon"])
     ]
     
-    var searchResult: [Search] = [
-        Search(symbol: "AAPL", name: "Apple", exchangeShortName: "NASDAQ"),
-        Search(symbol: "MSFT", name: "Microsoft", exchangeShortName: "NASDAQ"),
-        Search(symbol: "DIS", name: "Disney", exchangeShortName: "NYSE"),
-        Search(symbol: "MA", name: "Mastercard", exchangeShortName: "NYSE")
+    var searchResult: [SearchResult] = [
+        SearchResult(stockSymbol: "AAPL", name: "Apple", exchangeShortName: "NASDAQ"),
+        SearchResult(stockSymbol: "MSFT", name: "Microsoft", exchangeShortName: "NASDAQ"),
+        SearchResult(stockSymbol: "DIS", name: "Disney", exchangeShortName: "NYSE"),
+        SearchResult(stockSymbol: "MA", name: "Mastercard", exchangeShortName: "NYSE")
     ]
     
     var assets: [Asset] = [

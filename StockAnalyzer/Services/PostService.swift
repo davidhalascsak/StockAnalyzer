@@ -6,9 +6,9 @@ import Firebase
 class PostService: PostServiceProtocol {
     private var db = Firestore.firestore()
     
-    func fetchPosts(symbol: String?) async -> [Post] {       
-        if let symbol = symbol {
-            let snapshot = try? await db.collection("posts").whereField("symbol", isEqualTo: symbol).order(by: "timestamp", descending: true).getDocuments()
+    func fetchPosts(stockSymbol: String?) async -> [Post] {       
+        if let stockSymbol = stockSymbol {
+            let snapshot = try? await db.collection("posts").whereField("symbol", isEqualTo: stockSymbol).order(by: "timestamp", descending: true).getDocuments()
             guard let snapshot = snapshot else {return []}
             
             return snapshot.documents.compactMap({try? $0.data(as: Post.self)})
@@ -70,13 +70,13 @@ class PostService: PostServiceProtocol {
         }
     }
     
-    func createPost(body: String, symbol: String?) async -> Bool {
+    func createPost(body: String, stockSymbol: String?) async -> Bool {
         guard let userId = Auth.auth().currentUser?.uid else {return false}
         
         var data: [String : Any]
         
-        if let symbol = symbol {
-            data = ["body": body, "likeCount": 0, "commentCount": 0, "userRef": userId, "symbol": symbol, "timestamp": Timestamp(date: Date())]
+        if let stockSymbol = stockSymbol {
+            data = ["body": body, "likeCount": 0, "commentCount": 0, "userRef": userId, "symbol": stockSymbol, "timestamp": Timestamp(date: Date())]
         } else {
             data = ["body": body, "likeCount": 0, "commentCount": 0, "userRef": userId, "timestamp": Timestamp(date: Date())]
         }
@@ -99,8 +99,8 @@ class MockPostService: PostServiceProtocol {
         self.currentUser = currentUser
     }
     
-    func fetchPosts(symbol: String?) async -> [Post] {
-        if let symbol = symbol {
+    func fetchPosts(stockSymbol: String?) async -> [Post] {
+        if let symbol = stockSymbol {
             return db.posts.filter({$0.stockSymbol == symbol})
         } else {
             return db.posts
@@ -140,9 +140,9 @@ class MockPostService: PostServiceProtocol {
         return false
     }
     
-    func createPost(body: String, symbol: String?) async -> Bool{
+    func createPost(body: String, stockSymbol: String?) async -> Bool{
         guard let userId = currentUser?.id else {return false}
-        if let symbol = symbol {
+        if let symbol = stockSymbol {
             let newPost = Post(userRef: userId, body: body, likeCount: 0, commentCount: 0, stockSymbol: symbol, timestamp: Timestamp())
             db.posts.append(newPost)
             
@@ -156,9 +156,9 @@ class MockPostService: PostServiceProtocol {
 }
 
 protocol PostServiceProtocol {
-    func fetchPosts(symbol: String?) async -> [Post]
+    func fetchPosts(stockSymbol: String?) async -> [Post]
     func checkIfPostIsLiked(post: Post) async -> Bool
     func likePost(post: Post) async -> Bool
     func unlikePost(post: Post) async -> Bool
-    func createPost(body: String, symbol: String?) async -> Bool
+    func createPost(body: String, stockSymbol: String?) async -> Bool
 }

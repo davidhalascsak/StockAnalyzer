@@ -36,7 +36,7 @@ class ImageService: ImageServiceProtocol {
         }
     }
     
-    func removeImage(url: String) async -> Bool {
+    func deleteImage(url: String) async -> Bool {
         let reference = storage.reference(forURL: url)
         do {
             try await reference.delete()
@@ -88,7 +88,7 @@ class MockImageService: ImageServiceProtocol {
         return imageUrl
     }
     
-    func removeImage(url: String) async -> Bool {
+    func deleteImage(url: String) async -> Bool {
         let result = db.imageUrls.removeValue(forKey: url)
         return (result == nil) ? false : true
     }
@@ -101,14 +101,12 @@ class MockImageService: ImageServiceProtocol {
             return false
         }
     }
-    
-    
 }
 
 protocol ImageServiceProtocol {
     func fetchImageData(url: String) async -> Data?
     func convertDataToImage(imageData: Data) -> UIImage?
     func uploadImage(image: UIImage) async -> String?
-    func removeImage(url: String) async -> Bool
+    func deleteImage(url: String) async -> Bool
     func updateImage(url: String, data: Data) async -> Bool
 }

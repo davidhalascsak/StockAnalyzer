@@ -23,7 +23,7 @@ class FeedViewModel: ObservableObject {
     }
     
     func fetchPosts() async {
-        posts = await postService.fetchPosts(symbol: symbol)
+        posts = await postService.fetchPosts(stockSymbol: symbol)
 
         for i in 0..<(posts.count) {
             let userRef = posts[i].userRef

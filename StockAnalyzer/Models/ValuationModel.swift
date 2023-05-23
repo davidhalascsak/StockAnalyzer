@@ -1,12 +1,21 @@
 import Foundation
 
 struct Ratios: Decodable {
-    let peRatioTTM: Double
-    let pegRatioTTM: Double
-    let priceToSalesRatioTTM: Double
-    let priceToBookRatioTTM: Double
-    let dividendPerShareTTM: Double
-    let dividendYielPercentageTTM: Double
+    let peRatio: Double
+    let pegRatio: Double
+    let priceToSalesRatio: Double
+    let priceToBookRatio: Double
+    let dividendPerShare: Double
+    let dividendYieldPercentage: Double
+    
+    enum CodingKeys: String, CodingKey {
+        case peRatio = "peRatioTTM"
+        case pegRatio = "pegRatioTTM"
+        case priceToSalesRatio = "priceToSalesRatioTTM"
+        case priceToBookRatio = "priceToBookRatioTTM"
+        case dividendPerShare = "dividendPerShareTTM"
+        case dividendYieldPercentage = "dividendYielPercentageTTM"
+    }
 }
 
 struct GrowthRates: Decodable {
@@ -20,6 +29,11 @@ struct MarketCap: Decodable {
 }
 
 struct Metrics: Decodable {
-    let netIncomePerShareTTM: Double
-    let freeCashFlowPerShareTTM: Double
+    let netIncomePerShare: Double
+    let freeCashFlowPerShare: Double
+    
+    enum CodingKeys: String, CodingKey {
+        case netIncomePerShare = "netIncomePerShareTTM"
+        case freeCashFlowPerShare = "freeCashFlowPerShareTTM"
+    }
 }

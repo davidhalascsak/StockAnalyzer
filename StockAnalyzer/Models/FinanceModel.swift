@@ -9,7 +9,7 @@ struct IncomeStatement: Codable, Hashable {
     let incomeBeforeTax: Int
     let incomeTaxExpense: Int
     let netIncome: Int
-    let weightedAverageShsOut: Int
+    let shareOutstanding: Int
     
     var grossMargin: Int {
         return Int(Double(grossProfit) / Double(revenue) * 100)
@@ -19,6 +19,18 @@ struct IncomeStatement: Codable, Hashable {
     }
     var netMargin: Int {
         return Int(Double(netIncome) / Double(revenue) * 100)
+    }
+    
+    enum CodingKeys: String, CodingKey {
+        case date
+        case reportedCurrency
+        case revenue
+        case grossProfit
+        case operatingIncome
+        case incomeBeforeTax
+        case incomeTaxExpense
+        case netIncome
+        case shareOutstanding = "weightedAverageShsOut"
     }
 }
 

@@ -1,14 +1,14 @@
 import Foundation
 
 class ChartService: ChartServiceProtocol {
-    let symbol: String
+    let stockSymbol: String
     
-    init(symbol: String) {
-        self.symbol = symbol
+    init(stockSymbol: String) {
+        self.stockSymbol = stockSymbol
     }
     
     func get5Min() async -> [HistoricalPrice] {
-        guard let url = URL(string:  "https://financialmodelingprep.com/api/v3/historical-chart/5min/\(symbol)?apikey=\(ApiKeys.financeApi)")
+        guard let url = URL(string:  "https://financialmodelingprep.com/api/v3/historical-chart/5min/\(stockSymbol)?apikey=\(ApiKeys.financeApi)")
         else {return []}
         
         do {
@@ -22,7 +22,7 @@ class ChartService: ChartServiceProtocol {
     }
     
     func getHourly() async -> [HistoricalPrice] {
-        guard let url = URL(string:  "https://financialmodelingprep.com/api/v3/historical-chart/1hour/\(symbol)?apikey=\(ApiKeys.financeApi)")
+        guard let url = URL(string:  "https://financialmodelingprep.com/api/v3/historical-chart/1hour/\(stockSymbol)?apikey=\(ApiKeys.financeApi)")
         else {return []}
         
         do {
@@ -42,7 +42,7 @@ class ChartService: ChartServiceProtocol {
         
         let startDate = Calendar.current.date(byAdding: .year, value: -1, to: Date())!
         
-        guard let url = URL(string: "https://financialmodelingprep.com/api/v3/historical-price-full/\(symbol)?from=\(formatter.string(from: startDate))&to=\(formatter.string(from: Date()))&apikey=\(ApiKeys.financeApi)")
+        guard let url = URL(string: "https://financialmodelingprep.com/api/v3/historical-price-full/\(stockSymbol)?from=\(formatter.string(from: startDate))&to=\(formatter.string(from: Date()))&apikey=\(ApiKeys.financeApi)")
         else {return []}
         
         do {

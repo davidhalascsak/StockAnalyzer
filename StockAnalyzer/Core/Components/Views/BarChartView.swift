@@ -32,7 +32,7 @@ struct BarChartView: View {
     var headerView: some View {
         VStack(alignment: .leading) {
             HStack(alignment: .firstTextBaseline) {
-                Text(vm.formatPrice(price: vm.yData[vm.selectedDate ?? (vm.yData.count - 1)]))
+                Text(vm.yData[vm.selectedDate ?? (vm.yData.count - 1)].formattedPrice)
                     .foregroundColor(vm.yData[vm.selectedDate ?? (vm.yData.count - 1)] >= 0 ? Color.blue : Color.red)
                     .font(.title)
                     .fontWeight(.bold)

@@ -38,7 +38,7 @@ struct NewCommentView: View {
 }
 
 struct NewCommentView_Previews: PreviewProvider {
-    static let user = CurrentUser(username: "istengyermeke", email: "david.halascsak@gmail.com", country: "Hungary", imageUrl: "")
+    static let user = User(username: "istengyermeke", email: "david.halascsak@gmail.com", country: "Hungary", imageUrl: "")
     static let post = Post(id: "asd", userRef: "asddd", body: "Buy Tesla", likeCount: 5, commentCount: 5, stockSymbol: "TSLA", timestamp: Timestamp(), user: user, isLiked: false)
     static let viewModel = CommentSectionViewModel(post: post, commentService: MockCommentService(currentUser: nil), userService: MockUserService(), sessionService: MockSessionService(currentUser: nil), imageService: ImageService())
     

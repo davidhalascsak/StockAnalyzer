@@ -3,8 +3,10 @@ import FirebaseCore
 import FirebaseAuth
 
 struct SearchView: View {
-    @StateObject var vm: SearchViewModel
     @State var isSettingsPresented: Bool = false
+    
+    @StateObject var vm: SearchViewModel
+    
     
     init(searchService: SearchServiceProtocol) {
         _vm = StateObject(wrappedValue: SearchViewModel(searchService: searchService))
@@ -15,7 +17,7 @@ struct SearchView: View {
         NavigationStack {
             VStack {
                 headerView
-                searchBar
+                searchBarView
                 Divider()
                 resultView
                 Spacer()
@@ -63,7 +65,7 @@ struct SearchView: View {
         .padding(.horizontal)
     }
     
-    var searchBar: some View {
+    var searchBarView: some View {
         HStack {
             Image(systemName: "magnifyingglass")
                 .padding(.trailing, 2)
@@ -91,21 +93,21 @@ struct SearchView: View {
     
     var resultView: some View {
         List {
-            ForEach(vm.searchResult, id: \.self) { result in
+            ForEach(vm.searchResult, id: \.self) { elem in
                 ZStack {
                     HStack {
                         VStack(alignment: .leading) {
-                            Text(result.symbol)
+                            Text(elem.stockSymbol)
                                 .font(.headline)
-                            Text(result.name)
+                            Text(elem.name)
                                 .font(.subheadline)
                         }
                         Spacer()
-                        Text(result.exchangeShortName)
+                        Text(elem.exchangeShortName)
                     }
                     .padding(.horizontal, 15)
                     .padding(.vertical, 5)
-                    NavigationLink(destination: StockView(symbol: result.symbol, stockService: StockService(symbol: result.symbol), sessionService: SessionService())) {
+                    NavigationLink(destination: StockView(stockSymbol: elem.stockSymbol, stockService: StockService(stockSymbol: elem.stockSymbol), sessionService: SessionService())) {
                         EmptyView()
                     }
                     .opacity(0)

@@ -11,7 +11,7 @@ final class PriceViewModel_Tests: XCTestCase {
         let vm = PriceViewModel(symbol: symbol, currency: currency, stockService: MockStockService())
         
         //When
-        await vm.fetchData()
+        await vm.fetchPrice()
         
         //Then
         XCTAssertEqual(vm.stockPrice?.price, 110)

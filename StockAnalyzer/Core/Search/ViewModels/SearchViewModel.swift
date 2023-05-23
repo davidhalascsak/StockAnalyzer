@@ -3,7 +3,7 @@ import Foundation
 @MainActor
 class SearchViewModel: ObservableObject {
     @Published var searchText: String = ""
-    @Published var searchResult: [Search] = []
+    @Published var searchResult: [SearchResult] = []
     @Published var searchTask: Task<(), Error>?
     
     let searchService: SearchServiceProtocol

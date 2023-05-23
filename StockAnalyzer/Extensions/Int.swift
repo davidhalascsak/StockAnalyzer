@@ -1,10 +1,6 @@
 import Foundation
 
-extension Double {
-    var roundedString: String {
-        String(format: "%.2f", self)
-    }
-    
+extension Int {
     var formattedPrice: String {
         var priceAsString: String = String(self)
         var prefix = ""
@@ -43,8 +39,6 @@ extension Double {
             result.append("T")
         }
         
-        return "\(prefix)$\(result)"
+        return "\(prefix)\(result)"
     }
 }
-
-    

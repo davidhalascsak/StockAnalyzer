@@ -159,14 +159,14 @@ class AuthViewModel: ObservableObject {
             alertText = "The email is already in use!"
             showAlert.toggle()
             
-            _ = await imageService.removeImage(url: imageUrl)
+            _ = await imageService.deleteImage(url: imageUrl)
             
             return
         }
         
         if let userId = self.sessionService.getUserId() {
             
-            let newUser = CurrentUser(id: userId, username: userData.username, email: userData.email, country: userData.country, imageUrl: imageUrl)
+            let newUser = User(id: userId, username: userData.username, email: userData.email, country: userData.country, imageUrl: imageUrl)
             
             do {
                 try await userService.createUser(user: newUser)
@@ -175,7 +175,7 @@ class AuthViewModel: ObservableObject {
                 alertText = "Error while saving the user!"
                 showAlert.toggle()
                 
-                _ = await imageService.removeImage(url: imageUrl)
+                _ = await imageService.deleteImage(url: imageUrl)
                 _ = await sessionService.deleteUser()
                 return
             }
@@ -187,7 +187,7 @@ class AuthViewModel: ObservableObject {
             alertText = "Error while creating the user object!"
             showAlert.toggle()
             
-            _ = await imageService.removeImage(url: imageUrl)
+            _ = await imageService.deleteImage(url: imageUrl)
             _ = await sessionService.deleteUser()
             
             return
@@ -214,7 +214,7 @@ class AuthViewModel: ObservableObject {
     }
     
     private func isValidEmail(email: String) -> Bool {
-        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+.[A-Za-z]{2,64}"
         let emailPredicate = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
         return emailPredicate.evaluate(with: email)
     }

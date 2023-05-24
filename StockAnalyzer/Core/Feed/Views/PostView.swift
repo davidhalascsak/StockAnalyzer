@@ -29,7 +29,7 @@ struct PostView: View {
                 }
                 Text(viewModel.post.body)
                     .multilineTextAlignment(.leading)
-                    .padding(.vertical, 5)
+                    .padding(.vertical, 3)
                 HStack {
                     Image(systemName: viewModel.post.isLiked ?? false ? "hand.thumbsup.fill" : "hand.thumbsup")
                         .foregroundColor(viewModel.post.isLiked ?? false ? Color.blue : Color.primary)
@@ -56,7 +56,8 @@ struct PostView: View {
                     Text("\(viewModel.post.commentCount)")
                 }
             }
-            .padding()
+            .padding(.horizontal)
+            .padding(.vertical, 2)
             .frame(maxWidth: .infinity, alignment: .leading)
         }
     }

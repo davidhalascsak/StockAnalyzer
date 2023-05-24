@@ -48,7 +48,7 @@ struct SettingsView: View {
             .padding()
             .navigationBarBackButtonHidden()
             .navigationBarTitleDisplayMode(.inline)
-            .navigationTitle("User")
+            .navigationTitle("Settings")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Image(systemName: "xmark")

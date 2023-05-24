@@ -26,6 +26,8 @@ struct FeedView: View {
                 ProgressView()
                 Spacer()
             }
+            Divider()
+                .padding(.bottom, 5)
         }
         .task {
             viewModel.isLoading = true

@@ -48,7 +48,7 @@ struct FinancialView: View {
                 .fontWeight(.bold)
             HStack {
                 Spacer()
-                PieChartView(values: [vm.balanceSheet[0].totalAssets, vm.balanceSheet[0].totalLiabilities ], default_name: "Total Equity", names: ["Total Assets", "Total Liabilities"], formatter: {value in value.formattedPrice}, colors: [Color.green, Color.red])
+                PieChartView(default_name: "Total Equity", values: [vm.balanceSheet[0].totalAssets, vm.balanceSheet[0].totalLiabilities ], names: ["Total Assets", "Total Liabilities"], formatter: {value in value.formattedPrice}, colors: [Color.green, Color.red])
                 Spacer()
             }
             HStack {
@@ -59,7 +59,7 @@ struct FinancialView: View {
                 .padding(.vertical, 3)
                 Spacer()
                 VStack(alignment: .trailing, spacing: 3) {
-                    Text("\(vm.balanceSheet[0].netDebt)")
+                    Text("\(vm.balanceSheet[0].netDebt.formattedPrice)")
                     Text("\(vm.calculateDebtToEquity())")
                 }
                 .fontWeight(.semibold)

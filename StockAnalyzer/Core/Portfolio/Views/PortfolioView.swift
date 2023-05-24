@@ -1,7 +1,7 @@
 import SwiftUI
 import FirebaseCore
 import FirebaseAuth
-
+// current price = 110
 struct PortfolioView: View {
     @State var isSettingsPresented: Bool = false
     
@@ -99,7 +99,7 @@ struct PortfolioView: View {
     
     var portfolioView: some View {
         VStack {
-            HStack(spacing: 20) {
+            HStack {
                 Text("Assets")
                 Spacer()
                 Text("Invested")

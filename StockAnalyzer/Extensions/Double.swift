@@ -6,7 +6,7 @@ extension Double {
     }
     
     var formattedPrice: String {
-        var priceAsString: String = String(self)
+        var priceAsString: String = String(format: "%.1f", self)
         var prefix = ""
         var result: String
         
@@ -15,31 +15,35 @@ extension Double {
             priceAsString = priceAsString.trimmingCharacters(in: CharacterSet(charactersIn: "-"))
         }
         
-        if priceAsString.count % 3 == 0 {
-            if priceAsString.count >= 6 {
-                result = "\(priceAsString[0...2]).\(priceAsString[3...4])"
+        let stringParts = priceAsString.split(separator: ".")
+        let firstPart = stringParts[0].description
+        let secondPart = stringParts[1].description
+        
+        if firstPart.count % 3 == 0 {
+            if firstPart.count > 6 {
+                result = "\(firstPart[0...2]).\(firstPart[3...4])"
             } else {
-                result = priceAsString
+                result = firstPart.count == 6 ? firstPart : "\(firstPart).\(secondPart)"
             }
-        } else if priceAsString.count % 3 == 1 {
-            if priceAsString.count >= 7 {
-                result = "\(priceAsString[0]).\(priceAsString[1...2])"
+        } else if firstPart.count % 3 == 1 {
+            if firstPart.count >= 7 {
+                result = "\(firstPart[0]).\(firstPart[1...2])"
             } else {
-                result = priceAsString
+                result = "\(firstPart).\(secondPart)"
             }
         } else {
-            if priceAsString.count >= 8 {
-                result = "\(priceAsString[0...1]).\(priceAsString[2...3])"
+            if firstPart.count >= 8 {
+                result = "\(firstPart[0...1]).\(firstPart[2...3])"
             } else {
-                result = priceAsString
+                result = firstPart.count == 5 ? firstPart : "\(firstPart).\(secondPart)"
             }
         }
         
-        if priceAsString.count >= 7 && priceAsString.count < 10 {
+        if firstPart.count >= 7 && firstPart.count < 10 {
             result.append("M")
-        } else if 10 <= priceAsString.count && priceAsString.count < 13 {
+        } else if 10 <= firstPart.count && firstPart.count < 13 {
             result.append("B")
-        } else if priceAsString.count >= 13 {
+        } else if firstPart.count >= 13 {
             result.append("T")
         }
         

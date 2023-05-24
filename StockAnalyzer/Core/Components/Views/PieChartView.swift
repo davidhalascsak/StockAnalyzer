@@ -2,8 +2,8 @@ import SwiftUI
 
 public struct PieChartView: View {
     @State private var activeIndex: Int = -1
-    private let values: [Int]
     private let default_name: String
+    private let values: [Int]
     private let names: [String]
     private let formatter: (Int) -> String
     private var colors: [Color]
@@ -25,7 +25,7 @@ public struct PieChartView: View {
         return slices
     }
     
-    public init(values:[Int], default_name: String, names: [String], formatter: @escaping (Int) -> String, colors: [Color], widthFraction: CGFloat = 1.0, innerRadiusFraction: CGFloat = 0.70) {
+    public init(default_name: String, values:[Int], names: [String], formatter: @escaping (Int) -> String, colors: [Color], widthFraction: CGFloat = 1.0, innerRadiusFraction: CGFloat = 0.70) {
         self.values = values
         self.default_name = default_name
         self.names = names
@@ -90,7 +90,7 @@ public struct PieChartView: View {
 
 struct PieChartView_Previews: PreviewProvider {
     static var previews: some View {
-        PieChartView(values: [1300, 500, 300], default_name: "All", names: ["Rent", "Transport", "Education"], formatter: {value in String(format: "$%.0f", value)}, colors: [Color.green, Color.blue, Color.orange])
+        PieChartView(default_name: "All", values: [1300, 500, 300], names: ["Rent", "Transport", "Education"], formatter: {value in String(format: "$%.0f", value)}, colors: [Color.green, Color.blue, Color.orange])
     }
 }
 

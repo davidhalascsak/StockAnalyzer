@@ -1,7 +1,7 @@
 import SwiftUI
 import FirebaseCore
 import FirebaseAuth
-// current price = 110
+
 struct PortfolioView: View {
     @State var isSettingsPresented: Bool = false
     
@@ -13,41 +13,45 @@ struct PortfolioView: View {
     
     var body: some View {
         NavigationStack {
-            headerView
-            Divider()
-            if viewModel.isLoading == false {
-                if viewModel.assets.count == 0 {
-                    Spacer()
-                    Text(viewModel.sessionService.getUserId() == nil ? "Login to see your portfolio." : "Your portfolio is empty.")
-                    Spacer()
-                } else {
-                    portfolioView
-                    Divider()
-                    HStack {
+            VStack(spacing: 0) {
+                headerView
+                Divider()
+                if viewModel.isLoading == false {
+                    if viewModel.assets.count == 0 {
                         Spacer()
-                        VStack {
-                            Text(viewModel.investedAmount.formattedPrice)
-                            Text("Invested")
-                                .fontWeight(.semibold)
-                                .padding(.top, 1)
-                                
+                        Text(viewModel.sessionService.getUserId() == nil ? "Login to see your portfolio." : "Your portfolio is empty.")
+                        Spacer()
+                    } else {
+                        portfolioView
+                        Divider()
+                        HStack {
+                            Spacer()
+                            VStack {
+                                Text(viewModel.investedAmount.formattedPrice)
+                                Text("Invested")
+                                    .fontWeight(.semibold)
+                                    .padding(.top, 1)
+                                    
+                            }
+                            Spacer()
+                            VStack {
+                                Text(viewModel.difference.formattedPrice)
+                                    .foregroundColor(viewModel.difference == 0 ? Color.black : viewModel.difference > 0 ? Color.green : Color.red)
+                                Text("P / L")
+                                    .fontWeight(.semibold)
+                                    .padding(.top, 1)
+                                    
+                            }
+                            Spacer()
                         }
-                        Spacer()
-                        VStack {
-                            Text(viewModel.difference.formattedPrice)
-                                .foregroundColor(viewModel.difference == 0 ? Color.black : viewModel.difference > 0 ? Color.green : Color.red)
-                            Text("P / L")
-                                .fontWeight(.semibold)
-                                .padding(.top, 1)
-                                
-                        }
-                        Spacer()
                     }
+                } else {
+                    Spacer()
+                    ProgressView()
+                    Spacer()
                 }
-            } else {
-                Spacer()
-                ProgressView()
-                Spacer()
+                Divider()
+                    .padding(.bottom, 5)
             }
         }
         .fullScreenCover(isPresented: $isSettingsPresented, content: {

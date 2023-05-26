@@ -39,7 +39,7 @@ final class AuthViewModel_Tests: XCTestCase {
         //Then
         XCTAssertTrue(vm.showAlert)
         XCTAssertEqual("Error", vm.alertTitle)
-        XCTAssertEqual("The email must be at least 5 characters long!", vm.alertText)
+        XCTAssertEqual("The email format is not valid!", vm.alertText)
     }
     
     func test_AuthViewModel_login_emailShouldBeLongEnough() async throws {
@@ -49,7 +49,7 @@ final class AuthViewModel_Tests: XCTestCase {
         let vm = AuthViewModel(isLogin: isLogin, userService: MockUserService(), sessionService: MockSessionService(currentUser: authUser), imageService: MockImageService())
         
         //When
-        vm.userData.email = "n@d.c"
+        vm.userData.email = "n@d.hu"
         await vm.checkLogin()
         
         //Then
@@ -81,7 +81,7 @@ final class AuthViewModel_Tests: XCTestCase {
         let vm = AuthViewModel(isLogin: isLogin, userService: MockUserService(), sessionService: MockSessionService(currentUser: authUser), imageService: MockImageService())
         
         //When
-        vm.userData.email = "david@domain"
+        vm.userData.email = "david@domain."
         await vm.checkLogin()
         
         //Then
@@ -205,7 +205,7 @@ final class AuthViewModel_Tests: XCTestCase {
         //Then
         XCTAssertTrue(vm.showAlert)
         XCTAssertEqual("Error", vm.alertTitle)
-        XCTAssertEqual("The username must be at least 5 characters long!", vm.alertText)
+        XCTAssertEqual("The username must be at least 6 characters long!", vm.alertText)
     }
     
     
@@ -222,7 +222,7 @@ final class AuthViewModel_Tests: XCTestCase {
         //Then
         XCTAssertTrue(vm.showAlert)
         XCTAssertEqual("Error", vm.alertTitle)
-        XCTAssertEqual("The email must be at least 5 characters long!", vm.alertText)
+        XCTAssertEqual("The email format is not valid!", vm.alertText)
     }
     
     func test_AuthViewModel_registration_emailShouldBeShorterThanRequired() async throws {
@@ -239,7 +239,7 @@ final class AuthViewModel_Tests: XCTestCase {
         //Then
         XCTAssertTrue(vm.showAlert)
         XCTAssertEqual("Error", vm.alertTitle)
-        XCTAssertEqual("The email must be at least 5 characters long!", vm.alertText)
+        XCTAssertEqual("The email format is not valid!", vm.alertText)
     }
     
    func test_AuthViewModel_registration_emailShouldBeInvalid() async throws {
@@ -250,7 +250,7 @@ final class AuthViewModel_Tests: XCTestCase {
         
         //When
         vm.userData.username = "abcde"
-        vm.userData.email = "user@domain"
+        vm.userData.email = "user@domain."
         await vm.checkRegistration()
         
         //Then

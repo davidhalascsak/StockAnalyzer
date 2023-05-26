@@ -66,9 +66,6 @@ final class BarChartViewModel_Tests: XCTestCase {
     
     func test_BarChartViewModel_formatPrice() {
         // Given
-        let isInverted: Bool = Bool.random()
-        let title: String = "Income"
-        let vm = BarChartViewModel(title: title, xData: ["2020", "2021", "2022", "2023","2024","2025","2026","2027","2028","2029","2030"], yData: [0, 1,2,3,4,5,6,7,8,-9,-9], intervals: [1,3,5,10], isInverted: isInverted, reversePrefix: false)
         
         //When
         let num1 = 0
@@ -83,16 +80,15 @@ final class BarChartViewModel_Tests: XCTestCase {
         let num10 = 1000000000000
         
         //Then
-        XCTAssertEqual("0", vm.formatPrice(price: num1))
-        XCTAssertEqual("-1.00B", vm.formatPrice(price: num2))
-        XCTAssertEqual("-1.00B", vm.formatPrice(price: num2))
-        XCTAssertEqual("-10000", vm.formatPrice(price: num3))
-        XCTAssertEqual("100", vm.formatPrice(price: num4))
-        XCTAssertEqual("1000", vm.formatPrice(price: num5))
-        XCTAssertEqual("10000", vm.formatPrice(price: num6))
-        XCTAssertEqual("1.00M", vm.formatPrice(price: num7))
-        XCTAssertEqual("10.00B", vm.formatPrice(price: num8))
-        XCTAssertEqual("100.00B", vm.formatPrice(price: num9))
-        XCTAssertEqual("1.00T", vm.formatPrice(price: num10))
+        XCTAssertEqual("0", num1.formattedPrice)
+        XCTAssertEqual("-1.00B", num2.formattedPrice)
+        XCTAssertEqual("-10000", num3.formattedPrice)
+        XCTAssertEqual("100", num4.formattedPrice)
+        XCTAssertEqual("1000", num5.formattedPrice)
+        XCTAssertEqual("10000", num6.formattedPrice)
+        XCTAssertEqual("1.00M", num7.formattedPrice)
+        XCTAssertEqual("10.00B", num8.formattedPrice)
+        XCTAssertEqual("100.00B", num9.formattedPrice)
+        XCTAssertEqual("1.00T", num10.formattedPrice)
     }
 }

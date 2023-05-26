@@ -17,7 +17,7 @@ struct MainView: View {
     var body: some View {
         NavigationStack {
             TabView(selection: $selectedTab) {
-                FeedView(symbol: nil, userService: UserService(), postService: PostService(), sessionService: SessionService(), imageService: ImageService())
+                FeedView(stockSymbol: nil, userService: UserService(), postService: PostService(), sessionService: SessionService(), imageService: ImageService())
                     .tabItem {
                         Image(systemName: "house")
                     }

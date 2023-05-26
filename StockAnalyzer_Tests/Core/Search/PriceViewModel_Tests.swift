@@ -6,9 +6,9 @@ import XCTest
 final class PriceViewModel_Tests: XCTestCase {
     func test_PriceViewModel_FetchPrice() async throws {
         //Given
-        let symbol: String = "AAPL"
+        let stockSymbol: String = "AAPL"
         let currency: String = "USD"
-        let vm = PriceViewModel(symbol: symbol, currency: currency, stockService: MockStockService())
+        let vm = PriceViewModel(stockSymbol: stockSymbol, currency: currency, stockService: MockStockService())
         
         //When
         await vm.fetchPrice()

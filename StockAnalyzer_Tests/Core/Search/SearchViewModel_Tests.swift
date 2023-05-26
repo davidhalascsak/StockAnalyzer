@@ -26,7 +26,7 @@ final class SearchViewModel_Tests: XCTestCase {
         
         //Then
         XCTAssertEqual(1, vm.searchResult.count)
-        XCTAssertTrue(vm.searchResult.contains(where: {$0.symbol == "AAPL"}))
+        XCTAssertTrue(vm.searchResult.contains(where: {$0.stockSymbol == "AAPL"}))
     }
     
     func test_SearchViewModel_fetchData_resultShouldBeTwo() async throws {
@@ -39,8 +39,8 @@ final class SearchViewModel_Tests: XCTestCase {
         
         //Then
         XCTAssertEqual(2, vm.searchResult.count)
-        XCTAssertTrue(vm.searchResult.contains(where: {$0.symbol == "MSFT"}))
-        XCTAssertTrue(vm.searchResult.contains(where: {$0.symbol == "MA"}))
+        XCTAssertTrue(vm.searchResult.contains(where: {$0.stockSymbol == "MSFT"}))
+        XCTAssertTrue(vm.searchResult.contains(where: {$0.stockSymbol == "MA"}))
     }
     
     func test_SearchViewModel_resetSearch() async throws {

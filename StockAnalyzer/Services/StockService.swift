@@ -120,11 +120,11 @@ class MockStockService: StockServiceProtocol {
     }
     
     func fetchPriceInRealTime() async -> CurrentPrice? {
-        return CurrentPrice(price: 110, change: 10.0, changeInPercentage: 10.0)
+        return CurrentPrice(price: 110.00, change: 10.00, changeInPercentage: 10.00)
     }
     
     func fetchPriceAtDate(date: String) async -> Double {
-        return 110
+        return 110.00
     }
     
     func fetchMarketCap() async -> Int {

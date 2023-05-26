@@ -29,12 +29,16 @@ class SessionService: ObservableObject, SessionServiceProtocol {
         return Auth.auth().currentUser?.uid
     }
     
+    func isUserVerified() async -> Bool {
+        return Auth.auth().currentUser?.isEmailVerified ?? false
+    }
+    
     func login(email: String, password: String) async throws {
         try await Auth.auth().signIn(withEmail: email, password: password)
     }
     
-    func isUserVerified() async -> Bool {
-        return Auth.auth().currentUser?.isEmailVerified ?? false
+    func register(email: String, password: String) async throws {
+        try await Auth.auth().createUser(withEmail: email, password: password)
     }
     
     func logout() -> Bool {
@@ -45,10 +49,6 @@ class SessionService: ObservableObject, SessionServiceProtocol {
         } catch {
             return false
         }
-    }
-    
-    func register(email: String, password: String) async throws {
-        try await Auth.auth().createUser(withEmail: email, password: password)
     }
     
     func deleteUser() async -> Bool {
@@ -77,6 +77,11 @@ class MockSessionService: ObservableObject, SessionServiceProtocol {
         return self.currentUser?.id ?? nil
     }
     
+    func isUserVerified() async -> Bool {
+        let user = db.authUsers.first(where: {$0.email == currentUser?.email})
+        return user?.isVerified ?? false
+    }
+    
     func login(email: String, password: String) async throws {
         let user: TestAuthenticationUser?
         user = db.authUsers.first(where: {$0.email == email}) ?? nil
@@ -89,21 +94,7 @@ class MockSessionService: ObservableObject, SessionServiceProtocol {
         
         self.currentUser = user
     }
-    
-    func isUserVerified() async -> Bool {
-        let user = db.authUsers.first(where: {$0.email == currentUser?.email})
-        return user?.isVerified ?? false
-    }
-    
-    func logout() -> Bool {
-        if currentUser != nil {
-            currentUser = nil
-            return true
-        } else {
-            return false
-        }
-    }
-    
+
     func register(email: String, password: String) async throws {
         let data = db.authUsers.first(where: {$0.email == email})
         if data != nil {
@@ -115,10 +106,25 @@ class MockSessionService: ObservableObject, SessionServiceProtocol {
         currentUser = newAuthUser
     }
     
+    func logout() -> Bool {
+        if currentUser != nil {
+            currentUser = nil
+            return true
+        } else {
+            return false
+        }
+    }
+    
     func deleteUser() async -> Bool {
-        db.authUsers.removeAll(where: {$0.id == currentUser?.id})
+        let result = db.authUsers.contains(where: {$0.id == currentUser?.id})
         
-        return true
+        if result {
+            db.authUsers.removeAll(where: {$0.id == currentUser?.id})
+            
+            return true
+        } else {
+            return false
+        }
     }
     
     func sendVerificationEmail() async throws {}

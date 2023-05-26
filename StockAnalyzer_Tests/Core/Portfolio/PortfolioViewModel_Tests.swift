@@ -25,7 +25,7 @@ final class PortfolioViewModel_Tests: XCTestCase {
         //When
         await vm.fetchAssets()
         let asset = vm.assets[0]
-        await vm.deleteAsset(at: 0)
+        await vm.deleteAsset(at: IndexSet(integer: 0))
         
         //
         XCTAssertEqual(1, vm.assets.count)

@@ -7,9 +7,9 @@ final class ChartViewModel_Tests: XCTestCase {
     
     func test_ChartViewModel_FetchData_OneDay() async throws {
         //Given
-        let symbol: String = "AAPL"
+        let stockSymbol: String = "AAPL"
         let exchange: String = "NASDAQ"
-        let vm = ChartViewModel(symbol: symbol, exchange: exchange, chartService: MockChartService(symbol: symbol))
+        let vm = ChartViewModel(stockSymbol: stockSymbol, exchange: exchange, chartService: MockChartService(stockSymbol: stockSymbol))
         
         //When
         vm.selectedType = .oneDay
@@ -22,9 +22,9 @@ final class ChartViewModel_Tests: XCTestCase {
     
     func test_ChartViewModel_FetchData_OneWeek() async throws {
         //Given
-        let symbol: String = "AAPL"
+        let stockSymbol: String = "AAPL"
         let exchange: String = "NASDAQ"
-        let vm = ChartViewModel(symbol: symbol, exchange: exchange, chartService: MockChartService(symbol: symbol))
+        let vm = ChartViewModel(stockSymbol: stockSymbol, exchange: exchange, chartService: MockChartService(stockSymbol: stockSymbol))
         
         //When
         vm.selectedType = .oneWeek
@@ -37,9 +37,9 @@ final class ChartViewModel_Tests: XCTestCase {
     
     func test_ChartViewModel_FetchData_OneMonth() async throws {
         //Given
-        let symbol: String = "AAPL"
+        let stockSymbol: String = "AAPL"
         let exchange: String = "NASDAQ"
-        let vm = ChartViewModel(symbol: symbol, exchange: exchange, chartService: MockChartService(symbol: symbol))
+        let vm = ChartViewModel(stockSymbol: stockSymbol, exchange: exchange, chartService: MockChartService(stockSymbol: stockSymbol))
         
         //When
         vm.selectedType = .oneMonth
@@ -52,9 +52,9 @@ final class ChartViewModel_Tests: XCTestCase {
     
     func test_ChartViewModel_FetchData_OneYear() async throws {
         //Given
-        let symbol: String = "AAPL"
+        let stockSymbol: String = "AAPL"
         let exchange: String = "NASDAQ"
-        let vm = ChartViewModel(symbol: symbol, exchange: exchange, chartService: MockChartService(symbol: symbol))
+        let vm = ChartViewModel(stockSymbol: stockSymbol, exchange: exchange, chartService: MockChartService(stockSymbol: stockSymbol))
         
         //When
         vm.selectedType = .oneYear
@@ -67,9 +67,9 @@ final class ChartViewModel_Tests: XCTestCase {
     
     func test_ChartViewModel_get5Min_DataNotEmpty() async throws {
         //Given
-        let symbol: String = "AAPL"
+        let stockSymbol: String = "AAPL"
         let exchange: String = "NASDAQ"
-        let vm = ChartViewModel(symbol: symbol, exchange: exchange, chartService: MockChartService(symbol: symbol))
+        let vm = ChartViewModel(stockSymbol: stockSymbol, exchange: exchange, chartService: MockChartService(stockSymbol: stockSymbol))
         
         //When
         await vm.get5Min()
@@ -84,9 +84,9 @@ final class ChartViewModel_Tests: XCTestCase {
     
     func test_ChartViewModel_get5Min_DataEmpty() async throws {
         //Given
-        let symbol: String = "MSFT"
+        let stockSymbol: String = "MSFT"
         let exchange: String = "NASDAQ"
-        let vm = ChartViewModel(symbol: symbol, exchange: exchange, chartService: MockChartService(symbol: symbol))
+        let vm = ChartViewModel(stockSymbol: stockSymbol, exchange: exchange, chartService: MockChartService(stockSymbol: stockSymbol))
         
         //When
         await vm.get5Min()
@@ -101,9 +101,9 @@ final class ChartViewModel_Tests: XCTestCase {
     
     func test_ChartViewModel_getOneHour_DataNotEmpty() async throws {
         //Given
-        let symbol: String = "AAPL"
+        let stockSymbol: String = "AAPL"
         let exchange: String = "NASDAQ"
-        let vm = ChartViewModel(symbol: symbol, exchange: exchange, chartService: MockChartService(symbol: symbol))
+        let vm = ChartViewModel(stockSymbol: stockSymbol, exchange: exchange, chartService: MockChartService(stockSymbol: stockSymbol))
         
         //When
         await vm.getHourly()
@@ -118,9 +118,9 @@ final class ChartViewModel_Tests: XCTestCase {
     
     func test_ChartViewModel_getOneHour_DataEmpty() async throws {
         //Given
-        let symbol: String = "MSFT"
+        let stockSymbol: String = "MSFT"
         let exchange: String = "NASDAQ"
-        let vm = ChartViewModel(symbol: symbol, exchange: exchange, chartService: MockChartService(symbol: symbol))
+        let vm = ChartViewModel(stockSymbol: stockSymbol, exchange: exchange, chartService: MockChartService(stockSymbol: stockSymbol))
         
         //When
         await vm.getHourly()
@@ -135,9 +135,9 @@ final class ChartViewModel_Tests: XCTestCase {
     
     func test_ChartViewModel_getDaily_DataNotEmpty() async throws {
         //Given
-        let symbol: String = "AAPL"
+        let stockSymbol: String = "AAPL"
         let exchange: String = "NASDAQ"
-        let vm = ChartViewModel(symbol: symbol, exchange: exchange, chartService: MockChartService(symbol: symbol))
+        let vm = ChartViewModel(stockSymbol: stockSymbol, exchange: exchange, chartService: MockChartService(stockSymbol: stockSymbol))
         
         //When
         await vm.getDaily()
@@ -152,9 +152,9 @@ final class ChartViewModel_Tests: XCTestCase {
     
     func test_ChartViewModel_getDaily_DataEmpty() async throws {
         //Given
-        let symbol: String = "MSFT"
+        let stockSymbol: String = "MSFT"
         let exchange: String = "NASDAQ"
-        let vm = ChartViewModel(symbol: symbol, exchange: exchange, chartService: MockChartService(symbol: symbol))
+        let vm = ChartViewModel(stockSymbol: stockSymbol, exchange: exchange, chartService: MockChartService(stockSymbol: stockSymbol))
         
         //When
         await vm.getDaily()
@@ -169,9 +169,9 @@ final class ChartViewModel_Tests: XCTestCase {
     
     func test_ChartViewModel_DailyMinMax() async throws {
         //Given
-        let symbol: String = "AAPL"
+        let stockSymbol: String = "AAPL"
         let exchange: String = "NASDAQ"
-        let vm = ChartViewModel(symbol: symbol, exchange: exchange, chartService: MockChartService(symbol: symbol))
+        let vm = ChartViewModel(stockSymbol: stockSymbol, exchange: exchange, chartService: MockChartService(stockSymbol: stockSymbol))
         
         
         //When
@@ -184,9 +184,9 @@ final class ChartViewModel_Tests: XCTestCase {
     
     func test_ChartViewModel_WeeklyMinMax() async throws {
         //Given
-        let symbol: String = "AAPL"
+        let stockSymbol: String = "AAPL"
         let exchange: String = "NASDAQ"
-        let vm = ChartViewModel(symbol: symbol, exchange: exchange, chartService: MockChartService(symbol: symbol))
+        let vm = ChartViewModel(stockSymbol: stockSymbol, exchange: exchange, chartService: MockChartService(stockSymbol: stockSymbol))
         
         
         //When
@@ -200,9 +200,9 @@ final class ChartViewModel_Tests: XCTestCase {
     
     func test_ChartViewModel_MonthlyMinMax() async throws {
         //Given
-        let symbol: String = "AAPL"
+        let stockSymbol: String = "AAPL"
         let exchange: String = "NASDAQ"
-        let vm = ChartViewModel(symbol: symbol, exchange: exchange, chartService: MockChartService(symbol: symbol))
+        let vm = ChartViewModel(stockSymbol: stockSymbol, exchange: exchange, chartService: MockChartService(stockSymbol: stockSymbol))
         
         
         //When
@@ -215,9 +215,9 @@ final class ChartViewModel_Tests: XCTestCase {
     
     func test_ChartViewModel_YearlyMinMax() async throws {
         //Given
-        let symbol: String = "AAPL"
+        let stockSymbol: String = "AAPL"
         let exchange: String = "NASDAQ"
-        let vm = ChartViewModel(symbol: symbol, exchange: exchange, chartService: MockChartService(symbol: symbol))
+        let vm = ChartViewModel(stockSymbol: stockSymbol, exchange: exchange, chartService: MockChartService(stockSymbol: stockSymbol))
         
         //When
         await vm.getDaily()
@@ -228,9 +228,9 @@ final class ChartViewModel_Tests: XCTestCase {
     }
     
     func test_ChartViewModel_xAxisChartData_OneDay() async throws {
-        let symbol: String = "AAPL"
+        let stockSymbol: String = "AAPL"
         let exchange: String = "NASDAQ"
-        let vm = ChartViewModel(symbol: symbol, exchange: exchange, chartService: MockChartService(symbol: symbol))
+        let vm = ChartViewModel(stockSymbol: stockSymbol, exchange: exchange, chartService: MockChartService(stockSymbol: stockSymbol))
         
         //When
         vm.selectedType = .oneDay
@@ -245,9 +245,9 @@ final class ChartViewModel_Tests: XCTestCase {
     }
     
     func test_ChartViewModel_xAxisChartData_OneWeak() async throws {
-        let symbol: String = "AAPL"
+        let stockSymbol: String = "AAPL"
         let exchange: String = "NASDAQ"
-        let vm = ChartViewModel(symbol: symbol, exchange: exchange, chartService: MockChartService(symbol: symbol))
+        let vm = ChartViewModel(stockSymbol: stockSymbol, exchange: exchange, chartService: MockChartService(stockSymbol: stockSymbol))
         
         //When
         vm.selectedType = .oneWeek
@@ -262,9 +262,9 @@ final class ChartViewModel_Tests: XCTestCase {
     }
     
     func test_ChartViewModel_xAxisChartData_OneMonth() async throws {
-        let symbol: String = "AAPL"
+        let stockSymbol: String = "AAPL"
         let exchange: String = "NASDAQ"
-        let vm = ChartViewModel(symbol: symbol, exchange: exchange, chartService: MockChartService(symbol: symbol))
+        let vm = ChartViewModel(stockSymbol: stockSymbol, exchange: exchange, chartService: MockChartService(stockSymbol: stockSymbol))
         
         //When
         vm.selectedType = .oneMonth
@@ -279,9 +279,9 @@ final class ChartViewModel_Tests: XCTestCase {
     }
     
     func test_ChartViewModel_xAxisChartData_OneYear() async throws {
-        let symbol: String = "AAPL"
+        let stockSymbol: String = "AAPL"
         let exchange: String = "NASDAQ"
-        let vm = ChartViewModel(symbol: symbol, exchange: exchange, chartService: MockChartService(symbol: symbol))
+        let vm = ChartViewModel(stockSymbol: stockSymbol, exchange: exchange, chartService: MockChartService(stockSymbol: stockSymbol))
         
         //When
         vm.selectedType = .oneYear
@@ -296,9 +296,9 @@ final class ChartViewModel_Tests: XCTestCase {
     }
     
     func test_ChartViewModel_yAxisChartDate_One() async throws {
-        let symbol: String = "AAPL"
+        let stockSymbol: String = "AAPL"
         let exchange: String = "NASDAQ"
-        let vm = ChartViewModel(symbol: symbol, exchange: exchange, chartService: MockChartService(symbol: symbol))
+        let vm = ChartViewModel(stockSymbol: stockSymbol, exchange: exchange, chartService: MockChartService(stockSymbol: stockSymbol))
         
         //When
         vm.selectedType = .oneDay
@@ -314,9 +314,9 @@ final class ChartViewModel_Tests: XCTestCase {
     }
     
     func test_ChartViewModel_yAxisChartDate_Two() async throws {
-        let symbol: String = "AAPL"
+        let stockSymbol: String = "AAPL"
         let exchange: String = "NASDAQ"
-        let vm = ChartViewModel(symbol: symbol, exchange: exchange, chartService: MockChartService(symbol: symbol))
+        let vm = ChartViewModel(stockSymbol: stockSymbol, exchange: exchange, chartService: MockChartService(stockSymbol: stockSymbol))
         
         //When
         vm.selectedType = .oneYear
@@ -332,9 +332,9 @@ final class ChartViewModel_Tests: XCTestCase {
     
     func test_ChartViewModel_FormatYAxisLabel_ShouldCeilIncrementIsTrue() throws {
         //Given
-        let symbol: String = "AAPL"
+        let stockSymbol: String = "AAPL"
         let exchange: String = "NASDAQ"
-        let vm = ChartViewModel(symbol: symbol, exchange: exchange, chartService: MockChartService(symbol: symbol))
+        let vm = ChartViewModel(stockSymbol: stockSymbol, exchange: exchange, chartService: MockChartService(stockSymbol: stockSymbol))
         
         //When
         let result = vm.formatYAxisLabel(value: 27.32, shouldCeilIncrement: true)
@@ -345,9 +345,9 @@ final class ChartViewModel_Tests: XCTestCase {
     
     func test_ChartViewModel_FormatYAxisLabel_ShouldCeilIncrementIsFalse() throws {
         //Given
-        let symbol: String = "AAPL"
+        let stockSymbol: String = "AAPL"
         let exchange: String = "NASDAQ"
-        let vm = ChartViewModel(symbol: symbol, exchange: exchange, chartService: MockChartService(symbol: symbol))
+        let vm = ChartViewModel(stockSymbol: stockSymbol, exchange: exchange, chartService: MockChartService(stockSymbol: stockSymbol))
         
         //When
         let result = vm.formatYAxisLabel(value: 27.32, shouldCeilIncrement: false)
@@ -358,10 +358,10 @@ final class ChartViewModel_Tests: XCTestCase {
     
     func test_ChartViewModel_getDateComponents_oneDay() throws {
         //Given
-        let symbol: String = "AAPL"
+        let stockSymbol: String = "AAPL"
         let exchange: String = "NASDAQ"
         var set = Set<DateComponents>()
-        let vm = ChartViewModel(symbol: symbol, exchange: exchange, chartService: MockChartService(symbol: symbol))
+        let vm = ChartViewModel(stockSymbol: stockSymbol, exchange: exchange, chartService: MockChartService(stockSymbol: stockSymbol))
         
         //When
         vm.selectedType = .oneDay
@@ -381,10 +381,10 @@ final class ChartViewModel_Tests: XCTestCase {
     
     func test_ChartViewModel_getDateComponents_oneWeek() throws {
         //Given
-        let symbol: String = "AAPL"
+        let stockSymbol: String = "AAPL"
         let exchange: String = "NASDAQ"
         var set = Set<DateComponents>()
-        let vm = ChartViewModel(symbol: symbol, exchange: exchange, chartService: MockChartService(symbol: symbol))
+        let vm = ChartViewModel(stockSymbol: stockSymbol, exchange: exchange, chartService: MockChartService(stockSymbol: stockSymbol))
         
         //When
         vm.selectedType = .oneWeek
@@ -406,10 +406,10 @@ final class ChartViewModel_Tests: XCTestCase {
     
     func test_ChartViewModel_getDateComponents_oneMonth() throws {
         //Given
-        let symbol: String = "AAPL"
+        let stockSymbol: String = "AAPL"
         let exchange: String = "NASDAQ"
         var set = Set<DateComponents>()
-        let vm = ChartViewModel(symbol: symbol, exchange: exchange, chartService: MockChartService(symbol: symbol))
+        let vm = ChartViewModel(stockSymbol: stockSymbol, exchange: exchange, chartService: MockChartService(stockSymbol: stockSymbol))
         
         //When
         vm.selectedType = .oneMonth
@@ -431,10 +431,10 @@ final class ChartViewModel_Tests: XCTestCase {
     
     func test_ChartViewModel_getDateComponents_oneYear() throws {
         //Given
-        let symbol: String = "AAPL"
+        let stockSymbol: String = "AAPL"
         let exchange: String = "NASDAQ"
         var set = Set<DateComponents>()
-        let vm = ChartViewModel(symbol: symbol, exchange: exchange, chartService: MockChartService(symbol: symbol))
+        let vm = ChartViewModel(stockSymbol: stockSymbol, exchange: exchange, chartService: MockChartService(stockSymbol: stockSymbol))
         
         //When
         vm.selectedType = .oneYear
@@ -456,9 +456,9 @@ final class ChartViewModel_Tests: XCTestCase {
     
     func test_ChartViewModel_StringToDate_DateAndTime() throws {
         //Given
-        let symbol: String = "AAPL"
+        let stockSymbol: String = "AAPL"
         let exchange: String = "NASDAQ"
-        let vm = ChartViewModel(symbol: symbol, exchange: exchange, chartService: MockChartService(symbol: symbol))
+        let vm = ChartViewModel(stockSymbol: stockSymbol, exchange: exchange, chartService: MockChartService(stockSymbol: stockSymbol))
         
         //When
         let result = vm.stringToDate(dateString: "2002-01-22 01:00:00")
@@ -469,9 +469,9 @@ final class ChartViewModel_Tests: XCTestCase {
     
     func test_ChartViewModel_StringToDate_DateOnly() throws {
         //Given
-        let symbol: String = "AAPL"
+        let stockSymbol: String = "AAPL"
         let exchange: String = "NASDAQ"
-        let vm = ChartViewModel(symbol: symbol, exchange: exchange, chartService: MockChartService(symbol: symbol))
+        let vm = ChartViewModel(stockSymbol: stockSymbol, exchange: exchange, chartService: MockChartService(stockSymbol: stockSymbol))
         
         //When
         vm.selectedType = .oneYear
@@ -483,9 +483,9 @@ final class ChartViewModel_Tests: XCTestCase {
     
     func test_ChartViewModel_StringToDate_InvalidData() throws {
         //Given
-        let symbol: String = "AAPL"
+        let stockSymbol: String = "AAPL"
         let exchange: String = "NASDAQ"
-        let vm = ChartViewModel(symbol: symbol, exchange: exchange, chartService: MockChartService(symbol: symbol))
+        let vm = ChartViewModel(stockSymbol: stockSymbol, exchange: exchange, chartService: MockChartService(stockSymbol: stockSymbol))
         
         //When
         let result = vm.stringToDate(dateString: "2002-01")

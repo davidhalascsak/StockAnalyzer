@@ -293,7 +293,7 @@ class ChartViewModel: ObservableObject {
         return ChartAxisData(axisStart: lowest - 0.01, axisEnd: highest + 0.01, strideBy: strideBy, map: map)
     }
     
-    private func formatYAxisLabel(value: Double, shouldCeilIncrement: Bool) -> String {
+    func formatYAxisLabel(value: Double, shouldCeilIncrement: Bool) -> String {
         if shouldCeilIncrement {
             return String(Int(ceil(value)))
         } else {
@@ -301,7 +301,7 @@ class ChartViewModel: ObservableObject {
         }
     }
     
-    private func getDateComponents(startDate: Date, endDate: Date, timezone: TimeZone) -> Set<DateComponents> {
+    func getDateComponents(startDate: Date, endDate: Date, timezone: TimeZone) -> Set<DateComponents> {
         var component: Calendar.Component
         var value: Int
         
@@ -337,7 +337,7 @@ class ChartViewModel: ObservableObject {
         return set
     }
     
-    private func stringToDate(dateString: String) -> Date?  {
+    func stringToDate(dateString: String) -> Date?  {
         let formatter = DateFormatter()
         formatter.timeZone = TimeZone(abbreviation: timezone)
         

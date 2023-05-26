@@ -21,6 +21,17 @@
 		EC222F9F29EA7E6500B48930 /* SearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC222F9E29EA7E6500B48930 /* SearchService.swift */; };
 		EC22E86A29F185470043AA40 /* ChartService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC22E86929F185470043AA40 /* ChartService.swift */; };
 		EC22E86E29F1AD580043AA40 /* ChartModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC22E86D29F1AD580043AA40 /* ChartModel.swift */; };
+		EC2510DB2A1F4BEF0073ED3D /* UserService_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC2510DA2A1F4BEE0073ED3D /* UserService_Tests.swift */; };
+		EC2510DD2A1F4BFC0073ED3D /* PostService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC2510DC2A1F4BFC0073ED3D /* PostService.swift */; };
+		EC2510DF2A1F4C080073ED3D /* CommentService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC2510DE2A1F4C080073ED3D /* CommentService.swift */; };
+		EC2510E12A1F4C160073ED3D /* SessionService_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC2510E02A1F4C160073ED3D /* SessionService_Tests.swift */; };
+		EC2510E32A1F4C210073ED3D /* StockService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC2510E22A1F4C210073ED3D /* StockService.swift */; };
+		EC2510E52A1F4C2D0073ED3D /* NewsService_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC2510E42A1F4C2D0073ED3D /* NewsService_Tests.swift */; };
+		EC2510E72A1F4C390073ED3D /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC2510E62A1F4C390073ED3D /* ImageService.swift */; };
+		EC2510E92A1F4C490073ED3D /* PortfolioService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC2510E82A1F4C490073ED3D /* PortfolioService.swift */; };
+		EC2510EB2A1F4C570073ED3D /* SearchService_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC2510EA2A1F4C570073ED3D /* SearchService_Tests.swift */; };
+		EC2510ED2A1F4C640073ED3D /* FinanceService_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC2510EC2A1F4C640073ED3D /* FinanceService_Tests.swift */; };
+		EC2510EF2A1F4C7E0073ED3D /* ChartService_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC2510EE2A1F4C7E0073ED3D /* ChartService_Tests.swift */; };
 		EC2688B729E7C4CD00FF3021 /* PositionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC2688B629E7C4CC00FF3021 /* PositionViewModel.swift */; };
 		EC2880B929CCB3D700E4A085 /* FinanceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC2880B829CCB3D700E4A085 /* FinanceModel.swift */; };
 		EC318E9E29F040B600CEA56B /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = EC318E9D29F040B600CEA56B /* FirebaseStorage */; };
@@ -135,13 +146,6 @@
 			remoteGlobalIDString = EC90D613298ACED3001D4520;
 			remoteInfo = StockAnalyzer;
 		};
-		ECDBEAAD29F59A3900ABA499 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = EC90D60C298ACED3001D4520 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = EC90D613298ACED3001D4520;
-			remoteInfo = StockAnalyzer;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -159,6 +163,17 @@
 		EC222F9E29EA7E6500B48930 /* SearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchService.swift; sourceTree = "<group>"; };
 		EC22E86929F185470043AA40 /* ChartService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartService.swift; sourceTree = "<group>"; };
 		EC22E86D29F1AD580043AA40 /* ChartModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartModel.swift; sourceTree = "<group>"; };
+		EC2510DA2A1F4BEE0073ED3D /* UserService_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService_Tests.swift; sourceTree = "<group>"; };
+		EC2510DC2A1F4BFC0073ED3D /* PostService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostService.swift; sourceTree = "<group>"; };
+		EC2510DE2A1F4C080073ED3D /* CommentService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentService.swift; sourceTree = "<group>"; };
+		EC2510E02A1F4C160073ED3D /* SessionService_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionService_Tests.swift; sourceTree = "<group>"; };
+		EC2510E22A1F4C210073ED3D /* StockService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockService.swift; sourceTree = "<group>"; };
+		EC2510E42A1F4C2D0073ED3D /* NewsService_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsService_Tests.swift; sourceTree = "<group>"; };
+		EC2510E62A1F4C390073ED3D /* ImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
+		EC2510E82A1F4C490073ED3D /* PortfolioService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioService.swift; sourceTree = "<group>"; };
+		EC2510EA2A1F4C570073ED3D /* SearchService_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchService_Tests.swift; sourceTree = "<group>"; };
+		EC2510EC2A1F4C640073ED3D /* FinanceService_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinanceService_Tests.swift; sourceTree = "<group>"; };
+		EC2510EE2A1F4C7E0073ED3D /* ChartService_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartService_Tests.swift; sourceTree = "<group>"; };
 		EC2688B629E7C4CC00FF3021 /* PositionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionViewModel.swift; sourceTree = "<group>"; };
 		EC2880B829CCB3D700E4A085 /* FinanceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinanceModel.swift; sourceTree = "<group>"; };
 		EC330AAC29C76B5B009A0D30 /* ValuationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValuationViewModel.swift; sourceTree = "<group>"; };
@@ -251,7 +266,6 @@
 		ECD854962A1A646A00994408 /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
 		ECDAC4CC29E8754E001B46A9 /* PositionRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionRowView.swift; sourceTree = "<group>"; };
 		ECDAC4CE29E87662001B46A9 /* PositionRowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionRowViewModel.swift; sourceTree = "<group>"; };
-		ECDBEAA729F59A3900ABA499 /* StockAnalyzer_UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StockAnalyzer_UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		ECDBEAB229F59AC800ABA499 /* SettingsViewModel_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel_Tests.swift; sourceTree = "<group>"; };
 		ECEBBFDF299920EE00104326 /* PostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewModel.swift; sourceTree = "<group>"; };
 		ECF2AF0D29E718FF008306CF /* PositionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionView.swift; sourceTree = "<group>"; };
@@ -278,13 +292,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		ECA9AE0129F541C100DDC19B /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		ECDBEAA429F59A3900ABA499 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -465,6 +472,17 @@
 		EC88B64929FD1F0C00618EAF /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				EC2510DA2A1F4BEE0073ED3D /* UserService_Tests.swift */,
+				EC2510DC2A1F4BFC0073ED3D /* PostService.swift */,
+				EC2510DE2A1F4C080073ED3D /* CommentService.swift */,
+				EC2510E02A1F4C160073ED3D /* SessionService_Tests.swift */,
+				EC2510E22A1F4C210073ED3D /* StockService.swift */,
+				EC2510E42A1F4C2D0073ED3D /* NewsService_Tests.swift */,
+				EC2510E62A1F4C390073ED3D /* ImageService.swift */,
+				EC2510E82A1F4C490073ED3D /* PortfolioService.swift */,
+				EC2510EA2A1F4C570073ED3D /* SearchService_Tests.swift */,
+				EC2510EC2A1F4C640073ED3D /* FinanceService_Tests.swift */,
+				EC2510EE2A1F4C7E0073ED3D /* ChartService_Tests.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -484,7 +502,6 @@
 			children = (
 				EC90D614298ACED3001D4520 /* StockAnalyzer.app */,
 				ECA9AE0429F541C100DDC19B /* StockAnalyzer_Tests.xctest */,
-				ECDBEAA729F59A3900ABA499 /* StockAnalyzer_UITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -784,24 +801,6 @@
 			productReference = ECA9AE0429F541C100DDC19B /* StockAnalyzer_Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		ECDBEAA629F59A3900ABA499 /* StockAnalyzer_UITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = ECDBEAB129F59A3900ABA499 /* Build configuration list for PBXNativeTarget "StockAnalyzer_UITests" */;
-			buildPhases = (
-				ECDBEAA329F59A3900ABA499 /* Sources */,
-				ECDBEAA429F59A3900ABA499 /* Frameworks */,
-				ECDBEAA529F59A3900ABA499 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				ECDBEAAE29F59A3900ABA499 /* PBXTargetDependency */,
-			);
-			name = StockAnalyzer_UITests;
-			productName = StockAnalyzer_UITests;
-			productReference = ECDBEAA729F59A3900ABA499 /* StockAnalyzer_UITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -817,11 +816,6 @@
 					};
 					ECA9AE0329F541C100DDC19B = {
 						CreatedOnToolsVersion = 14.0.1;
-						TestTargetID = EC90D613298ACED3001D4520;
-					};
-					ECDBEAA629F59A3900ABA499 = {
-						CreatedOnToolsVersion = 14.0.1;
-						LastSwiftMigration = 1400;
 						TestTargetID = EC90D613298ACED3001D4520;
 					};
 				};
@@ -846,7 +840,6 @@
 			targets = (
 				EC90D613298ACED3001D4520 /* StockAnalyzer */,
 				ECA9AE0329F541C100DDC19B /* StockAnalyzer_Tests */,
-				ECDBEAA629F59A3900ABA499 /* StockAnalyzer_UITests */,
 			);
 		};
 /* End PBXProject section */
@@ -863,13 +856,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		ECA9AE0229F541C100DDC19B /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		ECDBEAA529F59A3900ABA499 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -975,10 +961,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EC2510ED2A1F4C640073ED3D /* FinanceService_Tests.swift in Sources */,
+				EC2510E92A1F4C490073ED3D /* PortfolioService.swift in Sources */,
+				EC2510E52A1F4C2D0073ED3D /* NewsService_Tests.swift in Sources */,
 				ECB80DEB29F95BBF00910473 /* CommentViewModel_Tests.swift in Sources */,
+				EC2510EB2A1F4C570073ED3D /* SearchService_Tests.swift in Sources */,
+				EC2510DB2A1F4BEF0073ED3D /* UserService_Tests.swift in Sources */,
 				ECB59B8A29F6FA8400CBE51D /* FeedBodyViewModel_Tests.swift in Sources */,
 				ECB80E0729FA5DF700910473 /* HomeViewModel_Tests.swift in Sources */,
+				EC2510DF2A1F4C080073ED3D /* CommentService.swift in Sources */,
 				ECB80E0129FA4B5500910473 /* NewAssetViewModel_Tests.swift in Sources */,
+				EC2510EF2A1F4C7E0073ED3D /* ChartService_Tests.swift in Sources */,
 				ECA9AE0E29F553CC00DDC19B /* AuthViewModel_Tests.swift in Sources */,
 				ECB80E0D29FAA64F00910473 /* ChartViewModel_Tests.swift in Sources */,
 				ECB80DE929F9558600910473 /* CommentSectionViewModel_Tests.swift in Sources */,
@@ -987,8 +980,11 @@
 				ECB59B9429F8505F00CBE51D /* FeedViewModel_Tests.swift in Sources */,
 				ECB80E0929FA948700910473 /* FinancialViewModel_Test.swift in Sources */,
 				ECB80DF929F9817300910473 /* PortfolioRowViewModel_Tests.swift in Sources */,
+				EC2510E32A1F4C210073ED3D /* StockService.swift in Sources */,
 				ECDBEAB329F59AC800ABA499 /* SettingsViewModel_Tests.swift in Sources */,
 				ECB80DF729F97D3700910473 /* PortfolioViewModel_Tests.swift in Sources */,
+				EC2510E72A1F4C390073ED3D /* ImageService.swift in Sources */,
+				EC2510E12A1F4C160073ED3D /* SessionService_Tests.swift in Sources */,
 				ECB59B8C29F7077800CBE51D /* BarChartViewModel_Tests.swift in Sources */,
 				ECB80DED29F95E8C00910473 /* NewPostViewModel_Tests.swift in Sources */,
 				ECB80DFB29F9922100910473 /* PositionViewModel_Tests.swift in Sources */,
@@ -997,15 +993,9 @@
 				ECB80E0329FA4FB100910473 /* StockViewModel_Tests.swift in Sources */,
 				ECB59B9629F8524500CBE51D /* PostViewModel_Tests.swift in Sources */,
 				ECB80DFD29F99E1A00910473 /* PositionRowViewModel_Tests.swift in Sources */,
+				EC2510DD2A1F4BFC0073ED3D /* PostService.swift in Sources */,
 				ECB80E0529FA5C4600910473 /* PriceViewModel_Tests.swift in Sources */,
 				ECB59B9029F80B9600CBE51D /* NewsViewModel_Tests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		ECDBEAA329F59A3900ABA499 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1016,11 +1006,6 @@
 			isa = PBXTargetDependency;
 			target = EC90D613298ACED3001D4520 /* StockAnalyzer */;
 			targetProxy = ECA9AE0829F541C100DDC19B /* PBXContainerItemProxy */;
-		};
-		ECDBEAAE29F59A3900ABA499 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = EC90D613298ACED3001D4520 /* StockAnalyzer */;
-			targetProxy = ECDBEAAD29F59A3900ABA499 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1235,53 +1220,6 @@
 			};
 			name = Release;
 		};
-		ECDBEAAF29F59A3900ABA499 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = BA8C9C22XU;
-				GENERATE_INFOPLIST_FILE = YES;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.david.StockAnalyzer-UITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = StockAnalyzer;
-			};
-			name = Debug;
-		};
-		ECDBEAB029F59A3900ABA499 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = BA8C9C22XU;
-				GENERATE_INFOPLIST_FILE = YES;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.david.StockAnalyzer-UITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = StockAnalyzer;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1308,15 +1246,6 @@
 			buildConfigurations = (
 				ECA9AE0A29F541C200DDC19B /* Debug */,
 				ECA9AE0B29F541C200DDC19B /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		ECDBEAB129F59A3900ABA499 /* Build configuration list for PBXNativeTarget "StockAnalyzer_UITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				ECDBEAAF29F59A3900ABA499 /* Debug */,
-				ECDBEAB029F59A3900ABA499 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

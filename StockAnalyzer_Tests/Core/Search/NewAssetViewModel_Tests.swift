@@ -6,8 +6,8 @@ import XCTest
 final class NewAssetViewModel_Tests: XCTestCase {
     func test_NewAssetViewModel_FetchPriceAtDate() async throws {
         //Given
-        let symbol: String = "AAPL"
-        let vm = NewAssetViewModel(symbol: symbol, portfolioService: MockPortfolioService(), stockService: MockStockService())
+        let stockSymbol: String = "AAPL"
+        let vm = NewAssetViewModel(stockSymbol: stockSymbol, portfolioService: MockPortfolioService(), stockService: MockStockService())
         
         //When
         await vm.fetchPrice()
@@ -18,20 +18,20 @@ final class NewAssetViewModel_Tests: XCTestCase {
     
     func test_NewAssetViewModel_CalculateValue_PriceIsZero() async throws {
         //Given
-        let symbol: String = "AAPL"
-        let vm = NewAssetViewModel(symbol: symbol, portfolioService: MockPortfolioService(), stockService: MockStockService())
+        let stockSymbol: String = "AAPL"
+        let vm = NewAssetViewModel(stockSymbol: stockSymbol, portfolioService: MockPortfolioService(), stockService: MockStockService())
         
         //When
         vm.calculateValue()
         
         //Then
-        XCTAssertEqual(vm.value, "$0.00")
+        XCTAssertEqual(vm.value, "Invalid Value")
     }
     
     func test_NewAssetViewModel_CalculateValue_PriceIsNotZero() async throws {
         //Given
-        let symbol: String = "AAPL"
-        let vm = NewAssetViewModel(symbol: symbol, portfolioService: MockPortfolioService(), stockService: MockStockService())
+        let stockSymbol: String = "AAPL"
+        let vm = NewAssetViewModel(stockSymbol: stockSymbol, portfolioService: MockPortfolioService(), stockService: MockStockService())
         
         //When
         await vm.fetchPrice()
@@ -43,8 +43,8 @@ final class NewAssetViewModel_Tests: XCTestCase {
     
     func test_NewAssetViewModel_CalculateValue_UnitIsMoreThanOne() async throws {
         //Given
-        let symbol: String = "AAPL"
-        let vm = NewAssetViewModel(symbol: symbol, portfolioService: MockPortfolioService(), stockService: MockStockService())
+        let stockSymbol: String = "AAPL"
+        let vm = NewAssetViewModel(stockSymbol: stockSymbol, portfolioService: MockPortfolioService(), stockService: MockStockService())
         
         //When
         vm.units = 2.5
@@ -57,8 +57,8 @@ final class NewAssetViewModel_Tests: XCTestCase {
     
     func test_NewAssetViewModel_AddPosition_ValueIsZero() async throws {
         //Given
-        let symbol: String = "AAPL"
-        let vm = NewAssetViewModel(symbol: symbol, portfolioService: MockPortfolioService(), stockService: MockStockService())
+        let stockSymbol: String = "AAPL"
+        let vm = NewAssetViewModel(stockSymbol: stockSymbol, portfolioService: MockPortfolioService(), stockService: MockStockService())
         
         //When
         await vm.addPositionToPortfolio()
@@ -66,13 +66,13 @@ final class NewAssetViewModel_Tests: XCTestCase {
         //Then
         XCTAssertTrue(vm.showAlert)
         XCTAssertEqual(vm.alertTitle, "Error")
-        XCTAssertEqual(vm.alertText, "The price cannot be 0.")
+        XCTAssertEqual(vm.alertText, "The price is invalid.")
     }
     
     func test_NewAssetViewModel_AddPosition_ValueIsNotZero() async throws {
         //Given
-        let symbol: String = "AAPL"
-        let vm = NewAssetViewModel(symbol: symbol, portfolioService: MockPortfolioService(), stockService: MockStockService())
+        let stockSymbol: String = "AAPL"
+        let vm = NewAssetViewModel(stockSymbol: stockSymbol, portfolioService: MockPortfolioService(), stockService: MockStockService())
         
         //When
         await vm.fetchPrice()

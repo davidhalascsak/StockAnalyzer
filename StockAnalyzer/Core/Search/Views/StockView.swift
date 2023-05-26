@@ -91,7 +91,7 @@ struct StockView: View {
                     }
                 }
                 .fullScreenCover(isPresented: $isNewPostPresented) {
-                    NewPostView(symbol: viewModel.stockSymbol, postService: PostService())
+                    NewPostView(stockSymbol: viewModel.stockSymbol, postService: PostService())
                 }
                 .sheet(isPresented: $isAddAssetPresented) {
                     NewAssetView(stockSymbol: viewModel.stockSymbol, portfolioService: PortfolioService(), stockService: StockService(stockSymbol: viewModel.stockSymbol))

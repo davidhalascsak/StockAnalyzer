@@ -40,8 +40,8 @@ class MockNewsService: NewsServiceProtocol {
     }
     
     func fetchNews() async -> [News] {
-        if let symbol = stockSymbol {
-            return db.news.filter({$0.tickers?.contains(symbol) ?? false})
+        if let stockSymbol = stockSymbol {
+            return db.news.filter({$0.tickers?.contains(stockSymbol) ?? false})
         }
         return db.news
     }

@@ -68,7 +68,7 @@ struct PositionView: View {
             VStack(alignment: .trailing) {
                 Text(String(format: "%.2f", viewModel.price?.price ?? 0.0))
                     .fontWeight(.semibold)
-                Text("\(viewModel.price?.change ?? 0.0)(\(viewModel.price?.changeInPercentage ?? 0.0))")
+                Text("\(String(format: "%.2f" ,viewModel.price?.change ?? 0.0))(\(String(format: "%.2f" ,viewModel.price?.changeInPercentage ?? 0.0))%)")
                     .foregroundColor(viewModel.price?.change ?? 0 > 0 ? Color.green : viewModel.companyProfile?.changes ?? 0 == 0 ? Color.black : Color.red)
             }
         }

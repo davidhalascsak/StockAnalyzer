@@ -20,7 +20,7 @@ struct HomeView: View {
                 .font(.title2)
                 .fontWeight(.semibold)
                 .padding(.horizontal)
-            FeedBodyView(symbol: viewModel.companyProfile.stockSymbol, isNewPostPresented: $isNewPostPresented, userService: UserService(), postService: PostService(), sessionService: SessionService(), imageService: ImageService())
+            FeedBodyView(stockSymbol: viewModel.companyProfile.stockSymbol, isNewPostPresented: $isNewPostPresented, userService: UserService(), postService: PostService(), sessionService: SessionService(), imageService: ImageService())
         }
         .task {
             await viewModel.fetchNews()

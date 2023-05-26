@@ -48,7 +48,6 @@ class PositionViewModel: ObservableObject {
         if let index = index {
             Task {
                 let position = asset.positions?[index]
-                
                 if let position = position {
                     let result = await portfolioService.deletePosition(asset: asset, position: position)
                     if result {

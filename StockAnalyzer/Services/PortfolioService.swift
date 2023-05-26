@@ -20,7 +20,7 @@ class PortfolioService: ObservableObject, PortfolioServiceProtocol {
             }
         }
         
-        return assets.sorted(by: {$0.investedAmount < $1.investedAmount})
+        return assets.sorted(by: {$0.investedAmount > $1.investedAmount})
     }
     
     func fetchPositions(stockSymbol: String) async -> [Position] {
@@ -159,7 +159,7 @@ class MockPortfolioService: PortfolioServiceProtocol {
     }
     
     func deletePosition(asset: Asset, position: Position) async -> Bool {
-        db.assets.removeAll(where: {$0.stockSymbol == asset.stockSymbol})
+        db.positions[asset.stockSymbol]?.removeAll(where: {$0.id == position.id})
         
         if asset.positionCount > 1 {
             let investedAmount = asset.investedAmount - position.investedAmount
@@ -168,7 +168,7 @@ class MockPortfolioService: PortfolioServiceProtocol {
             
             let newAsset = Asset(stockSymbol: asset.stockSymbol, units: units, averagePrice: averagePrice, positionCount: asset.positionCount - 1)
             
-            
+            db.assets.removeAll(where: {$0.stockSymbol == asset.stockSymbol})
             db.assets.append(newAsset)
         }
         return true

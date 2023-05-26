@@ -6,17 +6,17 @@ struct FeedView: View {
     
     @StateObject private var viewModel: FeedViewModel
     
-    init(symbol: String?, userService: UserServiceProtocol, postService: PostServiceProtocol, sessionService: SessionServiceProtocol, imageService: ImageServiceProtocol) {
-        _viewModel = StateObject(wrappedValue: FeedViewModel(symbol: symbol, userService: userService, postService: postService, sessionService: sessionService, imageService: imageService))
+    init(stockSymbol: String?, userService: UserServiceProtocol, postService: PostServiceProtocol, sessionService: SessionServiceProtocol, imageService: ImageServiceProtocol) {
+        _viewModel = StateObject(wrappedValue: FeedViewModel(stockSymbol: stockSymbol, userService: userService, postService: postService, sessionService: sessionService, imageService: imageService))
     }
 
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
             headerView
             if !viewModel.isLoading {
                 feedView
                     .fullScreenCover(isPresented: $isNewPostPresented, content: {
-                        NewPostView(symbol: nil, postService: PostService())
+                        NewPostView(stockSymbol: nil, postService: PostService())
                     })
                     .fullScreenCover(isPresented: $isSettingsPresented, content: {
                         SettingsView(userService: UserService(), sessionService: SessionService(), imageService: ImageService())
@@ -118,7 +118,7 @@ struct FeedView: View {
 
 struct FeedView_Previews: PreviewProvider {
     static var previews: some View {
-        FeedView(symbol: nil, userService: MockUserService(), postService: MockPostService(currentUser: nil), sessionService: MockSessionService(currentUser: nil), imageService: MockImageService())
+        FeedView(stockSymbol: nil, userService: MockUserService(), postService: MockPostService(currentUser: nil), sessionService: MockSessionService(currentUser: nil), imageService: MockImageService())
     }
 }
 

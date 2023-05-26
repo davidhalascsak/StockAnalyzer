@@ -8,14 +8,14 @@ class FeedViewModel: ObservableObject {
     @Published var shouldScroll: Bool = false
     @Published var isLoading: Bool = false
     
-    let symbol: String?
+    let stockSymbol: String?
     let userService: UserServiceProtocol
     let postService: PostServiceProtocol
     let sessionService: SessionServiceProtocol
     let imageService: ImageServiceProtocol
     
-    init(symbol: String?, userService: UserServiceProtocol, postService: PostServiceProtocol, sessionService: SessionServiceProtocol, imageService: ImageServiceProtocol) {
-        self.symbol = symbol
+    init(stockSymbol: String?, userService: UserServiceProtocol, postService: PostServiceProtocol, sessionService: SessionServiceProtocol, imageService: ImageServiceProtocol) {
+        self.stockSymbol = stockSymbol
         self.userService = userService
         self.postService = postService
         self.sessionService = sessionService
@@ -23,7 +23,7 @@ class FeedViewModel: ObservableObject {
     }
     
     func fetchPosts() async {
-        posts = await postService.fetchPosts(stockSymbol: symbol)
+        posts = await postService.fetchPosts(stockSymbol: stockSymbol)
 
         for i in 0..<(posts.count) {
             let userRef = posts[i].userRef

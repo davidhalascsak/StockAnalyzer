@@ -10,8 +10,8 @@ struct NewPostView: View {
         case newPostField
     }
 
-    init(symbol: String?, postService: PostServiceProtocol) {
-        _viewModel = StateObject(wrappedValue: NewPostViewModel(symbol: symbol, postService: postService))
+    init(stockSymbol: String?, postService: PostServiceProtocol) {
+        _viewModel = StateObject(wrappedValue: NewPostViewModel(stockSymbol: stockSymbol, postService: postService))
     }
     
     
@@ -67,6 +67,6 @@ struct NewPostView: View {
 
 struct NewPostView_Previews: PreviewProvider {
     static var previews: some View {
-        NewPostView(symbol: nil, postService: MockPostService(currentUser: nil))
+        NewPostView(stockSymbol: nil, postService: MockPostService(currentUser: nil))
     }
 }

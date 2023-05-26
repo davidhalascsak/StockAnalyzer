@@ -12,7 +12,7 @@ struct NewsView: View {
     }
     
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
             headerView
             if viewModel.isLoading == false {
                 feedView
@@ -21,6 +21,8 @@ struct NewsView: View {
                 ProgressView()
                 Spacer()
             }
+            Divider()
+                .padding(.bottom, 5)
         }
         .task {
             viewModel.isLoading = true

@@ -149,7 +149,7 @@ struct ChartView: View {
 
 struct ChartView_Previews: PreviewProvider {
     static var previews: some View {
-        ChartView(stockSymbol: "AAPL", exchange: "NASDAQ", chartService: MockChartService(symbol: "AAPL"))
+        ChartView(stockSymbol: "AAPL", exchange: "NASDAQ", chartService: MockChartService(stockSymbol: "AAPL"))
     }
 }
 

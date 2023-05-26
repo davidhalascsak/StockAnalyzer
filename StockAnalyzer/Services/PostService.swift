@@ -8,7 +8,7 @@ class PostService: PostServiceProtocol {
     
     func fetchPosts(stockSymbol: String?) async -> [Post] {       
         if let stockSymbol = stockSymbol {
-            let snapshot = try? await db.collection("posts").whereField("symbol", isEqualTo: stockSymbol).order(by: "timestamp", descending: true).getDocuments()
+            let snapshot = try? await db.collection("posts").whereField("stockSymbol", isEqualTo: stockSymbol).order(by: "timestamp", descending: true).getDocuments()
             guard let snapshot = snapshot else {return []}
             
             return snapshot.documents.compactMap({try? $0.data(as: Post.self)})
@@ -76,7 +76,7 @@ class PostService: PostServiceProtocol {
         var data: [String : Any]
         
         if let stockSymbol = stockSymbol {
-            data = ["body": body, "likeCount": 0, "commentCount": 0, "userRef": userId, "symbol": stockSymbol, "timestamp": Timestamp(date: Date())]
+            data = ["body": body, "likeCount": 0, "commentCount": 0, "userRef": userId, "stockSymbol": stockSymbol, "timestamp": Timestamp(date: Date())]
         } else {
             data = ["body": body, "likeCount": 0, "commentCount": 0, "userRef": userId, "timestamp": Timestamp(date: Date())]
         }
@@ -100,8 +100,8 @@ class MockPostService: PostServiceProtocol {
     }
     
     func fetchPosts(stockSymbol: String?) async -> [Post] {
-        if let symbol = stockSymbol {
-            return db.posts.filter({$0.stockSymbol == symbol})
+        if let stockSymbol = stockSymbol {
+            return db.posts.filter({$0.stockSymbol == stockSymbol})
         } else {
             return db.posts
         }
@@ -142,8 +142,8 @@ class MockPostService: PostServiceProtocol {
     
     func createPost(body: String, stockSymbol: String?) async -> Bool{
         guard let userId = currentUser?.id else {return false}
-        if let symbol = stockSymbol {
-            let newPost = Post(userRef: userId, body: body, likeCount: 0, commentCount: 0, stockSymbol: symbol, timestamp: Timestamp())
+        if let stockSymbol = stockSymbol {
+            let newPost = Post(userRef: userId, body: body, likeCount: 0, commentCount: 0, stockSymbol: stockSymbol, timestamp: Timestamp())
             db.posts.append(newPost)
             
         } else {

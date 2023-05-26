@@ -24,7 +24,7 @@ class MockSearchService: SearchServiceProtocol {
             return []
         }
         else {
-            return db.searchResult.filter({$0.name.hasPrefix(text)})
+            return db.searchResult.filter({$0.name.hasPrefix(text) || $0.stockSymbol.hasPrefix(text)})
         }
     }
 }

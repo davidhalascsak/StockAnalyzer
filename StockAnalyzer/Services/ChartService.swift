@@ -59,22 +59,22 @@ class ChartService: ChartServiceProtocol {
 
 class MockChartService: ChartServiceProtocol {
     var db: MockDatabase = MockDatabase()
-    let symbol: String
+    let stockSymbol: String
     
-    init(symbol: String) {
-        self.symbol = symbol
+    init(stockSymbol: String) {
+        self.stockSymbol = stockSymbol
     }
     
     func get5Min() async -> [HistoricalPrice] {
-        return db.FiveMinData[symbol] ?? []
+        return db.fiveMinData[stockSymbol] ?? []
     }
     
     func getHourly() async -> [HistoricalPrice] {
-        return db.OneHourData[symbol] ?? []
+        return db.hourlyData[stockSymbol] ?? []
     }
     
     func getDaily() async -> [HistoricalPrice] {
-        return db.DailyData[symbol] ?? []
+        return db.dailyData[stockSymbol] ?? []
     }
 }
 

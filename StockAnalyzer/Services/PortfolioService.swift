@@ -159,6 +159,7 @@ class MockPortfolioService: PortfolioServiceProtocol {
     }
     
     func deletePosition(asset: Asset, position: Position) async -> Bool {
+        db.assets.removeAll(where: {$0.stockSymbol == asset.stockSymbol})
         db.positions[asset.stockSymbol]?.removeAll(where: {$0.id == position.id})
         
         if asset.positionCount > 1 {
@@ -168,7 +169,6 @@ class MockPortfolioService: PortfolioServiceProtocol {
             
             let newAsset = Asset(stockSymbol: asset.stockSymbol, units: units, averagePrice: averagePrice, positionCount: asset.positionCount - 1)
             
-            db.assets.removeAll(where: {$0.stockSymbol == asset.stockSymbol})
             db.assets.append(newAsset)
         }
         return true

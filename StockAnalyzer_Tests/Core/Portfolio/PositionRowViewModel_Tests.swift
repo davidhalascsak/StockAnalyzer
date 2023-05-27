@@ -7,7 +7,7 @@ final class PositionRowViewModel_Tests: XCTestCase {
     func test_PositionRowViewModel_CalculateCurrentValue() async throws {
         //Given
         let position = Position(id: UUID().uuidString, date: "2023-02-02", units: 1, price: 132.5)
-        let vm = PositionRowViewModel(position: position, stockService: MockStockService())
+        let vm = PositionRowViewModel(position: position, stockService: MockStockService(stockSymbol: "AAPL"))
         
         //When
         let currentValue: Double = (110 / 132.5) * 132.5

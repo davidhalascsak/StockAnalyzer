@@ -15,7 +15,9 @@ struct PortfolioView: View {
         NavigationStack {
             VStack(spacing: 0) {
                 headerView
+                    .padding(.bottom, 5)
                 Divider()
+                    .padding(.bottom, 5)
                 if viewModel.isLoading == false {
                     if viewModel.assets.count == 0 {
                         Spacer()

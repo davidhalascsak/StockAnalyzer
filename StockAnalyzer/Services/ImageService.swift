@@ -79,7 +79,6 @@ class MockImageService: ImageServiceProtocol {
     }
     
     func uploadImage(image: UIImage) async -> String? {
-        guard let image = UIImage(named: "default_avatar") else {return nil}
         guard let data = image.jpegData(compressionQuality: 0.5) else {return nil}
         
         let imageUrl = UUID().uuidString

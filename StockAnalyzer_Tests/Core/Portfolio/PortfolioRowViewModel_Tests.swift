@@ -11,7 +11,7 @@ final class PortfolioRowViewModel_Tests: XCTestCase {
         let position2 = Position(date: "2023-01-02", units: 1, price: 132.5)
         asset.positions = [position1, position2]
         
-        let vm = PortfolioRowViewModel(asset: asset, stockService: MockStockService())
+        let vm = PortfolioRowViewModel(asset: asset, stockService: MockStockService(stockSymbol: "AAPL"))
         
         //When
         await vm.calculateCurrentValue()

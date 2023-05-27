@@ -8,10 +8,10 @@ class PostService: PostServiceProtocol {
     
     func fetchPosts(stockSymbol: String?) async -> [Post] {       
         if let stockSymbol = stockSymbol {
-            let snapshot = try? await db.collection("posts").whereField("stockSymbol", isEqualTo: stockSymbol).order(by: "timestamp", descending: true).getDocuments()
+            let snapshot = try? await db.collection("posts").order(by: "timestamp", descending: true).getDocuments()
             guard let snapshot = snapshot else {return []}
             
-            return snapshot.documents.compactMap({try? $0.data(as: Post.self)})
+            return snapshot.documents.compactMap({try? $0.data(as: Post.self)}).filter({$0.stockSymbol == stockSymbol})
         } else {
             let snapshot = try? await db.collection("posts").order(by: "timestamp", descending: true).getDocuments()
             guard let snapshot = snapshot else {return []}

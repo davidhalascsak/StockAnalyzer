@@ -8,7 +8,7 @@ final class PriceViewModel_Tests: XCTestCase {
         //Given
         let stockSymbol: String = "AAPL"
         let currency: String = "USD"
-        let vm = PriceViewModel(stockSymbol: stockSymbol, currency: currency, stockService: MockStockService())
+        let vm = PriceViewModel(stockSymbol: stockSymbol, currency: currency, stockService: MockStockService(stockSymbol: "AAPL"))
         
         //When
         await vm.fetchPrice()

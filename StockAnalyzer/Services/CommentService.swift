@@ -144,7 +144,7 @@ class MockCommentService: CommentServiceProtocol {
         
         let newComment = Comment(id: UUID().uuidString, userRef: userId, body: body, timestamp: Timestamp(), likeCount: 0)
         db.comments[post.id ?? ""]?.append(newComment)
-        db.posts[index].likeCount += 1
+        db.posts[index].commentCount += 1
         
         return true
     }

@@ -37,8 +37,7 @@ class BarChartViewModel: ObservableObject {
                     }
 
                     growthRateAsString = String(format: "%.0f", growthRate)
-                    print(growthRateAsString)
-                    print(growthRateAsString.contains("0"))
+                    
                     growthRateAsString = growthRateAsString == "-" ? growthRateAsString : (growthRateAsString.contains("0") ? "\(growthRateAsString.trimmingCharacters(in: CharacterSet(arrayLiteral: "-")))%" : (growthRateAsString[0] == "-" ? "\(growthRateAsString)%" : "+\(growthRateAsString)%"))
                 }
                 

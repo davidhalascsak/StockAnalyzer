@@ -17,12 +17,14 @@ struct SearchView: View {
         NavigationStack {
             VStack(spacing: 0) {
                 headerView
+                    .padding(.bottom, 5)
                 searchBarView
+                    .padding(.bottom, 5)
                 Divider()
                 resultView
                 Spacer()
                 Divider()
-                    .padding(.bottom, 5)
+                    .padding(.top, -6)
             }
             .fullScreenCover(isPresented: $isSettingsPresented, content: {
                 SettingsView(userService: UserService(), sessionService: SessionService(), imageService: ImageService())

@@ -12,12 +12,7 @@ class AuthViewModel: ObservableObject {
     @Published var alertTitle: String = ""
     @Published var isLogin: Bool
     
-    let userService: UserServiceProtocol
-    let sessionService: SessionServiceProtocol
-    let imageService: ImageServiceProtocol
-    
     let locale = Locale(identifier: "en-US")
-    
     var countries: [String] {
         let codes = NSLocale.isoCountryCodes
         let countries = codes.compactMap { code in
@@ -26,6 +21,10 @@ class AuthViewModel: ObservableObject {
             
         return countries.sorted()
     }
+    
+    let userService: UserServiceProtocol
+    let sessionService: SessionServiceProtocol
+    let imageService: ImageServiceProtocol
     
     init(isLogin: Bool, userService: UserServiceProtocol, sessionService: SessionServiceProtocol, imageService: ImageServiceProtocol) {
         self.isLogin = isLogin
@@ -36,7 +35,7 @@ class AuthViewModel: ObservableObject {
     }
     
     func checkLogin() async {
-        if !isValidEmail(email: userData.email) {
+        if !isEmailValid(email: userData.email) {
             alertTitle = "Error"
             alertText = "The email format is not valid!"
             showAlert.toggle()
@@ -91,7 +90,7 @@ class AuthViewModel: ObservableObject {
             return
         }
         
-        if !isValidEmail(email: userData.email) {
+        if !isEmailValid(email: userData.email) {
             alertTitle = "Error"
             alertText = "The email format is not valid!"
             showAlert.toggle()
@@ -204,7 +203,7 @@ class AuthViewModel: ObservableObject {
         _ = sessionService.logout()
     }
     
-    func isValidEmail(email: String) -> Bool {
+    func isEmailValid(email: String) -> Bool {
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+.[A-Za-z]{2,64}"
         let emailPredicate = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
         return emailPredicate.evaluate(with: email)

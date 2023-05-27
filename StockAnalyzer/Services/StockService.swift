@@ -115,32 +115,47 @@ class StockService: StockServiceProtocol {
 }
 
 class MockStockService: StockServiceProtocol {
+    let db = MockDatabase()
+    let stockSymbol: String
+    
+    init(stockSymbol: String) {
+        self.stockSymbol = stockSymbol
+    }
+    
     func fetchProfile() async -> CompanyProfile? {
-        return  CompanyProfile(stockSymbol: "AAPL", price: 145.85, changes:  2.4200134,currency: "USD", exchangeShortName: "NASDAQ", companyName: "Apple Inc.", description: "Apple Inc. designs, manufactures, and markets smartphones, personal computers, tablets, wearables, and accessories worldwide. It also sells various related services. The company offers iPhone, a line of smartphones; Mac, a line of personal computers; iPad, a line of multi-purpose tablets; and wearables, home, and accessories comprising AirPods, Apple TV, Apple Watch, Beats products, HomePod, iPod touch, and other Apple-branded and third-party accessories. It also provides AppleCare support services; cloud services store services; and operates various platforms, including the App Store, that allow customers to discover and download applications and digital content, such as books, music, video, games, and podcasts. In addition, the company offers various services, such as Apple Arcade, a game subscription service; Apple Music, which offers users a curated listening experience with on-demand radio stations; Apple News+, a subscription news and magazine service; Apple TV+, which offers exclusive original content; Apple Card, a co-branded credit card; and Apple Pay, a cashless payment service, as well as licenses its intellectual property. The company serves consumers, and small and mid-sized businesses; and the education, enterprise, and government markets. It sells and delivers third-party applications for its products through the App Store. The company also sells its products through its retail and online stores, and direct sales force; and third-party cellular network carriers, wholesalers, retailers, and resellers. Apple Inc. was founded in 1977 and is headquartered in Cupertino, California.",fullTimeEmployees: "147000" ,  industry: "Consumer Electronics", sector: "Technology", ceo: "Mr. Timothy Cook", country: "US",  state: "CALIFORNIA",city: "Cupertino", image: "https://financialmodelingprep.com/image-stock/AAPL.png")
+        return  db.profiles[stockSymbol]
     }
     
     func fetchPriceInRealTime() async -> CurrentPrice? {
-        return CurrentPrice(price: 110.00, change: 10.00, changeInPercentage: 10.00)
+        return db.currentPrices[stockSymbol]
     }
     
     func fetchPriceAtDate(date: String) async -> Double {
-        return 110.00
+        if date != "2022-01-22" {
+            return 0.00
+        } else {
+            return 110.00
+        }
     }
     
     func fetchMarketCap() async -> Int {
-        return 10000000
+        if stockSymbol != "AAPL" {
+            return 0
+        } else {
+            return 10000000
+        }
     }
     
     func fetchRatios() async -> Ratios? {
-        return Ratios(peRatio: 20, pegRatio: 1, priceToSalesRatio: 5, priceToBookRatio: 10, dividendPerShare: 1, dividendYieldPercentage: 2)
+        return db.ratios[stockSymbol]
     }
     
     func fetchGrowthRates() async -> GrowthRates? {
-        return GrowthRates(netIncomeGrowth: 10, freeCashFlowGrowth: 15, weightedAverageSharesGrowth: 1)
+        return db.growthRates[stockSymbol]
     }
     
     func fetchMetrics() async -> Metrics? {
-        return Metrics(netIncomePerShare: 3.0, freeCashFlowPerShare: 3.0)
+        return db.metrics[stockSymbol]
     }
     
     

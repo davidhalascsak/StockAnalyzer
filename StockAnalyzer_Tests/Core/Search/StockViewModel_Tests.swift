@@ -8,7 +8,7 @@ final class StockViewModel_Tests: XCTestCase {
         //Given
         let stockSymbol: String = "AAPL"
         let authUser: TestAuthenticationUser? = TestAuthenticationUser(id: "asd123", email: "david@domain.com", password: "asd123", isVerified: true)
-        let vm = StockViewModel(stockSymbol: stockSymbol, stockService: MockStockService(), sessionService: MockSessionService(currentUser: authUser))
+        let vm = StockViewModel(stockSymbol: stockSymbol, stockService: MockStockService(stockSymbol: "AAPL"), sessionService: MockSessionService(currentUser: authUser))
         
         //When
         await vm.fetchData()

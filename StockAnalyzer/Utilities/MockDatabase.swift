@@ -57,14 +57,14 @@ class MockDatabase {
     ]
     
     var assets: [Asset] = [
-        Asset(stockSymbol: "AAPL", units: 2.0, averagePrice: 132.5, positionCount: 1),
+        Asset(stockSymbol: "AAPL", units: 2.0, averagePrice: 132.5, positionCount: 2),
         Asset(stockSymbol: "MSFT", units: 3.0, averagePrice: 230.0, positionCount: 1)
     ]
     
     var positions: [String: [Position]] = [
         "AAPL": [Position(id: "1", date: "2023-02-02", units: 1, price: 132.5),
-        Position(date: "2023-01-02", units: 1, price: 132.5)],
-        "MSFT": [Position(id: "2", date: "2020-02-02", units: 3.0, price: 230.0)]
+        Position(id: "2", date: "2023-01-02", units: 1, price: 132.5)],
+        "MSFT": [Position(id: "3", date: "2020-02-02", units: 3.0, price: 230.0)]
     ]
     
     var imageUrls: [String: Data] = [
@@ -129,30 +129,49 @@ class MockDatabase {
         ]
     ]
     
-    var incomeStatement: [IncomeStatement] = [
+    var incomeStatement: [String: [IncomeStatement]] = ["AAPL": [
         IncomeStatement(date: "2022-09-24", reportedCurrency: "USD", revenue: 394328000000, grossProfit: 170782000000, operatingIncome: 119437000000, incomeBeforeTax: 119103000000, incomeTaxExpense: 19300000000, netIncome: 99803000000, shareOutstanding: 16215963000),
             IncomeStatement(date: "2021-09-25", reportedCurrency: "USD", revenue: 365817000000, grossProfit: 152836000000, operatingIncome: 108949000000, incomeBeforeTax: 109207000000, incomeTaxExpense: 14527000000, netIncome: 94680000000, shareOutstanding: 16701272000),
             IncomeStatement(date: "2020-09-26", reportedCurrency: "USD", revenue: 274515000000, grossProfit: 104956000000, operatingIncome: 66288000000, incomeBeforeTax: 67091000000, incomeTaxExpense: 9680000000, netIncome: 57411000000, shareOutstanding: 17352119000),
             IncomeStatement(date: "2019-09-28", reportedCurrency: "USD", revenue: 260174000000, grossProfit: 98392000000, operatingIncome: 63930000000, incomeBeforeTax: 65737000000, incomeTaxExpense: 10481000000, netIncome: 55256000000, shareOutstanding: 18471336000),
             IncomeStatement(date: "2018-09-29", reportedCurrency: "USD", revenue: 265595000000, grossProfit: 101839000000, operatingIncome: 70898000000, incomeBeforeTax: 72903000000, incomeTaxExpense: 13372000000, netIncome: 59531000000, shareOutstanding: 19821508000)
-    ]
+    ]]
     
-    var balanceSheet: [BalanceSheet] = [
+    var balanceSheet: [String: [BalanceSheet]] = ["AAPL": [
         BalanceSheet(date: "2022-09-24", reportedCurrency: "USD", totalCurrentAssets: 135405000000, totalNonCurrentAssets: 217350000000, shortTermDebt: 21110000000, totalCurrentLiabilities: 153982000000, longTermDebt: 98959000000,  totalNonCurrentLiabilities: 148101000000, netDebt: 96423000000),
         BalanceSheet(date: "2021-09-25", reportedCurrency: "USD", totalCurrentAssets: 134836000000, totalNonCurrentAssets: 216166000000, shortTermDebt: 15613000000, totalCurrentLiabilities: 125481000000, longTermDebt: 109106000000,  totalNonCurrentLiabilities: 162431000000, netDebt: 89779000000),
         BalanceSheet(date: "2020-09-26", reportedCurrency: "USD", totalCurrentAssets: 143713000000, totalNonCurrentAssets: 180175000000, shortTermDebt: 13769000000, totalCurrentLiabilities: 105392000000, longTermDebt: 98667000000, totalNonCurrentLiabilities: 153157000000, netDebt: 74420000000),
           BalanceSheet(date: "2019-09-28", reportedCurrency: "USD", totalCurrentAssets: 162819000000, totalNonCurrentAssets: 175697000000, shortTermDebt: 16240000000, totalCurrentLiabilities: 105718000000, longTermDebt: 91807000000, totalNonCurrentLiabilities: 142310000000, netDebt: 59203000000),
          BalanceSheet(date: "2018-09-29", reportedCurrency: "USD", totalCurrentAssets: 234386000000, totalNonCurrentAssets: 234386000000, shortTermDebt: 20748000000, totalCurrentLiabilities: 116866000000, longTermDebt: 93735000000, totalNonCurrentLiabilities: 141712000000, netDebt: 88570000000)
-    ]
+    ]]
     
     
     
-    var cashFlowStatement: [CashFlowStatement] = [
+    var cashFlowStatement: [String: [CashFlowStatement]] =  ["AAPL": [
         CashFlowStatement(date: "2022-09-24", reportedCurrency: "USD", operatingCashFlow: 122151000000, capitalExpenditure: -10708000000, freeCashFlow: 111443000000),
         CashFlowStatement(date: "2021-09-25", reportedCurrency: "USD", operatingCashFlow: 104038000000, capitalExpenditure: -11085000000, freeCashFlow: 92953000000),
         CashFlowStatement(date: "2020-09-26", reportedCurrency: "USD", operatingCashFlow: 80674000000, capitalExpenditure: -7309000000, freeCashFlow: 3365000000),
         CashFlowStatement(date: "2019-09-28", reportedCurrency: "USD", operatingCashFlow: 69391000000, capitalExpenditure: -10495000000, freeCashFlow: 58896000000),
         CashFlowStatement(date: "2018-09-29", reportedCurrency: "USD", operatingCashFlow: 77434000000, capitalExpenditure: -13313000000, freeCashFlow: 64121000000)
+    ]]
+    
+    var profiles: [String: CompanyProfile] =  [
+        "AAPL": CompanyProfile(stockSymbol: "AAPL", price: 145.85, changes:  2.4200134,currency: "USD", exchangeShortName: "NASDAQ", companyName: "Apple Inc.", description: "Apple Inc. designs, manufactures, and markets smartphones, personal computers, tablets, wearables, and accessories worldwide. It also sells various related services. The company offers iPhone, a line of smartphones; Mac, a line of personal computers; iPad, a line of multi-purpose tablets; and wearables, home, and accessories comprising AirPods, Apple TV, Apple Watch, Beats products, HomePod, iPod touch, and other Apple-branded and third-party accessories. It also provides AppleCare support services; cloud services store services; and operates various platforms, including the App Store, that allow customers to discover and download applications and digital content, such as books, music, video, games, and podcasts. In addition, the company offers various services, such as Apple Arcade, a game subscription service; Apple Music, which offers users a curated listening experience with on-demand radio stations; Apple News+, a subscription news and magazine service; Apple TV+, which offers exclusive original content; Apple Card, a co-branded credit card; and Apple Pay, a cashless payment service, as well as licenses its intellectual property. The company serves consumers, and small and mid-sized businesses; and the education, enterprise, and government markets. It sells and delivers third-party applications for its products through the App Store. The company also sells its products through its retail and online stores, and direct sales force; and third-party cellular network carriers, wholesalers, retailers, and resellers. Apple Inc. was founded in 1977 and is headquartered in Cupertino, California.",fullTimeEmployees: "147000" ,  industry: "Consumer Electronics", sector: "Technology", ceo: "Mr. Timothy Cook", country: "US",  state: "CALIFORNIA",city: "Cupertino", image: "https://financialmodelingprep.com/image-stock/AAPL.png")
     ]
     
+    var currentPrices: [String: CurrentPrice] = [
+        "AAPL": CurrentPrice(price: 110.00, change: 10.00, changeInPercentage: 10.00)
+    ]
+    
+    var ratios: [String: Ratios] = [
+        "AAPL": Ratios(peRatio: 20, pegRatio: 1, priceToSalesRatio: 5, priceToBookRatio: 10, dividendPerShare: 1, dividendYieldPercentage: 2)
+    ]
+    
+    var metrics: [String: Metrics] = [
+        "AAPL": Metrics(netIncomePerShare: 3.0, freeCashFlowPerShare: 3.0)
+    ]
+    
+    var growthRates: [String: GrowthRates] = [
+        "AAPL": GrowthRates(netIncomeGrowth: 10, freeCashFlowGrowth: 15, weightedAverageSharesGrowth: 1)
+    ]
 }

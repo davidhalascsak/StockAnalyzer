@@ -7,7 +7,7 @@ final class PositionViewModel_Tests: XCTestCase {
     func test_PositionViewModel_fetchData() async throws {
         //Given
         let asset = Asset(stockSymbol: "AAPL", units: 2.0, averagePrice: 132.5, positionCount: 2)
-        let vm = PositionViewModel(asset: asset, stockService: MockStockService(), portfolioService: MockPortfolioService(), imageService: MockImageService())
+        let vm = PositionViewModel(asset: asset, stockService: MockStockService(stockSymbol: "AAPL"), portfolioService: MockPortfolioService(), imageService: MockImageService())
         
         //When
         await vm.fetchData()
@@ -22,7 +22,7 @@ final class PositionViewModel_Tests: XCTestCase {
     func test_PositionViewModel_changeInPrice() async throws {
         //Given
         let asset = Asset(stockSymbol: "AAPL", units: 2.0, averagePrice: 132.5, positionCount: 2)
-        let vm = PositionViewModel(asset: asset, stockService: MockStockService(), portfolioService: MockPortfolioService(), imageService: MockImageService())
+        let vm = PositionViewModel(asset: asset, stockService: MockStockService(stockSymbol: "AAPL"), portfolioService: MockPortfolioService(), imageService: MockImageService())
         
         //When
         await vm.fetchData()
@@ -39,7 +39,7 @@ final class PositionViewModel_Tests: XCTestCase {
         let position2 = Position(id: "2", date: "2023-01-02", units: 1, price: 132.5)
         asset.positions = [position1, position2]
         
-        let vm = PositionViewModel(asset: asset, stockService: MockStockService(), portfolioService: MockPortfolioService(), imageService: MockImageService())
+        let vm = PositionViewModel(asset: asset, stockService: MockStockService(stockSymbol: "AAPL"), portfolioService: MockPortfolioService(), imageService: MockImageService())
         
         //When
         let position = vm.asset.positions?[1]

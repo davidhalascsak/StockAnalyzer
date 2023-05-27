@@ -189,6 +189,6 @@ struct StockView: View {
 
 struct StockView_Previews: PreviewProvider {
     static var previews: some View {
-        StockView(stockSymbol: "APPL", stockService: MockStockService(), sessionService: MockSessionService(currentUser: nil))
+        StockView(stockSymbol: "APPL", stockService: MockStockService(stockSymbol: "AAPL"), sessionService: MockSessionService(currentUser: nil))
     }
 }

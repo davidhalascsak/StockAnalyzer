@@ -1,35 +1,51 @@
-//
-//  ImageService.swift
-//  StockAnalyzer_Tests
-//
-//  Created by Dávid Halascsák on 2023. 05. 25..
-//
-
 import XCTest
 
-final class ImageService: XCTestCase {
+@testable import StockAnalyzer
 
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+final class ImageService_Tests: XCTestCase {
+    func test_ImageService_fetchImageData_validUrl() async throws {
+        //Given
+        let imageService = MockImageService()
+        
+        //When
+        let data = imageService.fetchImageData(url: "https://test_image.com")
+        
+        //Then
+        XCTAssertNotNil(data)
     }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+    
+    func test_ImageService_fetchImageData_notValidUrl() throws {
+        //Given
+        let imageService = MockImageService()
+        
+        //When
+        let data = imageService.fetchImageData(url: "htps://test_image.com")
+        
+        //Then
+        XCTAssertNil(data)
     }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
+    
+    func test_ImageService_convertDataToImage_validData() async throws {
+        //Given
+        let imageService = MockImageService()
+        
+        //When
+        let data = imageService.fetchImageData(url: "https://test_image.com")
+        let image = imageService.convertDataToImage(imageData: data)
+        
+        //Then
+        XCTAssertNotNil(image)
     }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+    
+    func test_ImageService_convertDataToImage_notValidData() throws {
+        //Given
+        let imageService = MockImageService()
+        
+        //When
+        let data = Data()
+        let image = imageService.convertDataToImage(imageData: data)
+        
+        //Then
+        XCTAssertNil(data)
     }
-
 }

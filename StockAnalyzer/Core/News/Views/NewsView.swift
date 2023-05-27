@@ -14,6 +14,8 @@ struct NewsView: View {
     var body: some View {
         VStack(spacing: 0) {
             headerView
+                .padding(.bottom, 5)
+            Divider()
             if viewModel.isLoading == false {
                 feedView
             } else {

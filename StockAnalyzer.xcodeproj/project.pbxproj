@@ -22,13 +22,13 @@
 		EC22E86A29F185470043AA40 /* ChartService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC22E86929F185470043AA40 /* ChartService.swift */; };
 		EC22E86E29F1AD580043AA40 /* ChartModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC22E86D29F1AD580043AA40 /* ChartModel.swift */; };
 		EC2510DB2A1F4BEF0073ED3D /* UserService_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC2510DA2A1F4BEE0073ED3D /* UserService_Tests.swift */; };
-		EC2510DD2A1F4BFC0073ED3D /* PostService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC2510DC2A1F4BFC0073ED3D /* PostService.swift */; };
-		EC2510DF2A1F4C080073ED3D /* CommentService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC2510DE2A1F4C080073ED3D /* CommentService.swift */; };
+		EC2510DD2A1F4BFC0073ED3D /* PostService_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC2510DC2A1F4BFC0073ED3D /* PostService_Tests.swift */; };
+		EC2510DF2A1F4C080073ED3D /* CommentService_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC2510DE2A1F4C080073ED3D /* CommentService_Tests.swift */; };
 		EC2510E12A1F4C160073ED3D /* SessionService_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC2510E02A1F4C160073ED3D /* SessionService_Tests.swift */; };
-		EC2510E32A1F4C210073ED3D /* StockService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC2510E22A1F4C210073ED3D /* StockService.swift */; };
+		EC2510E32A1F4C210073ED3D /* StockService_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC2510E22A1F4C210073ED3D /* StockService_Tests.swift */; };
 		EC2510E52A1F4C2D0073ED3D /* NewsService_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC2510E42A1F4C2D0073ED3D /* NewsService_Tests.swift */; };
-		EC2510E72A1F4C390073ED3D /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC2510E62A1F4C390073ED3D /* ImageService.swift */; };
-		EC2510E92A1F4C490073ED3D /* PortfolioService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC2510E82A1F4C490073ED3D /* PortfolioService.swift */; };
+		EC2510E72A1F4C390073ED3D /* ImageService_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC2510E62A1F4C390073ED3D /* ImageService_Tests.swift */; };
+		EC2510E92A1F4C490073ED3D /* PortfolioService_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC2510E82A1F4C490073ED3D /* PortfolioService_Tests.swift */; };
 		EC2510EB2A1F4C570073ED3D /* SearchService_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC2510EA2A1F4C570073ED3D /* SearchService_Tests.swift */; };
 		EC2510ED2A1F4C640073ED3D /* FinanceService_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC2510EC2A1F4C640073ED3D /* FinanceService_Tests.swift */; };
 		EC2510EF2A1F4C7E0073ED3D /* ChartService_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC2510EE2A1F4C7E0073ED3D /* ChartService_Tests.swift */; };
@@ -164,13 +164,13 @@
 		EC22E86929F185470043AA40 /* ChartService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartService.swift; sourceTree = "<group>"; };
 		EC22E86D29F1AD580043AA40 /* ChartModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartModel.swift; sourceTree = "<group>"; };
 		EC2510DA2A1F4BEE0073ED3D /* UserService_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService_Tests.swift; sourceTree = "<group>"; };
-		EC2510DC2A1F4BFC0073ED3D /* PostService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostService.swift; sourceTree = "<group>"; };
-		EC2510DE2A1F4C080073ED3D /* CommentService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentService.swift; sourceTree = "<group>"; };
+		EC2510DC2A1F4BFC0073ED3D /* PostService_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostService_Tests.swift; sourceTree = "<group>"; };
+		EC2510DE2A1F4C080073ED3D /* CommentService_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentService_Tests.swift; sourceTree = "<group>"; };
 		EC2510E02A1F4C160073ED3D /* SessionService_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionService_Tests.swift; sourceTree = "<group>"; };
-		EC2510E22A1F4C210073ED3D /* StockService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockService.swift; sourceTree = "<group>"; };
+		EC2510E22A1F4C210073ED3D /* StockService_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockService_Tests.swift; sourceTree = "<group>"; };
 		EC2510E42A1F4C2D0073ED3D /* NewsService_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsService_Tests.swift; sourceTree = "<group>"; };
-		EC2510E62A1F4C390073ED3D /* ImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
-		EC2510E82A1F4C490073ED3D /* PortfolioService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioService.swift; sourceTree = "<group>"; };
+		EC2510E62A1F4C390073ED3D /* ImageService_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageService_Tests.swift; sourceTree = "<group>"; };
+		EC2510E82A1F4C490073ED3D /* PortfolioService_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioService_Tests.swift; sourceTree = "<group>"; };
 		EC2510EA2A1F4C570073ED3D /* SearchService_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchService_Tests.swift; sourceTree = "<group>"; };
 		EC2510EC2A1F4C640073ED3D /* FinanceService_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinanceService_Tests.swift; sourceTree = "<group>"; };
 		EC2510EE2A1F4C7E0073ED3D /* ChartService_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartService_Tests.swift; sourceTree = "<group>"; };
@@ -473,13 +473,13 @@
 			isa = PBXGroup;
 			children = (
 				EC2510DA2A1F4BEE0073ED3D /* UserService_Tests.swift */,
-				EC2510DC2A1F4BFC0073ED3D /* PostService.swift */,
-				EC2510DE2A1F4C080073ED3D /* CommentService.swift */,
+				EC2510DC2A1F4BFC0073ED3D /* PostService_Tests.swift */,
+				EC2510DE2A1F4C080073ED3D /* CommentService_Tests.swift */,
 				EC2510E02A1F4C160073ED3D /* SessionService_Tests.swift */,
-				EC2510E22A1F4C210073ED3D /* StockService.swift */,
+				EC2510E22A1F4C210073ED3D /* StockService_Tests.swift */,
 				EC2510E42A1F4C2D0073ED3D /* NewsService_Tests.swift */,
-				EC2510E62A1F4C390073ED3D /* ImageService.swift */,
-				EC2510E82A1F4C490073ED3D /* PortfolioService.swift */,
+				EC2510E62A1F4C390073ED3D /* ImageService_Tests.swift */,
+				EC2510E82A1F4C490073ED3D /* PortfolioService_Tests.swift */,
 				EC2510EA2A1F4C570073ED3D /* SearchService_Tests.swift */,
 				EC2510EC2A1F4C640073ED3D /* FinanceService_Tests.swift */,
 				EC2510EE2A1F4C7E0073ED3D /* ChartService_Tests.swift */,
@@ -962,14 +962,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				EC2510ED2A1F4C640073ED3D /* FinanceService_Tests.swift in Sources */,
-				EC2510E92A1F4C490073ED3D /* PortfolioService.swift in Sources */,
+				EC2510E92A1F4C490073ED3D /* PortfolioService_Tests.swift in Sources */,
 				EC2510E52A1F4C2D0073ED3D /* NewsService_Tests.swift in Sources */,
 				ECB80DEB29F95BBF00910473 /* CommentViewModel_Tests.swift in Sources */,
 				EC2510EB2A1F4C570073ED3D /* SearchService_Tests.swift in Sources */,
 				EC2510DB2A1F4BEF0073ED3D /* UserService_Tests.swift in Sources */,
 				ECB59B8A29F6FA8400CBE51D /* FeedBodyViewModel_Tests.swift in Sources */,
 				ECB80E0729FA5DF700910473 /* HomeViewModel_Tests.swift in Sources */,
-				EC2510DF2A1F4C080073ED3D /* CommentService.swift in Sources */,
+				EC2510DF2A1F4C080073ED3D /* CommentService_Tests.swift in Sources */,
 				ECB80E0129FA4B5500910473 /* NewAssetViewModel_Tests.swift in Sources */,
 				EC2510EF2A1F4C7E0073ED3D /* ChartService_Tests.swift in Sources */,
 				ECA9AE0E29F553CC00DDC19B /* AuthViewModel_Tests.swift in Sources */,
@@ -980,10 +980,10 @@
 				ECB59B9429F8505F00CBE51D /* FeedViewModel_Tests.swift in Sources */,
 				ECB80E0929FA948700910473 /* FinancialViewModel_Test.swift in Sources */,
 				ECB80DF929F9817300910473 /* PortfolioRowViewModel_Tests.swift in Sources */,
-				EC2510E32A1F4C210073ED3D /* StockService.swift in Sources */,
+				EC2510E32A1F4C210073ED3D /* StockService_Tests.swift in Sources */,
 				ECDBEAB329F59AC800ABA499 /* SettingsViewModel_Tests.swift in Sources */,
 				ECB80DF729F97D3700910473 /* PortfolioViewModel_Tests.swift in Sources */,
-				EC2510E72A1F4C390073ED3D /* ImageService.swift in Sources */,
+				EC2510E72A1F4C390073ED3D /* ImageService_Tests.swift in Sources */,
 				EC2510E12A1F4C160073ED3D /* SessionService_Tests.swift in Sources */,
 				ECB59B8C29F7077800CBE51D /* BarChartViewModel_Tests.swift in Sources */,
 				ECB80DED29F95E8C00910473 /* NewPostViewModel_Tests.swift in Sources */,
@@ -993,7 +993,7 @@
 				ECB80E0329FA4FB100910473 /* StockViewModel_Tests.swift in Sources */,
 				ECB59B9629F8524500CBE51D /* PostViewModel_Tests.swift in Sources */,
 				ECB80DFD29F99E1A00910473 /* PositionRowViewModel_Tests.swift in Sources */,
-				EC2510DD2A1F4BFC0073ED3D /* PostService.swift in Sources */,
+				EC2510DD2A1F4BFC0073ED3D /* PostService_Tests.swift in Sources */,
 				ECB80E0529FA5C4600910473 /* PriceViewModel_Tests.swift in Sources */,
 				ECB59B9029F80B9600CBE51D /* NewsViewModel_Tests.swift in Sources */,
 			);

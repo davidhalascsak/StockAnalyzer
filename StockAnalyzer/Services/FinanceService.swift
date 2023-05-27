@@ -53,17 +53,22 @@ class FinanceService: FinanceServiceProtocol {
 
 class MockFinanceService: FinanceServiceProtocol {
     let db = MockDatabase()
+    let stockSymbol: String
+    
+    init(stockSymbol: String) {
+        self.stockSymbol = stockSymbol
+    }
     
     func fetchIncomeStatement() async -> [IncomeStatement] {
-        return db.incomeStatement
+        return db.incomeStatement[stockSymbol] ?? []
     }
     
     func fetchBalanceSheet() async -> [BalanceSheet] {
-        return db.balanceSheet
+        return db.balanceSheet[stockSymbol] ?? []
     }
     
     func fetchCashFlowStatement() async -> [CashFlowStatement] {
-        return db.cashFlowStatement
+        return db.cashFlowStatement[stockSymbol] ?? []
     }
 }
 

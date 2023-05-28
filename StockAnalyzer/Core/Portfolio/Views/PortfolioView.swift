@@ -79,13 +79,11 @@ struct PortfolioView: View {
             Image(systemName: "arrow.triangle.2.circlepath")
                 .font(.title2)
                 .onTapGesture {
-                    viewModel.isLoading = true
                     Task {
                         await viewModel.reloadPortfolio()
                     }
                 }
                 .disabled(viewModel.isLoading)
-                .rotationEffect(Angle(degrees: viewModel.isLoading ? 360 : 0), anchor: .center)
                 .opacity(viewModel.sessionService.getUserId() != nil ? 1.0 : 0.0)
             Spacer()
             Text("Portfolio")

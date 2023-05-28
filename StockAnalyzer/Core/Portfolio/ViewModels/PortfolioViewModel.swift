@@ -57,6 +57,7 @@ class PortfolioViewModel: ObservableObject {
             if result == true {
                 assets.remove(at: index)
                 assetsViewModels.removeValue(forKey: assetSymbol)
+                await reloadPortfolio()
             }
         }
     }

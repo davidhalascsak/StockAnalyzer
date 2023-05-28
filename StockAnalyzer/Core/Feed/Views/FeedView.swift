@@ -51,7 +51,6 @@ struct FeedView: View {
                     }
                 }
                 .disabled(viewModel.isLoading)
-                .rotationEffect(Angle(degrees: viewModel.isLoading ? 360 : 0), anchor: .center)
             Spacer()
             Text("Feed")
                 .font(.headline)

@@ -49,10 +49,6 @@ struct CommentSectionView: View {
                 if viewModel.sessionService.getUserId() != nil {
                     Divider()
                     NewCommentView(viewModel: viewModel)
-                } else {
-                    Color.white
-                        .frame(height: 25)
-                        .frame(maxWidth: .infinity)
                 }
             } else {
                 Spacer()

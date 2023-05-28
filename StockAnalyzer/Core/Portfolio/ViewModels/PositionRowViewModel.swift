@@ -16,8 +16,11 @@ class PositionRowViewModel: ObservableObject {
     }
     
     func calculateCurrentValue() async {
-        stockPrice = await stockService.fetchPriceInRealTime()
-        
+        let newStockPrice = await stockService.fetchPriceInRealTime()
+        if let newStockPrice = newStockPrice {
+            stockPrice = newStockPrice
+        }
+
         let multiplier = (stockPrice?.price ?? 0.0) / position.price
         currentValue = multiplier * position.investedAmount
         difference = currentValue - position.investedAmount

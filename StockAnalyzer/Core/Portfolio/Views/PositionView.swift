@@ -31,7 +31,6 @@ struct PositionView: View {
                 Image(systemName: "arrow.triangle.2.circlepath")
                     .font(.title2)
                     .onTapGesture {
-                        viewModel.isLoading = true
                         Task {
                             await viewModel.reloadAsset()
                         }

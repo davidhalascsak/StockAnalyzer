@@ -16,7 +16,10 @@ class PortfolioRowViewModel: ObservableObject {
     }
     
     func calculateCurrentValue() async {
-        stockPrice = await stockService.fetchPriceInRealTime()
+        let newStockPrice = await stockService.fetchPriceInRealTime()
+        if let newStockPrice = newStockPrice {
+            stockPrice = newStockPrice
+        }
         
         currentValue = 0.0
         if let assets = asset.positions {

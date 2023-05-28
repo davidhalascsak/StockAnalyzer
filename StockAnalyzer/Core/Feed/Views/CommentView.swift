@@ -2,10 +2,10 @@ import SwiftUI
 import Firebase
 
 struct CommentView: View {
-    @ObservedObject private var viewModel: CommentViewModel
+    @StateObject private var viewModel: CommentViewModel
     
     init(post: Post, comment: Comment, commentService: CommentServiceProtocol, sessionService: SessionServiceProtocol) {
-        _viewModel = ObservedObject(wrappedValue: CommentViewModel(post: post, comment: comment, commentService: commentService, sessionService: sessionService))
+        _viewModel = StateObject(wrappedValue: CommentViewModel(post: post, comment: comment, commentService: commentService, sessionService: sessionService))
     }
     
     var body: some View {

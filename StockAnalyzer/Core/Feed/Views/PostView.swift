@@ -2,10 +2,10 @@ import SwiftUI
 import Firebase
 
 struct PostView: View {
-    @ObservedObject private var viewModel: PostViewModel
+    @StateObject private var viewModel: PostViewModel
     
     init(post: Post, postService: PostServiceProtocol, sessionService: SessionServiceProtocol) {
-        _viewModel = ObservedObject(wrappedValue: PostViewModel(post: post, postService: postService, sessionService: sessionService))
+        _viewModel = StateObject(wrappedValue: PostViewModel(post: post, postService: postService, sessionService: sessionService))
     }
     
     var body: some View {

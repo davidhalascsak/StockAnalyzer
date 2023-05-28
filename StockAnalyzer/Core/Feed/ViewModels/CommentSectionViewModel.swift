@@ -46,7 +46,9 @@ class CommentSectionViewModel: ObservableObject {
     func createComment() async {
         let result = await commentService.createComment(post: post, body: commentBody)
         if result {
+            isLoading = true
             await fetchComments()
+            isLoading = false
         } else {
             showAlert.toggle()
             alertTitle = "Error"

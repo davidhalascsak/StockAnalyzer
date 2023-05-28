@@ -26,26 +26,25 @@ struct PortfolioView: View {
                     } else {
                         portfolioView
                         Divider()
+                            .padding(.bottom, 5)
                         HStack {
+                            Text("Invested: ")
+                                .font(.headline)
+                                .fontWeight(.semibold)
+                                .padding(.top, 1)
+                            Text(viewModel.investedAmount.formattedPrice)
+                                .font(.headline)
                             Spacer()
-                            VStack {
-                                Text(viewModel.investedAmount.formattedPrice)
-                                Text("Invested")
-                                    .fontWeight(.semibold)
-                                    .padding(.top, 1)
-                                    
-                            }
-                            Spacer()
-                            VStack {
-                                Text(viewModel.difference.formattedPrice)
-                                    .foregroundColor(viewModel.difference == 0 ? Color.black : viewModel.difference > 0 ? Color.green : Color.red)
-                                Text("P / L")
-                                    .fontWeight(.semibold)
-                                    .padding(.top, 1)
-                                    
-                            }
-                            Spacer()
+                            Text("P / L: ")
+                                .font(.headline)
+                                .fontWeight(.semibold)
+                                .padding(.top, 1)
+                            Text(viewModel.difference.formattedPrice)
+                                .font(.headline)
+                                .foregroundColor(viewModel.difference == 0 ? Color.black : viewModel.difference > 0 ? Color.green : Color.red)
                         }
+                        .padding(.horizontal)
+                        .padding(.vertical, 5)
                     }
                 } else {
                     Spacer()
@@ -53,7 +52,7 @@ struct PortfolioView: View {
                     Spacer()
                 }
                 Divider()
-                    .padding(.bottom, 5)
+                    .padding(.vertical, 5)
             }
         }
         .fullScreenCover(isPresented: $isSettingsPresented, content: {

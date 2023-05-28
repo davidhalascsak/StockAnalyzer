@@ -74,7 +74,7 @@ class CommentService: CommentServiceProtocol {
         guard let fetchedPost = fetchedPost else {return false}
         
         do {
-            try await self.db.collection("posts").document(postId).updateData(["comments": fetchedPost.commentCount + 1])
+            try await self.db.collection("posts").document(postId).updateData(["commentCount": fetchedPost.commentCount + 1])
             let _ = try await self.db.collection("posts").document(postId).collection("comments").addDocument(data: newData)
             
             return true

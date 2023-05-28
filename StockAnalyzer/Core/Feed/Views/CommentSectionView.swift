@@ -36,15 +36,18 @@ struct CommentSectionView: View {
     }
     
     var commentSectionView: some View {
-        VStack(alignment: .leading) {
+        VStack(spacing: 0) {
+            Divider()
             if !viewModel.isLoading {
                 ScrollView(showsIndicators: false) {
+                    Divider()
                     ForEach(viewModel.comments) { comment in
                         CommentView(post: viewModel.post, comment: comment, commentService: CommentService(), sessionService: SessionService())
                         Divider()
                     }
                 }
                 if viewModel.sessionService.getUserId() != nil {
+                    Divider()
                     NewCommentView(viewModel: viewModel)
                 } else {
                     Color.white

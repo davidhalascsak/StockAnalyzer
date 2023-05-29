@@ -82,7 +82,7 @@ class AuthViewModel: ObservableObject {
     
     func checkRegistration() async {
         
-        if userData.username.count < 5 {
+        if userData.username.count < 6 {
             alertTitle = "Error"
             alertText = "The username must be at least 6 characters long!"
             showAlert.toggle()
@@ -177,7 +177,7 @@ class AuthViewModel: ObservableObject {
             }
             
             try? await sessionService.sendVerificationEmail()
-            _ = logout()
+            logout()
         } else {
             alertTitle = "Registration Error"
             alertText = "Error while creating the user object!"
@@ -204,7 +204,7 @@ class AuthViewModel: ObservableObject {
     }
     
     func isEmailValid(email: String) -> Bool {
-        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+.[A-Za-z]{2,64}"
+        let emailRegEx = "[A-Z0-9a-z._%+-]{2,64}@[A-Za-z0-9.-]{2,64}.+[A-Za-z]{2,64}"
         let emailPredicate = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
         return emailPredicate.evaluate(with: email)
     }

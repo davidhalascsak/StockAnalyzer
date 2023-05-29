@@ -49,7 +49,7 @@ final class AuthViewModel_Tests: XCTestCase {
         let vm = AuthViewModel(isLogin: isLogin, userService: MockUserService(), sessionService: MockSessionService(currentUser: authUser), imageService: MockImageService())
         
         //When
-        vm.userData.email = "n@d.hu"
+        vm.userData.email = "ab@ab.hu"
         await vm.checkLogin()
         
         //Then
@@ -216,24 +216,7 @@ final class AuthViewModel_Tests: XCTestCase {
         let vm = AuthViewModel(isLogin: isLogin, userService: MockUserService(), sessionService: MockSessionService(currentUser: authUser), imageService: MockImageService())
         
         //When
-        vm.userData.username = "abcde"
-        await vm.checkRegistration()
-        
-        //Then
-        XCTAssertTrue(vm.showAlert)
-        XCTAssertEqual("Error", vm.alertTitle)
-        XCTAssertEqual("The email format is not valid!", vm.alertText)
-    }
-    
-    func test_AuthViewModel_registration_emailShouldBeShorterThanRequired() async throws {
-        //Given
-        let isLogin: Bool = true
-        let authUser: TestAuthenticationUser? = nil
-        let vm = AuthViewModel(isLogin: isLogin, userService: MockUserService(), sessionService: MockSessionService(currentUser: authUser), imageService: MockImageService())
-        
-        //When
-        vm.userData.username = "abcde"
-        vm.userData.email = "a@a"
+        vm.userData.username = "abcdef"
         await vm.checkRegistration()
         
         //Then
@@ -249,7 +232,7 @@ final class AuthViewModel_Tests: XCTestCase {
        let vm = AuthViewModel(isLogin: isLogin, userService: MockUserService(), sessionService: MockSessionService(currentUser: authUser), imageService: MockImageService())
         
         //When
-        vm.userData.username = "abcde"
+        vm.userData.username = "abcdef"
         vm.userData.email = "user@domain."
         await vm.checkRegistration()
         
@@ -266,7 +249,7 @@ final class AuthViewModel_Tests: XCTestCase {
         let vm = AuthViewModel(isLogin: isLogin, userService: MockUserService(), sessionService: MockSessionService(currentUser: authUser), imageService: MockImageService())
         
         //When
-        vm.userData.username = "abcde"
+        vm.userData.username = "abcdef"
         vm.userData.email = "user@domain.com"
         await vm.checkRegistration()
         
@@ -283,7 +266,7 @@ final class AuthViewModel_Tests: XCTestCase {
         let vm = AuthViewModel(isLogin: isLogin, userService: MockUserService(), sessionService: MockSessionService(currentUser: authUser), imageService: MockImageService())
         
         //When
-        vm.userData.username = "abcde"
+        vm.userData.username = "abcdef"
         vm.userData.email = "user@domain.com"
         vm.userData.password = "asd"
         await vm.checkRegistration()
@@ -301,7 +284,7 @@ final class AuthViewModel_Tests: XCTestCase {
         let vm = AuthViewModel(isLogin: isLogin, userService: MockUserService(), sessionService: MockSessionService(currentUser: authUser), imageService: MockImageService())
         
         //When
-        vm.userData.username = "abcde"
+        vm.userData.username = "abcdef"
         vm.userData.email = "user@domain.com"
         vm.userData.password = "asd123"
         await vm.checkRegistration()
@@ -319,7 +302,7 @@ final class AuthViewModel_Tests: XCTestCase {
         let vm = AuthViewModel(isLogin: isLogin, userService: MockUserService(), sessionService: MockSessionService(currentUser: authUser), imageService: MockImageService())
         
         //When
-        vm.userData.username = "abcde"
+        vm.userData.username = "abcdef"
         vm.userData.email = "user@domain.com"
         vm.userData.password = "asd123"
         vm.userData.password = "asd122"
@@ -338,7 +321,7 @@ final class AuthViewModel_Tests: XCTestCase {
         let vm = AuthViewModel(isLogin: isLogin, userService: MockUserService(), sessionService: MockSessionService(currentUser: authUser), imageService: MockImageService())
         
         //When
-        vm.userData.username = "david"
+        vm.userData.username = "davidd"
         vm.userData.email = "user@domain.com"
         vm.userData.password = "asd123"
         vm.userData.passwordAgain = "asd123"
@@ -357,7 +340,7 @@ final class AuthViewModel_Tests: XCTestCase {
         let vm = AuthViewModel(isLogin: isLogin, userService: MockUserService(), sessionService: MockSessionService(currentUser: authUser), imageService: MockImageService())
         
         //When
-        vm.userData.username = "davidd"
+        vm.userData.username = "davids"
         vm.userData.email = "david@domain.com"
         vm.userData.password = "asd123"
         vm.userData.passwordAgain = "asd123"
@@ -376,7 +359,7 @@ final class AuthViewModel_Tests: XCTestCase {
         let vm = AuthViewModel(isLogin: isLogin, userService: MockUserService(), sessionService: MockSessionService(currentUser: authUser), imageService: MockImageService())
         
         //When
-        vm.userData.username = "davidd"
+        vm.userData.username = "davids"
         vm.userData.email = "davidd@domain.com"
         vm.userData.password = "asd123"
         vm.userData.passwordAgain = "asd123"

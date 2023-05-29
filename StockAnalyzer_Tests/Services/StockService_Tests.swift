@@ -2,7 +2,7 @@ import XCTest
 
 @testable import StockAnalyzer
 
-final class StockService: XCTestCase {
+final class StockService_Tests: XCTestCase {
     func test_StockService_fetchProfile_profileFound() async throws {
         //Given
         let stockService = MockStockService(stockSymbol: "AAPL")

@@ -275,7 +275,7 @@ final class ChartViewModel_Tests: XCTestCase {
         XCTAssertEqual(result.axisStart, 0.0)
         XCTAssertEqual(result.axisEnd, 13.0)
         XCTAssertEqual(result.strideBy, 1.0)
-        XCTAssertEqual(result.map, ["0": "26"])
+        XCTAssertEqual(result.map, ["0": "27"])
     }
     
     func test_ChartViewModel_xAxisChartData_OneYear() async throws {

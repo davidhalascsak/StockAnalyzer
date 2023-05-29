@@ -3,8 +3,8 @@ import Firebase
 
 class MockDatabase {
     var users: [User] = [
-        User(id: "asd123", username: "david", email: "david@gmail.com", country: "Hungary", imageUrl: "https://test_image.com"),
-        User(id: "asd321", username: "bob", email: "bob@gmail.com", country: "Hungary", imageUrl: "test_image.com")
+        User(id: "asd123", username: "davidd", email: "david@domain.com", country: "Hungary", imageUrl: "https://test_image.com"),
+        User(id: "asd321", username: "bob", email: "bob@domain.com", country: "Hungary", imageUrl: "test_image.com")
     ]
     var authUsers: [TestAuthenticationUser] = [
         TestAuthenticationUser(id: "asd123", email: "david@domain.com", password: "asd123", isVerified: true),
@@ -92,20 +92,20 @@ class MockDatabase {
     
     var hourlyData: [String : [HistoricalPrice]] = [
         "AAPL": [
-            HistoricalPrice(date: "2023-04-27 16:00:00", open: 280, close: 280),
-            HistoricalPrice(date: "2023-04-27 15:00:00", open: 280, close: 280),
-            HistoricalPrice(date: "2023-04-27 14:00:00", open: 280, close: 280),
-            HistoricalPrice(date: "2023-04-27 13:00:00", open: 280, close: 280),
-            HistoricalPrice(date: "2023-04-27 12:00:00", open: 275, close: 275),
-            HistoricalPrice(date: "2023-04-27 11:00:00", open: 280, close: 280),
-            HistoricalPrice(date: "2023-04-27 10:00:00", open: 280, close: 280),
-            HistoricalPrice(date: "2023-04-26 16:00:00", open: 300, close: 300),
-            HistoricalPrice(date: "2023-04-26 15:00:00", open: 280, close: 280),
-            HistoricalPrice(date: "2023-04-26 14:00:00", open: 280, close: 280),
-            HistoricalPrice(date: "2023-04-26 13:00:00", open: 280, close: 280),
-            HistoricalPrice(date: "2023-04-26 12:00:00", open: 290, close: 290),
-            HistoricalPrice(date: "2023-04-26 11:00:00", open: 285, close: 285),
-            HistoricalPrice(date: "2023-04-26 10:00:00", open: 280, close: 280),
+            HistoricalPrice(date: "2023-05-28 16:00:00", open: 280, close: 280),
+            HistoricalPrice(date: "2023-05-28 15:00:00", open: 280, close: 280),
+            HistoricalPrice(date: "2023-05-28 14:00:00", open: 280, close: 280),
+            HistoricalPrice(date: "2023-05-28 13:00:00", open: 280, close: 280),
+            HistoricalPrice(date: "2023-05-28 12:00:00", open: 275, close: 275),
+            HistoricalPrice(date: "2023-05-28 11:00:00", open: 280, close: 280),
+            HistoricalPrice(date: "2023-05-28 10:00:00", open: 280, close: 280),
+            HistoricalPrice(date: "2023-05-27 16:00:00", open: 300, close: 300),
+            HistoricalPrice(date: "2023-05-27 15:00:00", open: 280, close: 280),
+            HistoricalPrice(date: "2023-05-27 14:00:00", open: 280, close: 280),
+            HistoricalPrice(date: "2023-05-27 13:00:00", open: 280, close: 280),
+            HistoricalPrice(date: "2023-05-27 12:00:00", open: 290, close: 290),
+            HistoricalPrice(date: "2023-05-27 11:00:00", open: 285, close: 285),
+            HistoricalPrice(date: "2023-05-27 10:00:00", open: 280, close: 280),
         ]
     ]
     

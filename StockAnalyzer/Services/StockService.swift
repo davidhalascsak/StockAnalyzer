@@ -142,7 +142,7 @@ class MockStockService: StockServiceProtocol {
         if stockSymbol != "AAPL" {
             return 0
         } else {
-            return 10000000
+            return 10_000_000
         }
     }
     

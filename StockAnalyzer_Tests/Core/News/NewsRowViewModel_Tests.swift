@@ -21,7 +21,6 @@ final class NewsRowViewModel_Tests: XCTestCase {
         // When
         let date = news.date.formatDateString(from: "E, d MMM y HH:mm:ss z", to: "yyyy-MM-dd")
         
-        
         //Then
         XCTAssertEqual("unknown date", date)
     }

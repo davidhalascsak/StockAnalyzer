@@ -25,7 +25,6 @@ final class SettingsViewModel_Tests: XCTestCase {
          //When
         await vm.fetchUser()
         
-        
         //Then
         XCTAssertNotNil(vm.user)
         XCTAssertNotNil(vm.user?.image)
@@ -42,7 +41,6 @@ final class SettingsViewModel_Tests: XCTestCase {
         await vm.fetchUser()
         vm.logout()
 
-
         //Then
         XCTAssertNil(vm.user)
    }
@@ -57,7 +55,6 @@ final class SettingsViewModel_Tests: XCTestCase {
         try? await vm.sessionService.login(email: "david@domain.com", password: "asd123")
         await vm.fetchUser()
         await vm.updatePicture(data: data)
-
 
         //Then
         XCTAssertFalse(vm.isUpdatingProfile)
@@ -78,7 +75,6 @@ final class SettingsViewModel_Tests: XCTestCase {
         try? await vm.sessionService.login(email: "david@domain.com", password: "asd123")
         await vm.fetchUser()
         await vm.updatePicture(data: data)
-
 
         //Then
         XCTAssertFalse(vm.isUpdatingProfile)

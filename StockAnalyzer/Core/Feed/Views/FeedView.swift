@@ -31,9 +31,15 @@ struct FeedView: View {
             Divider()
                 .padding(.bottom, 5)
         }
-        .task {
+        .onAppear() {
+            Task {
+                viewModel.isLoading = true
+                await viewModel.fetchPosts()
+            }
+        }
+        .onDisappear {
+            viewModel.posts = []
             viewModel.isLoading = true
-            await viewModel.fetchPosts()
         }
     }
     

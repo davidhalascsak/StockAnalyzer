@@ -19,7 +19,7 @@ struct PositionView: View {
                 ProgressView()
             }
         }
-        .navigationBarBackButtonHidden()
+        .navigationBarBackButtonHidden(true)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Image(systemName: "arrowshape.backward")
@@ -40,8 +40,10 @@ struct PositionView: View {
             }
         }
         .task {
-            viewModel.isLoading = true
             await viewModel.fetchData()
+        }
+        .onDisappear {
+            viewModel.isLoading = true
         }
     }
     

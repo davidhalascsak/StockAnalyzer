@@ -19,32 +19,38 @@ struct PortfolioView: View {
                 Divider()
                     .padding(.bottom, 5)
                 if viewModel.isLoading == false {
-                    if viewModel.assets.count == 0 {
+                    if viewModel.sessionService.getUserId() == nil {
                         Spacer()
-                        Text(viewModel.sessionService.getUserId() == nil ? "Login to see your portfolio." : "Your portfolio is empty.")
+                        Text("Login to see your portfolio.")
                         Spacer()
                     } else {
-                        portfolioView
-                        Divider()
-                            .padding(.bottom, 5)
-                        HStack {
-                            Text("Invested: ")
-                                .font(.headline)
-                                .fontWeight(.semibold)
-                                .padding(.top, 1)
-                            Text(viewModel.investedAmount.formattedPrice)
-                                .font(.headline)
+                        if viewModel.assets.count == 0 {
                             Spacer()
-                            Text("P / L: ")
-                                .font(.headline)
-                                .fontWeight(.semibold)
-                                .padding(.top, 1)
-                            Text(viewModel.difference.formattedPrice)
-                                .font(.headline)
-                                .foregroundColor(viewModel.difference == 0 ? Color.black : viewModel.difference > 0 ? Color.green : Color.red)
+                            Text("Your portfolio is empty.")
+                            Spacer()
+                        } else {
+                            portfolioView
+                            Divider()
+                                .padding(.bottom, 5)
+                            HStack {
+                                Text("Invested: ")
+                                    .font(.headline)
+                                    .fontWeight(.semibold)
+                                    .padding(.top, 1)
+                                Text(viewModel.investedAmount.formattedPrice)
+                                    .font(.headline)
+                                Spacer()
+                                Text("P / L: ")
+                                    .font(.headline)
+                                    .fontWeight(.semibold)
+                                    .padding(.top, 1)
+                                Text(viewModel.difference.formattedPrice)
+                                    .font(.headline)
+                                    .foregroundColor(viewModel.difference == 0 ? Color.black : viewModel.difference > 0 ? Color.green : Color.red)
+                            }
+                            .padding(.horizontal)
+                            .padding(.vertical, 5)
                         }
-                        .padding(.horizontal)
-                        .padding(.vertical, 5)
                     }
                 } else {
                     Spacer()
@@ -67,10 +73,10 @@ struct PortfolioView: View {
             }
         })
         .task {
-            if viewModel.sessionService.getUserId() != nil {
-                viewModel.isLoading = true
-                await viewModel.fetchAssets()
-            }
+            await viewModel.fetchAssets()
+        }
+        .onDisappear {
+            viewModel.isLoading = true
         }
     }
     
@@ -84,7 +90,7 @@ struct PortfolioView: View {
                     }
                 }
                 .disabled(viewModel.isLoading)
-                .opacity(viewModel.sessionService.getUserId() != nil ? 1.0 : 0.0)
+                .opacity(viewModel.sessionService.getUserId() != nil && viewModel.assets.count > 0 ? 1.0 : 0.0)
             Spacer()
             Text("Portfolio")
                 .font(.headline)
@@ -133,6 +139,7 @@ struct PortfolioView: View {
                 }
                 .onDelete { indexSet in
                     Task {
+                        viewModel.isLoading = true
                         await viewModel.deleteAsset(at: indexSet)
                     }
                 }

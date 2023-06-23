@@ -30,6 +30,10 @@ struct NewsView: View {
             viewModel.isLoading = true
             await viewModel.fetchNews()
         }
+        .onDisappear {
+            viewModel.news = []
+            viewModel.isLoading = true
+        }
     }
     
     var headerView: some View {

@@ -3,7 +3,7 @@ import Foundation
 @MainActor
 class PortfolioViewModel: ObservableObject {
     @Published var assets: [Asset] = []
-    @Published var isLoading: Bool = false
+    @Published var isLoading: Bool = true
     @Published var investedAmount: Double = 0
     @Published var difference: Double = 0
     @Published var assetsViewModels: [String: PortfolioRowViewModel] = [:]

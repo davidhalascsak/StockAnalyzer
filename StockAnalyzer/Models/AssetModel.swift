@@ -8,7 +8,7 @@ struct Asset: Hashable, Codable {
     let stockSymbol: String
     let units: Double
     let averagePrice: Double
-    var positionCount: Double
+    var positionCount: Int
     
     var positions: [Position]?
     var investedAmount: Double {

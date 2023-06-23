@@ -4,7 +4,7 @@ import Foundation
 class NewsViewModel: ObservableObject  {
     @Published var news: [News] = []
     @Published var shouldScroll: Bool = false
-    @Published var isLoading: Bool = false
+    @Published var isLoading: Bool = true
     
     private let newsService: NewsServiceProtocol
     

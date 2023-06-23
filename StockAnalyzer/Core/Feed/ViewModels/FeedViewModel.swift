@@ -26,16 +26,29 @@ class FeedViewModel: ObservableObject {
         posts = await postService.fetchPosts(stockSymbol: stockSymbol)
 
         for i in 0..<(posts.count) {
-            let userRef = posts[i].userRef
-            
-            let user = await userService.fetchUser(id: userRef)
+            var user: User?
+            if posts.indices.contains(i) {
+                let userRef = posts[i].userRef
+                user = await userService.fetchUser(id: userRef)
+            }
             
             if let user = user {
-                self.posts[i].user = user
-                self.posts[i].user?.image = await imageService.fetchImageData(url: user.imageUrl)
+                if posts.indices.contains(i) {
+                    self.posts[i].user = user
+                }
                 
-                let post = posts[i]
-                posts[i].isLiked = await postService.checkIfPostIsLiked(post: post)
+                var post: Post?
+                if posts.indices.contains(i) {
+                    post = posts[i]
+                }
+                
+                if let post = post {
+                    let isLiked = await postService.checkIfPostIsLiked(post: post)
+                    
+                    if posts.indices.contains(i) {
+                        posts[i].isLiked = isLiked
+                    }
+                }
             }
         }
         isLoading = false

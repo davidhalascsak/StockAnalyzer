@@ -30,7 +30,7 @@ struct NewPostView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing){
                     Text("Post")
-                        .foregroundColor(Color.black.opacity(viewModel.postBody.count > 0 ? 1.0 : 0.5))
+                        .foregroundColor(Color.primary.opacity(viewModel.postBody.count > 0 ? 1.0 : 0.5))
                         .onTapGesture {
                             if viewModel.postBody.count > 0 {
                                 Task {

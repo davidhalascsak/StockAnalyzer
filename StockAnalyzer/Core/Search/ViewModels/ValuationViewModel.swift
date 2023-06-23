@@ -77,9 +77,11 @@ class ValuationViewModel: ObservableObject {
         if valuationType == .netIncome {
             baseValue = Double(String(format: "%.2f", metrics?.netIncomePerShare ?? 0.0)) ?? 0.0
             growthRate = min(max(Int((growthRates?.netIncomeGrowth ?? 0.0) * 100), 3), 20)
+            terminalMultiple = 20
         } else if valuationType == .freeCashFlow {
             baseValue = Double(String(format: "%.2f", metrics?.freeCashFlowPerShare ?? 0.0)) ?? 0.0
             growthRate = min(max(Int((growthRates?.freeCashFlowGrowth ?? 0.0) * 100),3), 20)
+            terminalMultiple = 20
         }
     }
     

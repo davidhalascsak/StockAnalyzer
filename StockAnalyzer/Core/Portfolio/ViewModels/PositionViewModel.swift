@@ -5,7 +5,7 @@ import UIKit
 class PositionViewModel: ObservableObject {
     @Published var companyProfile: CompanyProfile?
     @Published var price: CurrentPrice?
-    @Published var isLoading: Bool = false
+    @Published var isLoading: Bool = true
     @Published var positionViewModels: [String: PositionRowViewModel] = [:]
     
     var asset: Asset
@@ -21,6 +21,9 @@ class PositionViewModel: ObservableObject {
     }
     
     func fetchData() async {
+        asset.positions = await portfolioService.fetchPositions(stockSymbol: asset.stockSymbol)
+        asset.positionCount = asset.positions?.count ?? 0
+        
         companyProfile = await stockService.fetchProfile()
         price = await stockService.fetchPriceInRealTime()
         
@@ -46,15 +49,13 @@ class PositionViewModel: ObservableObject {
     func deletePosition(at offsets: IndexSet) async {
         let index = offsets.first ?? nil
         if let index = index {
-            Task {
-                let position = asset.positions?[index]
-                if let position = position {
-                    let result = await portfolioService.deletePosition(asset: asset, position: position)
-                    if result {
-                        asset.positions?.remove(at: index)
-                        positionViewModels.removeValue(forKey: position.id ?? "")
-                        asset.positionCount -= 1
-                    }
+            let position = asset.positions?[index]
+            if let position = position {
+                let result = await portfolioService.deletePosition(asset: asset, position: position)
+                if result {
+                    asset.positions?.remove(at: index)
+                    positionViewModels.removeValue(forKey: position.id ?? "")
+                    asset.positionCount -= 1
                 }
             }
         }
